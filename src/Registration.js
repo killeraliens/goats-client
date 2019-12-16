@@ -45,7 +45,7 @@ class Registration extends Component {
     const email = this.state.email.value.trim();
     return email.length === 0
       ? 'email required'
-      : !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+      : !(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
       ? 'email has incorrect format'
       : null
   }
