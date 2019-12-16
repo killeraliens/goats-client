@@ -5,7 +5,8 @@ import config from './config.js'
 import AppContext from './AppContext'
 import AddEventPg from './AddEventPg'
 import ListPg from './ListPg'
-import Login from './Login'
+//import Login from './Login'
+import LoginFB from './LoginFB'
 import Registration from './Registration'
 import PrivateRoute from './PrivateRoute'
 
@@ -36,8 +37,8 @@ class App extends Component {
 
   onFailure = (error) => { alert(error) }
 
-  fetchData = async () => {
-    const response = await fetch(`${config.API_ENDPOINT}/api/event`);
+  fetchApiData = async (type) => {
+    const response = await fetch(`${config.API_ENDPOINT}/api/${type}`);
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -48,19 +49,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchData()
+    this.fetchApiData('event')
       .then(jsonEvents => {
-        //console.log('component did mount', res.events)
         this.setState({
           events: jsonEvents
         })
       })
-      .catch(err => console.log('ERROR ON SERVER MOUNT', err))
+      .catch(err => {
+        console.log('ERROR ON SERVER MOUNT', err)
+      })
   }
 
 
   addEvent = (newEvent) => {
     console.log('adding new event to state', newEvent)
+    const events = [...this.state.events, newEvent]
+    this.setState({ events })
   }
 
   updateUser = (id) => {
@@ -72,8 +76,8 @@ class App extends Component {
       events: this.state.events,
       addEvent: this.addEvent,
       user: this.state.user,
-      isAuthenticated: this.state.isAuthenticated,
-      updateUser: this.updateUser
+      updateUser: this.updateUser,
+      isAuthenticated: this.state.isAuthenticated
     }
     return(
       <div className="App">
@@ -88,7 +92,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ListPg}/>
               <PrivateRoute path="/add-event" component={AddEventPg}/>
-              <Route path="/login" component={Login}/>
+              <Route path="/login" component={LoginFB}/>
               <Route path="/register" component={Registration}/>
             </Switch>
           </main>

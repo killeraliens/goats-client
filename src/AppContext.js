@@ -6,7 +6,7 @@ const AppContext = React.createContext({
   addEvent: () => {},
   user: {},
   isAuthenticated: false,
-  updateUser: () => {},
+  updateUser: () => {}
   // router: PropTypes.object
 })
 
