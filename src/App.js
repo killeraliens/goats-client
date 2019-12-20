@@ -18,22 +18,12 @@ class App extends Component {
       events: [],
       data: null,
       isAuthenticated: false,
-      token: '',
+      // token: '',
       user: null,
       error: null
     }
 
   }
-
-  logout = () => {
-    this.setState({
-      isAuthenticated: false,
-      token: '',
-      user: null
-    })
-  }
-
-  facebookResponse = (e) => { }
 
   onFailure = (error) => { alert(error) }
 
@@ -58,6 +48,15 @@ class App extends Component {
       .catch(err => {
         console.log('ERROR ON SERVER MOUNT', err)
       })
+    this.fetchApiData('event')
+      .then(jsonEvents => {
+        this.setState({
+          events: jsonEvents
+        })
+      })
+      .catch(err => {
+        console.log('ERROR ON SERVER MOUNT', err)
+      })
   }
 
 
@@ -71,13 +70,21 @@ class App extends Component {
     console.log('do something with user id and state', id)
   }
 
+  updateAuthenticated = (bool, user) => {
+    this.setState({
+      isAuthenticated: bool,
+      user
+    })
+  }
+
   render() {
     const context = {
       events: this.state.events,
       addEvent: this.addEvent,
       user: this.state.user,
-      updateUser: this.updateUser,
-      isAuthenticated: this.state.isAuthenticated
+      token: this.state.token,
+      isAuthenticated: this.state.isAuthenticated,
+      updateAuthenticated: this.updateAuthenticated
     }
     return(
       <div className="App">

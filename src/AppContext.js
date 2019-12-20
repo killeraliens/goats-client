@@ -5,9 +5,9 @@ const AppContext = React.createContext({
   events: [],
   addEvent: () => {},
   user: {},
+  token: '',
   isAuthenticated: false,
-  updateUser: () => {}
-  // router: PropTypes.object
+  updateAuthenticated: () => {}
 })
 
 export default AppContext

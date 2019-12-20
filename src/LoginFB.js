@@ -2,54 +2,49 @@ import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import config from './config';
+import AppContext from './AppContext'
 
 class LoginFB extends Component {
   constructor() {
     super()
     this.state = {
-      isAuthenticated: false,
-      token: '',
-      user: null,
       error: null
     }
   }
 
+  static contextType = AppContext
+
   logout = () => {
-    this.setState({
-      isAuthenticated: false,
-      token: '',
-      user: null
-    })
+    this.context.updateAuthenticated(false, null)
   }
 
   facebookResponse = (response) => {
-    console.log(response)
+    console.log('FACEBOOKS CLIENT RESPONSE From button click', response)
     const tokenBlob = new Blob(
         [ JSON.stringify({access_token: response.accessToken}, null, 2) ],
         {type: 'application/json'}
     )
-    //const tokenJSON = { access_token: response.accessToken }
+
     const options = {
       method: 'POST',
       body: tokenBlob,
       mode: 'cors',
       cache: 'default'
     }
-
+    console.log('FETCHING GOATS API, POST /api/v1/auth/facebook with token response')
     fetch(`${config.API_ENDPOINT}/api/v1/auth/facebook`, options)
       .then(resp => {
-        //resp.headers.get('x-auth-token').then(r => console.log('HEADERS', r))
+
         if (!resp.ok) {
           return resp.json().then(error => Promise.reject(error))
         }
         const token = resp.headers.get('x-auth-token');
         resp.json().then(user => {
           if (token) {
-            this.setState({
-              user,
-              isAuthenticated: true,
-              token
-            })
+            console.log('YES FB RESPNDS W/ A TOKEN or ID HEADER ITS:', token)
+            //console.log('UPDATING TOKEN CONTEXT to ', token)
+            console.log('UPDATING USER CONTEXT to ', user)
+            this.context.updateAuthenticated(true, user)
           }
         })
       })
@@ -61,13 +56,12 @@ class LoginFB extends Component {
   onFailure = (error) => { alert(error) }
 
   render() {
-    console.log(this.state)
-    let content = !!this.state.isAuthenticated ?
+    let content = !!this.context.isAuthenticated ?
       (
         <div>
-          <p>Authenticated</p>
+          <p>You're logged in</p>
           <div>
-            {this.state.user.email}
+            {this.context.user.email}
           </div>
           <div>
             <button onClick={this.logout} className="button">
