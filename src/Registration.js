@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ValidationError from './ValidationError';
+import config from './config';
 
 class Registration extends Component {
 
@@ -7,7 +8,7 @@ class Registration extends Component {
     super(props);
 
     this.state = {
-      name: { value: '', touched: false },
+      username: { value: '', touched: false },
       email: { value: '', touched: false },
       password: { value: '', touched: false },
       repeatPassword: { value: '', touched: false }
@@ -17,7 +18,28 @@ class Registration extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    const { username, email, password } = this.state
+    const postBody = {
+      username: username.value,
+      email: email.value,
+      password: password.value
+    }
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(postBody),
+      headers: {
+        "Content-Type": "application/json",
+        // "Authorization": `Bearer ${config.API_KEY}`
+      }
+    }
+    fetch(`${config.API_ENDPOINT}/api/user`, options)
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(error => Promise.reject(error))
+        }
+      })
+      .catch(error => console.log(error))
+   // if you want it validated at the end
    // this.validateName()
    // this.validateEmail()
    // this.validatePassword()
@@ -33,11 +55,11 @@ class Registration extends Component {
   }
 
   validateName = () => {
-    const name = this.state.name.value.trim();
-    return name.length === 0
-      ? 'name required'
-      : name.length < 3 || name.length > 12
-      ? 'name must be between 3 and 12 characters long'
+    const username = this.state.username.value.trim();
+    return username.length === 0
+      ? 'username required'
+      : username.length < 3 || username.length > 12
+      ? 'username must be between 3 and 12 characters long'
       : null
   }
 
@@ -72,7 +94,7 @@ class Registration extends Component {
   }
 
   render() {
-    const nameError = this.state.name.touched && this.validateName();
+    const usernameError = this.state.username.touched && this.validateName();
     const emailError = this.state.email.touched && this.validateEmail();
     const passwordError = this.state.password.touched && this.validatePassword();
     const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();
@@ -81,24 +103,60 @@ class Registration extends Component {
       <form className='Registration' onSubmit={this.handleSubmit}>
         <h2>Registration</h2>
         <div className="form-group">
-          <label htmlFor="name">Name*</label>
-          <input type="text" id="name" name="name" onChange={this.updateValue}/>
-          <ValidationError message={this.validateName()} visible={nameError}/>
+          <label htmlFor="username">Name*</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            onChange={this.updateValue}
+            aria-label="create a unique username"
+            aria-required="true"
+            aria-describedby="usernameError"
+            aria-invalid={usernameError}
+          />
+          <ValidationError id="usernameError" message={this.validateName()} visible={usernameError}/>
         </div>
         <div className="form-group">
           <label htmlFor="email">Email*</label>
-          <input type="email" id="email" name="email" onChange={this.updateValue}/>
-          <ValidationError message={this.validateEmail()} visible={emailError}/>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={this.updateValue}
+            aria-label="enter the email you would like associated with this account"
+            aria-required="true"
+            aria-describedby="emailError"
+            aria-invalid={emailError}
+          />
+          <ValidationError id="emailError" message={this.validateEmail()} visible={emailError}/>
         </div>
         <div className="form-group">
           <label htmlFor="password">Password*</label>
-          <input type="password" id="password" name="password" onChange={this.updateValue}/>
-          <ValidationError message={this.validatePassword()} visible={passwordError}/>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={this.updateValue}
+            aria-label="create a password"
+            aria-required="true"
+            aria-describedby="passwordError"
+            aria-invalid={passwordError}
+          />
+          <ValidationError id="passwordError" message={this.validatePassword()} visible={passwordError}/>
         </div>
         <div className="form-group">
           <label htmlFor="repeat-password">Repeat Password*</label>
-          <input type="password" id="repeatPassword" name="repeatPassword" onChange={this.updateValue}/>
-          <ValidationError message={this.validateRepeatPassword()} visible={repeatPasswordError}/>
+          <input
+            type="password"
+            id="repeatPassword"
+            name="repeatPassword"
+            onChange={this.updateValue}
+            aria-label="re-enter password"
+            aria-required="true"
+            aria-describedby="repeatPasswordError"
+            aria-invalid={repeatPasswordError}
+          />
+          <ValidationError id="repeatPasswordError" message={this.validateRepeatPassword()} visible={repeatPasswordError}/>
         </div>
         <button type="reset" onClick={() => this.props.history.push('/')}>Cancel</button>
         <button type="submit" disabled={( this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Ok Done</button>
