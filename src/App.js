@@ -5,6 +5,7 @@ import config from './config.js'
 import AppContext from './AppContext'
 import AddEventPg from './AddEventPg'
 import ListPg from './ListPg'
+import ProfilePg from './ProfilePg'
 //import Login from './Login'
 import LoginFB from './LoginFB'
 import Registration from './Registration'
@@ -86,6 +87,9 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       updateAuthenticated: this.updateAuthenticated
     }
+    const LoginOrProfileLink = this.state.isAuthenticated && this.state.user
+      ? <NavLink to={`/profile/${this.state.user.id}`}>My profile</NavLink> //change to profile menu or logout
+      : <NavLink to='/login'>Login</NavLink>
     return(
       <div className="App">
         <AppContext.Provider value={context}>
@@ -99,6 +103,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ListPg}/>
               <PrivateRoute path="/add-event" component={AddEventPg}/>
+              <Route path={`/profile/${this.state.user.id}`} component={ProfilePg} />
               <Route path="/login" component={LoginFB}/>
               <Route path="/register" component={Registration}/>
             </Switch>

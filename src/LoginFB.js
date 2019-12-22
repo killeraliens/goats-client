@@ -34,16 +34,13 @@ class LoginFB extends Component {
     console.log('FETCHING GOATS API, POST /api/v1/auth/facebook with token response')
     fetch(`${config.API_ENDPOINT}/api/v1/auth/facebook`, options)
       .then(resp => {
-
         if (!resp.ok) {
           return resp.json().then(error => Promise.reject(error))
         }
         const token = resp.headers.get('x-auth-token');
         resp.json().then(user => {
           if (token) {
-            console.log('YES FB RESPNDS W/ A TOKEN or ID HEADER ITS:', token)
-            //console.log('UPDATING TOKEN CONTEXT to ', token)
-            console.log('UPDATING USER CONTEXT to ', user)
+            console.log('USER LOGGED IN, UPDATING USER CONTEXT to ', user)
             this.context.updateAuthenticated(true, user)
           }
         })

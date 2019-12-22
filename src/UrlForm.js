@@ -21,51 +21,51 @@ class UrlForm extends Component {
   }
 
   getEventFromFacebook = (eventId) => {
-    debugger
-
-    console.log('FETCH PERSONAL INFO USING ORIGINAL ASSIGNED TOKEN', this.context.user.facebook_provider_token)
+    console.log('FETCH PERSONAL INFO USING USERS LOGIN TOKEN', this.context.user.facebook_provider_token)
     fetch(`https://graph.facebook.com/${this.context.user.facebook_provider_id}?fields=id,name&access_token=${this.context.user.facebook_provider_token}`)
       .then(res => {
       if (!res.ok) {
         return res.json().then(error => Promise.reject(error))
       }
-      console.log(res)
       return res.json()
+      })
+      .then(resJson => {
+        console.log(resJson)
       })
       .catch(err => {
         console.log('trouble finding you', err)
       })
 
-    // const postBody = {
-    //   eventId: eventId,
-    //   facebookProviderToken: this.context.user.facebook_provider_token,
-    //   facebookProviderId: this.context.user.facebook_provider_id
-    // }
+    const postBody = {
+      eventId: eventId,
+      facebookProviderToken: this.context.user.facebook_provider_token,
+      facebookProviderId: this.context.user.facebook_provider_id
+    }
 
-    // const options = {
-    //   method: "POST",
-    //   body: JSON.stringify(postBody),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     // "Authorization": `Bearer ${config.API_KEY}`
-    //   }
-    // }
-    // fetch(`${config.API_ENDPOINT}/api/event/facebook`, options)
-    // .then(res => {
-    //   if (!res.ok) {
-    //     return res.json().then(error => Promise.reject(error))
-    //   }
-    //   return res.json()
-    // })
-    // .then(resJson => {
-    //   console.log('SUCCESSS', resJson)
-    //   //const newEvent = resJson
-    //   //this.context.addEvent(newEvent)
-    //   //this.props.onAddEvent(newEvent)
-    // })
-    // .catch(err => {
-    //   console.log('trouble finding event', err)
-    // })
+    const options = {
+      method: "POST",
+      body: JSON.stringify(postBody),
+      headers: {
+        "Content-Type": "application/json",
+        // "Authorization": `Bearer ${config.API_KEY}`
+      }
+    }
+    fetch(`${config.API_ENDPOINT}/api/event/facebook`, options)
+    .then(res => {
+      if (!res.ok) {
+        return res.json().then(error => Promise.reject(error))
+      }
+      return res.json()
+    })
+    .then(resJson => {
+      console.log('SUCCESSS', resJson)
+      //const newEvent = resJson
+      //this.context.addEvent(newEvent)
+      //this.props.onAddEvent(newEvent)
+    })
+    .catch(err => {
+      console.log('trouble finding event', err)
+    })
 
   }
 

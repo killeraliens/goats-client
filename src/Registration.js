@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ValidationError from './ValidationError';
 import config from './config';
+import AppContext from './AppContext'
 
 class Registration extends Component {
 
@@ -12,9 +13,10 @@ class Registration extends Component {
       email: { value: '', touched: false },
       password: { value: '', touched: false },
       repeatPassword: { value: '', touched: false }
-
     }
   }
+
+  static contextType = AppContext
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -37,14 +39,29 @@ class Registration extends Component {
         if(!res.ok) {
           return res.json().then(error => Promise.reject(error))
         }
+        return res.json()
       })
-      .catch(error => console.log(error))
+      .then(newUser => {
+        this.setState({
+            username: { value: '', touched: false },
+            email: { value: '', touched: false },
+            password: { value: '', touched: false },
+            repeatPassword: { value: '', touched: false },
+            error: null
+        })
+        this.context.updateAuthenticated(true, newUser)
+        this.props.history.push(`/`)
+        //this.props.history.push(`/profile/${newUser.id}`)
+      })
+      .catch(error => {
+        console.log('registration form error', error)
+        this.setState({ error })
+      })
    // if you want it validated at the end
    // this.validateName()
    // this.validateEmail()
    // this.validatePassword()
    // this.validateRepeatPassword()
-
   }
 
   updateValue = (e) => {
@@ -60,6 +77,8 @@ class Registration extends Component {
       ? 'username required'
       : username.length < 3 || username.length > 12
       ? 'username must be between 3 and 12 characters long'
+      : this.state.error && this.state.error.message === "username already exists"
+      ? 'username already exists'
       : null
   }
 
