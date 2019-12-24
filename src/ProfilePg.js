@@ -6,7 +6,7 @@ export default function ProfilePg(props) {
   return (
     <AppContext.Consumer>
       {(context) => {
-        props.user
+        return props.user
         ? (
             <div className="ProfilePg">
               <h2>{props.user.username ? props.user.username : props.user.fullname}</h2>

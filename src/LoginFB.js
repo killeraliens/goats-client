@@ -21,9 +21,9 @@ class LoginFB extends Component {
   facebookResponse = (response) => {
     console.log('FACEBOOKS CLIENT RESPONSE From button click', response)
     const tokenBlob = new Blob(
-        [ JSON.stringify({access_token: response.accessToken}, null, 2) ],
-        {type: 'application/json'}
-    )
+      [ JSON.stringify({access_token: response.accessToken}, null, 2) ],
+      {type: 'application/json'}
+      )
 
     const options = {
       method: 'POST',
@@ -31,6 +31,7 @@ class LoginFB extends Component {
       mode: 'cors',
       cache: 'default'
     }
+
     console.log('FETCHING GOATS API, POST /api/v1/auth/facebook with token response')
     fetch(`${config.API_ENDPOINT}/api/v1/auth/facebook`, options)
       .then(resp => {

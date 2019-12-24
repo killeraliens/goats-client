@@ -103,7 +103,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ListPg}/>
               <PrivateRoute path="/add-event" component={AddEventPg}/>
-              <Route path={`/profile/${this.state.user.id}`} component={ProfilePg} />
+              {/* <Route path={`/profile/${this.state.user.id}`} component={ProfilePg} /> */}
               <Route path="/login" component={LoginFB}/>
               <Route path="/register" component={Registration}/>
             </Switch>
