@@ -34,7 +34,7 @@ class Registration extends Component {
         // "Authorization": `Bearer ${config.API_KEY}`
       }
     }
-    fetch(`${config.API_ENDPOINT}/api/user`, options)
+    fetch(`${config.API_ENDPOINT}/api/auth/signup`, options)
       .then(res => {
         if(!res.ok) {
           return res.json().then(error => Promise.reject(error))

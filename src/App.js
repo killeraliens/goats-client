@@ -6,7 +6,7 @@ import AppContext from './AppContext'
 import AddEventPg from './AddEventPg'
 import ListPg from './ListPg'
 import ProfilePg from './ProfilePg'
-//import Login from './Login'
+import Login from './Login'
 import LoginFB from './LoginFB'
 import Registration from './Registration'
 import PrivateRoute from './PrivateRoute'
@@ -17,6 +17,7 @@ class App extends Component {
     super();
     this.state = {
       events: [],
+      countries: [],
       data: null,
       isAuthenticated: false,
       // token: '',
@@ -87,8 +88,8 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       updateAuthenticated: this.updateAuthenticated
     }
-    const LoginOrProfileLink = this.state.isAuthenticated && this.state.user
-      ? <NavLink to={`/profile/${this.state.user.id}`}>My profile</NavLink> //change to profile menu or logout
+    const LoginOrLogoutLink = this.state.isAuthenticated && this.state.user
+      ? <NavLink to={`/`}>Logout</NavLink> //change to profile menu or logout
       : <NavLink to='/login'>Login</NavLink>
     return(
       <div className="App">
@@ -97,14 +98,14 @@ class App extends Component {
           <nav>
             <NavLink to='/'>Events</NavLink>{<br/>}
             <NavLink to='/add-event'>Add Event</NavLink>{<br/>}
-            <NavLink to='/login'>Login</NavLink>
+            {LoginOrLogoutLink}
           </nav>
           <main>
             <Switch>
               <Route exact path="/" component={ListPg}/>
               <PrivateRoute path="/add-event" component={AddEventPg}/>
-              {/* <Route path={`/profile/${this.state.user.id}`} component={ProfilePg} /> */}
-              <Route path="/login" component={LoginFB}/>
+              <Route path={`/profile/:id`} component={ProfilePg} />
+              <Route path="/login" component={Login}/>
               <Route path="/register" component={Registration}/>
             </Switch>
           </main>
