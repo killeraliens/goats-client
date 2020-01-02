@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import config from './config';
+import AppContext from './AppContext'
 
 class Login extends Component {
   state = {
     username: '',
     password: ''
   }
+
+  static contextType = AppContext
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +58,7 @@ class Login extends Component {
   }
 
   render() {
-  const error = this.state.error
+  const error = this.state.error && this.state.error.message
   ? <div className="error-message">{this.state.error.message}</div>
   : null
     return(
