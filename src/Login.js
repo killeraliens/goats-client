@@ -11,10 +11,9 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    // let currState = { ...this.state }
-    // let newState = { username: '', password: '' }
-    // console.log('logging in with', currState);
-    // this.setState(newState)
+    let newState = { username: '', password: '' }
+    this.setState(newState)
+
     const postBody = {
       ...this.state
     }
@@ -24,7 +23,6 @@ class Login extends Component {
       body: JSON.stringify(postBody),
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${config.API_KEY}`
       }
     }
 
@@ -37,6 +35,9 @@ class Login extends Component {
       })
       .then(signInRes => {
         console.log(signInRes)
+
+        this.context.updateAuthenticated(true, signInRes)
+        //this.setState({ error: null})
         // this.props.history.push(`/${signInRes.id}`)
       })
       .catch(error => {
@@ -54,9 +55,8 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.state.error)
-    const error = this.state.error
-  ? <div className="error-message">{this.state.error.error.message}</div>
+  const error = this.state.error
+  ? <div className="error-message">{this.state.error.message}</div>
   : null
     return(
       <form className="Login" onSubmit={this.handleSubmit} >

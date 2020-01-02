@@ -20,14 +20,14 @@ class App extends Component {
       countries: [],
       data: null,
       isAuthenticated: false,
-      // token: '',
+      //token: '',
       user: null,
       error: null
     }
 
   }
 
-  onFailure = (error) => { alert(error) }
+  onFailure = (error) => { this.setState({ error }) }
 
   fetchApiData = async (type) => {
     const response = await fetch(`${config.API_ENDPOINT}/api/${type}`);
