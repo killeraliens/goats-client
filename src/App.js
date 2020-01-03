@@ -6,10 +6,13 @@ import AppContext from './AppContext'
 import AddEventPg from './AddEventPg'
 import ListPg from './ListPg'
 import ProfilePg from './ProfilePg'
-import Login from './Login'
-import LoginFB from './LoginFB'
-import Registration from './Registration'
+import SignUpForm from './Forms/SignUpForm/SignUpForm'
+
+// import LoginFB from './LoginFB'
+import SignInForm from './Forms/SignInForm/SignInForm'
 import PrivateRoute from './PrivateRoute'
+//browser local storage api
+
 
 
 class App extends Component {
@@ -17,17 +20,18 @@ class App extends Component {
     super();
     this.state = {
       events: [],
-      countries: [],
-      data: null,
-      isAuthenticated: false,
-      //token: '',
-      user: null,
+      // countries: [],
+      // data: null,
+      //isAuthenticated: !!localStorage.getItem('user'),
+      user: JSON.parse(localStorage.getItem('user')) || null,
       error: null
     }
 
   }
 
-  onFailure = (error) => { this.setState({ error }) }
+
+
+  //onFailure = (error) => { this.setState({ error }) }
 
   fetchApiData = async (type) => {
     const response = await fetch(`${config.API_ENDPOINT}/api/${type}`);
@@ -40,26 +44,20 @@ class App extends Component {
     return body
   }
 
-  componentDidMount() {
+  async componentDidMount () {
+    //await this.setCurrentAuthenticatedState()
+    console.log('THIS STATE',this.state)
+    console.log('THIS LOCAL', localStorage)
     this.fetchApiData('event')
-      .then(jsonEvents => {
-        this.setState({
-          events: jsonEvents
-        })
+      .then(events => {
+        this.setState({ events })
       })
       .catch(err => {
-        console.log('ERROR ON SERVER MOUNT', err)
+        console.log('Error on fetch events', err)
       })
-    this.fetchApiData('event')
-      .then(jsonEvents => {
-        this.setState({
-          events: jsonEvents
-        })
-      })
-      .catch(err => {
-        console.log('ERROR ON SERVER MOUNT', err)
-      })
+
   }
+
 
 
   addEvent = (newEvent) => {
@@ -68,15 +66,31 @@ class App extends Component {
     this.setState({ events })
   }
 
-  updateUser = (id) => {
-    console.log('do something with user id and state', id)
+  updateAuthenticated = (user) => {
+    this.setState({
+      //isAuthenticated: bool,
+      user
+    }, () => {
+      //localStorage.clear()
+      localStorage.setItem("user", JSON.stringify(this.state.user))
+    })
   }
 
-  updateAuthenticated = (bool, user) => {
-    this.setState({
-      isAuthenticated: bool,
-      user
-    })
+  // setCurrentAuthenticatedState = () => {
+  //   let localUser = {...localStorage};
+  //   if (!localUser.token) {
+  //     return this.setState({ user: null, isAuthenticated: false })
+  //   }
+  //   this.setState({ user: JSON.parse(localUser), isAuthenticated: true })
+  // }
+
+  destroyCurrentLoginState = () => {
+    this.updateAuthenticated(null)
+    //localStorage.clear()
+    // this.setState({
+    //   // isAuthenticated: false,
+    //   user: null
+    // })
   }
 
   render() {
@@ -85,12 +99,13 @@ class App extends Component {
       addEvent: this.addEvent,
       user: this.state.user,
       token: this.state.token,
-      isAuthenticated: this.state.isAuthenticated,
+      //isAuthenticated: this.state.isAuthenticated,
       updateAuthenticated: this.updateAuthenticated
     }
-    const LoginOrLogoutLink = this.state.isAuthenticated && this.state.user
-      ? <NavLink to={`/`}>Logout</NavLink> //change to profile menu or logout
-      : <NavLink to='/login'>Login</NavLink>
+
+    const LoginOrLogoutLink = this.state.user //&& this.state.user
+      ? <button onClick={this.destroyCurrentLoginState}>Logout</button> //send request to api / followup w context this.destroyCurrentLoginState() {}
+      : <NavLink to='/signin'>Sign In</NavLink>
     return(
       <div className="App">
         <AppContext.Provider value={context}>
@@ -104,9 +119,10 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ListPg}/>
               <PrivateRoute path="/add-event" component={AddEventPg}/>
-              <Route path={`/profile/:id`} component={ProfilePg} />
-              <Route path="/login" component={Login}/>
-              <Route path="/register" component={Registration}/>
+              <Route path={`/profile/:user_id`} render={ProfilePg} />
+              <Route path="/signin" component={SignInForm}/>
+              <Route path="/signup" component={SignUpForm}/>
+
             </Switch>
           </main>
         </ AppContext.Provider >

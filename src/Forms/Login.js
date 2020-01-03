@@ -36,12 +36,13 @@ class Login extends Component {
         }
         return res.json()
       })
-      .then(signInRes => {
-        console.log(signInRes)
+      .then(user => {
+        console.log('SIGNED IN', user)
+        localStorage.setItem("user", user)
 
-        this.context.updateAuthenticated(true, signInRes)
+        this.context.updateAuthenticated(true, user)
         //this.setState({ error: null})
-        // this.props.history.push(`/${signInRes.id}`)
+        // this.props.history.push(`/${user.id}`)
       })
       .catch(error => {
         this.setState({ error })

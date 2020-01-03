@@ -2,7 +2,7 @@ import React from 'react';
 import AppContext from './AppContext';
 
 export default function ProfilePg(props) {
-
+  const user = props.user || {}
   return (
     <AppContext.Consumer>
       {(context) => {

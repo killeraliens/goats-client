@@ -16,7 +16,7 @@ class PrivateRoute extends Component {
       ? <Route path={Path} component={Component} {...restProps}/>
       : this.context.user && RenderComp
       ? <Route path={Path} render={RenderComp} {...restProps}/>
-      : <Redirect to='/login'/>
+      : <Redirect to='/signin'/>
 
   }
 }

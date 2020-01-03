@@ -26,6 +26,7 @@ class CustomEventForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    // localStorage.getItem("user")
 
     const newEvent = { ...this.state.event };
     this.validate(newEvent);

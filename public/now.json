@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "name": "goats-client",
-  "alias": "goats-guide",
+  "name": "goats-guide",
   "routes": [
     {
       "src": "^/static/(.*)",

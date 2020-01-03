@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ValidationError from './ValidationError';
-import config from './config';
-import AppContext from './AppContext'
+import ValidationError from '../ValidationError/ValidationError';
+import config from '../../config';
+import AppContext from '../../AppContext'
 
-class Registration extends Component {
+class SignUpForm extends Component {
 
   constructor(props) {
     super(props);
@@ -20,6 +20,11 @@ class Registration extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    // if you want it validated at the end
+   // this.validateName()
+   // this.validateEmail()
+   // this.validatePassword()
+   // this.validateRepeatPassword()
     const { username, email, password } = this.state
     const postBody = {
       username: username.value,
@@ -54,14 +59,10 @@ class Registration extends Component {
         //this.props.history.push(`/profile/${newUser.id}`)
       })
       .catch(error => {
-        console.log('registration form error', error)
+        console.log('SignUpForm form error', error)
         this.setState({ error })
       })
-   // if you want it validated at the end
-   // this.validateName()
-   // this.validateEmail()
-   // this.validatePassword()
-   // this.validateRepeatPassword()
+
   }
 
   updateValue = (e) => {
@@ -77,7 +78,7 @@ class Registration extends Component {
       ? 'username required'
       : username.length < 4 || username.length > 12
       ? 'username must be between 4 and 12 characters long'
-      : this.state.error && this.state.error.message === "username already exists"
+      : this.state.error && this.state.error.message === `Username ${username} is already in use.`
       ? 'username already exists'
       : null
   }
@@ -119,8 +120,8 @@ class Registration extends Component {
     const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();
 
     return(
-      <form className='Registration' onSubmit={this.handleSubmit}>
-        <h2>Registration</h2>
+      <form className='SignUpForm' onSubmit={this.handleSubmit}>
+        <h2>SignUpForm</h2>
         <div className="form-group">
           <label htmlFor="username">Name*</label>
           <input
@@ -184,4 +185,4 @@ class Registration extends Component {
   }
 }
 
-export default Registration;
+export default SignUpForm;
