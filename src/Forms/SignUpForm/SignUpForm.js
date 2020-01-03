@@ -48,13 +48,7 @@ class SignUpForm extends Component {
         return res.json()
       })
       .then(newUser => {
-        this.setState({
-          username: { value: '', touched: false },
-          email: { value: '', touched: false },
-          password: { value: '', touched: false },
-          repeatPassword: { value: '', touched: false },
-          error: null
-        })
+        this.resetForm()
         this.context.updateAuthenticated(true, newUser)
         this.props.history.push(`/`)
         //this.props.history.push(`/profile/${newUser.id}`)
@@ -71,6 +65,16 @@ class SignUpForm extends Component {
     this.setState({
       [name]: { value, touched: true }
     });
+  }
+
+  resetForm = () => {
+    this.setState({
+      username: { value: '', touched: false },
+      email: { value: '', touched: false },
+      password: { value: '', touched: false },
+      repeatPassword: { value: '', touched: false },
+      error: null
+    })
   }
 
   validateName = () => {
@@ -179,7 +183,7 @@ class SignUpForm extends Component {
           />
           <ValidationError id="repeatPasswordError" message={this.validateRepeatPassword()} visible={repeatPasswordError} />
         </div>
-        <button type="reset">Cancel</button>
+        <button type="reset" onClick={this.resetForm}>Cancel</button>
         <button type="submit" disabled={(this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Ok Done</button>
       </form>
     )

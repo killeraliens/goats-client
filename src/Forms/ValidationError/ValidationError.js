@@ -12,6 +12,6 @@ export default function ValidationError({ id, message, visible }) {
 ValidationError.propTypes = {
   message: PropTypes.string,
   id: PropTypes.string.isRequired,
-  visible: PropTypes.bool.isRequired
+  visible: PropTypes.bool
 }
 
