@@ -22,7 +22,6 @@ class App extends Component {
       events: [],
       // countries: [],
       // data: null,
-      //isAuthenticated: !!localStorage.getItem('user'),
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null
     }
@@ -45,7 +44,6 @@ class App extends Component {
   }
 
   async componentDidMount () {
-    //await this.setCurrentAuthenticatedState()
     console.log('THIS STATE',this.state)
     console.log('THIS LOCAL', localStorage)
     this.fetchApiData('event')
@@ -68,29 +66,14 @@ class App extends Component {
 
   updateAuthenticated = (user) => {
     this.setState({
-      //isAuthenticated: bool,
       user
     }, () => {
-      //localStorage.clear()
       localStorage.setItem("user", JSON.stringify(this.state.user))
     })
   }
 
-  // setCurrentAuthenticatedState = () => {
-  //   let localUser = {...localStorage};
-  //   if (!localUser.token) {
-  //     return this.setState({ user: null, isAuthenticated: false })
-  //   }
-  //   this.setState({ user: JSON.parse(localUser), isAuthenticated: true })
-  // }
-
   destroyCurrentLoginState = () => {
     this.updateAuthenticated(null)
-    //localStorage.clear()
-    // this.setState({
-    //   // isAuthenticated: false,
-    //   user: null
-    // })
   }
 
   render() {
@@ -98,8 +81,6 @@ class App extends Component {
       events: this.state.events,
       addEvent: this.addEvent,
       user: this.state.user,
-      token: this.state.token,
-      //isAuthenticated: this.state.isAuthenticated,
       updateAuthenticated: this.updateAuthenticated
     }
 

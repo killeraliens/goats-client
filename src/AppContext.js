@@ -5,8 +5,6 @@ const AppContext = React.createContext({
   events: [],
   addEvent: () => {},
   user: {},
-  token: '',
-  isAuthenticated: false,
   updateAuthenticated: () => {}
 })
 
