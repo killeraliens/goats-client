@@ -80,7 +80,7 @@ class SignInForm extends Component {
         <label htmlFor="password">Password</label>
         <input id="password" name="password" type="text" value={this.state.password} onChange={this.updateState} />
         <button type="submit">Submit</button>
-        <Link to="/register">Register</Link>
+        <Link to="/signup">Register</Link>
       </form>
     )
   }

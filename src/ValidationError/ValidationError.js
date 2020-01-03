@@ -5,7 +5,7 @@ import './ValidationError.css'
 export default function ValidationError({ message, visible }) {
   return message && visible
     ? <span className="ValidationError error">{message}</span>
-    : <span classname="ValidationError sr-only">Validations passing. No Error.</span>
+    : <span className="ValidationError sr-only">Validations passing. No Error.</span>
 }
 
 ValidationError.propTypes = {
