@@ -32,6 +32,7 @@ class SignUpForm extends Component {
       email: email.value,
       password: password.value
     }
+    console.log('POSTBODY', postBody)
     const options = {
       method: 'POST',
       body: JSON.stringify(postBody),
@@ -134,6 +135,7 @@ class SignUpForm extends Component {
             id="username"
             name="username"
             onChange={this.updateValue}
+            value={this.state.username.value}
             aria-label="create a unique username"
             aria-required="true"
             aria-describedby="usernameError"
@@ -148,6 +150,7 @@ class SignUpForm extends Component {
             id="email"
             name="email"
             onChange={this.updateValue}
+            value={this.state.email.value}
             aria-label="enter the email you would like associated with this account"
             aria-required="true"
             aria-describedby="emailError"
@@ -162,6 +165,7 @@ class SignUpForm extends Component {
             id="password"
             name="password"
             onChange={this.updateValue}
+            value={this.state.password.value}
             aria-label="create a password"
             aria-required="true"
             aria-describedby="passwordError"
@@ -176,6 +180,7 @@ class SignUpForm extends Component {
             id="repeatPassword"
             name="repeatPassword"
             onChange={this.updateValue}
+            value={this.state.repeatPassword.value}
             aria-label="re-enter password"
             aria-required="true"
             aria-describedby="repeatPasswordError"

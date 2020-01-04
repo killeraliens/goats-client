@@ -1,80 +1,95 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import config from './config';
-import AppContext from './AppContext'
 
-class Login extends Component {
-  state = {
-    username: '',
-    password: ''
+import React from 'react';
+import useForm from './useForm'
+import config from '../config'
+//import AppContext from '../AppContext'
+import ValidationError  from './ValidationError/ValidationError'
+function SignInForm(props) {
+  const stateSchema = {
+    username: { value: '', error: ''},
+    password: { value: '', error: ''},
   }
 
-  static contextType = AppContext
+  const validationSchema = {
+    username: {
+      required: true,
+      validator: {
+        regEx: /^[a-zA-Z]+$/,
+        error: 'Invalid username format'
+      },
+    },
+    password: {
+      required: true,
+      validator: {
+        regEx: /^[a-zA-Z]+$/,
+        error: 'Invalid password format'
+      },
+    },
+  }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    let newState = { username: '', password: '' }
-    this.setState(newState)
+  const postToAPI = async (state) => {
 
     const postBody = {
-      ...this.state
+      username: state.username.value,
+      password: state.password.value
     }
-
-    let options = {
+    const options = {
       method: 'POST',
       body: JSON.stringify(postBody),
       headers: {
         "Content-Type": "application/json",
       }
     }
-
-    fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(error => Promise.reject(error))
-        }
-        return res.json()
-      })
-      .then(user => {
-        console.log('SIGNED IN', user)
-        localStorage.setItem("user", user)
-
-        this.context.updateAuthenticated(true, user)
-        //this.setState({ error: null})
-        // this.props.history.push(`/${user.id}`)
-      })
-      .catch(error => {
-        this.setState({ error })
-      })
-
+    const response = await fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
+    const body = await response.json();
+    if (!response.ok) {
+      console.log('Error upon signin, reason: ', body.message)
+      //throw Error(body.message)
+    }
+    let user = body.token ? body : null
+    context.updateAuthenticated(user)
+    //props.history.push(`/${user.id}`)
   }
 
-  updateState = (e) => {
-    const {name, value} = e.target
-    let newState = { ...this.state, [name]: value}
-    this.setState(newState)
-    //return this.setState(newState)
-    //whats the difference if i add 'return'?
-  }
+  const { state, disable, handleOnChange, handleOnSubmit, context } = useForm(stateSchema, validationSchema, postToAPI)
 
-  render() {
-  const error = this.state.error && this.state.error.message
-  ? <div className="error-message">{this.state.error.message}</div>
-  : null
-    return(
-      <form className="Login" onSubmit={this.handleSubmit} >
-        {error}
-        <legend><h2>Login</h2></legend>
-        <label htmlFor="username">Username</label>
-        <input id="username" name="username" type="text" value={this.state.username} onChange={this.updateState}/>
-        <label htmlFor="password">Password</label>
-        <input id="password" name="password" type="text" value={this.state.password} onChange={this.updateState}/>
-        <button type="submit">Submit</button>
-        <Link to="/register">Register</Link>
+  const required = "*"
+  return(
+    <div>
+      <form onSubmit={handleOnSubmit}>
+        <div className="form-group">
+          <label htmlFor="username">Username{required}</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            onChange={handleOnChange}
+            value={state.username.value}
+            aria-label="enter your username"
+            aria-required="true"
+            aria-describedby="usernameError"
+            aria-invalid={!!state.username.error}
+          />
+          {!!state.username.error && <span id="usernameError" className="validation-error">{state.username.error}</span>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password{required}</label>
+          <input
+            type="text"
+            id="password"
+            name="password"
+            onChange={handleOnChange}
+            value={state.password.value}
+            aria-label="enter your password"
+            aria-required="true"
+            aria-describedby="passwordError"
+            aria-invalid={!!state.password.error}
+          />
+          {!!state.password.error && <span id="passwordError" className="validation-error">{state.password.error}</span>}
+        </div>
+        <input type="submit" name="submit" disabled={disable} / >
       </form>
-    )
-  }
+    </div>
+  );
 }
-
-export default Login;
+export default SignInForm;

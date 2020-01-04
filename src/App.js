@@ -7,9 +7,9 @@ import AddEventPg from './AddEventPg'
 import ListPg from './ListPg'
 import ProfilePg from './ProfilePg'
 import SignUpForm from './Forms/SignUpForm/SignUpForm'
-
 // import LoginFB from './LoginFB'
-import SignInForm from './Forms/SignInForm/SignInForm'
+//import SignInForm from './Forms/SignInForm/SignInForm'
+import SignInForm from './Forms/Login'
 import PrivateRoute from './PrivateRoute'
 //browser local storage api
 
@@ -100,7 +100,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ListPg}/>
               <PrivateRoute path="/add-event" component={AddEventPg}/>
-              <Route path={`/profile/:user_id`} render={ProfilePg} />
+              <Route path={`/profile/:user_id`} component={ProfilePg} />
               <Route path="/signin" component={SignInForm}/>
               <Route path="/signup" component={SignUpForm}/>
 
