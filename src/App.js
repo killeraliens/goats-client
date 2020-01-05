@@ -8,8 +8,7 @@ import ListPg from './ListPg'
 import ProfilePg from './ProfilePg'
 import SignUpForm from './Forms/SignUpForm/SignUpForm'
 // import LoginFB from './LoginFB'
-//import SignInForm from './Forms/SignInForm/SignInForm'
-import SignInForm from './Forms/Login'
+import SignInForm from './Forms/SignInForm/SignInForm'
 import PrivateRoute from './PrivateRoute'
 //browser local storage api
 
