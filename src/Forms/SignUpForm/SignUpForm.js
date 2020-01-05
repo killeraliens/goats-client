@@ -120,10 +120,10 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const usernameError = this.state.username.touched && !!this.validateName();
-    const emailError = this.state.email.touched && !!this.validateEmail();
-    const passwordError = this.state.password.touched && !!this.validatePassword();
-    const repeatPasswordError = this.state.repeatPassword.touched && !!this.validateRepeatPassword();
+    const usernameError = this.state.username.touched && this.validateName();
+    const emailError = this.state.email.touched && this.validateEmail();
+    const passwordError = this.state.password.touched && this.validatePassword();
+    const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();
 
     return (
       <form className='SignUpForm' onSubmit={this.handleSubmit}>
@@ -141,7 +141,7 @@ class SignUpForm extends Component {
             aria-describedby="usernameError"
             aria-invalid={usernameError}
           />
-          <ValidationError id="usernameError" message={this.validateName()} visible={usernameError} />
+          <ValidationError id="usernameError" message={usernameError} />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email*</label>
@@ -156,7 +156,7 @@ class SignUpForm extends Component {
             aria-describedby="emailError"
             aria-invalid={emailError}
           />
-          <ValidationError id="emailError" message={this.validateEmail()} visible={emailError} />
+          <ValidationError id="emailError" message={emailError} />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password*</label>
@@ -171,7 +171,7 @@ class SignUpForm extends Component {
             aria-describedby="passwordError"
             aria-invalid={passwordError}
           />
-          <ValidationError id="passwordError" message={this.validatePassword()} visible={passwordError} />
+          <ValidationError id="passwordError" message={passwordError} />
         </div>
         <div className="form-group">
           <label htmlFor="repeat-password">Repeat Password*</label>
@@ -186,7 +186,7 @@ class SignUpForm extends Component {
             aria-describedby="repeatPasswordError"
             aria-invalid={repeatPasswordError}
           />
-          <ValidationError id="repeatPasswordError" message={this.validateRepeatPassword()} visible={repeatPasswordError} />
+          <ValidationError id="repeatPasswordError" message={repeatPasswordError}  />
         </div>
         <button type="reset" onClick={this.resetForm}>Cancel</button>
         <button type="submit" disabled={(this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Ok Done</button>

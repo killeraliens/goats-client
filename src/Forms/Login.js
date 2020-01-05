@@ -2,8 +2,10 @@
 import React from 'react';
 import useForm from './useForm'
 import config from '../config'
-//import AppContext from '../AppContext'
 import ValidationError  from './ValidationError/ValidationError'
+import { Link } from 'react-router-dom';
+
+
 function SignInForm(props) {
   const stateSchema = {
     username: { value: '', error: ''},
@@ -20,10 +22,6 @@ function SignInForm(props) {
     },
     password: {
       required: true,
-      validator: {
-        regEx: /^[a-zA-Z]+$/,
-        error: 'Invalid password format'
-      },
     },
   }
 
@@ -70,7 +68,8 @@ function SignInForm(props) {
             aria-describedby="usernameError"
             aria-invalid={!!state.username.error}
           />
-          {!!state.username.error && <span id="usernameError" className="validation-error">{state.username.error}</span>}
+          <ValidationError id="usernameError" message={state.username.error} />
+
         </div>
         <div className="form-group">
           <label htmlFor="password">Password{required}</label>
@@ -87,7 +86,8 @@ function SignInForm(props) {
           />
           {!!state.password.error && <span id="passwordError" className="validation-error">{state.password.error}</span>}
         </div>
-        <input type="submit" name="submit" disabled={disable} / >
+        <button type="submit" disabled={disable}>submit</button>
+        <Link to="/signup">Register</Link>
       </form>
     </div>
   );
