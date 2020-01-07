@@ -38,13 +38,17 @@ function SignInForm(props) {
     }
     const response = await fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
     const body = await response.json();
+    let user
     if (!response.ok) {
-      console.log('Error upon signin, reason: ', body.message)
-      //throw Error(body.message)
+      console.log('Error upon signin, reason: ', body.error, body.message)
+      alert(body.message)
+      user = null
+      context.updateAuthenticated(user)
+    } else {
+      user = body
+      context.updateAuthenticated(user)
+      props.history.push(`/profile/${user.id}`)
     }
-    let user = body.token ? body : null
-    context.updateAuthenticated(user)
-    props.history.push(`/profile/${user.id}`)
   }
 
   const { state, disable, handleOnChange, handleOnSubmit, context } = useForm(stateSchema, validationSchema, postToAPI)
