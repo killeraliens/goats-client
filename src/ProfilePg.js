@@ -1,22 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AppContext from './AppContext';
+import PropTypes from 'prop-types';
+
 
 export default function ProfilePg(props) {
-  const user = props.user || {}
-  return (
-    <AppContext.Consumer>
-      {(context) => {
-        return props.user
-        ? (
-            <div className="ProfilePg">
-              <h2>{props.user.username ? props.user.username : props.user.fullname}</h2>
-              <div className="ProfilePg_content">
+  const context = useContext(AppContext)
+  const paramsId = props.match.params.user_id
+  console.log("Page ID", paramsId)
+  //const user = context.users.find(user => user.id == props.match.params.userId) || {};
+  //console.log("PROFILE CONTEXT", context.user)
 
-              </div>
-            </div>
-          )
-        : null
-      }}
-    </AppContext.Consumer>
+  if (context.user && context.user.id == paramsId) {
+    return(<div>
+      User{context.user.username} is logged in
+    </div>)
+  }
+  return (
+    <div>
+      User {props.user.username}'s public profile
+    </div>
   )
+}
+
+ProfilePg.defaultProps = {
+  match: { params: {} },
+  user: {}
+}
+
+ProfilePg.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.object,
+  }),
+  user: PropTypes.shape({
+    id: PropTypes.string
+  })
 }

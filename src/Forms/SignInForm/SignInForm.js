@@ -1,10 +1,8 @@
-
 import React from 'react';
 import useForm from '../useForm'
 import config from '../../config'
 import ValidationError  from '../ValidationError/ValidationError'
-import { Link } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
 
 function SignInForm(props) {
   const stateSchema = {
@@ -46,7 +44,7 @@ function SignInForm(props) {
     }
     let user = body.token ? body : null
     context.updateAuthenticated(user)
-    //props.history.push(`/${user.id}`)
+    props.history.push(`/profile/${user.id}`)
   }
 
   const { state, disable, handleOnChange, handleOnSubmit, context } = useForm(stateSchema, validationSchema, postToAPI)
@@ -84,12 +82,13 @@ function SignInForm(props) {
             aria-describedby="passwordError"
             aria-invalid={!!state.password.error}
           />
-          {!!state.password.error && <span id="passwordError" className="validation-error">{state.password.error}</span>}
+          <ValidationError id="passwordError" message={state.password.error} />
         </div>
         <button type="submit" disabled={disable}>submit</button>
-        <Link to="/signup">Register</Link>
+        <Link to="/signup">Sign Up</Link>
       </form>
     </div>
   );
 }
-export default SignInForm;
+
+export default withRouter(SignInForm);

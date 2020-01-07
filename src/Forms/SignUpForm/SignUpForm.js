@@ -21,11 +21,6 @@ class SignUpForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // if you want it validated at the end
-    // this.validateName()
-    // this.validateEmail()
-    // this.validatePassword()
-    // this.validateRepeatPassword()
     const { username, email, password } = this.state
     const postBody = {
       username: username.value,
@@ -38,7 +33,6 @@ class SignUpForm extends Component {
       body: JSON.stringify(postBody),
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${config.API_KEY}`
       }
     }
     fetch(`${config.API_ENDPOINT}/api/auth/signup`, options)
@@ -127,7 +121,7 @@ class SignUpForm extends Component {
 
     return (
       <form className='SignUpForm' onSubmit={this.handleSubmit}>
-        <h2>SignUpForm</h2>
+        <h2>Sign Up</h2>
         <div className="form-group">
           <label htmlFor="username">Name*</label>
           <input

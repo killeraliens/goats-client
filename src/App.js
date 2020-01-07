@@ -43,8 +43,8 @@ class App extends Component {
   }
 
   async componentDidMount () {
-    console.log('THIS STATE',this.state)
-    console.log('THIS LOCAL', localStorage)
+    // console.log('THIS STATE',this.state)
+    //console.log('THIS LOCAL', localStorage)
     this.fetchApiData('event')
       .then(events => {
         this.setState({ events })
