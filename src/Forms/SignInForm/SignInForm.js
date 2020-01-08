@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import config from '../../config'
 import { Link, withRouter } from 'react-router-dom';
 import ValidationError  from '../ValidationError/ValidationError'
@@ -15,14 +15,6 @@ function SignInForm(props) {
     setPassword({ value: '', touched: false, error: '' })
   }
 
-  // useEffect(() => {
-  //   const updateValidationErrors = () => {
-  //     setUsername(prev => ({ ...prev, error: validateUsername() }))
-  //     setPassword(prev => ({ ...prev, error: validatePassword() }))
-  //   }
-  //   updateValidationErrors()
-  // }, [serverError, username.error, password.error])
-
   const updateValidationErrors = () => {
     setUsername(prev => ({ ...prev, error: validateUsername() }))
     setPassword(prev => ({ ...prev, error: validatePassword() }))
@@ -38,8 +30,6 @@ function SignInForm(props) {
     }
     clearServerErrors()
   }, [username.value, password.value])
-
-
 
   const validateUsername = () => {
     if (username.touched) {
@@ -81,21 +71,20 @@ function SignInForm(props) {
         "Content-Type": "application/json",
       }
     }
-
     const response = await fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
     const body = await response.json();
+
     if (!response.ok) {
       setServerError(body)
       //alert(body.message)
       //context.updateAuthenticated(null)
     } else {
+      resetForm()
       let user = body.token ? body : null
       context.updateAuthenticated(user)
-      resetForm()
       props.history.push(`/profile/${user.id}`)
     }
   }
-
 
   const required = "*"
 
@@ -114,7 +103,6 @@ function SignInForm(props) {
             aria-required="true"
             aria-describedby="usernameError"
             aria-invalid={!!username.error}
-            // onBlur={() => setUsername(prev => ({ ...prev, error: validateUsername() }))}
             onBlur={updateValidationErrors}
           />
           <ValidationError id="usernameError" message={username.error} />
@@ -132,7 +120,6 @@ function SignInForm(props) {
             aria-required="true"
             aria-describedby="passwordError"
             aria-invalid={!!password.error}
-            // onBlur={() => setPassword(prev => ({ ...prev, error: validatePassword() }))}
             onBlur={updateValidationErrors}
           />
           <ValidationError id="passwordError" message={password.error} />
