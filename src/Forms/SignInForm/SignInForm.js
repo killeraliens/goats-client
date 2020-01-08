@@ -1,33 +1,69 @@
-import React from 'react';
-import useForm from '../useForm'
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import config from '../../config'
-import ValidationError  from '../ValidationError/ValidationError'
 import { Link, withRouter } from 'react-router-dom';
+import ValidationError  from '../ValidationError/ValidationError'
+import AppContext from '../../AppContext'
 
 function SignInForm(props) {
-  const stateSchema = {
-    username: { value: '', error: ''},
-    password: { value: '', error: ''},
+  const [username, setUsername] = useState({ value: '', touched: false, error: '' })
+  const [password, setPassword] = useState({ value: '', touched: false, error: '' })
+  const [serverError, setServerError] = useState(null)
+  const context = useContext(AppContext)
+
+  const resetForm = () => {
+    setUsername({ value: '', touched: false, error: '' })
+    setPassword({ value: '', touched: false, error: '' })
   }
 
-  const validationSchema = {
-    username: {
-      required: true,
-      validator: {
-        regEx: /^[a-zA-Z]+$/,
-        error: 'Invalid username format'
-      },
-    },
-    password: {
-      required: true,
-    },
+  useEffect(() => {
+    const updateValidationErrors = () => {
+      setUsername(prev => ({ ...prev, error: validateUsername() }))
+      setPassword(prev => ({ ...prev, error: validatePassword() }))
+    }
+    updateValidationErrors()
+  }, [serverError, username.error, password.error])
+
+  useEffect(() => {
+    const clearServerErrors = () => {
+      setServerError(null)
+    }
+    clearServerErrors()
+  }, [username.value, password.value])
+
+
+
+  const validateUsername = () => {
+    if (username.touched) {
+      const trimmedUsername = username.value.trim()
+      return trimmedUsername.length === 0
+      ? 'username required'
+      : trimmedUsername.length < 4 || trimmedUsername.length > 12
+      ? 'username must be between 4 and 12 characters long'
+      : serverError && serverError.message && (/(username)|(exists)/.test(serverError.message))
+      ? serverError.message
+      : ''
+    }
+    return ''
   }
 
-  const postToAPI = async (state) => {
+  const validatePassword = () => {
+    if (password.touched) {
+      const trimmedPassword = password.value.trim()
+      return trimmedPassword.length === 0
+        ? 'password required'
+        : serverError && serverError.message && (/(password)|(match)/.test(serverError.message))
+        ? serverError.message
+        : ''
+    }
+    return ''
+  }
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault()
 
     const postBody = {
-      username: state.username.value,
-      password: state.password.value
+      username: username.value,
+      password: password.value
     }
     const options = {
       method: 'POST',
@@ -36,20 +72,24 @@ function SignInForm(props) {
         "Content-Type": "application/json",
       }
     }
+
     const response = await fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
     const body = await response.json();
     if (!response.ok) {
-      console.log('Error upon signin, reason: ', body.message)
-      //throw Error(body.message)
+      setServerError(body)
+      //alert(body.message)
+      //context.updateAuthenticated(null)
+    } else {
+      let user = body.token ? body : null
+      context.updateAuthenticated(user)
+      resetForm()
+      props.history.push(`/profile/${user.id}`)
     }
-    let user = body.token ? body : null
-    context.updateAuthenticated(user)
-    props.history.push(`/profile/${user.id}`)
   }
 
-  const { state, disable, handleOnChange, handleOnSubmit, context } = useForm(stateSchema, validationSchema, postToAPI)
 
   const required = "*"
+
   return(
     <div>
       <form onSubmit={handleOnSubmit}>
@@ -59,32 +99,34 @@ function SignInForm(props) {
             type="text"
             id="username"
             name="username"
-            onChange={handleOnChange}
-            value={state.username.value}
+            value={username.value || ''}
+            onChange={e => setUsername({ value: e.target.value, touched: true})}
             aria-label="enter your username"
             aria-required="true"
             aria-describedby="usernameError"
-            aria-invalid={!!state.username.error}
+            aria-invalid={!!username.error}
+            // onBlur={() => setUsername(prev => ({ ...prev, error: validateUsername() }))}
           />
-          <ValidationError id="usernameError" message={state.username.error} />
+          <ValidationError id="usernameError" message={username.error} />
 
         </div>
         <div className="form-group">
           <label htmlFor="password">Password{required}</label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
-            onChange={handleOnChange}
-            value={state.password.value}
+            value={password.value || ''}
+            onChange={e => setPassword({ value: e.target.value, touched: true })}
             aria-label="enter your password"
             aria-required="true"
             aria-describedby="passwordError"
-            aria-invalid={!!state.password.error}
+            aria-invalid={!!password.error}
+            // onBlur={() => setPassword(prev => ({ ...prev, error: validatePassword() }))}
           />
-          <ValidationError id="passwordError" message={state.password.error} />
+          <ValidationError id="passwordError" message={password.error} />
         </div>
-        <button type="submit" disabled={disable}>submit</button>
+        <button type="submit" disabled={username.error || password.error}>submit</button>
         <Link to="/signup">Sign Up</Link>
       </form>
     </div>
