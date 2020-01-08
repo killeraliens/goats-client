@@ -15,13 +15,22 @@ function SignInForm(props) {
     setPassword({ value: '', touched: false, error: '' })
   }
 
+  // useEffect(() => {
+  //   const updateValidationErrors = () => {
+  //     setUsername(prev => ({ ...prev, error: validateUsername() }))
+  //     setPassword(prev => ({ ...prev, error: validatePassword() }))
+  //   }
+  //   updateValidationErrors()
+  // }, [serverError, username.error, password.error])
+
+  const updateValidationErrors = () => {
+    setUsername(prev => ({ ...prev, error: validateUsername() }))
+    setPassword(prev => ({ ...prev, error: validatePassword() }))
+  }
+
   useEffect(() => {
-    const updateValidationErrors = () => {
-      setUsername(prev => ({ ...prev, error: validateUsername() }))
-      setPassword(prev => ({ ...prev, error: validatePassword() }))
-    }
     updateValidationErrors()
-  }, [serverError, username.error, password.error])
+  }, [serverError])
 
   useEffect(() => {
     const clearServerErrors = () => {
@@ -106,6 +115,7 @@ function SignInForm(props) {
             aria-describedby="usernameError"
             aria-invalid={!!username.error}
             // onBlur={() => setUsername(prev => ({ ...prev, error: validateUsername() }))}
+            onBlur={updateValidationErrors}
           />
           <ValidationError id="usernameError" message={username.error} />
 
@@ -123,6 +133,7 @@ function SignInForm(props) {
             aria-describedby="passwordError"
             aria-invalid={!!password.error}
             // onBlur={() => setPassword(prev => ({ ...prev, error: validatePassword() }))}
+            onBlur={updateValidationErrors}
           />
           <ValidationError id="passwordError" message={password.error} />
         </div>
