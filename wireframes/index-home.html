@@ -13,77 +13,274 @@
 </head>
 
 <body>
-  <div id="App">
-
-    <nav id="">
+  <div class="App">
+    <!-- <div class="Header">
+    </div> -->
+    <div class="Nav">
       <a href="./index-home.html">
-        <img src="./assets/pentagram-icon.svg" alt="pentagram icon">
+        <div class="Nav--btn">
+          <img src="./assets/pentagram-icon.svg" alt="pentagram icon">
+        </div>
       </a>
-    </nav>
-    <main>
+      <a href="./index-home.html" >
+        <div class="Nav--btn">
+          <div>
+            <i class="fa fa-plus"></i>
+          </div>
+          <div>
+            <span>FLIER</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="Nav--floating">
+        <a href="./index.html">
+          <button >Sign Out</button>
+        </a>
+      </div>
+    </div>
+    <div class="Main">
       <div class="Feed">
-        <div class="Flyer">
+
+        <div class="Card Flyer-card">
           <img
             class="Flyer--image"
             src="http://www.brooklynvegan.com/files/2019/11/75521841_2571097956311369_9029394387301302272_o1.jpg?w=630"
             alt="RIPPIKOULU / CHTHE’ILIST / NUCLEUS — 2020 North American Tour Flier"
           >
-          <h2 class="Flyer--headline">RIPPIKOULU / CHTHE’ILIST / NUCLEUS — 2020 North American Tour</h2>
-          <!-- <p class="Flyer--countries"><span>United States</span><span>Cananda</span></p> -->
-          <!-- <p class="Flyer--cities">
-            <span>Cleveland, OH</span>
-            <span>Detroit, MI</span>
-            <span>Chicago, IL</span>
-            <span>Indianapolis, IN</span>
-            <span>Columbus, OH</span>
-            <span>Pittsburgh, PA</span>
-            <span>Baltimore, MD</span>
-            <span>Philadelphia, PA</span>
-            <span>New York, NY</span>
-            <span>Montreal, QC</span>
-          </p> -->
-          <div class="collapsed">
-            <!-- <p>Date | City | Venue</p> -->
-            <p class="Flyer--dates">Dates: 04/03 - 04/12</p>
-            <ul class="Flyer--tour-list">
-              <li><span>04/03</span> – <span>Cleveland, OH</span> – <span>Maple Grove Tavern</span></li>
-              <li><span>04/04</span> – <span>Detroit, MI</span> – <span>TBD</span></li>
-              <li><span>04/05</span> – <span>Chicago, IL</span> – <span>Cobra Lounge</span></li>
-              <li><span>04/06</span> – <span>Indianapolis, IN</span> – <span>Black Circle Brewing</span></li>
-              <li><span>04/07</span> – <span>Columbus, OH</span> – <span>TBD</span></li>
-              <li><span>04/08</span> – <span>Pittsburgh, PA</span> – <span>Cattivo’s</span></li>
-              <li><span>04/09</span> – <span>Baltimore, MD</span> – <span>Metro Gallery</span></li>
-              <li><span>04/10</span> – <span>Philadelphia, PA</span> – <span>Kung Fu Necktie</span></li>
-              <li><span>04/11</span> – <span>New York, NY</span> – <span>Saint Vitus</span></li>
-              <li><span>04/12</span> – <span>Montreal, QC</span> – <span>Piranha Bar</span></li>
+          <div class="Card--body">
+            <div class="Card--header">
+              <div class="Flyer--icon-type Tag">Tour</div>
+              <h2 class="Card--header--name">RIPPIKOULU / CHTHE’ILIST / NUCLEUS — 2020 North American Tour</h2>
+            </div>
+            <!-- <ul class="Flyer--countries-list">
+              <li>United States</li>
+              <li>Cananda</li>
+            </ul> -->
+            <!-- <ul class="Flyer--cities-list">
+              <li>Cleveland, OH</li>
+              <li>Detroit, MI</li>
+              <li>Chicago, IL</li>
+              <li>Indianapolis, IN</li>
+              <li>Columbus, OH</li>
+              <li>Pittsburgh, PA</li>
+              <li>Baltimore, MD</li>
+              <li>Philadelphia, PA</li>
+              <li>New York, NY</li>
+              <li>Montreal, QC</li>
+            </ul> -->
+            <div class="Accordian">...Flyer Details</div>
+            <div class="Accordian--content">
+              <!-- <p>Date | City | Venue</p> -->
+              <!-- <p class="Flyer--dates">Dates: 04/03 - 04/12</p> -->
+              <ul class="Flyer--tour-list">
+                <li><span>04/03</span> – <span>Cleveland, OH</span> – <span>Maple Grove Tavern</span></li>
+                <li><span>04/04</span> – <span>Detroit, MI</span> – <span>TBD</span></li>
+                <li><span>04/05</span> – <span>Chicago, IL</span> – <span>Cobra Lounge</span></li>
+                <li><span>04/06</span> – <span>Indianapolis, IN</span> – <span>Black Circle Brewing</span></li>
+                <li><span>04/07</span> – <span>Columbus, OH</span> – <span>TBD</span></li>
+                <li><span>04/08</span> – <span>Pittsburgh, PA</span> – <span>Cattivo’s</span></li>
+                <li><span>04/09</span> – <span>Baltimore, MD</span> – <span>Metro Gallery</span></li>
+                <li><span>04/10</span> – <span>Philadelphia, PA</span> – <span>Kung Fu Necktie</span></li>
+                <li><span>04/11</span> – <span>New York, NY</span> – <span>Saint Vitus</span></li>
+                <li><span>04/12</span> – <span>Montreal, QC</span> – <span>Piranha Bar</span></li>
+              </ul>
+              <p class="Card--description">
+                Read More: Finnish death doom vets Rippikoulu touring with Chthe’ilist & Nucleus |
+                http://www.brooklynvegan.com/finnish-death-doom-vets-rippikoulu-touring-with-chtheilist-nucleus/?trackback=tsmclip
+              </p>
+              <!-- Everything auto gens a tag: Event[Tour], band[bandId], venue[venueId] -->
+              <div class="Tags">
+                <div class="Tag">Rippikoulu</div>
+                <div class="Tag">Black Circle Brewing</div>
+                <div class="Tag">Saint Vitus</div>
+              </div>
+            </div>
+          </div>
+          <div class="Comments">
+                <div class="Comment">
+                    <div class="Comment--header">
+                      <div class="flex-center-between">
+                        <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                        <h3 class="Comment--handle">@killeraliens
+                          <span class="Comment--isCreator">[creator]</span>
+                        </h3>
+                      </div>
+                      <span class="Comment--modified-at">mentioned: Jan 9, 2020 - 19:53 MST</span>
+                    </div>
+                    <p>Found this on <a href="http://www.brooklynvegan.com/finnish-death-doom-vets-rippikoulu-touring-with-chtheilist-nucleus/">Brooklyn Vegan</a></p>
+                </div>
+                <div class="Accordian">...More Comments</div>
+                <div class="Accordian--content">
+                  More Comments etc....
+                </div>
+          </div>
+        </div>
+
+        <div class="Card Venue-card">
+          <div class="Card--body">
+            <div class="Card--header">
+              <i class="Venue--icon fa fa-map-pin"></i>
+              <h2 class="Card--header--name">Saint Vitus</h2>
+            </div>
+            <ul class="Venue-card--location">
+              <li class="Card--location-list--country">
+                United States
+                <img src="./assets/iconfinder_flag-usa_748050.png" alt="United States flag icon" />
+              </li>
+              <li class="Card--location-list--city-region">
+                <!-- <i class="fa fa-map-marker"></i> -->
+                New York, NY
+              </li>
             </ul>
-            <!-- Everything auto gens a tag: Event[Tour], band[bandId], venue[venueId] -->
-            <p class="tags">
-              <span>Tour</span>
-              <span>Rippikoulu</span>
-              <span>Black Circle Brewing</span>
-            </p>
-            <p class="Flyer--description">
-              Read More: Finnish death doom vets Rippikoulu touring with Chthe’ilist & Nucleus |
-              http://www.brooklynvegan.com/finnish-death-doom-vets-rippikoulu-touring-with-chtheilist-nucleus/?trackback=tsmclip
-            </p>
+            <!-- <ul class="Card--location-list">
+              <li class="Card--location-list--country">
+                <img src="./assets/iconfinder_flag-usa_748050.png" alt="United States flag icon"/>
+                United States
+              </li>
+              <li class="Card--location-list--city-region">New York, NY</li>
+              <li class="Card--location-list--address">1120 Manhattan Ave, Brooklyn, NY 11222</li>
+            </ul> -->
+            <div class="Accordian">...Venue Details</div>
+            <div class="Accordian--content">
+              <p class="Venue-card--address"><i class="fa fa-map-marker"></i>1120 Manhattan Ave, Brooklyn, NY 11222</p>
+              <p class="Card--description">
+                https://www.saintvitusbar.com/
+              </p>
+            </div>
+          </div>
+              <div class="Comments">
+                <div class="Comment">
+                  <div class="Comment--header flex-center-between">
+                    <div class="flex-center-between">
+                      <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                      <h3 class="Comment--handle">
+                        @killeraliens
+                        <span class="Comment--isCreator">[creator]</span>
+                      </h3>
+                    </div>
+                    <span class="Comment--modified-at">mentioned: Jan 9, 2020 - 18:26 MST</span>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        <div class="Card Flyer-card">
+          <img class="Flyer--image"
+            src="https://lastfm.freetls.fastly.net/i/u/ar0/02164795f45ff2dfd34bbc06c584bcb2.webp"
+            alt="Total Death Over Mexico lll Flier">
+            <div class="Card--body">
+              <div class="Card--header">
+                <div class="Flyer--icon-type Tag">Festival</div>
+                <h2 class="Card--header--name">Total Death Over Mexico lll</h2>
+              </div>
+              <p class="Flyer--dates">Dates: 04/03 - 04/12</p>
+              <p class="Card--city-region-country-venue">
+                <i class="fa fa-map-marker"></i>
+                Mexico City, Mexico - Foro San Rafael
+              </p>
+              <div class="Accordian">...Flyer Details</div>
+              <div class="Accordian--content">
+                <!-- <ul class="Card--bands-list">
+                  <li></li>
+                </ul> -->
+                <p class="Card--description">
+                  Foro San Rafael
+                  Av. Ribera de San Cosme #28, 06470 Mexico City, Mexico
+                  https://www.facebook.com/events/foro-san-rafael/total-death-over-mexico-lll-informativo/1004824666540845/
+                </p>
+              </div>
+            </div>
             <div class="Comments">
               <div class="Comment">
-                <div class="flex">
-                  <div class="flex">
+                <div class="Comment--header">
+                  <div class="flex-center-between">
                     <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
-                    <h3 class="Comment--handle">@killeraliens</h3>
+                    <h3 class="Comment--handle">@killeraliens
+                      <span class="Comment--isCreator">[creator]</span>
+                    </h3>
                   </div>
-                  <span class="Comment--modified-at">mentioned: Jan 9, 2020 - 19:53 MST</span>
+                  <span class="Comment--modified-at">mentioned: Jan 10, 2020 - 22:33 MST</span>
                 </div>
-                <p>Found this on <a href="http://www.brooklynvegan.com/finnish-death-doom-vets-rippikoulu-touring-with-chtheilist-nucleus/">Brooklyn Vegan</a></p>
+                <p>could someone comment with an official list of bands?</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="Card Venue-card">
+          <div class="Card--body">
+            <div class="Card--header">
+              <i class="Venue--icon fa fa-map-pin"></i>
+              <h2 class="Card--header--name">Foro San Rafael</h2>
+            </div>
+            <ul class="Venue-card--location">
+              <li class="Venue-card--country">
+                Mexico
+                <img src="./assets/iconfinder_flag-mexico_748137.png" alt="United States flag icon" />
+              </li>
+              <li class="Card--location-list--city-region">
+                <!-- <i class="fa fa-map-marker"></i> -->
+                New York, NY
+              </li>
+              <li class="Card--location-list--address">
+                1120 Manhattan Ave, Brooklyn, NY 11222
+
+              </li>
+            </ul>
+            <!-- <ul class="Card--location-list">
+                      <li class="Card--location-list--country">
+                        <img src="./assets/iconfinder_flag-usa_748050.png" alt="United States flag icon"/>
+                        United States
+                      </li>
+                      <li class="Card--location-list--city-region">New York, NY</li>
+                      <li class="Card--location-list--address">1120 Manhattan Ave, Brooklyn, NY 11222</li>
+                    </ul> -->
+            <div class="Accordian">...Venue Details</div>
+            <div class="Accordian--content">
+              <p class="Venue-card--address"><i class="fa fa-map-marker"></i>1120 Manhattan Ave, Brooklyn, NY 11222</p>
+              <p class="Card--description">
+                https://www.saintvitusbar.com/
+              </p>
+            </div>
+          </div>
+          <div class="Comments">
+            <div class="Comment">
+              <div class="Comment--header flex-center-between">
+                <div class="flex-center-between">
+                  <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                  <h3 class="Comment--handle">
+                    @killeraliens
+                    <span class="Comment--isCreator">[creator]</span>
+                  </h3>
+                </div>
+                <span class="Comment--modified-at">mentioned: Jan 9, 2020 - 18:26 MST</span>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </main>
   </div>
+
+
+  <script>
+    let accordian = document.getElementsByClassName('Accordian')
+
+    for (i = 0; i < accordian.length; i++) {
+      const orginalText = accordian[i].innerHTML;
+      accordian[i].addEventListener("click", function() {
+        this.classList.toggle('active');
+        this.classList.contains('active')
+         ? this.innerHTML = "...See less"
+         : this.innerHTML = orginalText
+        let accordianContent = this.nextElementSibling;
+        accordianContent.style.display === "block"
+          ? accordianContent.style.display = "none"
+          : accordianContent.style.display = "block";
+      })
+    }
+  </script>
 </body>
 
 </html>

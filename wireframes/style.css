@@ -19,10 +19,39 @@ body {
 }
 
 .App {
-  background-color: rgb(150, 150, 150);
-  min-height: 100%;
-  min-width: 100%;
+  /* background-color: rgb(150, 150, 150); */
+  /* min-height: 100%;
+  min-width: 100%; */
+  display: flex;
 }
+
+.Header {
+  width: 100%;
+}
+
+.Nav, .Main {
+  height: 100%;
+}
+
+.Main {
+  flex-grow: 1;
+}
+
+.Nav--floating {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+}
+
+.Nav--btn {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: vertical;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* Forms */
 form {
@@ -47,10 +76,24 @@ label {
   display: block;
 }
 
-h1, h2, h3 {
+h1, h2 {
   margin-top: 0;
+  margin-bottom: 0;
   padding-top: 0;
   font-size: 14px;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+ul li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 .sr-only {
@@ -64,12 +107,24 @@ h1, h2, h3 {
   width: 1px;
 }
 
-.flex {
+.flex-center-between {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.Card--header {
+  display: flex;
+  margin-bottom: auto;
+  align-items: baseline;
+
+}
+
+.Comment--header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 /* Custom classes */
 
@@ -99,12 +154,21 @@ h1, h2, h3 {
   /* max-height: 80vh; */
 }
 
+.Card {
+  margin-bottom: 20px;
+  background: rgb(250, 250, 250);
+}
+
+.Card--body {
+  padding: 16px;
+}
+
 @media (max-height: 400px) {
 
 }
 
 .AboutMenu {
-  padding: 6px 8px;
+  padding: 4px 8px;
 }
 
 /* Flyer */
@@ -122,8 +186,123 @@ h1, h2, h3 {
   margin-left: 8px;
 }
 
-.Comment--modified-at {
+/* .Comment--modified-at {
   font-size: 10px;
+} */
+.Comment span {
+  font-size: 10px;
+  font-weight: normal;
 }
+
+.Flyer--icon-status.Tag {
+  background-color: red;
+  margin-right: 4px;
+}
+
+.Flyer--icon-type.Tag {
+  background-color: green;
+  margin-right: 4px;
+}
+
+.Tag {
+  display: inline-block;
+  line-height: 24px;
+  padding: 0px 8px;
+  color: white;
+  background-color: grey;
+  margin-left: 0;
+  margin-right: 2px;
+}
+
+.Card--header i {
+  line-height: 24px;
+  font-size: 22px;
+}
+
+.Venue--icon {
+  color: orangered;
+  margin-right: 4px;
+}
+
+.Venue-card--country img {
+  height: 10px;
+  margin-right: 2px;
+}
+
+.Venue-card--address i {
+  margin-right: 2px;
+}
+
+.Accordian {
+  padding: 8px 16px;
+  cursor: pointer;
+  width: 100%;
+  opacity: .5;
+}
+
+.active, .Accordian:hover{
+  /* background-color: darkgray; */
+  opacity: .5;
+}
+
+a {
+  opacity: .5;
+}
+
+a:hover {
+  opacity: 1;
+}
+
+.Accordian:hover {
+  opacity: 1;
+}
+
+.Accordian--content {
+  display: none;
+  overflow: hidden;
+  /* margin-bottom: 16px;
+  padding-bottom: 16px; */
+  /* background-color: palegreen; */
+}
+
+.Comments {
+  padding-left: 16px;
+  padding-right: 16px;
+
+}
+
+.Comment {
+  /* border-bottom: solid 1px black; */
+  border-top: solid 1px dimgrey;
+   padding-top: 16px;
+  padding-bottom: 16px;
+  /* padding: 16px; */
+}
+
+.Feed {
+  column-count: 3;
+  column-gap: 16px;
+  height: 100%;
+  max-width: 100%;
+  margin-bottom: 60px;
+}
+
+.Feed .Card {
+  break-inside: avoid-column;
+}
+
+@media (max-width: 899px) {
+  .Feed {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 599px) {
+  .Feed {
+    column-count: 1;
+    column-gap: 0;
+  }
+}
+
 
 
