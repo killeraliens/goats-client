@@ -14,32 +14,67 @@
 
 <body>
   <div class="App">
-    <!-- <div class="Header">
-    </div> -->
-    <div class="Nav">
-      <a href="./index-home.html">
-        <div class="Nav--btn">
-          <img src="./assets/pentagram-icon.svg" alt="pentagram icon">
-        </div>
-      </a>
-      <a href="./index-home.html" >
-        <div class="Nav--btn">
-          <div>
-            <i class="fa fa-plus"></i>
+    <div class="Menu">
+      <div class="Menu--pal">
+        <a href="./index-home.html">
+          <div class="Menu--pal--btn active">
+            <img src="./assets/pentagram-icon.svg" alt="pentagram icon">
           </div>
-          <div>
-            <span>FLIER</span>
+        </a>
+        <a href="./index-dashboard">
+          <div class="Menu--pal--btn">
+            <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
           </div>
-        </div>
-      </a>
-
-      <div class="Nav--floating">
-        <a href="./index.html">
-          <button >Sign Out</button>
+        </a>
+        <a href="./index-create-fest.html" >
+          <div class="Menu--pal--btn">
+              <span><i class="fa fa-file"></i><br/>+FLIER</span>
+          </div>
+        </a>
+        <a href="./index-create-venue.html">
+          <div class="Menu--pal--btn">
+            <span><i class="fa fa-map-pin"></i><br />+VENUE</span>
+          </div>
         </a>
       </div>
     </div>
     <div class="Main">
+      <!-- <div class="MainNav">
+        <div class="MainNav--title-container">
+          <h1 class="MainNav--title">Goat's Forum</h1>
+
+        </div>
+        <div class="ProfileStatus">
+          <div class="Dropdown">
+            <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+          </div>
+          <div class="Dropdown--content">
+            <a class="SignOut btn-base" href="./index.html">
+              Sign Out
+            </a>
+          </div>
+        </div>
+      </div> -->
+      <h1 class="Main--title">Goat's Forum</h1>
+      <div class="SectionNav">
+        <ul class="SectionNavLinks">
+          <li><a class="SectionNav--link" href="./index-country-mx.html">MEXICO</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-ca.html">CANADA</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-ca-region-qc.html">QC</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us.html">UNITED STATES</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us-region-oh.html">OH</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us-region-mi.html">MI</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us-region-il.html">IL</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us-region-in.html">IN</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us-region-pa.html">PA</a></li><!--
+       --><li><a class="SectionNav--link" href="./index-country-us-region-in.html">NY</a></li>
+        </ul>
+        <!-- <form class="SearchTermForm" action="./index-home-searched.html">
+          <input type="text" placeholder="Search Term">
+          <button type="submit">Search All</button>
+        </form> -->
+      </div>
+
       <div class="Feed">
 
         <div class="Card Flyer-card">
@@ -53,26 +88,8 @@
               <div class="Flyer--icon-type Tag">Tour</div>
               <h2 class="Card--header--name">RIPPIKOULU / CHTHE’ILIST / NUCLEUS — 2020 North American Tour</h2>
             </div>
-            <!-- <ul class="Flyer--countries-list">
-              <li>United States</li>
-              <li>Cananda</li>
-            </ul> -->
-            <!-- <ul class="Flyer--cities-list">
-              <li>Cleveland, OH</li>
-              <li>Detroit, MI</li>
-              <li>Chicago, IL</li>
-              <li>Indianapolis, IN</li>
-              <li>Columbus, OH</li>
-              <li>Pittsburgh, PA</li>
-              <li>Baltimore, MD</li>
-              <li>Philadelphia, PA</li>
-              <li>New York, NY</li>
-              <li>Montreal, QC</li>
-            </ul> -->
             <div class="Accordian">...Flyer Details</div>
             <div class="Accordian--content">
-              <!-- <p>Date | City | Venue</p> -->
-              <!-- <p class="Flyer--dates">Dates: 04/03 - 04/12</p> -->
               <ul class="Flyer--tour-list">
                 <li><span>04/03</span> – <span>Cleveland, OH</span> – <span>Maple Grove Tavern</span></li>
                 <li><span>04/04</span> – <span>Detroit, MI</span> – <span>TBD</span></li>
@@ -101,7 +118,7 @@
                 <div class="Comment">
                     <div class="Comment--header">
                       <div class="flex-center-between">
-                        <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                        <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
                         <h3 class="Comment--handle">@killeraliens
                           <span class="Comment--isCreator">[creator]</span>
                         </h3>
@@ -153,7 +170,7 @@
                 <div class="Comment">
                   <div class="Comment--header flex-center-between">
                     <div class="flex-center-between">
-                      <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                      <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
                       <h3 class="Comment--handle">
                         @killeraliens
                         <span class="Comment--isCreator">[creator]</span>
@@ -177,7 +194,9 @@
               <p class="Flyer--dates">Dates: May 12 - May 15</p>
               <p class="Card--city-region-country-venue">
                 <i class="fa fa-map-marker"></i>
-                Mexico City, Mexico - Foro San Rafael
+                Mexico City, Mexico
+                <!-- <i class="Venue--icon fa fa-map-pin"></i> -->
+                - Foro San Rafael
               </p>
               <div class="Accordian">...Flyer Details</div>
               <div class="Accordian--content">
@@ -195,7 +214,7 @@
               <div class="Comment">
                 <div class="Comment--header">
                   <div class="flex-center-between">
-                    <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                    <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
                     <h3 class="Comment--handle">@killeraliens
                       <span class="Comment--isCreator">[creator]</span>
                     </h3>
@@ -237,7 +256,7 @@
             <div class="Comment">
               <div class="Comment--header flex-center-between">
                 <div class="flex-center-between">
-                  <img class="Comment--avatar" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                  <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
                   <h3 class="Comment--handle">
                     @killeraliens
                     <span class="Comment--isCreator">[creator]</span>
@@ -256,18 +275,30 @@
 
   <script>
     let accordian = document.getElementsByClassName('Accordian')
-
+    let dropdown = document.getElementsByClassName('Dropdown')
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener('click', function() {
+        this.classList.toggle('active');
+        let dropdownContent = this.nextElementSibling;
+        dropdownContent.style.height === "100%"
+          ? dropdownContent.style.height = "0"
+          : dropdownContent.style.height = "100%";
+      })
+    }
     for (i = 0; i < accordian.length; i++) {
       const orginalText = accordian[i].innerHTML;
       accordian[i].addEventListener("click", function() {
         this.classList.toggle('active');
         this.classList.contains('active')
-         ? this.innerHTML = "...See less"
+         ? this.innerHTML = "..."
          : this.innerHTML = orginalText
         let accordianContent = this.nextElementSibling;
-        accordianContent.style.display === "block"
-          ? accordianContent.style.display = "none"
-          : accordianContent.style.display = "block";
+        // accordianContent.style.display === "block"
+        //   ? accordianContent.style.display = "none"
+        //   : accordianContent.style.display = "block";
+        accordianContent.style.height === "100%"
+          ? accordianContent.style.height = "0"
+          : accordianContent.style.height = "100%";
       })
     }
   </script>

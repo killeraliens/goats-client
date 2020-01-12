@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="punk and metal forum">
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <title>Goat's Forum</title>
+</head>
+
+<body>
+  <div class="App">
+    <div class="Menu">
+      <div class="Menu--pal">
+        <a href="./index-home.html">
+          <div class="Menu--pal--btn">
+            <img src="./assets/pentagram-icon.svg" alt="pentagram icon">
+          </div>
+        </a>
+        <a href="./index-dashboard">
+          <div class="Menu--pal--btn">
+            <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+          </div>
+        </a>
+        <a href="./index-create-fest.html">
+          <div class="Menu--pal--btn active">
+            <span><i class="fa fa-file"></i><br />+FLIER</span>
+          </div>
+        </a>
+        <a href="./index-create-venue.html">
+          <div class="Menu--pal--btn">
+            <span><i class="fa fa-map-pin"></i><br />+VENUE</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="Main">
+      <h1 class="Main--title">Add a Flier</h1>
+      <div class="SectionNav">
+        <ul class="SectionNavLinks">
+          <li><a class="SectionNav--link active" href="./index-country-mx.html">Single Show</a></li><!--
+      --><li><a class="SectionNav--link" href="./index-country-mx.html">Tour</a></li><!--
+      --><li><a class="SectionNav--link" href="./index-country-mx.html">Festival</a></li><!--
+      --><li class="filler"></li>
+        </ul>
+      </div>
+      <form class="FlyerFestForm" action="./successful-create.html">
+        <fieldset>
+          <label for="flyer-image">Select Flier Image</label>
+          <input type="file">
+        </fieldset>
+        <fieldset>
+          <label for="headline">Headline</label>
+          <input type="text" placeholder="Fest Name">
+        </fieldset>
+        <fieldset>
+          <label for="bands-list">Bands List (separate each band with a comma ",")</label>
+          <textarea name="bands-list" id="bands-list" cols="30" rows="10"></textarea>
+        </fieldset>
+        <button type="submit">Submit</button>
+        <a href="./index.html">Cancel</a>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+    let accordian = document.getElementsByClassName('Accordian')
+
+    for (i = 0; i < accordian.length; i++) {
+      const orginalText = accordian[i].innerHTML;
+      accordian[i].addEventListener("click", function () {
+        this.classList.toggle('active');
+        this.classList.contains('active')
+          ? this.innerHTML = "..."
+          : this.innerHTML = orginalText
+        let accordianContent = this.nextElementSibling;
+        // accordianContent.style.display === "block"
+        //   ? accordianContent.style.display = "none"
+        //   : accordianContent.style.display = "block";
+        accordianContent.style.height === "100%"
+          ? accordianContent.style.height = "0"
+          : accordianContent.style.height = "100%";
+      })
+    }
+  </script>
+</body>
+
+</html>
