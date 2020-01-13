@@ -48,22 +48,77 @@
       --><li class="filler"></li>
         </ul>
       </div>
-      <form class="FlyerFestForm" action="./successful-create.html">
-        <fieldset>
-          <label for="flyer-image">Select Flier Image</label>
-          <input type="file">
-        </fieldset>
-        <fieldset>
-          <label for="headline">Headline</label>
-          <input type="text" placeholder="Fest Name">
-        </fieldset>
-        <fieldset>
-          <label for="bands-list">Bands List (separate each band with a comma ",")</label>
-          <textarea name="bands-list" id="bands-list" cols="30" rows="10"></textarea>
-        </fieldset>
-        <button type="submit">Submit</button>
-        <a href="./index.html">Cancel</a>
-      </form>
+      <div class="Main--content">
+        <form class="FlyerFestForm" action="./index-create-success.html">
+          <legend class=key>
+            <i >Required = *</i>
+          </legend>
+          <fieldset>
+            <label for="flyer-image">Select Flier Image*</label>
+            <input type="file">
+          </fieldset>
+          <fieldset>
+            <label for="headline">Headline*</label>
+            <input type="text" placeholder="Fest Name" >
+          </fieldset>
+          <fieldset>
+            <label for="bands">Bands List <br/><i class="tip">Separate list items by adding a new line.</i></label>
+            <!-- <textarea name="bands" id="bands" rows="6" placeholder="Example, ExampleB"></textarea> -->
+            <div class="textarea" name="bands" id="bands" contenteditable></div>
+          </fieldset>
+          <div class="fieldset-container">
+            <!-- <legend>Date - City, Region/Country - Venue Name</legend> -->
+            <fieldset class="date">
+              <label for="date">Date</label>
+              <input id="date" name="date" type="text" placeholder="month/day/year">
+            </fieldset>
+            <fieldset class="grow">
+              <label for="venueName">Venue Name</label>
+              <input type="text" list="venueName">
+              <datalist id="venueName" name="venueName" type="text">
+                <option value="Club Red">
+              </datalist>
+            </fieldset>
+            <div class="fieldset-container country-region">
+              <fieldset class="grow">
+                <label for="country">Country</label>
+                <select id="country" name="country" type="text">
+                  <option value="US">United States</option>
+                </select>
+              </fieldset>
+              <fieldset class="no-shrink">
+                <label for="region">Region</label>
+                <select id="region" name="region" type="text">
+                  <option value="AZ">AZ</option>
+                </select>
+              </fieldset>
+            </div>
+            <fieldset class="grow">
+              <label for="city">City</label>
+              <input id="city" name="city" type="text">
+            </fieldset>
+          </div>
+          <fieldset>
+            <label for="description">Details
+              <!-- <br />
+              <i class="tip">Create a named http link using this format: [name](link)
+                EXAMPLE: [My Bandcamp
+                Page](https://bandcamp.com/killeraliens)
+              </i> -->
+            </label>
+            <div class="textarea" name="description" id="description" contenteditable></div>
+          </fieldset>
+          <fieldset>
+            <label for="creatorComment">Publish With Comment</label>
+            <!-- <textarea
+                      name="creatorComment" id="creatorComment" rows="3" placeholder="Comment with your post."></textarea> -->
+            <div class="textarea" name="creatorComment" id="creatorComment" contenteditable></div>
+          </fieldset>
+          <button type="submit">Publish</button>
+          <a href="./index-draft-success">Save As Draft</a>
+          <a href="./index.html">Cancel</a>
+        </form>
+      </div>
     </div>
   </div>
 

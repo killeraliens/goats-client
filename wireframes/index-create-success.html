@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="punk and metal forum">
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <title>Goat's Forum</title>
+</head>
+
+<body>
+  <div class="App">
+    <div class="Menu">
+      <div class="Menu--pal">
+        <a href="./index-home.html">
+          <div class="Menu--pal--btn">
+            <img src="./assets/pentagram-icon.svg" alt="pentagram icon">
+          </div>
+        </a>
+        <a href="./index-dashboard">
+          <div class="Menu--pal--btn">
+            <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+          </div>
+        </a>
+        <a href="./index-create-fest.html">
+          <div class="Menu--pal--btn active">
+            <span><i class="fa fa-file"></i><br />+FLIER</span>
+          </div>
+        </a>
+        <a href="./index-create-venue.html">
+          <div class="Menu--pal--btn">
+            <span><i class="fa fa-map-pin"></i><br />+VENUE</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="Main">
+      <h1 class="Main--title">Add a Flier</h1>
+      <div class="SectionNav">
+        <ul class="SectionNavLinks">
+          <li><a class="SectionNav--link active" href="./index-country-mx.html">Single Show</a></li><!--
+      --><li><a class="SectionNav--link" href="./index-country-mx.html">Tour</a></li><!--
+      --><li><a class="SectionNav--link" href="./index-country-mx.html">Festival</a></li><!--
+      --><li class="filler"></li>
+        </ul>
+      </div>
+      <div class="Main--content">
+        <div class="SuccessBox">
+          <p>Your flier is now public. <a href="./index-dashboard">See it on my dashboard.</a></p>
+        </div>
+        <div class="Card Flyer-card">
+          <img class="Flyer--image"
+            src="https://scontent.fphx1-2.fna.fbcdn.net/v/t1.0-0/p640x640/81355066_10157819351678908_5649555944858714112_o.jpg?_nc_cat=100&_nc_ohc=jQo0ysQOSVoAX_BgTNG&_nc_ht=scontent.fphx1-2.fna&_nc_tp=1&oh=15ae99ced82191be89207f577600841f&oe=5E8D1851"
+            alt="Vader">
+          <div class="Card--body">
+            <div class="Card--header">
+              <div class="Flyer--icon-type Tag">Show</div>
+              <h2 class="Card--header--name">Vader</h2>
+            </div>
+            <p class="Flyer--dates">Feb 5</p>
+            <p class="Card--city-region-country-venue">
+              <i class="fa fa-map-marker"></i>
+              Mesa, AZ, United States
+              <!-- <i class="Venue--icon fa fa-map-pin"></i> -->
+              - Club Red
+            </p>
+            <div class="Accordian">...Flyer Details</div>
+            <div class="Accordian--content">
+              <p>Lineup</p>
+              <ul class="Flyer--bands-list">
+                <li>Vader</li>
+                <li>Abysmal Dawn</li>
+                <li>Dead Swarm</li>
+                <li>Vader</li>
+                <li>Hideous Divinity,</li>
+                <li>Vitriol</li>
+              </ul>
+              <p class="Card--description">
+                Wed, Feb 5, 2020, 6PM</br>
+                Club Red</br>
+                1306 W University Dr</br>
+                Mesa, AZ 85201
+              </p>
+              <!-- Everything auto gens a tag: Event[Tour], band[bandId], venue[venueId] -->
+            </div>
+          </div>
+          <div class="Comments">
+            <div class="Comment">
+              <div class="Comment--header">
+                <div class="flex-center-between">
+                  <img class="Avatar-small" src="./assets/avatar-a.jpg" alt="killeraliens avatar">
+                  <h3 class="Comment--handle">@killeraliens
+                    <span class="Comment--isCreator">[creator]</span>
+                  </h3>
+                </div>
+                <span class="Comment--modified-at">mentioned: Jan 9, 2020 - 19:53 MST</span>
+              </div>
+              <p>
+                FB page: <a href="https://www.facebook.com/events/705703199955273/?notif_t=event_friend_going&notif_id=1578426813672296">https://www.facebook.com/events/705703199955273/?notif_t=event_friend_going&notif_id=1578426813672296</a>
+              </p>
+            </div>
+            <div class="Accordian">...More Comments</div>
+            <div class="Accordian--content">
+              More Comments etc....
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    let accordian = document.getElementsByClassName('Accordian')
+
+    for (i = 0; i < accordian.length; i++) {
+      const orginalText = accordian[i].innerHTML;
+      accordian[i].addEventListener("click", function () {
+        this.classList.toggle('active');
+        this.classList.contains('active')
+          ? this.innerHTML = "..."
+          : this.innerHTML = orginalText
+        let accordianContent = this.nextElementSibling;
+        // accordianContent.style.display === "block"
+        //   ? accordianContent.style.display = "none"
+        //   : accordianContent.style.display = "block";
+        accordianContent.style.height === "100%"
+          ? accordianContent.style.height = "0"
+          : accordianContent.style.height = "100%";
+      })
+    }
+  </script>
+</body>
+
+</html>

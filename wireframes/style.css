@@ -52,6 +52,16 @@ body {
   width: 100%;
 }
 
+.Main--content {
+  margin: 24px;
+}
+
+@media (max-width: 599px) {
+  .Main--content {
+    margin: 16px;
+  }
+}
+
 .SectionNav {
   display: flex;
   justify-content: space-between;
@@ -81,8 +91,8 @@ body {
 }
 
 .SectionNav--link.active {
-  /* background-color: rgb(46, 46, 46); */
-  background-color: #2e2e2e00;
+  /* background-color: #2e2e2e00; */
+  background-color: whitesmoke;
   color: black;
 }
 
@@ -108,7 +118,7 @@ li.filler {
   right: 0px;
 }
 
-.MainNav {
+.HeaderNav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -176,7 +186,7 @@ li.filler {
   column-gap: 0;
   min-height: 100%;
   max-width: 100%;
-  margin-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 .Feed .Card {
@@ -198,9 +208,9 @@ li.filler {
 }
 
 /* Forms */
-form:not(.SearchTermForm) {
-  padding: 40px;
-
+form {
+  padding: 32px;
+  background-color: whitesmoke;
 }
 
 legend {
@@ -211,10 +221,112 @@ fieldset {
   border: 0;
   padding: 0.01em 0 0 0;
   margin: 0;
-  padding: 8px;
   margin-bottom: 16px;
-  background-color: darkgray;
   min-width: 0;
+  /* padding: 8px; */
+  /* background-color: darkgray; */
+}
+
+.SuccessBox {
+  display: flex;
+  justify-content: space-around;
+  /* text-align: center; */
+  padding: 32px;
+  background-color: green;
+  color: white;
+}
+
+/* For inline fieldshets > 599 */
+.fieldset-container {
+  display: flex;
+}
+
+.fieldset-container fieldset:not(:last-child) {
+  margin-right: 8px;
+}
+
+.tip {
+  /* margin-left: 8px; */
+  font-size: 8px;
+}
+.tip::before {
+  content: "Format Tip: "
+}
+
+fieldset.grow {
+  flex-grow: 1;
+}
+fieldset.no-shrink {
+  flex-shrink: 0;
+}
+fieldset.date {
+  width: 100px;
+}
+
+.fieldset-container.country-region {
+  flex-grow: 1;
+}
+
+.fieldset-container.country-region fieldset:last-child {
+    margin-right: 8px;
+  }
+
+@media (max-width: 599px) {
+  form {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 799px) {
+  .fieldset-container:not(.country-region) {
+    flex-direction: column;
+  }
+
+  .fieldset-container fieldset:not(:last-child) {
+    margin-right: 0px;
+  }
+
+  .fieldset-container.country-region fieldset:first-child {
+    flex-grow: 2;
+    margin-right: 8px;
+  }
+
+  .fieldset-container.country-region fieldset:last-child {
+    flex-grow: 1;
+    margin-right: 0px;
+  }
+
+  fieldset.grow {
+    flex-grow: 0;
+  }
+  fieldset.no-shrink {
+    flex-shrink: 0;
+  }
+  fieldset.date {
+    width: inherit;
+  }
+}
+
+
+
+legend, label {
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+legend.key {
+  margin-bottom: 16px;
+}
+
+fieldset * {
+  width: 100%;
+}
+
+div.textarea {
+  border: ridge 2px;
+  /* padding: 5px; */
+  min-height: 5em;
+  overflow: auto;
 }
 
 body:not(:-moz-handler-blocked) fieldset {
@@ -223,6 +335,12 @@ body:not(:-moz-handler-blocked) fieldset {
 
 label {
   display: block;
+}
+
+input[type=text], input[type=datalist], div.textarea {
+  background-color: white;
+  border: solid 1px lightgrey;
+  padding: 8px;
 }
 
 h1, h2 {
@@ -324,6 +442,12 @@ a:hover {
 /* Flyer */
 .Flyer--image {
   width: 100%;
+}
+
+.Flyer--dates::before {
+  font-family: "FontAwesome";
+  content: '\f133';
+  margin-right: 4px;
 }
 
 .Avatar-small {
