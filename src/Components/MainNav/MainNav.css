@@ -1,0 +1,16 @@
+.MainNav {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 1px;
+}
+
+.MainNav--links li {
+  display: inline;
+}
+
+.MainNav--links {
+  padding-left: 0;
+  margin: 0;
+  width: 100%;
+}
