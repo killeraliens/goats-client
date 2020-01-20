@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
 import ValidationError from '../ValidationError/ValidationError';
-import config from '../../config';
-import AppContext from '../../AppContext'
+import config from '../../../config';
+import AppContext from '../../../AppContext'
 
 class SignUpForm extends Component {
 

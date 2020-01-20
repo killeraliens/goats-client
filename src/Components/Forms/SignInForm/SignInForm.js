@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import config from '../../config'
+import config from '../../../config'
 import { Link, withRouter } from 'react-router-dom';
 import ValidationError  from '../ValidationError/ValidationError'
-import AppContext from '../../AppContext'
+import AppContext from '../../../AppContext'
 
 function SignInForm(props) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
@@ -22,6 +22,7 @@ function SignInForm(props) {
 
   useEffect(() => {
     updateValidationErrors()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serverError])
 
   useEffect(() => {
