@@ -1,41 +1,28 @@
+
+body * {
+    box-sizing: border-box;
+    /* -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;  */
+}
+
+body {
+  font-family: 'Heebo', 'Arial';
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+  background-color: dimgrey;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  font-size: 12px;
+}
+
 .App {
-  display: grid;
-  grid-template-columns: 2fr 1fr ;
-  grid-template-rows: auto auto 1fr;
-  grid-template-areas: 'nav narrator' 'nav narrator' 'main main';
-  min-height: 100vh;
-}
-
-.App > * {
-  padding: 20px;
-}
-
-.App * {
-  box-sizing: border-box;
-}
-
-.App > nav {
-  grid-area: nav;
-  background-color: coral;
-}
-
-.App > main {
-  grid-area: main;
-  background-color: beige;
-
-}
-
-.App > .router-data {
-  grid-area: narrator;
-  background-color: black;
-  color: white;
-}
-
-.App form label {
-  display: block;
-}
-
-.App form legend {
-  font-size: 22px;
-  font-weight: bold;
+  display: flex;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
 }

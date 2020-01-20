@@ -22,6 +22,7 @@ function SignInForm(props) {
 
   useEffect(() => {
     updateValidationErrors()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serverError])
 
   useEffect(() => {

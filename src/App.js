@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
-import ProfilePg from './Components/ProfilePg'
-import SignUpForm from './Components/Forms/SignUpForm/SignUpForm'
-import SignInForm from './Components/Forms/SignInForm/SignInForm'
-import PrivateRoute from './Components/PrivateRoute'
+
+import Landing from './Components/Landing/Landing'
+
+
 
 
 
@@ -14,7 +14,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      events: [],
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null
     }
@@ -36,26 +35,24 @@ class App extends Component {
     return body
   }
 
-  async componentDidMount () {
-    // console.log('THIS STATE',this.state)
-    //console.log('THIS LOCAL', localStorage)
-    this.fetchApiData('event')
-      .then(events => {
-        this.setState({ events })
-      })
-      .catch(err => {
-        console.log('Error on fetch events', err)
-      })
+  // async componentDidMount () {
+  //   // console.log('THIS STATE',this.state)
+  //   //console.log('THIS LOCAL', localStorage)
+  //   this.fetchApiData('event')
+  //     .then(events => {
+  //       this.setState({ events })
+  //     })
+  //     .catch(err => {
+  //       console.log('Error on fetch events', err)
+  //     })
 
-  }
+  // }
 
-
-
-  addEvent = (newEvent) => {
-    console.log('adding new event to state', newEvent)
-    const events = [...this.state.events, newEvent]
-    this.setState({ events })
-  }
+  // addEvent = (newEvent) => {
+  //   console.log('adding new event to state', newEvent)
+  //   const events = [...this.state.events, newEvent]
+  //   this.setState({ events })
+  // }
 
   updateAuthenticated = (user) => {
     this.setState({
@@ -71,8 +68,6 @@ class App extends Component {
 
   render() {
     const context = {
-      events: this.state.events,
-      addEvent: this.addEvent,
       user: this.state.user,
       updateAuthenticated: this.updateAuthenticated
     }
@@ -80,11 +75,12 @@ class App extends Component {
     const LoginOrLogoutLink = this.state.user //&& this.state.user
       ? <button onClick={this.destroyCurrentLoginState}>Logout</button> //send request to api / followup w context this.destroyCurrentLoginState() {}
       : <NavLink to='/signin'>Sign In</NavLink>
+
     return(
       <div className="App">
         <AppContext.Provider value={context}>
-          <div className="router-data">{this.state.data}</div>
-          <nav>
+          <Landing />
+          {/* <nav>
             <NavLink to='/'>Events</NavLink>{<br/>}
             <NavLink to='/add-event'>Add Event</NavLink>{<br/>}
             {LoginOrLogoutLink}
@@ -95,7 +91,7 @@ class App extends Component {
               <Route path="/signin" component={SignInForm}/>
               <Route path="/signup" component={SignUpForm}/>
             </Switch>
-          </main>
+          </main> */}
         </ AppContext.Provider >
       </div>
     )
