@@ -3,14 +3,10 @@ import { Route, Switch, NavLink } from 'react-router-dom';
 import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
-import AddEventPg from './AddEventPg'
-import ListPg from './ListPg'
-import ProfilePg from './ProfilePg'
-import SignUpForm from './Forms/SignUpForm/SignUpForm'
-// import LoginFB from './LoginFB'
-import SignInForm from './Forms/SignInForm/SignInForm'
-import PrivateRoute from './PrivateRoute'
-//browser local storage api
+import ProfilePg from './Components/ProfilePg'
+import SignUpForm from './Components/Forms/SignUpForm/SignUpForm'
+import SignInForm from './Components/Forms/SignInForm/SignInForm'
+import PrivateRoute from './Components/PrivateRoute'
 
 
 
@@ -19,8 +15,6 @@ class App extends Component {
     super();
     this.state = {
       events: [],
-      // countries: [],
-      // data: null,
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null
     }
@@ -97,12 +91,9 @@ class App extends Component {
           </nav>
           <main>
             <Switch>
-              <Route exact path="/" component={ListPg}/>
-              <PrivateRoute path="/add-event" component={AddEventPg}/>
               <Route path={`/profile/:user_id`} component={ProfilePg} />
               <Route path="/signin" component={SignInForm}/>
               <Route path="/signup" component={SignUpForm}/>
-
             </Switch>
           </main>
         </ AppContext.Provider >

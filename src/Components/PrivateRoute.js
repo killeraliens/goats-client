@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import AppContext from './AppContext'
+import AppContext from '../AppContext'
 
 
 class PrivateRoute extends Component {
