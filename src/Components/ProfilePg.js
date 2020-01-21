@@ -10,7 +10,7 @@ export default function ProfilePg(props) {
   //const user = context.users.find(user => user.id == props.match.params.userId) || {};
   //console.log("PROFILE CONTEXT", context.user)
 
-  if (context.user && context.user.id === paramsId) {
+  if (context.user && context.user.id == paramsId) {
     return(<div>
       User{context.user.username} is logged in
     </div>)

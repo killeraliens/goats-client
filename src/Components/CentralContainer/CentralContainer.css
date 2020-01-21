@@ -1,0 +1,20 @@
+.CentralContainer {
+  margin: 0 16px;
+  margin-top: 16px;
+  margin-bottom: 80px;
+  max-width: 400px;
+  padding: 32px;
+  background-color: whitesmoke;
+}
+
+.CentralContainer section:not(:last-child) {
+  margin-bottom: 32px;
+}
+
+@media (min-width: 399px) {
+  .CentralContainer {
+    margin: 0 auto;
+    margin-top: 16px;
+    margin-bottom: 40px;
+  }
+}

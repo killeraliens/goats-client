@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
 import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
-
+import PrivateRoute from './Components/PrivateRoute'
+import ProfilePg from './Components/ProfilePg'
 import Landing from './Components/Landing/Landing'
 
 
@@ -79,18 +80,23 @@ class App extends Component {
     return(
       <div className="App">
         <AppContext.Provider value={context}>
-          <Landing />
+          {/* <Landing /> */}
+          <Switch>
+            <Route exact path="/landing/:action" component={Landing}/>
+            <PrivateRoute path={`/profile/:user_id`} component={ProfilePg} />
+            <PrivateRoute path={`/forum`} component={ProfilePg} />
+          </Switch>
           {/* <nav>
             <NavLink to='/'>Events</NavLink>{<br/>}
             <NavLink to='/add-event'>Add Event</NavLink>{<br/>}
             {LoginOrLogoutLink}
           </nav>
+          <Switch>
+            <Route path={`/profile/:user_id`} component={ProfilePg} />
+            <Route path="/signin" component={SignInForm}/>
+            <Route path="/signup" component={SignUpForm}/>
+          </Switch>
           <main>
-            <Switch>
-              <Route path={`/profile/:user_id`} component={ProfilePg} />
-              <Route path="/signin" component={SignInForm}/>
-              <Route path="/signup" component={SignUpForm}/>
-            </Switch>
           </main> */}
         </ AppContext.Provider >
       </div>

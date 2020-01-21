@@ -1,0 +1,61 @@
+/* .Main--content form:not(.header-form) { */
+form:not(.SignInForm, .SignUpForm) {
+  padding: 32px;
+  background-color: whitesmoke;
+  max-width: 600px;
+}
+
+
+
+form.header-form {
+  background-color: rgb(46, 46, 46);
+  color: white;
+  max-width: 100%;
+  padding: 16px;
+  padding-top: 54px;
+}
+
+
+
+form.header-form input {
+  color: black;
+}
+
+legend {
+  padding: 0;
+  display: table;
+}
+fieldset {
+  border: 0;
+  padding: 0.01em 0 0 0;
+  margin: 0;
+  margin-bottom: 16px;
+  min-width: 0;
+}
+
+legend, label {
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+fieldset * {
+  width: 100%;
+}
+
+body:not(:-moz-handler-blocked) fieldset {
+  display: table-cell;
+}
+
+label {
+  display: inline-block;
+}
+
+input[type=text], input[type=datalist], input[type=password], input[type=email], div.textarea {
+  background-color: white;
+  border: solid 1px lightgrey;
+  padding: 8px;
+}
+
+.form-controls button {
+  margin-right: 8px;
+}
