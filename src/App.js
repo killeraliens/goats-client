@@ -5,7 +5,9 @@ import config from './config.js'
 import AppContext from './AppContext'
 import PrivateRoute from './Components/PrivateRoute'
 import ProfilePg from './Components/ProfilePg'
+import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
+import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 
 
 
@@ -82,9 +84,13 @@ class App extends Component {
         <AppContext.Provider value={context}>
           {/* <Landing /> */}
           <Switch>
-            <Route exact path="/landing/:action" component={Landing}/>
-            <PrivateRoute path={`/profile/:user_id`} component={ProfilePg} />
-            <PrivateRoute path={`/forum`} component={ProfilePg} />
+            <Route exact path="/public/:action" component={Landing}/>
+            <PrivateRoute path={`/dashboard/:user_id`} render={props =>
+              <AuthedSplit mainComponent={<ProfilePg />} />
+            } />
+            <PrivateRoute path={`/forum`} render={props =>
+              <AuthedSplit mainComponent={<Forum />} />
+            } />
           </Switch>
           {/* <nav>
             <NavLink to='/'>Events</NavLink>{<br/>}

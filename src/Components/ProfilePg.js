@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import AppContext from '../AppContext';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 
-export default function ProfilePg(props) {
+function ProfilePg(props) {
   const context = useContext(AppContext)
   const paramsId = props.match.params.user_id
   console.log("Page ID", paramsId)
@@ -38,3 +39,5 @@ ProfilePg.propTypes = {
     id: PropTypes.string
   })
 }
+
+export default withRouter(ProfilePg)

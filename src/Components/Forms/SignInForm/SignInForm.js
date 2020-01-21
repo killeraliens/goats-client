@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import config from '../../../config'
+import PropTypes from 'prop-types';
+import config from '../../../config';
 import { Link, withRouter } from 'react-router-dom';
 import ValidationError  from '../ValidationError/ValidationError';
 import CentralContainer from '../../CentralContainer/CentralContainer';
@@ -85,7 +86,7 @@ function SignInForm(props) {
       resetForm()
       let user = body.token ? body : null
       context.updateAuthenticated(user)
-      props.history.push(`/profile/${user.id}`)
+      props.history.push(`/dashboard/${user.id}`)
     }
   }
 
@@ -131,11 +132,17 @@ function SignInForm(props) {
         </fieldset>
         <div className="form-controls">
           <button type="submit" disabled={username.error || password.error}>submit</button>
-          <Link to="/signup">New Account</Link>
+          <Link to="/public/signup">New Account</Link>
         </div>
       </form>
     </CentralContainer>
   );
+}
+
+SignInForm.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired
 }
 
 export default withRouter(SignInForm);

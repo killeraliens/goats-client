@@ -18,20 +18,20 @@ export default function Landing(props) {
       </MainHeader>
       <MainHeaderNav
         links={[
-          <MainNavLink to="/signin">Sign In</MainNavLink>
+          <MainNavLink to="/public/signin">Sign In</MainNavLink>
         ]}
       />
       <MainNav
         links={[
-          <MainNavLink to="/intro">Intro</MainNavLink>,
-          <MainNavLink to="/about">About</MainNavLink>
+          <MainNavLink to="/public/intro">Intro</MainNavLink>,
+          <MainNavLink to="/public/about">About</MainNavLink>
         ]}
       />
       <Switch>
-        <Route exact path="/intro" component={Intro} />
-        <Route path="/about" component={About} />
-        <Route path="/signin" component={SignInForm} />
-        <Route path="/signup" component={SignUpForm} />
+        <Route exact path="/public/intro" component={Intro} />
+        <Route path="/public/about" component={About} />
+        <Route path="/public/signin" component={SignInForm} />
+        <Route path="/public/signup" component={SignUpForm} />
       </Switch>
     </div>
   )

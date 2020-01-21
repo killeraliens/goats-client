@@ -48,8 +48,9 @@ class SignUpForm extends Component {
       .then(newUser => {
         this.resetForm()
         this.context.updateAuthenticated(true, newUser)
-        this.props.history.push(`/forum`)
+        //this.props.history.push(`/forum`)
         //this.props.history.push(`/profile/${newUser.id}`)
+        this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {
         console.log('SignUpForm form error', error)
@@ -191,7 +192,7 @@ class SignUpForm extends Component {
           <div className="form-controls">
             <button type="submit" disabled={(this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Sign Up</button>
             <button type="reset" onClick={this.resetForm}>Cancel</button>
-            <Link to="/signin">back to sign in</Link>
+            <Link to="/public/signin">back to sign in</Link>
           </div>
         </form>
 
