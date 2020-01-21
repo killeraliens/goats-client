@@ -27,11 +27,13 @@ export default function Menu(props) {
                 </div> */}
               </div>
             </NavLink>
-            <a href="./index-create-fest.html">
+            <NavLink to="/create-flyer">
               <div className="Menu--pal--btn">
                 <span><i className="fa fa-file"></i><br />+FLIER</span>
               </div>
-            </a>
+            </NavLink>
+            {/* <a href="./index-create-fest.html">
+            </a> */}
 
           </div>
     </div>
