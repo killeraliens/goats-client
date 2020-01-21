@@ -16,22 +16,25 @@ function ProfilePg(props) {
     //   User{context.user.username} is logged in
     // </div>)
     return(
-      <MainHeader heightClass="dbl-height">
-        <div className="dashboard-header-container avatar-section ">
-          <div className="flex-center-between">
-              {/* <div className="Main--avatar" style="
-                background: url(./assets/avatar-a.jpg) no-repeat center center;
-                background-size: cover;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-              ">
-              </div> */}
-              <h1 className="Main--header--title username">killeraliens</h1>
-          </div>
+      <div className="ProfilePg">
+        <MainHeader heightClass="dbl-height">
+          <div className="dashboard-header-container avatar-section ">
+            <div className="flex-center-between">
+                {/* <div className="Main--avatar" style="
+                  background: url(./assets/avatar-a.jpg) no-repeat center center;
+                  background-size: cover;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;
+                ">
+                </div> */}
+                <h1 className="Main--header--title username">killeraliens</h1>
+            </div>
 
-        </div>
-      </MainHeader>
+          </div>
+        </MainHeader>
+
+      </div>
     )
   }
   return (
@@ -58,4 +61,5 @@ ProfilePg.propTypes = {
   })
 }
 
-export default withRouter(ProfilePg)
+//export default withRouter(ProfilePg)
+export default ProfilePg

@@ -7,10 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFile } from '@fortawesome/free-solid-svg-icons'
 import './Menu.css'
 
-export default function Menu(props) {
+export default function Menu() {
   const context = useContext(AppContext)
   let avatarImage = context.user.image_url ? context.user.image_url : defaultAvatar
-  //console.log(context.user)
   return (
     <div className="Menu">
       <div className="Menu--pal">

@@ -82,11 +82,10 @@ class App extends Component {
     return(
       <div className="App">
         <AppContext.Provider value={context}>
-          {/* <Landing /> */}
           <Switch>
             <Route exact path="/public/:action" component={Landing}/>
             <PrivateRoute path={`/dashboard/:user_id`} render={props =>
-              <AuthedSplit mainComponent={<ProfilePg />} />
+              <AuthedSplit mainComponent={<ProfilePg {...props}/>} />
             } />
             <PrivateRoute path={`/forum`} render={props =>
               <AuthedSplit mainComponent={<Forum />} />

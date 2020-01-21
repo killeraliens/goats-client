@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Forum from '../Forum/Forum';
 import Menu from '../Menu/Menu';
+import Main from '../Main/Main';
 import './AuthedSplit.css';
 
 export default function AuthedSplit(props) {
   return(
     <div className="AuthedSplit">
       <Menu />
-      <div className="Main">
-        {props.mainComponent}
-      </div>
+      <Main component={props.mainComponent} />
     </div>
   )
 }
@@ -20,5 +19,5 @@ AuthedSplit.defaultProps = {
 }
 
 AuthedSplit.propTypes = {
-  mainComponent: PropTypes.object
+  mainComponent: PropTypes.element
 }
