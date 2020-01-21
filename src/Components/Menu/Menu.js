@@ -1,41 +1,33 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppContext from '../../AppContext';
+import defaultAvatar from '../../assets/default-avatar.jpg'
+import pentagram from '../../assets/pentagram-icon.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
 import './Menu.css'
 
 export default function Menu(props) {
   const context = useContext(AppContext)
+  let avatarImage = context.user.image_url ? context.user.image_url : defaultAvatar
+  //console.log(context.user)
   return (
     <div className="Menu">
-        <div className="Menu--pal">
-            <NavLink to="/forum">
-              <div className="Menu--pal--btn">
-                {/* <img src="./assets/pentagram-icon.svg" alt="pentagram icon"/> */}
-              </div>
-            </NavLink>
-            <NavLink to={`/dashboard/${context.user.id}`}>
-              <div className="Menu--pal--btn">
-                {/* <div
-                  className="Avatar-small"
-                  style="
-                    background: url(./assets/avatar-a.jpg) no-repeat center center;
-                      background-size: cover;
-                      -webkit-background-size: cover;
-                      -moz-background-size: cover;
-                      -o-background-size: cover;
-                    ">
-                </div> */}
-              </div>
-            </NavLink>
-            <NavLink to="/create-flyer">
-              <div className="Menu--pal--btn">
-                <span><i className="fa fa-file"></i><br />+FLIER</span>
-              </div>
-            </NavLink>
-            {/* <a href="./index-create-fest.html">
-            </a> */}
-
-          </div>
+      <div className="Menu--pal">
+        <NavLink to="/forum" className="Menu--pal--btn">
+          <img src={pentagram} alt="pentagram icon"/>
+        </NavLink>
+        <NavLink to={`/dashboard/${context.user.id}`} className="Menu--pal--btn">
+          <img className="Avatar-small" src={avatarImage} alt="avatar link"/>
+        </NavLink>
+        <NavLink to="/create-flyer" className="Menu--pal--btn">
+          <span>
+            <FontAwesomeIcon className="i" icon={faFile} />
+            <br />
+            +FLIER
+          </span>
+        </NavLink>
+      </div>
     </div>
   )
 }

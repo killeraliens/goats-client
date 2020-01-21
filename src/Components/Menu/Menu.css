@@ -25,10 +25,11 @@
 
 
 
-.Menu--pal--btn i {
+.Menu--pal--btn .i {
   font-size: 22px;
   margin: 4px;
 }
+
 
 
 @media (max-width: 399px) {
@@ -41,4 +42,18 @@
     width:100%;
   }
 
+}
+
+.Avatar-small {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.Avatar-small {
+  background: no-repeat center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
