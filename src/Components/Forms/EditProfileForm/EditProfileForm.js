@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppContext from '../../../AppContext';
 import Avatar from '../../Avatar/Avatar';
@@ -8,7 +8,15 @@ import CountryRegionFormGroup from '../CountryCityMenu/CountryRegionFormGroup'
 
 
 function EditProfileForm() {
+  const [countryName, setCountryName] = useState({ value: ''})
+  const [regionName, setRegionName] = useState({ value: ''})
   const context = useContext(AppContext)
+
+  const updateCountryRegion = ({ countryName, regionName }) => {
+    setCountryName(countryName)
+    setRegionName(regionName)
+    // console.log(`Updated country ${countryName.value}, region ${regionName.value}`)
+  }
   return(
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form">
@@ -38,14 +46,8 @@ function EditProfileForm() {
         </fieldset>
         <div className="fieldset-container">
           <div className="fieldset-container sub-group">
-            {/* <CountrySelector /> */}
-            {/* <fieldset className="no-shrink">
-              <label htmlFor="region">Region</label>
-              <select id="region" name="region" type="text">
-                <option value="AZ">AZ</option>
-              </select>
-            </fieldset> */}
-            <CountryRegionFormGroup />
+            <p>{countryName + ', ' + regionName}</p>
+            <CountryRegionFormGroup updateCountryRegion={updateCountryRegion}/>
           </div>
           <fieldset className="grow">
             <label htmlFor="city">City</label>

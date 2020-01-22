@@ -1,39 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import config from '../../../config'
 let provinces = require('provinces')
 
 function RegionSelector(props) {
   const [regions, setRegions] = useState([])
-  // const [loading, setLoading] = useState(true)
+  const [regionName, setRegionName] = useState('')
+
   useEffect(() => {
+    // console.log('props country code changed', props.countryCode)
     const updateRegions = () => {
       const regions = provinces.filter(row => row.country == props.countryCode)
       setRegions(regions)
-      // setLoading(false)
     }
+    const clearField = () => {
+      setRegionName('')
+    }
+    clearField()
     updateRegions()
   }, [props.countryCode])
 
-  // if (loading) {
-  //   return <p>Finding Regions...</p>
-  // }
-  if (!props.countryCode) {
+  useEffect(() => {
+    props.updateRegionName(regionName)
+  }, [regionName])
+
+  const handleChange = (e) => {
+    setRegionName(e.target.value)
+  }
+
+  if (!props.countryCode || regions.length === 0) {
+    console.log(props.country)
     return null
   }
 
   return(
     <fieldset className="grow">
       <label htmlFor="region">State/Province</label>
-      <select id="region" name="region" type="text">
-        <option value="None">--</option>
+      <select
+        id="region"
+        name="region"
+        type="text"
+        onChange={handleChange}
+        value={regionName}
+      >
+        <option value="">--</option>
         {regions.map(region => {
-          return <option
-            key={region.name}
-            value={!region.short ? region.name : region.short}>
+          return(
+            <option
+              key={region.name}
+              value={!region.short ? region.name : region.short}>
               {!region.short ? region.name : region.short}
             </option>
+          )
         })}
       </select>
     </fieldset>
@@ -41,11 +58,15 @@ function RegionSelector(props) {
 }
 
 RegionSelector.defaultProps = {
-  countryCode: '--'
+  country: { code: '', name: '' }
 }
 
 RegionSelector.propTypes = {
-  countryCode: PropTypes.string
+  country: PropTypes.shape({
+    code: PropTypes.string,
+    name: PropTypes.string
+  }),
+  updateRegionName: PropTypes.func
 }
 
 export default RegionSelector;

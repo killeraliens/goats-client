@@ -5,6 +5,7 @@ import config from '../../../config'
 
 function CountrySelector(props) {
   const [data, setData] = useState({ countries: [] })
+  const [selectedCountry, setSelectedCountry] = useState({ code: '', name: ''})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -18,8 +19,16 @@ function CountrySelector(props) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    props.updateCountryCode(selectedCountry)
+  }, [selectedCountry])
+
   const handleChange = (e) => {
-    props.updateCountryCode(e.target.value)
+    setSelectedCountry({
+      code: e.target.value,
+      name: e.target.options[e.target.selectedIndex].text
+    })
+    // console.log(e.target.options[e.target.selectedIndex].text)
   }
 
   if (loading) {
@@ -28,7 +37,13 @@ function CountrySelector(props) {
   return(
     <fieldset className="grow">
       <label htmlFor="country">Select A Country</label>
-      <select id="country" name="country" type="text" onChange={handleChange}>
+      <select
+        id="country"
+        name="country"
+        type="text"
+        onChange={handleChange}
+        value={selectedCountry.code}
+      >
         <option value="None">Select Country</option>
         {data.countries.map(({ country_name, country_code }) => {
           return <option key={country_code} value={country_code}>{country_name}</option>
