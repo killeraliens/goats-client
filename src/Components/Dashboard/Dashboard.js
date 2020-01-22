@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import AppContext from '../AppContext';
+import AppContext from '../../AppContext';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import MainHeader from './MainHeader/MainHeader'
+import MainHeader from '../MainHeader/MainHeader'
 
-function ProfilePg(props) {
+function Dashboard(props) {
   const context = useContext(AppContext)
   const paramsId = props.match.params.user_id
   console.log("Page ID", paramsId)
@@ -16,18 +16,21 @@ function ProfilePg(props) {
     //   User{context.user.username} is logged in
     // </div>)
     return(
-      <div className="ProfilePg">
+      <div className="Dashboard">
         <MainHeader heightClass="dbl-height">
           <div className="dashboard-header-container avatar-section ">
             <div className="flex-center-between">
-                {/* <div className="Main--avatar" style="
-                  background: url(./assets/avatar-a.jpg) no-repeat center center;
-                  background-size: cover;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;
-                ">
-                </div> */}
+                <div
+                className="Main--avatar"
+                // style="
+                //   background: url(./assets/avatar-a.jpg) no-repeat center center;
+                //   background-size: cover;
+                //   -webkit-background-size: cover;
+                //   -moz-background-size: cover;
+                //   -o-background-size: cover;
+                // ">
+                >
+                </div>
                 <h1 className="Main--header--title username">killeraliens</h1>
             </div>
 
@@ -44,22 +47,22 @@ function ProfilePg(props) {
   )
 }
 
-ProfilePg.defaultProps = {
+Dashboard.defaultProps = {
   match: { params: {} },
   user: {}
 }
 
-ProfilePg.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
+Dashboard.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
   }),
   user: PropTypes.shape({
-    id: PropTypes.string
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   })
 }
 
-//export default withRouter(ProfilePg)
-export default ProfilePg
+//export default withRouter(Dashboard)
+export default Dashboard

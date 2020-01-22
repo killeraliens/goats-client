@@ -4,7 +4,7 @@ import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
 import PrivateRoute from './Components/PrivateRoute'
-import ProfilePg from './Components/ProfilePg'
+import Dashboard from './Components/Dashboard/Dashboard'
 import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
@@ -85,27 +85,15 @@ class App extends Component {
           <Switch>
             <Route exact path="/public/:action" component={Landing}/>
             <PrivateRoute path={`/dashboard/:user_id`} render={props =>
-              <AuthedSplit mainComponent={<ProfilePg {...props}/>} />
+              <AuthedSplit mainComponent={<Dashboard {...props}/>} />
             } />
             <PrivateRoute path={`/forum`} render={props =>
-              <AuthedSplit mainComponent={<Forum />} />
+              <AuthedSplit mainComponent={<Forum {...props}/>} />
             } />
             <PrivateRoute path={`/create-flyer`} render={props =>
-              <AuthedSplit mainComponent={<CreateFlyer />} />
+              <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
           </Switch>
-          {/* <nav>
-            <NavLink to='/'>Events</NavLink>{<br/>}
-            <NavLink to='/add-event'>Add Event</NavLink>{<br/>}
-            {LoginOrLogoutLink}
-          </nav>
-          <Switch>
-            <Route path={`/profile/:user_id`} component={ProfilePg} />
-            <Route path="/signin" component={SignInForm}/>
-            <Route path="/signup" component={SignUpForm}/>
-          </Switch>
-          <main>
-          </main> */}
         </ AppContext.Provider >
       </div>
     )

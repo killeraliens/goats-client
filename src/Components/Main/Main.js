@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CreateFlyer from '../CreateFlyer/CreateFlyer';
-import ProfilePg from '../ProfilePg';
+import Dashboard from '../Dashboard/Dashboard';
 import Forum from '../Forum/Forum';
 
 
@@ -16,16 +16,16 @@ export default function Main(props) {
 
 Main.propTypes = {
   // component: PropTypes.oneOf([
-  //   // PropTypes.instanceOf(ProfilePg),
+  //   // PropTypes.instanceOf(Dashboard),
   //   // PropTypes.instanceOf(Forum),
   //   // PropTypes.instanceOf(CreateFlyer),
-  //   <ProfilePg />,
+  //   <Dashboard />,
   //   <Forum />,
   //   <CreateFlyer />
   // ])
   // component: PropTypes.element
   component: PropTypes.objectOf(function(propValue, key, componentName, location, propFullName) {
-    if (!["ProfilePg", "Forum", "CreateFlyer"].includes(propValue.type.name) ) {
+    if (!["Dashboard", "Forum", "CreateFlyer"].includes(propValue.type.name) ) {
       return new Error(`OOPS NOT RIGHT ${propValue.type.name}`)
     }
   })
