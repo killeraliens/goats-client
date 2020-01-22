@@ -4,7 +4,7 @@ import AppContext from '../../../AppContext';
 import Avatar from '../../Avatar/Avatar';
 import './EditProfileForm.css';
 import '../Forms.css';
-import defaultAvatar from '../../../assets/default-avatar.jpg'
+import CountryRegionFormGroup from '../CountryCityMenu/CountryRegionFormGroup'
 
 
 function EditProfileForm() {
@@ -38,18 +38,14 @@ function EditProfileForm() {
         </fieldset>
         <div className="fieldset-container">
           <div className="fieldset-container sub-group">
-            <fieldset className="grow">
-              <label htmlFor="country">Country</label>
-              <select id="country" name="country" type="text">
-                <option value="US">United States</option>
-              </select>
-            </fieldset>
-            <fieldset className="no-shrink">
+            {/* <CountrySelector /> */}
+            {/* <fieldset className="no-shrink">
               <label htmlFor="region">Region</label>
               <select id="region" name="region" type="text">
                 <option value="AZ">AZ</option>
               </select>
-            </fieldset>
+            </fieldset> */}
+            <CountryRegionFormGroup />
           </div>
           <fieldset className="grow">
             <label htmlFor="city">City</label>

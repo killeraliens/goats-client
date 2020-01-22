@@ -220,3 +220,24 @@ div.textarea {
   min-height: 5em;
   overflow: auto;
 }
+
+/* Temp placement until component made */
+.ImageFileButton {
+  width: fit-content;
+}
+
+.ImageFileButton * {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ImageFileButton > label > div > span {
+  color: white;
+  /* text-align: center; */
+  justify-content: center;
+  font-size: 10px;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(175deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .5));
+}

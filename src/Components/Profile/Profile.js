@@ -19,7 +19,6 @@ export default function Profile(props) {
               imgUrl={context.user.imgUrl}
               username={context.user.username}
             />
-
             <h1 className="Main--header--title username">{context.user.username}</h1>
           </div>
         </div>
