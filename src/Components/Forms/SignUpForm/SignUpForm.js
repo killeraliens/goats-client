@@ -50,7 +50,7 @@ class SignUpForm extends Component {
         this.context.updateAuthenticated(true, newUser)
         //this.props.history.push(`/forum`)
         //this.props.history.push(`/profile/${newUser.id}`)
-        this.props.history.push(`/dashboard/${newUser.id}`)
+        this.props.history.push(`/dashboard/${newUser.username}`)
       })
       .catch(error => {
         console.log('SignUpForm form error', error)

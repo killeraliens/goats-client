@@ -11,12 +11,11 @@ class PrivateRoute extends Component {
     const { Path, component: Component, render: RenderComp, history, ...restProps } = this.props;
     //how do I send this message to the root apps state on Redirect?
     //const message ='You must be logged in';
-
     return this.context.user && Component
       ? <Route path={Path} component={Component} {...restProps}/>
       : this.context.user && RenderComp
       ? <Route path={Path} render={RenderComp} {...restProps}/>
-      : <Redirect to='/signin'/>
+      : <Redirect to='/public/signin'/>
 
   }
 }

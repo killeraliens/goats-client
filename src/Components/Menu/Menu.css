@@ -44,16 +44,3 @@
 
 }
 
-.Avatar-small {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-
-.Avatar-small {
-  background: no-repeat center center;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-}

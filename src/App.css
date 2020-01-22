@@ -68,3 +68,6 @@ ul li {
   justify-content: space-between;
 }
 
+.username::before {
+  content: '@';
+}

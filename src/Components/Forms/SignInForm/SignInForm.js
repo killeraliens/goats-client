@@ -142,7 +142,7 @@ function SignInForm(props) {
 SignInForm.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-  }).isRequired
+  })
 }
 
 export default withRouter(SignInForm);

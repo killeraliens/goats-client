@@ -1,0 +1,27 @@
+
+.Avatar-small {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.Avatar-small {
+  background: no-repeat center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.Main--avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.Main--avatar.edit {
+  /* border-radius: 0; */
+  /* width: 60px;
+  height: 60px; */
+}

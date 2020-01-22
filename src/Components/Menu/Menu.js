@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import defaultAvatar from '../../assets/default-avatar.jpg'
+import Avatar from '../Avatar/Avatar'
 import pentagram from '../../assets/pentagram-icon.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFile } from '@fortawesome/free-solid-svg-icons'
@@ -17,7 +18,11 @@ export default function Menu() {
           <img src={pentagram} alt="pentagram icon"/>
         </NavLink>
         <NavLink to={`/dashboard/${context.user.id}`} className="Menu--pal--btn">
-          <img className="Avatar-small" src={avatarImage} alt="avatar link"/>
+          <Avatar
+            className="Avatar-small"
+            imageUrl={avatarImage}
+            username={context.user.username}
+            />
         </NavLink>
         <NavLink to="/create-flyer" className="Menu--pal--btn">
           <span>

@@ -18,5 +18,5 @@ MainHeaderNav.defaultProps = {
 }
 
 MainHeaderNav.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.object)
+  links: PropTypes.arrayOf(PropTypes.element)
 }
