@@ -1,14 +1,12 @@
 .MainHeaderNav {
-  position: relative;
+  /* position: relative;
   top: -133px;
-  height: 0;
-}
-
-.MainHeaderNav.edit {
+  height: 0; */
   position: absolute;
   top: 1px;
   right: 1px;
 }
+
 
 .MainHeaderNav--links {
   display: flex;

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import AppContext from '../../AppContext';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import SignOutLink from '../SignOutLink/SignOutLink';
 import Avatar from '../Avatar/Avatar';
+import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
+import Profile from '../Profile/Profile';
 import './Dashboard.css'
 
 function Dashboard(props) {
@@ -23,23 +25,17 @@ function Dashboard(props) {
 
     return(
       <div className="Dashboard">
-        <MainHeader heightClass="dbl-height">
-          <div className="dashboard-header-container avatar-section ">
-            <div className="flex-center-between">
-              <Avatar
-                className="Main--avatar"
-                imgUrl={context.user.imgUrl}
-                username={context.user.username}
-                />
-                <h1 className="Main--header--title username">{context.user.username}</h1>
-            </div>
-          </div>
-        </MainHeader>
+
         <MainHeaderNav links={[
-          <MainNavLink to={`/dashboard/${context.user.id}`}>Edit Profile</MainNavLink>,
-          // <MainNavLink to={`/public/signin`}>Sign Out</MainNavLink>
+          <MainNavLink to={`/dashboard/${context.user.id}/edit`}>Edit Profile</MainNavLink>,
           <SignOutLink />
         ]}/>
+
+        <Switch>
+          <Route exact path={`/dashboard/${context.user.id}`} component={Profile} />
+          <Route path={`/dashboard/${context.user.id}/edit`} component={EditProfileForm}/>
+        </Switch>
+
       </div>
     )
   }

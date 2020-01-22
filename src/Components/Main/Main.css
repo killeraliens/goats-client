@@ -1,6 +1,27 @@
 
+.Main--header--title {
+  font-weight: normal;
+}
+
+.Main--content {
+  margin: 16px;
+}
+
+.Main--content.no-margin {
+  margin: 0;
+}
+
 @media (max-width: 599px) {
+  .Main--content {
+    margin: 16px;
+  }
+
+  .Main--content.no-margin {
+    margin: 0;
+  }
+
   .Main--header {
     padding: 12px;
   }
 }
+

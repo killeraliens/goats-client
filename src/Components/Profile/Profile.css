@@ -1,0 +1,12 @@
+
+
+.dashboard-header-container > h1 {
+  position: relative;
+  bottom: -33px;
+}
+
+.dashboard-header-container.avatar-section {
+  margin-top: auto;
+}
+
+
