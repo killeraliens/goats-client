@@ -1,22 +1,29 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppContext from '../../../AppContext';
 import Avatar from '../../Avatar/Avatar';
 import './EditProfileForm.css';
 import '../Forms.css';
-import CountryRegionFormGroup from '../CountryCityMenu/CountryRegionFormGroup'
+import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 
 
 function EditProfileForm() {
-  const [countryName, setCountryName] = useState({ value: ''})
-  const [regionName, setRegionName] = useState({ value: ''})
+  const [formBody, setFormBody] = useState({
+    imgUrl: { value: '' },
+    countryName: { value: '' },
+    regionName: { value: '' },
+    cityName: { value: '', error: '' }
+  })
   const context = useContext(AppContext)
 
-  const updateCountryRegion = ({ countryName, regionName }) => {
-    setCountryName(countryName)
-    setRegionName(regionName)
-    // console.log(`Updated country ${countryName.value}, region ${regionName.value}`)
+  useEffect(() => {
+    console.log('State of the form', formBody)
+  })
+
+  const updateCountryRegionCity = (fields) => {
+    setFormBody(prev => ({ ...prev, ...fields }))
   }
+
   return(
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form">
@@ -44,18 +51,9 @@ function EditProfileForm() {
             <h2 className="Main--header--title username">killeraliens</h2>
           </div>
         </fieldset>
-        <div className="fieldset-container">
-          <div className="fieldset-container sub-group">
-            <p>{countryName + ', ' + regionName}</p>
-            <CountryRegionFormGroup updateCountryRegion={updateCountryRegion}/>
-          </div>
-          <fieldset className="grow">
-            <label htmlFor="city">City</label>
-            <input id="city" name="city" type="text"/>
-          </fieldset>
-        </div>
+        <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity}/>
         <div className="form-controls">
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={formBody.cityName.error}>Submit</button>
           <Link to={`/dashboard/${context.user.id}`}>Cancel</Link>
         </div>
       </form>

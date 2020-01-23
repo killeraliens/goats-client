@@ -16,8 +16,6 @@ export default function CountryRegionFormGroup(props) {
   }
 
   useEffect(() => {
-     console.log(country)
-    // console.log(`${countryCode}, ${regionName}`)
     props.updateCountryRegion({
       countryName: country.name,
       regionName: regionName

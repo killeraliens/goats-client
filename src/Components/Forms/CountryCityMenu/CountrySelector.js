@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import config from '../../../config'
+import config from '../../../config';
 
-function CountrySelector(props) {
+export default function CountrySelector(props) {
   const [data, setData] = useState({ countries: [] })
   const [selectedCountry, setSelectedCountry] = useState({ code: '', name: ''})
   const [loading, setLoading] = useState(true)
@@ -44,7 +44,7 @@ function CountrySelector(props) {
         onChange={handleChange}
         value={selectedCountry.code}
       >
-        <option value="None">Select Country</option>
+        <option value="">Select Country</option>
         {data.countries.map(({ country_name, country_code }) => {
           return <option key={country_code} value={country_code}>{country_name}</option>
         })}
@@ -64,5 +64,3 @@ CountrySelector.propTypes = {
   }))
 }
 
-
-export default CountrySelector;

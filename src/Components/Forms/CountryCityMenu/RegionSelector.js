@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 let provinces = require('provinces')
 
-function RegionSelector(props) {
+export default function RegionSelector(props) {
   const [regions, setRegions] = useState([])
   const [regionName, setRegionName] = useState('')
 
@@ -28,7 +28,6 @@ function RegionSelector(props) {
   }
 
   if (!props.countryCode || regions.length === 0) {
-    console.log(props.country)
     return null
   }
 
@@ -69,4 +68,3 @@ RegionSelector.propTypes = {
   updateRegionName: PropTypes.func
 }
 
-export default RegionSelector;
