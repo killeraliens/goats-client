@@ -1,16 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppContext from '../../../AppContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
-import config from '../../../config'
+// import config from '../../../config'
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 
 
 function EditProfileForm() {
   const context = useContext(AppContext)
-  const [user, setUser] = useState(context.user)
+  const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: '' },
     countryName: { value: '' },

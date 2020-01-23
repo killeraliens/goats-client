@@ -90,7 +90,7 @@ export default {
     {
       "id": "1",
       "flyer_id": "1",
-      "date": "2020-04-12",
+      "date": "2020-04-12T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -100,7 +100,7 @@ export default {
     {
       "id": "2",
       "flyer_id": "1",
-      "date": "2020-04-13",
+      "date": "2020-04-13T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -110,7 +110,7 @@ export default {
     {
       "id": "3",
       "flyer_id": "1",
-      "date": "2020-04-14",
+      "date": "2020-04-14T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -120,7 +120,7 @@ export default {
     {
       "id": "4",
       "flyer_id": "1",
-      "date": "2020-04-15",
+      "date": "2020-04-15T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -130,7 +130,7 @@ export default {
     {
       "id": "5",
       "flyer_id": "2",
-      "date": "2020-04-03",
+      "date": "2020-04-03T00:00:00.000Z",
       "venue_name": "Maple Grove Tavern",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Clevland",
@@ -140,7 +140,7 @@ export default {
     {
       "id": "6",
       "flyer_id": "2",
-      "date": "2020-04-04",
+      "date": "2020-04-04T00:00:00.000Z",
       "venue_name": "TBD",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Detroit",
@@ -150,7 +150,7 @@ export default {
     {
       "id": "7",
       "flyer_id": "2",
-      "date": "2020-04-05",
+      "date": "2020-04-05T00:00:00.000Z",
       "venue_name": "Cobra Lounge",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Chicago",
@@ -160,7 +160,7 @@ export default {
     {
       "id": "8",
       "flyer_id": "2",
-      "date": "2020-04-06",
+      "date": "2020-04-06T00:00:00.000Z",
       "venue_name": "Black Circle Brewing",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Indianapolis",
@@ -170,7 +170,7 @@ export default {
     {
       "id": "9",
       "flyer_id": "2",
-      "date": "2020-04-07",
+      "date": "2020-04-07T00:00:00.000Z",
       "venue_name": "TBD",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Columbus",
@@ -180,7 +180,7 @@ export default {
     {
       "id": "10",
       "flyer_id": "2",
-      "date": "2020-04-08",
+      "date": "2020-04-08T00:00:00.000Z",
       "venue_name": "Cativo's",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Pittsburgh",
@@ -190,7 +190,7 @@ export default {
     {
       "id": "11",
       "flyer_id": "2",
-      "date": "2020-04-09",
+      "date": "2020-04-09T00:00:00.000Z",
       "venue_name": "Metro Gallery",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Baltimore",
@@ -200,7 +200,7 @@ export default {
     {
       "id": "12",
       "flyer_id": "2",
-      "date": "2020-04-10",
+      "date": "2020-04-10T00:00:00.000Z",
       "venue_name": "Kung Fu Necktie",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Philadelphia",
@@ -210,7 +210,7 @@ export default {
     {
       "id": "13",
       "flyer_id": "2",
-      "date": "2020-04-11",
+      "date": "2020-04-11T00:00:00.000Z",
       "venue_name": "Saint Vitus",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "New York",
@@ -220,7 +220,7 @@ export default {
     {
       "id": "14",
       "flyer_id": "2",
-      "date": "2020-04-12",
+      "date": "2020-04-12T00:00:00.000Z",
       "venue_name": "Piranha Bar",
       "modified": "2019-01-05T19:42:00.000Z",
       "city_name": "Montreal",
@@ -230,7 +230,7 @@ export default {
     {
       "id": "15",
       "flyer_id": "3",
-      "date": "2020-09-03",
+      "date": "2020-09-03T00:00:00.000Z",
       "venue_name": "Pumpehuset",
       "modified": "2020-01-23T21:42:14.355Z",
       "city_name": "Copenhagen",
@@ -240,7 +240,7 @@ export default {
     {
       "id": "16",
       "flyer_id": "3",
-      "date": "2020-09-04",
+      "date": "2020-09-04T00:00:00.000Z",
       "venue_name": "Pumpehuset",
       "modified": "2020-01-23T21:42:14.355Z",
       "city_name": "Copenhagen",
@@ -250,7 +250,7 @@ export default {
     {
       "id": "17",
       "flyer_id": "3",
-      "date": "2020-09-05",
+      "date": "2020-09-05T00:00:00.000Z",
       "venue_name": "Pumpehuset",
       "modified": "2020-01-23T21:42:14.355Z",
       "city_name": "Copenhagen",
@@ -260,7 +260,7 @@ export default {
     {
       "id": "18",
       "flyer_id": "3",
-      "date": "2020-09-06",
+      "date": "2020-09-06T00:00:00.000Z",
       "venue_name": "Pumpehuset",
       "modified": "2020-01-23T21:42:14.355Z",
       "city_name": "Copenhagen",

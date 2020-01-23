@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
 import AppContext from '../../AppContext';
 import PropTypes from 'prop-types';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import MainHeader from '../MainHeader/MainHeader';
+import { Switch, Route } from 'react-router-dom';
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import SignOutLink from '../SignOutLink/SignOutLink';
-import Avatar from '../Avatar/Avatar';
 import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
 import Profile from '../Profile/Profile';
 import './Dashboard.css'
@@ -18,11 +16,11 @@ function Dashboard(props) {
   //const user = context.users.find(user => user.id == props.match.params.userId) || {};
   //console.log("PROFILE CONTEXT", context.user)
 
+  /* eslint eqeqeq: 0 */
   if (context.user && context.user.id == paramsId) {
     // return(<div>
     //   User{context.user.username} is logged in
     // </div>)
-
     return(
       <div className="Dashboard">
 

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import defaultAvatar from '../../assets/default-avatar.jpg'
 import './Avatar.css'
-import { faPeopleCarry } from '@fortawesome/free-solid-svg-icons';
 
 export default function Avatar(props) {
   return(

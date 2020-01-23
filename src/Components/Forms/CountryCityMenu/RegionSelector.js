@@ -1,4 +1,3 @@
- /* eslint eqeqeq: 0 */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 let provinces = require('provinces')
@@ -10,6 +9,7 @@ export default function RegionSelector(props) {
   useEffect(() => {
     // console.log('props country code changed', props.countryCode)
     const updateRegions = () => {
+      /* eslint eqeqeq: 0 */
       const regions = provinces.filter(row => row.country == props.countryCode)
       setRegions(regions)
     }
@@ -22,6 +22,7 @@ export default function RegionSelector(props) {
 
   useEffect(() => {
     props.updateRegionName(regionName)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [regionName])
 
   const handleChange = (e) => {

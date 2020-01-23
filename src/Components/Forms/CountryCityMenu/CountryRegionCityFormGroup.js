@@ -14,6 +14,8 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) 
       regionName: { value: regionName },
       cityName: cityName
     })
+    // MENTOR QUESTION : when I place updateCountryRegionCity fun into arr causes infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryName, regionName, cityName])
 
   useEffect(() => {
@@ -21,6 +23,9 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) 
       setCityName(prev => ({ ...prev, error: validateCityName() }))
     }
     updateValidationErrors()
+    // MENTOR QUESTION: I specifically dont want it updating with theres changes to validateCityName
+    // so I dont get this es-lint
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityName.value])
 
   const validateCityName = () => {

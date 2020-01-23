@@ -75,10 +75,6 @@ class App extends Component {
       updateAuthenticated: this.updateAuthenticated
     }
 
-    const LoginOrLogoutLink = this.state.user //&& this.state.user
-      ? <button onClick={this.destroyCurrentLoginState}>Logout</button> //send request to api / followup w context this.destroyCurrentLoginState() {}
-      : <NavLink to='/signin'>Sign In</NavLink>
-
     return(
       <div className="App">
         <AppContext.Provider value={context}>

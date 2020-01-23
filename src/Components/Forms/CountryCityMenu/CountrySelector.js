@@ -21,7 +21,8 @@ export default function CountrySelector(props) {
 
   useEffect(() => {
     props.updateCountryCode(selectedCountry)
-  }, [selectedCountry])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCountry, props.updateCountryCode])
 
   const handleChange = (e) => {
     setSelectedCountry({

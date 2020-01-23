@@ -11,6 +11,7 @@ export default function AvatarImageUpload(props) {
 
   useEffect(() => {
     props.updateImgUrl(images)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images])
 
   const handleImgChange = (e) => {
