@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
-import AppContext from '../../../AppContext';
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import config from '../../../config'
 import Avatar from '../../Avatar/Avatar';
@@ -14,7 +13,7 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
     updateImgUrl(images)
   }, [images])
 
-  const handleImgUrlChange = (e) => {
+  const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
     setUploading(true)
     const formData = new FormData()
@@ -36,7 +35,6 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
   const labelContent = () => {
     switch (true) {
       case uploading && images.length === 0:
-        // return <Spinner />
         return (
           <Avatar
             className="Main--avatar"
@@ -47,7 +45,6 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
           </Avatar>
         )
       case uploading && images.length > 0:
-        // return <Spinner />
         return (
           <Avatar
             className="Main--avatar"
@@ -93,7 +90,7 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
             name="imgUrl"
             className="sr-only"
             aria-label="select image"
-            onChange={handleImgUrlChange}
+            onChange={handleImgChange}
           />
         </div>
         <h1 className="Main--header--title username">{user.username}</h1>
