@@ -4,25 +4,55 @@ import AppContext from '../../../AppContext';
 import Avatar from '../../Avatar/Avatar';
 import './EditProfileForm.css';
 import '../Forms.css';
+import config from '../../../config'
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImages, faImage } from '@fortawesome/free-solid-svg-icons'
 
 function EditProfileForm() {
+  const context = useContext(AppContext)
+  const [user, setUser] = useState(context.user)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: '' },
     countryName: { value: '' },
     regionName: { value: '' },
     cityName: { value: '', error: '' }
   })
-  const context = useContext(AppContext)
+  const [uploading, setUploading] = useState(false)
+  const [images, setImages] = useState([])
 
   useEffect(() => {
     console.log('State of the form', formBody)
+    console.log('State of the images', images)
   })
 
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
   }
+
+  const handleImgUrlChange = (e) => {
+    const files = Array.from(e.target.files)
+    setUploading(true)
+    const formData = new FormData()
+    files.forEach((file, i) => {
+      formData.append(i, file)
+    })
+
+    fetch(`${config.API_ENDPOINT}/image-upload`, {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.json())
+      .then(images => {
+        // this.setState({
+        //   uploading: false,
+        //   images
+        // })
+        setUploading(false)
+        setImages(images)
+      })
+  }
+
 
   return(
     <div className="Main--content no-margin">
@@ -31,33 +61,33 @@ function EditProfileForm() {
         <fieldset>
           <div className="flex-center-between">
             <div className="ImageFileButton">
-              <label htmlFor="avatarImage">
+              <label htmlFor="imgUrl">
                 <Avatar
                   className="Main--avatar"
-                  imgUrl={context.user.imgUrl}
-                  username={context.user.username}
+                  imgUrl={user.imgUrl}
+                  username={user.username}
                 >
                   <span>+IMAGE</span>
                 </Avatar>
               </label>
               <input
-                id="avatarImage"
-                name="avatarImage"
                 type="file"
+                id="imgUrl"
+                name="imgUrl"
                 className="sr-only"
-                aria-label="upload avatar image"
+                aria-label="select image"
+                onChange={handleImgUrlChange}
               />
             </div>
-            <h2 className="Main--header--title username">killeraliens</h2>
+            <h1 className="Main--header--title username">{user.username}</h1>
           </div>
         </fieldset>
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity}/>
         <div className="form-controls">
           <button type="submit" disabled={formBody.cityName.error}>Submit</button>
-          <Link to={`/dashboard/${context.user.id}`}>Cancel</Link>
+          <Link to={`/dashboard/${user.id}`}>Cancel</Link>
         </div>
       </form>
-
     </div>
   )
 }

@@ -1,3 +1,4 @@
+ /* eslint eqeqeq: 0 */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 let provinces = require('provinces')
@@ -32,7 +33,7 @@ export default function RegionSelector(props) {
   }
 
   return(
-    <fieldset className="grow">
+    <fieldset className="no-grow">
       <label htmlFor="region">State/Province</label>
       <select
         id="region"
@@ -42,10 +43,10 @@ export default function RegionSelector(props) {
         value={regionName}
       >
         <option value="">--</option>
-        {regions.map(region => {
+        {regions.map((region, i) => {
           return(
             <option
-              key={region.name}
+              key={i}
               value={!region.short ? region.name : region.short}>
               {!region.short ? region.name : region.short}
             </option>

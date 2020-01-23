@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import CountryRegionFormGroup from './CountryRegionFormGroup'
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function CountryRegionCityFormGroup(props) {
+export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) {
   const [countryName, setCountryName] = useState('')
   const [regionName, setRegionName] = useState('')
   const [cityName, setCityName] = useState({ value: '', touched: false, error: '' })
 
   useEffect(() => {
-    props.updateCountryRegionCity({
-      countryName: { value: countryName},
-      regionName: { value: regionName},
+    updateCountryRegionCity({
+      countryName: { value: countryName },
+      regionName: { value: regionName },
       cityName: cityName
     })
   }, [countryName, regionName, cityName])
@@ -55,7 +55,6 @@ export default function CountryRegionCityFormGroup(props) {
           aria-required="false"
           aria-describedby="cityNameError"
           aria-invalid={!!cityName.error}
-          // onBlur={updateValidationErrors}
         />
         <ValidationError id="cityNameError" message={cityName.error} />
       </fieldset>
