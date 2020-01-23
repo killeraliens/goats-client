@@ -5,12 +5,12 @@ import Avatar from '../../Avatar/Avatar';
 import Spinner from '../../Spinner/Spinner'
 import '../Forms.css'
 
-export default function AvatarImageUpload({ user, updateImgUrl }) {
+export default function AvatarImageUpload(props) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState([])
 
   useEffect(() => {
-    updateImgUrl(images)
+    props.updateImgUrl(images)
   }, [images])
 
   const handleImgChange = (e) => {
@@ -38,8 +38,8 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
         return (
           <Avatar
             className="Main--avatar"
-            imageUrl={user.imgUrl}
-            username={user.username}
+            imageUrl={props.user.imgUrl}
+            username={props.user.username}
           >
             <span><Spinner /></span>
           </Avatar>
@@ -49,7 +49,7 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
           <Avatar
             className="Main--avatar"
             imageUrl={`${images[0].secure_url}`}
-            username={user.username}
+            username={props.user.username}
           >
             <span><Spinner /></span>
           </Avatar>
@@ -59,7 +59,7 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
           <Avatar
             className="Main--avatar"
             imageUrl={`${images[0].secure_url}`}
-            username={user.username}
+            username={props.user.username}
           >
             {/* <span onClick={() => setImages([])}>-REMOVE</span> */}
           </Avatar>
@@ -68,8 +68,8 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
         return (
           <Avatar
             className="Main--avatar"
-            imageUrl={user.imgUrl}
-            username={user.username}
+            imageUrl={props.user.imgUrl}
+            username={props.user.username}
           >
             <span>+IMAGE</span>
           </Avatar>
@@ -93,7 +93,7 @@ export default function AvatarImageUpload({ user, updateImgUrl }) {
             onChange={handleImgChange}
           />
         </div>
-        <h1 className="Main--header--title username">{user.username}</h1>
+        <h1 className="Main--header--title username">{props.user.username}</h1>
       </div>
     </fieldset>
   )

@@ -37,7 +37,7 @@ function EditProfileForm() {
               <label htmlFor="imgUrl">
                 <Avatar
                   className="Main--avatar"
-                  imgUrl={user.imgUrl}
+                  imgUrl={user.image_url}
                   username={user.username}
                 >
                   <span>+IMAGE</span>

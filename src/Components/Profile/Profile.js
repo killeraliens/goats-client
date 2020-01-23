@@ -16,7 +16,7 @@ export default function Profile(props) {
           <div className="flex-center-between">
             <Avatar
               className="Main--avatar"
-              imgUrl={context.user.imgUrl}
+              imgUrl={context.user.image_url}
               username={context.user.username}
             />
             <h1 className="Main--header--title username">{context.user.username}</h1>
