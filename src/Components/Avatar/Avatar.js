@@ -6,11 +6,6 @@ import { faPeopleCarry } from '@fortawesome/free-solid-svg-icons';
 
 export default function Avatar(props) {
   return(
-    // <img
-    //   className={`Avatar ${props.className}`}
-    //   src={props.imageUrl}
-    //   alt={`${props.username} avatar`}
-    // />
     <div
       className={`Avatar ${props.className}`}
       style={{ backgroundImage: 'url(' + props.imageUrl + ')' }}
@@ -29,5 +24,9 @@ Avatar.defaultProps = {
 Avatar.propTypes = {
   username: PropTypes.string.isRequired,
   className: PropTypes.string,
-  imageUrl: PropTypes.string
+  imageUrl: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 }

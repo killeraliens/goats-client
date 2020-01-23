@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppContext from '../../../AppContext';
-import Avatar from '../../Avatar/Avatar';
+import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
 import config from '../../../config'
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImages, faImage } from '@fortawesome/free-solid-svg-icons'
+
 
 function EditProfileForm() {
   const context = useContext(AppContext)
@@ -18,47 +17,21 @@ function EditProfileForm() {
     regionName: { value: '' },
     cityName: { value: '', error: '' }
   })
-  const [uploading, setUploading] = useState(false)
-  const [images, setImages] = useState([])
 
-  useEffect(() => {
-    console.log('State of the form', formBody)
-    console.log('State of the images', images)
-  })
 
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
   }
 
-  const handleImgUrlChange = (e) => {
-    const files = Array.from(e.target.files)
-    setUploading(true)
-    const formData = new FormData()
-    files.forEach((file, i) => {
-      formData.append(i, file)
-    })
-
-    fetch(`${config.API_ENDPOINT}/image-upload`, {
-      method: 'POST',
-      body: formData
-    })
-      .then(res => res.json())
-      .then(images => {
-        // this.setState({
-        //   uploading: false,
-        //   images
-        // })
-        setUploading(false)
-        setImages(images)
-      })
+  const updateImgUrl = (images) => {
+    console.log('Images', images)
   }
-
 
   return(
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form">
-
-        <fieldset>
+        <AvatarImageUpload user={user} updateImgUrl={updateImgUrl}/>
+        {/* <fieldset>
           <div className="flex-center-between">
             <div className="ImageFileButton">
               <label htmlFor="imgUrl">
@@ -81,7 +54,7 @@ function EditProfileForm() {
             </div>
             <h1 className="Main--header--title username">{user.username}</h1>
           </div>
-        </fieldset>
+        </fieldset> */}
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity}/>
         <div className="form-controls">
           <button type="submit" disabled={formBody.cityName.error}>Submit</button>
