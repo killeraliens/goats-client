@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-export default function Location({ eventLocation }) {
+export default function Location({ eventLocation, isTourAbbrev }) {
   String.prototype.capitalize = function () {
     return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
   };
@@ -57,10 +58,34 @@ export default function Location({ eventLocation }) {
         return null
     }
   }
+
+  if(isTourAbbrev) {
+    return (
+      <p className="Flyer--location">
+        <FontAwesomeIcon icon={faMapMarker} />
+        Multiple
+      </p>
+    )
+  }
   return (
     <p className="Flyer--location">
       <FontAwesomeIcon icon={faMapMarker} />
       {cityName}{cityComma()}{regionOrCountry()}{venueDash()}{venueName}
     </p>
   )
+}
+
+Location.defaultProps = {
+  eventLocation: {},
+  isTourAbbrev: false
+}
+
+Location.propTypes = {
+  eventLocation: PropTypes.shape({
+    city_name: PropTypes.string,
+    region_name: PropTypes.string,
+    country_name: PropTypes.string,
+    venue_name: PropTypes.string
+  }),
+  isTourAbbrev: PropTypes.bool
 }

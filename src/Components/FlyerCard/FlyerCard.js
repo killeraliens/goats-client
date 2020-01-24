@@ -23,7 +23,10 @@ export default function FlyerCard({ flyer, events }) {
             <h2>{flyer.headline}</h2>
           </div>
           <ThroughDates flyerEvents={events} />
-          <Locations flyerEvents={events} />
+          {flyer.type === "Tour"
+            ? <Locations flyerEvents={events} isTourAbbrev={true}/>
+            : <Locations flyerEvents={events} />
+          }
           <div className="Accordian">...Flyer Details</div>
           <div className="Accordian--content">
             <p className="Card--description">
