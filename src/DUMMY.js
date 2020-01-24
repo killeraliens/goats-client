@@ -48,7 +48,7 @@ export default {
     {
       "id": "1",
       "creator_id": "666",
-      "type": "Festival",
+      "type": "Fest",
       "image_url": "https://lastfm.freetls.fastly.net/i/u/ar0/02164795f45ff2dfd34bbc06c584bcb2.webp",
       "headline": "Total Death Over Mexico lll",
       "created": "2019-01-03T16:00:00.000Z",
@@ -74,7 +74,7 @@ export default {
     {
       "id": "3",
       "creator_id": "3",
-      "type": "Festival",
+      "type": "Fest",
       "image_url": "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/81886107_2710011682400996_3673221855931531264_o.jpg?_nc_cat=109&_nc_ohc=7ZAgDasafVUAX9nfoil&_nc_ht=scontent-lax3-1.xx&oh=6d8ac1b747afa31ae57800526791a2ae&oe=5ED59271",
       "headline": "Killtown Deathfest VIII - '10 Years of Death'",
       "created": "2020-01-23T21:42:14.355Z",
