@@ -1,3 +1,9 @@
+// MENTOR QUESTION: react-dom.development.js:2311 Mixed Content:
+// The page at 'https://localhost:3000/forum' was loaded over HTTPS,
+// but requested an insecure image 'http://www.brooklynvegan.com/files/2019/11/75521841_2571097956311369_9029394387301302272_o1.jpg?w=630'.
+// This content should also be served over HTTPS.
+// How do i deal with people inserting named links? can i instruct them in the forms to use MD [](),
+// or what about links that are not HTTPS? validation/text formatting for db storage.
 export default {
   "users": [
     {
@@ -82,6 +88,19 @@ export default {
       "bands": "Lineup TBA",
       "details": "Pumpehuset Studiestræde 52, 1554 Copenhagen https://www.facebook.com/events/2806422816089129/",
       "publish_comment": "",
+      "listing_state": "Public"
+    },
+    {
+      "id": "4",
+      "creator_id": "3",
+      "type": "Show",
+      "image_url": "https://scontent.fphx1-1.fna.fbcdn.net/v/t1.0-9/s960x960/82800556_3011524808871060_725602104382586880_o.jpg?_nc_cat=108&_nc_ohc=DaSe5IYE6wAAX_3DIsb&_nc_ht=scontent.fphx1-1.fna&_nc_tp=1002&oh=ed634099a0449411603897f9b8cab3eb&oe=5E974A0E",
+      "headline": "Antichrist Siege Machine (ASM) with Bloodlust and more",
+      "created": "2020-01-23T22:42:14.355Z",
+      "modified": "2020-01-23T22:42:14.355Z",
+      "bands": "ASM  - War Metal from Richmond https://stygianblackhand.bandcamp.com/album/schism-perpetration, BLOODLUST https://bloodlustphx.bandcamp.com/album/bloodlust, and more...",
+      "details": "$10 at the door, CASH ONLY, more info soon",
+      "publish_comment": "more info soon",
       "listing_state": "Public"
     }
   ],
@@ -267,5 +286,15 @@ export default {
       "region_name": "",
       "country_name": "Denmark"
     },
+    {
+      "id": "19",
+      "flyer_id": "4",
+      "date": "2020-04-16T00:00:00.000Z",
+      "venue_name": "MASTER'S CHAMBERS",
+      "modified": "2020-01-23T22:42:14.355Z",
+      "city_name": "Phoenix",
+      "region_name": "AZ",
+      "country_name": "United States"
+    }
   ]
 }

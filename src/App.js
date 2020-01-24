@@ -10,9 +10,6 @@ import Landing from './Components/Landing/Landing'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 
-
-
-
 class App extends Component {
   constructor() {
     super();
