@@ -6,10 +6,9 @@ export default function Comment({ user, isCreator, comment, modified }) {
     <div className="Comment">
         <div className="Comment--header">
           <div className="flex-center-between">
-            <img
-              className="Avatar-small"
-              src="./assets/avatar-a.jpg"
-              alt="killeraliens avatar"
+            <Avatar
+              imageUrl={user.image_url}
+              username={user.username}
             />
             <h3 className="Comment--handle">
               @killeraliens

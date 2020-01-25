@@ -39,16 +39,16 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
           <p>{flyer.details}</p>
         </Accordian>
       </div>
-      <Comments publishComment={flyer.publish_comment} />
+      <Comments flyer={flyer} flyerCreator={flyerCreator}/>
 
     </div>
   )
 }
 
 FlyerCard.defaultProps = {
-  flyer: {},
+  // flyer: {},
   flyerEvents: [],
-  flyerCreator: {}
+  // flyerCreator: {}
 }
 
 FlyerCard.propTypes = {
@@ -81,7 +81,7 @@ FlyerCard.propTypes = {
       'Banned',
       'Archived'
     ]).isRequired
-  }),
+  }).isRequired,
   flyerEvents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([
       PropTypes.string,
@@ -95,5 +95,5 @@ FlyerCard.propTypes = {
     ]).isRequired,
     image_url: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired
-  })
+  }).isRequired
 }

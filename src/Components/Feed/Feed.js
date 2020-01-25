@@ -13,7 +13,7 @@ export default function Feed({ flyers, events, users }) {
         /* eslint eqeqeq: 0 */
         const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
         const flyerCreator = users.find(user => user.id == flyer.creator_id)
-        console.log(`${flyer.headline}`, flyerCreator)
+        // console.log(`${flyer.headline}`, flyerCreator)
         if (!Boolean(flyerCreator)) {
           return null
         }

@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import defaultAvatar from '../../assets/default-avatar.jpg'
 import './Avatar.css'
 
-export default function Avatar(props) {
+export default function Avatar({ className, imageUrl, username, children }) {
+  const avatarImg = imageUrl.length === 0 ? defaultAvatar : imageUrl
   return(
     <div
-      className={`Avatar ${props.className}`}
-      style={{ backgroundImage: 'url(' + props.imageUrl + ')' }}
-      alt={`${props.username} avatar`}
+      className={`Avatar ${className}`}
+      style={{ backgroundImage: 'url(' + avatarImg + ')' }}
+      alt={`${username} avatar`}
     >
-      {props.children}
+      {children}
     </div>
   )
 }
 
 Avatar.defaultProps = {
-  className: "",
-  imageUrl: defaultAvatar
+  className: "Avatar-small"
 }
 
 Avatar.propTypes = {
   username: PropTypes.string.isRequired,
   className: PropTypes.string,
-  imageUrl: PropTypes.string,
+  imageUrl: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
