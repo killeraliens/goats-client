@@ -1,0 +1,32 @@
+.Accordian {
+  cursor: pointer;
+  width: 100%;
+  opacity: .5;
+}
+
+.Accordian:hover, .Accordian *:hover {
+  opacity: 1;
+}
+
+.Accordian.active {
+  opacity: .5;
+}
+
+.Accordian--content, .Accordian--content * {
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.Accordian--content.active, .Accordian--content.active * {
+  max-height: 1000px;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+

@@ -10,7 +10,7 @@ export default function Feed({ flyers, events }) {
       {flyers.map(flyer => {
         /* eslint eqeqeq: 0 */
         const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
-        return <FlyerCard key={flyer.id} flyer={flyer} events={flyerEvents} />
+        return <FlyerCard key={flyer.id} flyer={flyer} flyerEvents={flyerEvents} />
       })}
     </div>
   )

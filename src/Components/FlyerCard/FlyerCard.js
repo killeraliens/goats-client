@@ -3,12 +3,29 @@ import PropTypes from 'prop-types';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import ThroughDates from './ThroughDates';
-import Locations from './Locations'
+import Locations from './Locations';
+import Accordian from '../Accordian/Accordian';
+import Location from './Location';
 import './FlyerCard.css';
 
 
 
-export default function FlyerCard({ flyer, events }) {
+export default function FlyerCard({ flyer, flyerEvents }) {
+
+  const flyerDetails = [
+    {
+      i: 0,
+      title: '...Flyer Details',
+      section: <div><p>{flyer.bands}</p><p>{flyer.details}</p></div>
+    }
+  ];
+  const fullTourListing = [
+    {
+      i: 0,
+      title: <Location isTourAbbrev={true}/>,
+      section: <div><p>{flyer.bands}</p><p>{flyer.details}</p></div>
+    }
+  ];
 
   return(
     <div className="FlyerCard Card">
@@ -22,19 +39,17 @@ export default function FlyerCard({ flyer, events }) {
             <div className="Flyer--icon-type Tag">{flyer.type}</div>
             <h2>{flyer.headline}</h2>
           </div>
-          <ThroughDates flyerEvents={events} />
+          <ThroughDates flyerEvents={flyerEvents} />
           {flyer.type === "Tour"
-            ? <Locations flyerEvents={events} isTourAbbrev={true}/>
-            : <Locations flyerEvents={events} />
+            ? (
+              <Accordian triggerNode={<Location isTourAbbrev={true} />}>
+                <Locations flyerEvents={flyerEvents} isFullTourListing={true} />
+              </Accordian>
+            )
+            : <Locations flyerEvents={flyerEvents} />
           }
-          <div className="Accordian">...Flyer Details</div>
-          <div className="Accordian--content">
-            <p className="Card--description">
-              Foro San Rafael
-              Av. Ribera de San Cosme #28, 06470 Mexico City, Mexico
-              https://www.facebook.com/events/foro-san-rafael/total-death-over-mexico-lll-informativo/1004824666540845/
-            </p>
-          </div>
+
+
         </div>
         <div className="Comments">
           <div className="Comment">
@@ -62,7 +77,7 @@ export default function FlyerCard({ flyer, events }) {
 
 FlyerCard.defaultProps = {
   flyer: {},
-  events: []
+  flyerEvents: []
 }
 
 FlyerCard.propTypes = {
@@ -95,5 +110,11 @@ FlyerCard.propTypes = {
       'Banned',
       'Archived'
     ]).isRequired
-  })
+  }),
+  flyerEvents: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
+  }))
 }

@@ -5,11 +5,20 @@ import Location from './Location';
 export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev }) {
   let eventLocations = flyerEvents.map(event => {
     let eventLocation = {}
-    for (const [key, val] of Object.entries(event)) {
-      if (["city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
-        eventLocation[key] = val
+    if (isFullTourListing) {
+      for (const [key, val] of Object.entries(event)) {
+        if (["date", "city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
+          eventLocation[key] = val
+        }
+      }
+    } else {
+      for (const [key, val] of Object.entries(event)) {
+        if (["city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
+          eventLocation[key] = val
+        }
       }
     }
+
     return eventLocation
   })
 
@@ -18,6 +27,9 @@ export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev
       return (
         <div className="Flyer--locations">
           {eventLocations.map((location, i) => {
+            if (location.date) {
+              return <Location key={i} eventLocation={location} hasTourEventDate={true}/>
+            }
             return <Location key={i} eventLocation={location} />
           })}
         </div>
@@ -29,7 +41,6 @@ export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev
         </div>
       );
     case eventLocations.length > 0 && !isTourAbbrev:
-      console.log('first in arr', eventLocations[0])
       return (
         <div className="Flyer--locations">
           <Location eventLocation={eventLocations[0]}/>

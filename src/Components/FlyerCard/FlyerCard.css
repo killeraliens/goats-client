@@ -32,6 +32,10 @@
   color: orangered;
 }
 
+.DateOf {
+  margin-right: 4px;
+}
+
 /* .Flyer--dates, .Flyer--location {
   margin: 10px 0;
 } */
@@ -71,35 +75,6 @@
   margin-bottom: 1px;
 }
 
-.Accordian {
-  padding: 8px 16px;
-  cursor: pointer;
-  width: 100%;
-  opacity: .5;
-}
-
-.Accordian.active, .Accordian:hover{
-  opacity: .5;
-}
-
-.Accordian:hover {
-  opacity: 1;
-}
-
-.Dropdown {
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.Accordian--content, .Dropdown--content {
-  /* display: none; */
-  height: 0;
-  overflow: hidden;
-}
-
-.Accordian--content *, .Dropdown--content * {
-  overflow: inherit
-}
 
 
 .Comments {
