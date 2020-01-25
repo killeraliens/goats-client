@@ -4,7 +4,7 @@ import defaultAvatar from '../../assets/default-avatar.jpg'
 import './Avatar.css'
 
 export default function Avatar({ className, imageUrl, username, children }) {
-  const avatarImg = imageUrl.length === 0 ? defaultAvatar : imageUrl
+  const avatarImg = !Boolean(imageUrl) ? defaultAvatar : imageUrl
   return(
     <div
       className={`Avatar ${className}`}
@@ -20,10 +20,19 @@ Avatar.defaultProps = {
   className: "Avatar-small"
 }
 
+
 Avatar.propTypes = {
   username: PropTypes.string.isRequired,
   className: PropTypes.string,
-  imageUrl: PropTypes.string.isRequired,
+  // MENTOR QUESTION: this prop key is required, but I need it to accept empty strings so I can apply default
+  // proptypes is failing when passed an empty string - but I need to know if the prop is present
+  // imageUrl: PropTypes.string.isRequired,
+  imageUrl: function(props, propName, componentName) {
+    const propValue = props[propName] // the actual value of `imageUrl` prop
+    if (propValue === '') return
+    if (typeof propValue === 'string') return
+    return new Error(`${propName} is required. ${componentName} only accepts empty string or string`)
+  },
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
