@@ -1,12 +1,3 @@
-.Comment--handle {
-  margin-bottom: 0;
-  margin-left: 8px;
-}
-
-.Comment span {
-  font-size: 10px;
-  font-weight: normal;
-}
 
 .Comments {
   padding-left: 16px;
@@ -14,8 +5,4 @@
 
 }
 
-.Comment {
-  border-top: solid 1px dimgrey;
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
+
