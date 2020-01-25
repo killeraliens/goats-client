@@ -9,11 +9,12 @@ import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
 import Profile from '../Profile/Profile';
 import './Dashboard.css'
 
-function Dashboard(props) {
+function Dashboard({ match, users, flyers }) {
   const context = useContext(AppContext)
-  const paramsId = props.match.params.user_id
+  const paramsId = match.params.user_id
   console.log("Page ID", paramsId)
-  //const user = context.users.find(user => user.id == props.match.params.userId) || {};
+  console.log("USERS", users)
+  const foundUser = users.find(user => user.id == match.params.userId) || null;
   //console.log("PROFILE CONTEXT", context.user)
 
   /* eslint eqeqeq: 0 */
@@ -30,7 +31,9 @@ function Dashboard(props) {
         ]}/>
 
         <Switch>
-          <Route exact path={`/dashboard/${context.user.id}`} component={Profile} />
+          <Route exact path={`/dashboard/${context.user.id}`} render={() => {
+            return <Profile user={context.user} />
+          }} />
           <Route path={`/dashboard/${context.user.id}/edit`} component={EditProfileForm}/>
         </Switch>
 
@@ -38,26 +41,30 @@ function Dashboard(props) {
     )
   }
   return (
-    <div>
-      User {props.user.username}'s public profile
+    <div className="Dashboard">
+      {foundUser ? <Profile user={foundUser} /> : <p>User Not Found</p>}
     </div>
   )
 }
 
 Dashboard.defaultProps = {
   match: { params: {} },
-  user: {}
+  users: []
 }
 
+//MENTOR QUESTION: how do i handle props.user (required or default?)
 Dashboard.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
   }),
-  user: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])
+  users: PropTypes.arrayOf({
+    user: PropTypes.shape({
+      id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
+      username: PropTypes.string
+    })
   })
 }
 

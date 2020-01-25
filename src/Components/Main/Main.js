@@ -6,24 +6,16 @@ import './Main.css';
 // import Forum from '../Forum/Forum';
 
 
-export default function Main(props) {
+export default function Main({ component }) {
   return(
     <div className="Main">
-      {props.component}
+      { component }
     </div>
   )
 }
 
 Main.propTypes = {
-  // component: PropTypes.oneOf([
-  //   // PropTypes.instanceOf(Dashboard),
-  //   // PropTypes.instanceOf(Forum),
-  //   // PropTypes.instanceOf(CreateFlyer),
-  //   <Dashboard />,
-  //   <Forum />,
-  //   <CreateFlyer />
-  // ])
-  // component: PropTypes.element
+
   component: PropTypes.objectOf(function(propValue, key, componentName, location, propFullName) {
     if (!["Dashboard", "Forum", "CreateFlyer"].includes(propValue.type.name) ) {
       return new Error(`Bad component prop: ${propValue.type.name}. Pass one of the following: "Dashboard", "Forum", "CreateFlyer"`)
