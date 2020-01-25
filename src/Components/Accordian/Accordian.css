@@ -4,6 +4,10 @@
   opacity: .5;
 }
 
+.Accordian > * {
+  margin-top: 0px;
+}
+
 .Accordian:hover, .Accordian *:hover {
   opacity: 1;
 }

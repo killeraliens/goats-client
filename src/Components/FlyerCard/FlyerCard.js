@@ -48,7 +48,10 @@ export default function FlyerCard({ flyer, flyerEvents }) {
             )
             : <Locations flyerEvents={flyerEvents} />
           }
-
+          <Accordian triggerNode={<p>...Details</p>}>
+            <p>{flyer.bands}</p>
+            <p>{flyer.details}</p>
+          </Accordian>
 
         </div>
         <div className="Comments">
