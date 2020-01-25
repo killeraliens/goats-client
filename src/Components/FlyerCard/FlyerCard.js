@@ -6,81 +6,49 @@ import ThroughDates from './ThroughDates';
 import Locations from './Locations';
 import Accordian from '../Accordian/Accordian';
 import Location from './Location';
+import Comments from '../Comments/Comments';
 import './FlyerCard.css';
 
 
 
-export default function FlyerCard({ flyer, flyerEvents }) {
+export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
 
-  const flyerDetails = [
-    {
-      i: 0,
-      title: '...Flyer Details',
-      section: <div><p>{flyer.bands}</p><p>{flyer.details}</p></div>
-    }
-  ];
-  const fullTourListing = [
-    {
-      i: 0,
-      title: <Location isTourAbbrev={true}/>,
-      section: <div><p>{flyer.bands}</p><p>{flyer.details}</p></div>
-    }
-  ];
-
-  return(
+  return (
     <div className="FlyerCard Card">
-      <div className="Card Flyer-card">
-        <img className="Flyer--image"
-          src={flyer.image_url}
-          alt={flyer.headline}
-        />
-        <div className="Card--body">
-          <div className="Card--header">
-            <div className="Flyer--icon-type Tag">{flyer.type}</div>
-            <h2>{flyer.headline}</h2>
-          </div>
-          <ThroughDates flyerEvents={flyerEvents} />
-          {flyer.type === "Tour"
-            ? (
-              <Accordian triggerNode={<Location isTourAbbrev={true} />}>
-                <Locations flyerEvents={flyerEvents} isFullTourListing={true} />
-              </Accordian>
-            )
-            : <Locations flyerEvents={flyerEvents} />
-          }
-          <Accordian triggerNode={<p>...Details</p>}>
-            <p>{flyer.bands}</p>
-            <p>{flyer.details}</p>
-          </Accordian>
 
+      <img className="Flyer--image"
+        src={flyer.image_url}
+        alt={flyer.headline}
+      />
+      <div className="Card--body">
+        <div className="Card--header">
+          <div className="Flyer--icon-type Tag">{flyer.type}</div>
+          <h2>{flyer.headline}</h2>
         </div>
-        <div className="Comments">
-          <div className="Comment">
-            <div className="Comment--header">
-              <div className="flex-center-between">
-                <img
-                  className="Avatar-small"
-                  src="./assets/avatar-a.jpg"
-                  alt="killeraliens avatar"
-                />
-                <h3 className="Comment--handle">
-                  @killeraliens
-                  <span className="Comment--isCreator">[creator]</span>
-                </h3>
-                </div>
-                <span className="Comment--modified-at">mentioned: Jan 10, 2020 - 22:33 MST</span>
-              </div>
-              <p>could someone comment with an official list of bands?</p>
-            </div>
-          </div>
-        </div>
+        <ThroughDates flyerEvents={flyerEvents} />
+        {flyer.type === "Tour"
+          ? (
+            <Accordian triggerNode={<Location isTourAbbrev={true} />}>
+              <Locations flyerEvents={flyerEvents} isFullTourListing={true} />
+            </Accordian>
+          )
+          : <Locations flyerEvents={flyerEvents} />
+        }
+        <Accordian triggerNode={<p>...Details</p>}>
+          <p>{flyer.bands}</p>
+          <p>{flyer.details}</p>
+        </Accordian>
+      </div>
+      <Comments publishComment={flyer.publish_comment} />
+
     </div>
   )
 }
 
 FlyerCard.defaultProps = {
   flyer: {},
-  flyerEvents: []
+  flyerEvents: [],
+  flyerCreator: {}
 }
 
 FlyerCard.propTypes = {
@@ -118,6 +86,14 @@ FlyerCard.propTypes = {
     id: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ])
-  }))
+    ]).isRequired
+  })),
+  flyerCreator: PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    image_url: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired
+  })
 }
