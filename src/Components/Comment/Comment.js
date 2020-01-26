@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import './Comment.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
@@ -10,10 +11,12 @@ export default function Comment({ user, isCreator, comment, modified }) {
     <div className="Comment">
         <div className="Comment--header">
           <div className="flex-center-between">
-            <Avatar
-              imageUrl={user.image_url}
-              username={user.username}
-            />
+            <Link to={`/dashboard/${user.id}`}>
+              <Avatar
+                imageUrl={user.image_url}
+                username={user.username}
+              />
+            </Link>
             <h3 className="Comment--handle username">
               {user.username}
               {isCreator ? <span className="Comment--isCreator">[creator]</span> : null}
