@@ -8,13 +8,9 @@ import Spinner from '../Spinner/Spinner';
 import DUMMY from '../../DUMMY';
 
 
-export default function Forum({ flyers, events, users }) {
+export default function Forum({ flyers, events, users, fetching }) {
   const [filterLinks, setFilterLinks] = useState([])
-  const [fetching, setFetching] = useState(false)
 
-  if (fetching) {
-    return <Spinner />
-  }
   return(
     <div className="Forum">
       <MainHeader >
@@ -27,7 +23,7 @@ export default function Forum({ flyers, events, users }) {
         {/* <Switch>
           <Route exact path={`/forum`} component={Feed} />
         </Switch> */}
-        <Feed flyers={flyers} events={events} users={users}/>
+        <Feed flyers={flyers} events={events} users={users} fetching={fetching}/>
       </div>
 
     </div>

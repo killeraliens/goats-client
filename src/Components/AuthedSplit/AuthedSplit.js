@@ -4,7 +4,7 @@ import DUMMY from '../../DUMMY';
 import Forum from '../Forum/Forum';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
-import Spinner from '../Spinner/Spinner';
+// import Spinner from '../Spinner/Spinner';
 import './AuthedSplit.css';
 
 export default function AuthedSplit({ mainComponent }) {
@@ -14,7 +14,6 @@ export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
   const [events, setEvents] = useState([])
   const [users, setUsers] = useState([])
-  const [filterLinks, setFilterLinks] = useState([])
   const [fetching, setFetching] = useState(false)
   useEffect(() => {
     const getAll = () => {
@@ -54,10 +53,10 @@ export default function AuthedSplit({ mainComponent }) {
 
   console.log('Authedsplit', mainComponent)
   // MENTOR QUESTION: pass props to mainComponent here? how?
-  const newProps = { events: events, users: users, flyers: flyers}
-  if (fetching) {
-    return <Spinner />
-  }
+  const newProps = { events: events, users: users, flyers: flyers, fetching: fetching}
+  // if (fetching) {
+  //   return <Spinner />
+  // }
   return(
     <div className="AuthedSplit">
       <Menu />

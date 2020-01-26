@@ -9,7 +9,7 @@ import MainNavLink from '../MainNavLink/MainNavLink';
 import './Profile.css';
 
 
-export default function Profile({ user, userFlyers }) {
+export default function Profile({ user, users, events, userFlyers, fetching }) {
   //const context = useContext(AppContext)
 
   return(
@@ -32,11 +32,13 @@ export default function Profile({ user, userFlyers }) {
       ]} />
 
       <div className="Main--content">
+        <Feed flyers={userFlyers} events={events} users={users} fetching={fetching}/>
       </div>
     </div>
   )
 }
 
+//MENTOR QUESTION: how do i handle props.user (required or default?)
 Profile.defaultProps = {
   user: {}
 }

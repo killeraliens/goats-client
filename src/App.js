@@ -20,9 +20,6 @@ class App extends Component {
 
   }
 
-
-  //onFailure = (error) => { this.setState({ error }) }
-
   fetchApiData = async (type) => {
     const response = await fetch(`${config.API_ENDPOINT}/api/${type}`);
     const body = await response.json();
@@ -33,25 +30,6 @@ class App extends Component {
 
     return body
   }
-
-  // async componentDidMount () {
-  //   // console.log('THIS STATE',this.state)
-  //   //console.log('THIS LOCAL', localStorage)
-  //   this.fetchApiData('event')
-  //     .then(events => {
-  //       this.setState({ events })
-  //     })
-  //     .catch(err => {
-  //       console.log('Error on fetch events', err)
-  //     })
-
-  // }
-
-  // addEvent = (newEvent) => {
-  //   console.log('adding new event to state', newEvent)
-  //   const events = [...this.state.events, newEvent]
-  //   this.setState({ events })
-  // }
 
   updateAuthenticated = (user) => {
     this.setState({

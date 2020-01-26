@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Feed.css';
-import FlyerCard from '../FlyerCard/FlyerCard'
+import FlyerCard from '../FlyerCard/FlyerCard';
+import Spinner from '../Spinner/Spinner';
 
-export default function Feed({ flyers, events, users }) {
-  // MENTOR QUESTION: why is this rerendering multipletimes causing empty data to be sent before loading is complete
-  // seems to be rerending as the 3 props load from Forum parent (rerenders 3 times)
+export default function Feed({ flyers, events, users, fetching }) {
+  // const [filterLinks, setFilterLinks] = useState([])
+
+  if (fetching) {
+    return <Spinner />
+  }
   return(
     <div className="Feed">
       {console.log(flyers)}
@@ -13,8 +17,7 @@ export default function Feed({ flyers, events, users }) {
         /* eslint eqeqeq: 0 */
         const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
         const flyerCreator = users.find(user => user.id == flyer.creator_id)
-        // console.log(`${flyer.headline}`, flyerCreator)
-        if (!Boolean(flyerCreator)) {
+        if (!Boolean(flyerCreator) || flyer.listing_state !== "Public") {
           return null
         }
         return <FlyerCard key={flyer.id} flyer={flyer} flyerEvents={flyerEvents} flyerCreator={flyerCreator}/>
@@ -26,7 +29,8 @@ export default function Feed({ flyers, events, users }) {
 Feed.defaultProps = {
   flyers: [],
   events: [],
-  users: []
+  users: [],
+  fetching: false
 }
 
 Feed.propTypes = {
@@ -55,7 +59,8 @@ Feed.propTypes = {
       PropTypes.number,
       PropTypes.string
     ]).isRequired
-  }))
+  })),
+  fetching: PropTypes.bool
 }
 
 
