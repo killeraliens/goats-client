@@ -11,14 +11,20 @@ export default function Forum({ flyers, events, users, fetching }) {
 
   const countriesHash = {}
   events.forEach(event => {
-    if(!Object.keys(countriesHash).includes(event.country_name)) {
-      countriesHash[event.country_name] = 1
+    if (!Object.keys(countriesHash).includes(event.country_name)) {
+      countriesHash[event.country_name] = 0
+      // console.log('counries hash ', countriesHash)
     }
     countriesHash[event.country_name]++
   })
 
   const filterLinks = Object.keys(countriesHash).sort().map(country => {
-  return <MainNavLink to={`/forum/${country}`}>{country}<span>{countriesHash[country]}</span></MainNavLink>
+    return (
+      <MainNavLink to={`/forum/${country}`}>
+        {country}
+        <span className="MainNavLink--count">{countriesHash[country]}</span>
+      </MainNavLink>
+    )
   })
   const routes = Object.keys(countriesHash).map(country => {
     const flyerEvents = events.filter(event => event.country_name === country)
