@@ -51,16 +51,12 @@ export default function AuthedSplit({ mainComponent }) {
     getAll()
   }, [])
 
-  console.log('Authedsplit', mainComponent)
+  // console.log('Authedsplit', mainComponent)
   // MENTOR QUESTION: pass props to mainComponent here? how?
   const newProps = { events: events, users: users, flyers: flyers, fetching: fetching}
-  // if (fetching) {
-  //   return <Spinner />
-  // }
   return(
     <div className="AuthedSplit">
       <Menu />
-      {/* <Main component={mainComponent} /> */}
       <Main component={React.cloneElement(mainComponent, {...newProps} )}/>
     </div>
   )
@@ -71,5 +67,9 @@ AuthedSplit.defaultProps = {
 }
 
 AuthedSplit.propTypes = {
-  mainComponent: PropTypes.element
+  mainComponent: PropTypes.objectOf(function (propValue, key, componentName, location, propFullName) {
+    if (!["Dashboard", "Forum", "CreateFlyer"].includes(propValue.type.name)) {
+      return new Error(`Bad component prop: ${propValue.type.name}. Pass one of the following: "Dashboard", "Forum", "CreateFlyer"`)
+    }
+  })
 }

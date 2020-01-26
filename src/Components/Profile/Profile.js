@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
-import AppContext from '../../AppContext';
+// import React, { useContext } from 'react';
+// import AppContext from '../../AppContext';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
 import Avatar from '../Avatar/Avatar';
 import Feed from '../Feed/Feed';
@@ -9,9 +11,11 @@ import MainNavLink from '../MainNavLink/MainNavLink';
 import './Profile.css';
 
 
-export default function Profile({ user, users, events, userFlyers, fetching }) {
+export default function Profile({ user, isCurrent, users, events, userFlyers, fetching }) {
   //const context = useContext(AppContext)
-
+  const draftsLink = isCurrent
+    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
+    : null;
   return(
     <div className="Profile">
       <MainHeader heightClass="dbl-height">
@@ -19,7 +23,7 @@ export default function Profile({ user, users, events, userFlyers, fetching }) {
           <div className="flex-center-between">
             <Avatar
               className="Main--avatar"
-              imgUrl={user.image_url}
+              imageUrl={user.image_url}
               username={user.username}
             />
             <h1 className="Main--header--title username">{user.username}</h1>
@@ -28,11 +32,14 @@ export default function Profile({ user, users, events, userFlyers, fetching }) {
       </MainHeader>
       <MainNav links={[
         <MainNavLink to={`/dashboard/${user.id}`} >Contributions</MainNavLink>,
-        <MainNavLink to={`/dashboard/${user.id}/starred`} >Starred</MainNavLink>
+        draftsLink
       ]} />
 
       <div className="Main--content">
-        <Feed flyers={userFlyers} events={events} users={users} fetching={fetching}/>
+        <Route exact path={`/dashboard/${user.id}`} render={() => {
+          return <Feed flyers={userFlyers} events={events} users={users} fetching={fetching} />
+        }} />
+
       </div>
     </div>
   )

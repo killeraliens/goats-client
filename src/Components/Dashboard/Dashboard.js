@@ -12,10 +12,7 @@ import './Dashboard.css'
 function Dashboard({ match, users, flyers, events, fetching }) {
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
-  console.log("Page ID", paramsId)
-  console.log("USERS", users)
-  const foundUser = users.find(user => user.id == paramsId) || {};
-  console.log("found", foundUser)
+  const foundUser = users.find(user => user.id == paramsId);
   const userFlyers = flyers.filter(flyer => flyer.creator_id == foundUser.id)
   /* eslint eqeqeq: 0 */
   if (foundUser && context.user && context.user.id == paramsId) {
@@ -27,7 +24,7 @@ function Dashboard({ match, users, flyers, events, fetching }) {
         ]}/>
         <Switch>
           <Route exact path={`/dashboard/${foundUser.id}`} render={() => {
-            return <Profile user={foundUser} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
+            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
           }} />
           <Route path={`/dashboard/${foundUser.id}/edit`} component={EditProfileForm}/>
         </Switch>
@@ -37,7 +34,7 @@ function Dashboard({ match, users, flyers, events, fetching }) {
   }
   return (
     <div className="Dashboard">
-      {foundUser ? <Profile user={foundUser} userFlyers={userFlyers} events={events} users={users} fetching={fetching} /> : <p>User Not Found</p>}
+      {foundUser ? <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={users} fetching={fetching} /> : <p>User Not Found</p>}
     </div>
   )
 }
@@ -51,13 +48,33 @@ Dashboard.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
   }),
+  flyers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    creator_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  })),
+  events: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    flyer_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  })),
   users: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    username: PropTypes.string
-  }))
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  })),
+  fetching: PropTypes.bool
 }
 
 //export default withRouter(Dashboard)

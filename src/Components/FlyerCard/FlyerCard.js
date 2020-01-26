@@ -45,6 +45,7 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
   )
 }
 
+// MENTOR QUESTION: default or required?
 FlyerCard.defaultProps = {
   // flyer: {},
   flyerEvents: [],

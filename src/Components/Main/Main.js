@@ -15,12 +15,7 @@ export default function Main({ component }) {
 }
 
 Main.propTypes = {
-
-  component: PropTypes.objectOf(function(propValue, key, componentName, location, propFullName) {
-    if (!["Dashboard", "Forum", "CreateFlyer"].includes(propValue.type.name) ) {
-      return new Error(`Bad component prop: ${propValue.type.name}. Pass one of the following: "Dashboard", "Forum", "CreateFlyer"`)
-    }
-  })
+  component: PropTypes.element
 }
 
 

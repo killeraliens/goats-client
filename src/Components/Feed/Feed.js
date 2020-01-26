@@ -4,7 +4,7 @@ import './Feed.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
 import Spinner from '../Spinner/Spinner';
 
-export default function Feed({ flyers, events, users, fetching }) {
+export default function Feed({ flyers, events, users, fetching, listing_state }) {
   // const [filterLinks, setFilterLinks] = useState([])
 
   if (fetching) {
@@ -17,7 +17,7 @@ export default function Feed({ flyers, events, users, fetching }) {
         /* eslint eqeqeq: 0 */
         const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
         const flyerCreator = users.find(user => user.id == flyer.creator_id)
-        if (!Boolean(flyerCreator) || flyer.listing_state !== "Public") {
+        if (!Boolean(flyerCreator) || flyer.listing_state !== `${listing_state}`) {
           return null
         }
         return <FlyerCard key={flyer.id} flyer={flyer} flyerEvents={flyerEvents} flyerCreator={flyerCreator}/>
@@ -30,7 +30,8 @@ Feed.defaultProps = {
   flyers: [],
   events: [],
   users: [],
-  fetching: false
+  fetching: false,
+  listing_state: 'Public'
 }
 
 Feed.propTypes = {
@@ -60,7 +61,15 @@ Feed.propTypes = {
       PropTypes.string
     ]).isRequired
   })),
-  fetching: PropTypes.bool
+  fetching: PropTypes.bool,
+  listing_state: PropTypes.oneOf([
+    'Draft',
+    'Private',
+    'Public',
+    'Flagged',
+    'Banned',
+    'Archived'
+  ])
 }
 
 
