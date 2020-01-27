@@ -5,8 +5,8 @@ const AuthedContext = React.createContext({
   addEvent: () => {},
   flyers: [],
   addFlyer: () => {},
-  users: [],
-  updateUser: () => {},
+  // users: [],
+  // updateUser: () => {},
   fetching: false
 })
 

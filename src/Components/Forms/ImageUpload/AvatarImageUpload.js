@@ -8,11 +8,11 @@ import '../Forms.css'
 export default function AvatarImageUpload(props) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState([])
-
+  const [imgUrl, setImgUrl] = useState(props.user.imgUrl)
   useEffect(() => {
-    props.updateImgUrl(images)
+    props.updateImgUrl(imgUrl)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images])
+  }, [imgUrl])
 
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
@@ -30,6 +30,7 @@ export default function AvatarImageUpload(props) {
       .then(images => {
         setUploading(false)
         setImages(images)
+        setImgUrl(images[0].secure_url)
       })
   }
 
@@ -39,7 +40,7 @@ export default function AvatarImageUpload(props) {
         return (
           <Avatar
             className="Main--avatar"
-            imageUrl={props.user.imgUrl}
+            imageUrl={imgUrl}
             username={props.user.username}
           >
             <span><Spinner /></span>
@@ -49,7 +50,7 @@ export default function AvatarImageUpload(props) {
         return (
           <Avatar
             className="Main--avatar"
-            imageUrl={`${images[0].secure_url}`}
+            imageUrl={imgUrl}
             username={props.user.username}
           >
             <span><Spinner /></span>
@@ -59,7 +60,7 @@ export default function AvatarImageUpload(props) {
         return (
           <Avatar
             className="Main--avatar"
-            imageUrl={`${images[0].secure_url}`}
+            imageUrl={imgUrl}
             username={props.user.username}
           >
             {/* <span onClick={() => setImages([])}>-REMOVE</span> */}
@@ -69,7 +70,7 @@ export default function AvatarImageUpload(props) {
         return (
           <Avatar
             className="Main--avatar"
-            imageUrl={props.user.imgUrl}
+            imageUrl={imgUrl}
             username={props.user.username}
           >
             <span>+IMAGE</span>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppContext from '../../../AppContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
@@ -12,49 +12,42 @@ function EditProfileForm() {
   const context = useContext(AppContext)
   const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
-    imgUrl: { value: '' },
-    countryName: { value: '' },
-    regionName: { value: '' },
-    cityName: { value: '', error: '' }
+    imgUrl: { value: user.image_url || '' },
+    countryName: { value: user.country_name || '' },
+    regionName: { value: user.region_name || '' },
+    cityName: { value: user.city_name || '', error: '' }
   })
 
+  useEffect(() => {
+    const setFormFromContext = () => {
+      console.log('app context user', user)
+    }
+    setFormFromContext()
+  }, [])
 
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
   }
 
-  const updateImgUrl = (images) => {
-    console.log('Images', images)
+  const updateImgUrl = (url) => {
+    setFormBody(prev => ({ ...prev, imgUrl: {value: url }}))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const updatedUserProps = {
+      imgUrl: formBody.imgUrl.value,
+      countryName: formBody.countryName.value,
+      regionName: formBody.regionName.value,
+      cityName: formBody.cityName.value
+    }
+    console.log(updatedUserProps)
   }
 
   return(
     <div className="Main--content no-margin">
-      <form className="EditProfileForm header-form">
+      <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
         <AvatarImageUpload user={user} updateImgUrl={updateImgUrl}/>
-        {/* <fieldset>
-          <div className="flex-center-between">
-            <div className="ImageFileButton">
-              <label htmlFor="imgUrl">
-                <Avatar
-                  className="Main--avatar"
-                  imgUrl={user.image_url}
-                  username={user.username}
-                >
-                  <span>+IMAGE</span>
-                </Avatar>
-              </label>
-              <input
-                type="file"
-                id="imgUrl"
-                name="imgUrl"
-                className="sr-only"
-                aria-label="select image"
-                onChange={handleImgUrlChange}
-              />
-            </div>
-            <h1 className="Main--header--title username">{user.username}</h1>
-          </div>
-        </fieldset> */}
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity}/>
         <div className="form-controls">
           <button type="submit" disabled={formBody.cityName.error}>Submit</button>
