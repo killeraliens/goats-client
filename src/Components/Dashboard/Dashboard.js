@@ -10,6 +10,7 @@ import Profile from '../Profile/Profile';
 import './Dashboard.css'
 
 function Dashboard({ match, users, flyers, events, fetching }) {
+  console.log("users in dash", users)
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
   const foundUser = users.find(user => user.id == paramsId);
@@ -26,7 +27,9 @@ function Dashboard({ match, users, flyers, events, fetching }) {
           <Route exact path={`/dashboard/${foundUser.id}`} render={() => {
             return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
           }} />
-          <Route path={`/dashboard/${foundUser.id}/edit`} component={EditProfileForm}/>
+          <Route path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
+            return <EditProfileForm history={history}/>
+          }}/>
         </Switch>
 
       </div>

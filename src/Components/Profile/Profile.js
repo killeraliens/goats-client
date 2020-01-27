@@ -13,6 +13,7 @@ import './Profile.css';
 
 export default function Profile({ user, isCurrent, users, events, userFlyers, fetching }) {
   //const context = useContext(AppContext)
+  console.log('viewing profile of', user)
   const draftsLink = isCurrent
     ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
     : null;

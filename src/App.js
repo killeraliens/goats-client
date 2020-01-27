@@ -39,6 +39,11 @@ class App extends Component {
     })
   }
 
+  updateUser = (newProps) => {
+    console.log('setting new user values in app context')
+    this.setState({ user: {...this.state.user, ...newProps}}, () => console.log('current user:', this.state.user))
+  }
+
   destroyCurrentLoginState = () => {
     this.updateAuthenticated(null)
   }
@@ -46,7 +51,8 @@ class App extends Component {
   render() {
     const context = {
       user: this.state.user,
-      updateAuthenticated: this.updateAuthenticated
+      updateAuthenticated: this.updateAuthenticated,
+      updateUser: this.updateUser
     }
 
     return(

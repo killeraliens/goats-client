@@ -17,11 +17,25 @@ export default function AuthedSplit({ mainComponent }) {
   const [users, setUsers] = useState([])
   const [fetching, setFetching] = useState(false)
   // const context = useContext(AuthedContext)
+  const updateUsers = (changedUser) => {
+    console.log('changed user', changedUser)
+    let foundUser = users.find(user => user.id == changedUser.id)
+    console.log('found user', foundUser)
+    let updatedUser = {...foundUser, ...changedUser}
+    let filteredUsers = users.filter(user => user.id.toString() !== changedUser.id.toString())
+    const sets = new Promise ((res, rej) => {
+      console.log('updating context/state of users', [...filteredUsers, { ...updatedUser }])
+      res(setUsers([...filteredUsers, {...updatedUser}]))
+    })
+    sets.then(() => console.log('updated users array', users))
+  }
+
   const contextValue = {
     flyers: flyers,
     events: events,
     users: users,
-    fetching: fetching
+    fetching: fetching,
+    updateUsers: updateUsers
   }
   useEffect(() => {
     const getAll = () => {
@@ -66,7 +80,7 @@ export default function AuthedSplit({ mainComponent }) {
   return(
     <div className="AuthedSplit">
       <Menu />
-      <AuthedContext.Provider>
+      <AuthedContext.Provider value={contextValue}>
         <Main component={React.cloneElement(mainComponent, {...contextValue} )}/>
       </AuthedContext.Provider>
     </div>

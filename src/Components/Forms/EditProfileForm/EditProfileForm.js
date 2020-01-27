@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import AppContext from '../../../AppContext';
+import AuthedContext from '../../../AuthedContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
@@ -8,8 +9,9 @@ import '../Forms.css';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 
 
-function EditProfileForm() {
+function EditProfileForm({ history }) {
   const context = useContext(AppContext)
+  const contextAuthed = useContext(AuthedContext)
   const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: user.image_url || '' },
@@ -18,12 +20,12 @@ function EditProfileForm() {
     cityName: { value: user.city_name || '', error: '' }
   })
 
-  useEffect(() => {
-    const setFormFromContext = () => {
-      console.log('app context user', user)
-    }
-    setFormFromContext()
-  }, [])
+  // useEffect(() => {
+  //   const setFormFromContext = () => {
+  //     console.log('app context user', user)
+  //   }
+  //   setFormFromContext()
+  // }, [])
 
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
@@ -36,12 +38,16 @@ function EditProfileForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const updatedUserProps = {
-      imgUrl: formBody.imgUrl.value,
-      countryName: formBody.countryName.value,
-      regionName: formBody.regionName.value,
-      cityName: formBody.cityName.value
+      // ...user, //adds all the authed info we dont want public
+      id: user.id.toString(), // MENTOR QUESTION: my context user has a numeric id and my json data is stringed..
+      image_url: formBody.imgUrl.value,
+      country_name: formBody.countryName.value,
+      region_name: formBody.regionName.value,
+      city_name: formBody.cityName.value
     }
-    console.log(updatedUserProps)
+    context.updateUser(updatedUserProps)
+    contextAuthed.updateUsers(updatedUserProps)
+    history.push(`/dashboard/${user.id}`)
   }
 
   return(

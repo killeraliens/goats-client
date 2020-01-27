@@ -12,7 +12,6 @@ export default function Feed({ flyers, events, users, fetching, listing_state })
   }
   return(
     <div className="Feed">
-      {console.log(flyers)}
       {flyers.map(flyer => {
         /* eslint eqeqeq: 0 */
         const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
