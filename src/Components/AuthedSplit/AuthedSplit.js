@@ -1,5 +1,6 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import AuthedContext from '../../AuthedContext';
 import DUMMY from '../../DUMMY';
 import Forum from '../Forum/Forum';
 import Menu from '../Menu/Menu';
@@ -15,9 +16,17 @@ export default function AuthedSplit({ mainComponent }) {
   const [events, setEvents] = useState([])
   const [users, setUsers] = useState([])
   const [fetching, setFetching] = useState(false)
+  // const context = useContext(AuthedContext)
+  const contextValue = {
+    flyers: flyers,
+    events: events,
+    users: users,
+    fetching: fetching
+  }
   useEffect(() => {
     const getAll = () => {
       console.log('fetching flyers, events..')
+
       setFetching(true)
       const flyersSet = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -52,12 +61,14 @@ export default function AuthedSplit({ mainComponent }) {
   }, [])
 
   // console.log('Authedsplit', mainComponent)
-  // MENTOR QUESTION: pass props to mainComponent here? how?
-  const newProps = { events: events, users: users, flyers: flyers, fetching: fetching}
+  //const newProps = { events: events, users: users, flyers: flyers, fetching: fetching}
+
   return(
     <div className="AuthedSplit">
       <Menu />
-      <Main component={React.cloneElement(mainComponent, {...newProps} )}/>
+      <AuthedContext.Provider>
+        <Main component={React.cloneElement(mainComponent, {...contextValue} )}/>
+      </AuthedContext.Provider>
     </div>
   )
 }

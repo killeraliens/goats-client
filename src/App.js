@@ -46,7 +46,7 @@ class App extends Component {
   render() {
     const context = {
       user: this.state.user,
-      updateAuthenticated: this.updateAuthenticated,
+      updateAuthenticated: this.updateAuthenticated
     }
 
     return(
