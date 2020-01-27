@@ -30,6 +30,8 @@ export default function AuthedSplit({ mainComponent }) {
     sets.then(() => console.log('updated users array', users))
   }
 
+
+
   const contextValue = {
     flyers: flyers,
     events: events,
@@ -73,9 +75,6 @@ export default function AuthedSplit({ mainComponent }) {
     }
     getAll()
   }, [])
-
-  // console.log('Authedsplit', mainComponent)
-  //const newProps = { events: events, users: users, flyers: flyers, fetching: fetching}
 
   return(
     <div className="AuthedSplit">

@@ -8,7 +8,7 @@ import '../Forms.css'
 export default function AvatarImageUpload(props) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState([])
-  const [imgUrl, setImgUrl] = useState(props.user.imgUrl)
+  const [imgUrl, setImgUrl] = useState(props.user.image_url)
   useEffect(() => {
     props.updateImgUrl(imgUrl)
     // eslint-disable-next-line react-hooks/exhaustive-deps

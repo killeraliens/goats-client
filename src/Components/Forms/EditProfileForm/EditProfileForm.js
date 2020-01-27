@@ -20,13 +20,6 @@ function EditProfileForm({ history }) {
     cityName: { value: user.city_name || '', error: '' }
   })
 
-  // useEffect(() => {
-  //   const setFormFromContext = () => {
-  //     console.log('app context user', user)
-  //   }
-  //   setFormFromContext()
-  // }, [])
-
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
   }
