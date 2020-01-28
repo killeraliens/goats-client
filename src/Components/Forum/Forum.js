@@ -10,13 +10,32 @@ import Country from '../Country/Country.js';
 export default function Forum({ flyers, events, users, fetching }) {
 
   const countriesHash = {}
+  const regionHash = {}
   events.forEach(event => {
-    if (!Object.keys(countriesHash).includes(event.country_name)) {
-      countriesHash[event.country_name] = 0
-      // console.log('counries hash ', countriesHash)
+    if (Boolean(event.country_name)) {
+      if (!Object.keys(countriesHash).includes(event.country_name)) {
+        countriesHash[event.country_name] = 0
+      }
+      countriesHash[event.country_name]++
+    } else {
+      return
     }
-    countriesHash[event.country_name]++
   })
+  events.forEach(event => {
+    if (Boolean(event.region_name)) {
+      if (!Object.keys(regionHash).includes(event.region_name)) {
+        regionHash[event.region_name] = { count: 0 }
+        if (Boolean(event.country_name)) {
+          regionHash[event.region_name].country_name = event.country_name
+        }
+      }
+      regionHash[event.region_name].count ++
+    } else {
+      return
+    }
+  })
+  console.log('region hash ', regionHash)
+  console.log('country hash ', countriesHash)
 
   const filterLinks = Object.keys(countriesHash).sort().map(country => {
     return (

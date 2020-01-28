@@ -11,7 +11,7 @@ export default function Comment({ user, isCreator, comment, modified }) {
     <div className="Comment">
         <div className="Comment--header">
           <div className="flex-center-between">
-            <Link to={`/dashboard/${user.id}`}>
+            <Link to={`/dashboard/${user.id}/contributions`}>
               <Avatar
                 imageUrl={user.image_url}
                 username={user.username}

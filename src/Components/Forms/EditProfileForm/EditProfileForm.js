@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppContext from '../../../AppContext';
 import AuthedContext from '../../../AuthedContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
@@ -57,4 +57,4 @@ function EditProfileForm({ history }) {
   )
 }
 
-export default withRouter(EditProfileForm)
+export default EditProfileForm

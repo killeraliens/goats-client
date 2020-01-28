@@ -10,11 +10,15 @@ import Profile from '../Profile/Profile';
 import './Dashboard.css'
 
 function Dashboard({ match, users, flyers, events, fetching }) {
-  console.log("users in dash", users)
+  //console.log("match path in Dash", match.path)
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
+  /* eslint eqeqeq: 0 */
   const foundUser = users.find(user => user.id == paramsId);
-  const userFlyers = flyers.filter(flyer => flyer.creator_id == foundUser.id)
+  /* eslint eqeqeq: 0 */
+  const userFlyers = flyers.filter(flyer => flyer.creator_id  == foundUser.id) //parseINt
+  // const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
+  //const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
   /* eslint eqeqeq: 0 */
   if (foundUser && context.user && context.user.id == paramsId) {
     return(
@@ -24,12 +28,16 @@ function Dashboard({ match, users, flyers, events, fetching }) {
           <SignOutLink />
         ]}/>
         <Switch>
-          <Route exact path={`/dashboard/${foundUser.id}`} render={() => {
-            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
-          }} />
-          <Route path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
+          <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
             return <EditProfileForm history={history}/>
           }}/>
+          <Route  path={`/dashboard/${foundUser.id}`} render={() => {
+            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
+          }} />
+          {/* <Route exact path={`/dashboard/${foundUser.id}/drafts`} render={() => {
+            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
+          }} /> */}
+
         </Switch>
 
       </div>
@@ -43,8 +51,7 @@ function Dashboard({ match, users, flyers, events, fetching }) {
 }
 
 Dashboard.defaultProps = {
-  match: { params: {} },
-  users: []
+  match: { params: {} }
 }
 
 Dashboard.propTypes = {
