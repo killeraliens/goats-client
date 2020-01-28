@@ -15,6 +15,7 @@ export default function MainNavLink(props) {
       }}
       className={`MainNavLink ${props.activeColorClass}`}
       to={props.to}
+      isActive={props.isActive}
     >
       {props.children}
     </NavLink>
@@ -23,7 +24,8 @@ export default function MainNavLink(props) {
 
 MainNavLink.defaultProps = {
   activeColorClass: 'whitesmoke-black',
-  callback: null
+  callback: null,
+  isActive: null
 }
 
 MainNavLink.propTypes = {
@@ -37,5 +39,6 @@ MainNavLink.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  callback: PropTypes.func
+  callback: PropTypes.func,
+  isActive: PropTypes.func
 }

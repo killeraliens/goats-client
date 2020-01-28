@@ -17,7 +17,7 @@ export default function Menu() {
         <NavLink to="/forum" className="Menu--pal--btn">
           <img src={pentagram} alt="pentagram icon"/>
         </NavLink>
-        <NavLink to={`/dashboard/${context.user.id}/contributions`} className="Menu--pal--btn">
+        <NavLink to={`/dashboard/${context.user.id}`} className="Menu--pal--btn">
           <Avatar
             className="Avatar-small"
             imageUrl={avatarImage}

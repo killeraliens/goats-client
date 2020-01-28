@@ -5,26 +5,18 @@ import DUMMY from '../../DUMMY';
 import Forum from '../Forum/Forum';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
-// import Spinner from '../Spinner/Spinner';
 import './AuthedSplit.css';
 
 export default function AuthedSplit({ mainComponent }) {
-  // MENTOR QUESTION: should i contain the setting of 'flyers', 'events', 'users' state to the Feed component, and just pass a 'params' prop to filter?
-  // I could send my back end the query or filter "all" here in react.
-  // feed changes depending on where it loads (in dashboard it will pull up the users flyers), on here, it will change based on search/nav link params
   const [flyers, setFlyers] = useState([])
   const [events, setEvents] = useState([])
   const [users, setUsers] = useState([])
   const [fetching, setFetching] = useState(false)
-  // const context = useContext(AuthedContext)
   const updateUsers = (changedUser) => {
-    console.log('changed user', changedUser)
     let foundUser = users.find(user => user.id == changedUser.id)
-    console.log('found user', foundUser)
     let updatedUser = {...foundUser, ...changedUser}
     let filteredUsers = users.filter(user => user.id.toString() !== changedUser.id.toString())
     const sets = new Promise ((res, rej) => {
-      console.log('updating context/state of users', [...filteredUsers, { ...updatedUser }])
       res(setUsers([...filteredUsers, {...updatedUser}]))
     })
     sets.then(() => console.log('updated users array', users))
@@ -39,8 +31,6 @@ export default function AuthedSplit({ mainComponent }) {
   }
   useEffect(() => {
     const getAll = () => {
-      console.log('fetching flyers, events..')
-
       setFetching(true)
       const flyersSet = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -61,15 +51,6 @@ export default function AuthedSplit({ mainComponent }) {
       Promise.all([flyersSet, eventsSet, usersSet]).then(function (values) {
         setFetching(false)
       });
-      // setFetching(false)
-      // setTimeout(() => {
-      //   setFetching(false)
-        // MENTOR QUESTION: how to handle multiple requests - with Promise.all ?
-        // the changing of passed props is making my child component rerender mulitiple times
-        // setFlyers(DUMMY["flyers"])
-        // setEvents(DUMMY["events"])
-        // setUsers(DUMMY["users"])
-      // }, 500);
     }
     getAll()
   }, [])

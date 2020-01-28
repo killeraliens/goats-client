@@ -31,13 +31,9 @@ function Dashboard({ match, users, flyers, events, fetching }) {
           <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
             return <EditProfileForm history={history}/>
           }}/>
-          <Route  path={`/dashboard/${foundUser.id}`} render={() => {
+          <Route path={`/dashboard/${foundUser.id}`} render={() => {
             return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
           }} />
-          {/* <Route exact path={`/dashboard/${foundUser.id}/drafts`} render={() => {
-            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
-          }} /> */}
-
         </Switch>
 
       </div>

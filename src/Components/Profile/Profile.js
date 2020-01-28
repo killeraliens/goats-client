@@ -29,12 +29,25 @@ export default function Profile({ user, isCurrent, users, events, userFlyers, fe
         </div>
       </MainHeader>
       <MainNav links={[
-        <MainNavLink to={`/dashboard/${user.id}/contributions`} >Contributions</MainNavLink>,
+        <MainNavLink
+          to={`/dashboard/${user.id}/contributions`}
+          isActive={(match, location) => {
+            if (location.pathname === `/dashboard/${user.id}/contributions` || location.pathname === `/dashboard/${user.id}` || location.pathname === `/dashboard/${user.id}/`) {
+              return true
+            }
+            return false
+          }}
+        >
+          Contributions
+        </MainNavLink>,
         draftsLink
       ]} />
       <div className="Main--content">
         <Switch>
-          <Route exact path={`/dashboard/${user.id}/contributions`} render={() => {
+          <Route exact path={`/dashboard/${user.id}`} render={() => {
+            return <Feed flyers={publicFlyers} events={events} users={users} fetching={fetching} />
+          }} />
+          <Route path={`/dashboard/${user.id}/contributions`} render={() => {
             return <Feed flyers={publicFlyers} events={events} users={users} fetching={fetching} />
           }} />
           <Route path={`/dashboard/${user.id}/drafts`} render={() => {
