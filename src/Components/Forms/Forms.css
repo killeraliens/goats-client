@@ -1,11 +1,15 @@
 /* .Main--content form:not(.header-form) { */
-form:not(.SignInForm, .SignUpForm) {
-  padding: 32px;
+form {
+  padding: 24px;
   background-color: whitesmoke;
-  max-width: 600px;
+  max-width: 500px;
 }
 
-
+form:not(.SignInForm, .SignUpForm) {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
 
 form.header-form {
   background-color: rgb(46, 46, 46);
@@ -61,7 +65,7 @@ input[type=text], input[type=datalist], input[type=password], input[type=email],
 
 .fieldset-container {
   display: flex;
-  max-width: 600px;
+  max-width: 400px;
 }
 
 .fieldset-container fieldset:not(:last-child) {
@@ -167,12 +171,9 @@ ul.EventInput--preview li > * {
 }
 
 @media (max-width: 599px) {
-   /* ul.EventInput--preview {
-     font-size: 10px;
-   } */
-  .Main--content form:not(.header-form) {
+  /* .Main--content form:not(.header-form) {
     padding: 24px;
-  }
+  } */
 }
 
 @media (max-width: 599px) {
@@ -222,17 +223,17 @@ div.textarea {
 }
 
 /* Temp placement until component made */
-.ImageFileButton {
+.AvatarPreview {
   width: fit-content;
 }
 
-.ImageFileButton * {
+.AvatarPreview * {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.ImageFileButton > label > div > span {
+.AvatarPreview > label > div > span {
   color: white;
   /* text-align: center; */
   justify-content: center;
@@ -241,3 +242,23 @@ div.textarea {
   border-radius: 50%;
   background: linear-gradient(175deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .5));
 }
+
+
+.FlyerPreview, .FlyerPreview > * {
+  position: relative;
+}
+
+.FlyerPreview > span {
+  background: linear-gradient(175deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .5));
+  position: absolute;
+  top: 0;
+  border-radius: 0;
+  height: calc(100% - 2px);
+  min-width: fit-content;
+  min-height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+

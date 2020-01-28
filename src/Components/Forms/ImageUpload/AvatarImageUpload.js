@@ -82,7 +82,7 @@ export default function AvatarImageUpload(props) {
   return(
     <fieldset>
       <div className="flex-center-between">
-        <div className="ImageFileButton">
+        <div className="AvatarPreview">
           <label htmlFor="imgUrl">
             { labelContent() }
           </label>

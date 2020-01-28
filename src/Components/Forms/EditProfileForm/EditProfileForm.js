@@ -31,8 +31,7 @@ function EditProfileForm({ history }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const updatedUserProps = {
-      // ...user, //adds all the authed info we dont want public
-      id: user.id.toString(), // MENTOR QUESTION: my context user has a numeric id and my json data is stringed..
+      id: user.id.toString(),
       image_url: formBody.imgUrl.value,
       country_name: formBody.countryName.value,
       region_name: formBody.regionName.value,
