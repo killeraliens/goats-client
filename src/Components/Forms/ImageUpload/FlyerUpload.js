@@ -18,6 +18,11 @@ export default function FlyerUpload(props) {
     setImgUrlError({ touched: false, error: '' })
   }
   useEffect(() => {
+    if (!window.FileReader) {
+      setImgUrlError(prev => ({...prev, error: "The file API isn't supported on this browser yet. User another broweser."}));
+    }
+  }, [])
+  useEffect(() => {
     if (!Boolean(validateImgUrl())) {
       props.updateImgUrl(imgUrl)
     } else {
@@ -48,7 +53,6 @@ export default function FlyerUpload(props) {
       files.forEach((file, i) => {
         if (file.size < 3000000) {
           formData.append(i, file)
-          console.log('fetching image upload', imgUrlError)
           fetch(`${config.API_ENDPOINT}/api/image-upload`, {
             method: 'POST',
             body: formData
@@ -63,9 +67,7 @@ export default function FlyerUpload(props) {
               }
             })
             .catch(err => alert('error in image upload'))
-
         } else {
-          console.log('image error')
           setUploading(false)
           setImgUrlError({ error: 'File must be under 3MB', touched: true })
         }
@@ -102,7 +104,6 @@ export default function FlyerUpload(props) {
               src={Boolean(imgUrl) ? imgUrl : defaultFlyer}
               alt={`flyer image loaded`}
             />
-
           </div>
         )
       default:
