@@ -3,35 +3,74 @@ import PropTypes from 'prop-types';
 import config from '../../../config'
 import Spinner from '../../Spinner/Spinner'
 import defaultFlyer from '../../../assets/blood-texture.jpg'
+import ValidationError from '../ValidationError/ValidationError'
 import '../Forms.css'
 
 export default function FlyerUpload(props) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState([])
   const [imgUrl, setImgUrl] = useState(props.flyer.image_url || '')
+  const [imgUrlError, setImgUrlError] = useState({touched: false, error: ''})
+  const reset = () => {
+    setUploading(false)
+    setImages([])
+    setImgUrl(props.flyer.image_url || '')
+    setImgUrlError({ touched: false, error: '' })
+  }
   useEffect(() => {
-    props.updateImgUrl(imgUrl)
+    if (!Boolean(validateImgUrl())) {
+      props.updateImgUrl(imgUrl)
+    } else {
+      props.updateImgError(imgUrlError.error)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgUrl])
+}, [imgUrl, imgUrlError.error])
+
+
+
+  const validateImgUrl = () => {
+    if (imgUrlError.touched) {
+      return imgUrl.length === 0
+        ? 'Flyer image required'
+        : Boolean(imgUrlError.error)
+        ? imgUrlError.error
+        : ''
+    }
+    return ''
+  }
+
 
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
-    setUploading(true)
-    const formData = new FormData()
-    files.forEach((file, i) => {
-      formData.append(i, file)
-    })
-
-    fetch(`${config.API_ENDPOINT}/api/image-upload`, {
-      method: 'POST',
-      body: formData
-    })
-      .then(res => res.json())
-      .then(images => {
-        setUploading(false)
-        setImages(images)
-        setImgUrl(images[0].secure_url)
+      setUploading(true)
+      setImgUrlError({ error: '', touched: true })
+      const formData = new FormData()
+      files.forEach((file, i) => {
+        //console.log('FIlE SIZE',file.size)
+        if (file.size < 3000000) {
+          formData.append(i, file)
+        } else {
+          setImgUrlError({ error: 'File must be under 3MB', touched: true })
+        }
       })
+
+      if(!Boolean(imgUrlError.error)) {
+        fetch(`${config.API_ENDPOINT}/api/image-upload`, {
+          method: 'POST',
+          body: formData
+        })
+          .then(res => res.json())
+          .then(images => {
+            setUploading(false)
+            if(images.length > 0) {
+              setImages(images)
+              setImgUrl(images[0].secure_url)
+              setImgUrlError({ touched: true, error: '' })
+            }
+          })
+          .catch(err => alert('error in image upload'))
+        }
+
   }
 
   const labelContent = () => {
@@ -46,64 +85,57 @@ export default function FlyerUpload(props) {
           <span><Spinner /></span>
         </div>
         )
-      // case uploading && images.length > 0:
-      //   return (
-      //     <Avatar
-      //       className="Main--avatar"
-      //       imageUrl={imgUrl}
-      //       username={props.user.username}
-      //     >
-      //       <span><Spinner /></span>
-      //     </Avatar>
-      //   )
+      case uploading && images.length > 0:
+        return (
+          <div className="FlyerPreview">
+            <img
+              src={imgUrl}
+              alt={`flyer image loading`}
+            />
+            <span><Spinner /></span>
+          </div>
+        )
       case images.length > 0:
         return (
           <div className="FlyerPreview">
             <img
               src={Boolean(imgUrl) ? imgUrl : defaultFlyer}
-              alt={`flyer image loading`}
+              alt={`flyer image loaded`}
             />
 
           </div>
         )
       default:
         return (
-          // <div
-          //   className="FlyerPreview"
-          //   style={{ backgroundImage: 'url(' + imgUrl + ')' }}
-          //   alt={`flyer image`}
-          // >
-          //   <span>+IMAGE</span>
-          // </div>
           <div className="FlyerPreview">
             <img
               src={Boolean(imgUrl) ? imgUrl : defaultFlyer}
-              // className="FlyerPreview"
-              alt={`flyer image loading`}
+              alt={`add flyer image`}
             />
-            <span>+FLYER IMAGE</span>
+            <span>+FLYER IMAGE*</span>
           </div>
-
-
         )
     }
   }
 
   return (
     <fieldset>
-      {/* <div className="flex-center-between"> */}
-          <label htmlFor="imgUrl">
-            {labelContent()}
-          </label>
-          <input
-            type="file"
-            id="imgUrl"
-            name="imgUrl"
-            className="sr-only"
-            aria-label="select image"
-            onChange={handleImgChange}
-          />
-      {/* </div> */}
+      <label htmlFor="imgUrl">
+        {labelContent()}
+      </label>
+      <input
+        type="file"
+        id="imgUrl"
+        name="imgUrl"
+        className="sr-only"
+        aria-label="select image"
+        onChange={handleImgChange}
+        aria-label="flyer image"
+        aria-required="true"
+        aria-describedby="imageUrlError"
+        aria-invalid={imgUrlError.error}
+      />
+      <ValidationError id="imgUrlError" message={imgUrlError.error} />
     </fieldset>
   )
 }

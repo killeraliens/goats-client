@@ -23,6 +23,19 @@ export default function AddShowForm({ flyer, events }) {
       publishComment: { value: '', error: '' }
     // }
   })
+  const [disabled, setDisabled] = useState(false)
+
+  useEffect(() => {
+    const checkIfErrors = () => {
+      Object.entries(formBody).forEach(([key, val]) => {
+        if (val.error && val.error.length > 0) {
+          setDisabled(true)
+        }
+        console.log(`VALUE error for ${key}`, val.error)
+      })
+    }
+    checkIfErrors()
+  }, [formBody])
 
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
@@ -32,17 +45,20 @@ export default function AddShowForm({ flyer, events }) {
     setFormBody(prev => ({ ...prev, imgUrl: { value: url } }))
   }
 
+  const updateImgError = (error) => {
+    setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: error } }))
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('formBOD', formBody)
   }
+
+  // console.log('STATE OF FORM', formBody)
+  //console.log('STATE OF DISABLED', disabled)
   return(
     <form className="AddShowForm" onSubmit={handleSubmit}>
-      {/* <fieldset>
-        <label for="flyer-image">Select Flier Image*</label>
-        <input type="file" />
-      </fieldset> */}
-      <FlyerUpload updateImgUrl={updateImgUrl}/>
+      <FlyerUpload updateImgUrl={updateImgUrl} updateImgError={updateImgError}/>
       <fieldset>
         <label for="headline">Headline*</label>
         <input type="text" placeholder="Fest Name" />
@@ -82,7 +98,12 @@ export default function AddShowForm({ flyer, events }) {
         <div class="textarea" name="publishComment" id="publishComment" contentEditable></div>
       </fieldset>
       <div className="form-controls">
-        <button type="submit">Publish</button>
+        <button
+          type="submit"
+          disabled={disabled}
+        >
+          Publish
+        </button>
         <a href="./index-draft-success">Save As Draft</a>
         <a href="./index.html">Cancel</a>
       </div>
