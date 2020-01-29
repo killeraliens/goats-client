@@ -123,6 +123,12 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
   // }
   }
 
+  // const validateImgUrl = () => {
+  //     return !Boolean(formBody.imgUrl.value)
+  //       ? 'imgUrl required'
+  //       : ''
+  // }
+
   const validateHeadline = () => {
     if (formBody.headline.touched) {
       const trimmedHeadline = formBody.headline.value.trim()
@@ -135,16 +141,22 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     return ''
   }
 
-  // const validateImgUrl = () => {
-  //     return !Boolean(formBody.imgUrl.value)
-  //       ? 'imgUrl required'
-  //       : ''
-  // }
+  const validateDate = () => {
+    if (formBody.date.touched) {
+      const trimmedDate = formBody.date.value.trim()
+      return trimmedDate.length > 5
+        ? `Format as "MM/DD"`
+        : !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
+        ? `Format as "MM/DD"`
+        : ''
+    }
+    return ''
+  }
 
   const updateValidationErrors = () => {
-    setFormBody(prev => ({ ...prev, headline: { ...prev.headline, error: validateHeadline()}}))
     // setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: validateImgUrl()}}))
-
+    setFormBody(prev => ({ ...prev, headline: { ...prev.headline, error: validateHeadline()}}))
+    setFormBody(prev => ({ ...prev, date: { ...prev.date, error: validateDate() } }))
   }
 
   // useEffect(() => {
@@ -180,7 +192,23 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <div className="fieldset-container sub-group">
           <fieldset className="date">
             <label htmlFor="date">Date</label>
-            <input id="date" name="date" type="text" placeholder="mm/dd" />
+            <input
+              id="date"
+              name="date"
+              type="text"
+              placeholder="mm/dd"
+              value={formBody.date.value || ''}
+              onChange={e => {
+                e.persist();
+                return setFormBody(prev => ({ ...prev, date: { value: e.target.value, touched: true } }))
+              }}
+              aria-label="date"
+              aria-required="false"
+              aria-describedby="dateError"
+              aria-invalid={!!formBody.date.error}
+              onBlur={updateValidationErrors}
+            />
+            <ValidationError id="dateError" message={formBody.date.error} />
           </fieldset>
           <fieldset className="grow">
             <label htmlFor="venueName">Venue Name</label>
