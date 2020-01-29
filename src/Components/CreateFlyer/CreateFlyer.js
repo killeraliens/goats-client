@@ -26,7 +26,7 @@ export default function CreateFlyer({ users, flyers, events, fetching}) {
       <div className="Main--content">
         <Switch>
           <Route exact path='/create-flyer/show' render={() => {
-            return <FlyerForm creatorId={context.user.id} />}}/>
+            return <FlyerForm newType="Show" creatorId={context.user.id} />}}/>
         </Switch>
 
       </div>
