@@ -11,7 +11,7 @@ export default function AddShowForm({ flyer, events }) {
   const flyerEvents = events.filter(event => event.creator_id == flyer.id)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: flyer.image_url || '' },
-    events: flyer.events || [],
+    events: flyerEvents || [],
     // event: {
       date: { value: '', touched: false, error: ''},
       venueName: { value: '', error: ''},
@@ -28,10 +28,10 @@ export default function AddShowForm({ flyer, events }) {
   useEffect(() => {
     const checkIfErrors = () => {
       Object.entries(formBody).forEach(([key, val]) => {
-        if (val.error && val.error.length > 0) {
-          setDisabled(true)
+        if (Boolean(val.error)) {
+            setDisabled(true)
         }
-        console.log(`VALUE error for ${key}`, val.error)
+        setDisabled(false)
       })
     }
     checkIfErrors()
@@ -54,8 +54,7 @@ export default function AddShowForm({ flyer, events }) {
     console.log('formBOD', formBody)
   }
 
-  // console.log('STATE OF FORM', formBody)
-  //console.log('STATE OF DISABLED', disabled)
+
   return(
     <form className="AddShowForm" onSubmit={handleSubmit}>
       <FlyerUpload updateImgUrl={updateImgUrl} updateImgError={updateImgError}/>
@@ -63,9 +62,7 @@ export default function AddShowForm({ flyer, events }) {
         <label for="headline">Headline*</label>
         <input type="text" placeholder="Fest Name" />
       </fieldset>
-
       <EventsPreview events={formBody.events} />
-
       <div class="EventFieldset">
         <div class="fieldset-container sub-group">
           <fieldset class="date">

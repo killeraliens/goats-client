@@ -42,34 +42,34 @@ export default function FlyerUpload(props) {
 
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
-      setUploading(true)
       setImgUrlError({ error: '', touched: true })
+      setUploading(true)
       const formData = new FormData()
       files.forEach((file, i) => {
-        //console.log('FIlE SIZE',file.size)
         if (file.size < 3000000) {
           formData.append(i, file)
+          console.log('fetching image upload', imgUrlError)
+          fetch(`${config.API_ENDPOINT}/api/image-upload`, {
+            method: 'POST',
+            body: formData
+          })
+            .then(res => res.json())
+            .then(images => {
+              setUploading(false)
+              if (images.length > 0) {
+                setImages(images)
+                setImgUrl(images[0].secure_url)
+                setImgUrlError({ touched: true, error: '' })
+              }
+            })
+            .catch(err => alert('error in image upload'))
+
         } else {
+          console.log('image error')
+          setUploading(false)
           setImgUrlError({ error: 'File must be under 3MB', touched: true })
         }
       })
-
-      if(!Boolean(imgUrlError.error)) {
-        fetch(`${config.API_ENDPOINT}/api/image-upload`, {
-          method: 'POST',
-          body: formData
-        })
-          .then(res => res.json())
-          .then(images => {
-            setUploading(false)
-            if(images.length > 0) {
-              setImages(images)
-              setImgUrl(images[0].secure_url)
-              setImgUrlError({ touched: true, error: '' })
-            }
-          })
-          .catch(err => alert('error in image upload'))
-        }
 
   }
 
@@ -149,5 +149,6 @@ FlyerUpload.propTypes = {
   flyer: PropTypes.shape({
     imgUrl: PropTypes.string
   }),
-  updateImgUrl: PropTypes.func
+  updateImgUrl: PropTypes.func,
+  updateImgError: PropTypes.func
 }
