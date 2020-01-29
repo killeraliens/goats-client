@@ -1,14 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import AuthedContext from '../../../AuthedContext';
 import '../Forms.css';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import EventsPreview from './EventsPreview';
 import FlyerUpload from '../ImageUpload/FlyerUpload';
-import FlyerCard from '../../FlyerCard/FlyerCard';
 
-export default function AddShowForm({ flyer, events }) {
-  const flyerEvents = events.filter(event => event.creator_id == flyer.id)
+export default function FlyerForm({ flyer, events, creatorId }) {
+  const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: flyer.image_url || '' },
     events: flyerEvents || [],
@@ -20,7 +19,8 @@ export default function AddShowForm({ flyer, events }) {
       cityName: { value: '', error: '' },
       bands: { value: '', error: '' },
       description: { value: '', error: '' },
-      publishComment: { value: '', error: '' }
+      publishComment: { value: '', error: '' },
+      flyerCreatorId: creatorId
     // }
   })
   const [disabled, setDisabled] = useState(false)
@@ -56,7 +56,7 @@ export default function AddShowForm({ flyer, events }) {
 
 
   return(
-    <form className="AddShowForm" onSubmit={handleSubmit}>
+    <form className="FlyerForm" onSubmit={handleSubmit}>
       <FlyerUpload updateImgUrl={updateImgUrl} updateImgError={updateImgError}/>
       <fieldset>
         <label for="headline">Headline*</label>
@@ -109,7 +109,34 @@ export default function AddShowForm({ flyer, events }) {
   )
 }
 
-AddShowForm.defaultProps = {
+FlyerForm.defaultProps = {
   flyer: {},
   events: []
+}
+
+FlyerForm.propTypes = {
+  creatorId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]).isRequired,
+  flyer: PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    creator_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ])
+  }),
+  events: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    flyer_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ])
+  }))
 }
