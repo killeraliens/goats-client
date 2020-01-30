@@ -17,9 +17,9 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     //event.flyer_id gets set on server along with flyer id
     date: { value: '', touched: false, error: ''},
     venueName: { value: '', touched: false, error: ''},
-    countryName: { value: '' },
-    regionName: { value: '' },
-    cityName: { value: '', error: '' },
+    countryName: { value: '', code: ''},
+    regionName: { value: '', array: [] },
+    cityName: { value: '', touched: false, error: '' },
     //
     bands: { value: flyer.bands || '', touched: false, error: '' },
     details: { value: flyer.details|| '', touched: false, error: '' },
@@ -39,8 +39,8 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
       events: flyerEvents || [],
       date: { value: '', touched: false, error: '' },
       venueName: { value: '', touched: false, error: '' },
-      countryName: { value: '' },
-      regionName: { value: '' },
+      countryName: { value: '', code: '' },
+      regionName: { value: '', array: [] },
       cityName: { value: '', error: '' },
       bands: { value: flyer.bands || '', touched: false, error: '' },
       details: { value: flyer.details || '', touched: false, error: '' },
@@ -53,7 +53,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
 
   useEffect(() => {
     const setDisabledIfErrors = () => {
-      let errors = Object.values(formBody).filter(value => Boolean(value.error))
+      let errors = Object.values(formBody).filter(value => value && Boolean(value.error))
       if (errors.length > 0 || !Boolean(formBody.headline.value) || !Boolean(formBody.imgUrl.value)) {
         setDisabled(true)
       } else {
@@ -61,7 +61,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
       }
     }
     const touched = () => {
-      let touched = Object.values(formBody).filter(value => Boolean(value.touched) && Boolean(value.value))
+      let touched = Object.values(formBody).filter(value => value && Boolean(value.touched) && Boolean(value.value))
       if (touched.length > 0) {
         setTouched(true)
       } else {
@@ -139,19 +139,8 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     return ''
   }
 
-  const validateDate = () => {
-    if (formBody.date.touched && formBody.date.value !== "") {
-      const trimmedDate = formBody.date.value.trim()
-      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
-        ? `Format as "MM/DD"`
-        : ''
-    }
-    return ''
-  }
-
   const updateValidationErrors = () => {
     setFormBody(prev => ({ ...prev, headline: { ...prev.headline, error: validateHeadline()}}))
-    setFormBody(prev => ({ ...prev, date: { ...prev.date, error: validateDate() } }))
   }
 
   useEffect(() => {
@@ -210,41 +199,6 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName}}
         formVenue={formBody.venueName}
       />
-      {/* <div className="EventFieldset">
-        <div className="fieldset-container sub-group">
-          <fieldset className="date">
-            <label htmlFor="date">Date</label>
-            <input
-              id="date"
-              name="date"
-              type="text"
-              placeholder="mm/dd"
-              value={formBody.date.value || ''}
-              onChange={e => {
-                e.persist();
-                return setFormBody(prev => ({ ...prev, date: { value: e.target.value, touched: true } }))
-              }}
-              aria-label="date"
-              aria-required="false"
-              aria-describedby="dateError"
-              aria-invalid={!!formBody.date.error}
-              onBlur={updateValidationErrors}
-            />
-            <ValidationError id="dateError" message={formBody.date.error} />
-          </fieldset>
-          <fieldset className="grow">
-            <label htmlFor="venueName">Venue Name</label>
-            <input type="text" id="venueName" name="venueName" />
-          </fieldset>
-        </div>
-        <div className="fieldset-container">
-          <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity}/>
-        </div>
-        <button id="AddTourBtn" className="EventFieldset--add-btn tour">
-          Add Tour Stop
-        </button>
-      </div> */}
-
       <fieldset>
         <label htmlFor="bands">Band Lineup</label>
         <div className="textarea" name="bands" id="bands" contentEditable></div>

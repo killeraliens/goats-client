@@ -2,33 +2,23 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 let provinces = require('provinces')
 
-export default function RegionSelector({ countryCode, updateRegionName }) {
-  const [regions, setRegions] = useState([])
-  const [regionName, setRegionName] = useState('')
+export default function RegionSelector({ updateRegion, formRegion, formCountry }) {
 
   useEffect(() => {
-    const updateRegions = () => {
+    const setRegionArray = () => {
       /* eslint eqeqeq: 0 */
-      const regions = provinces.filter(row => row.country == countryCode)
-      setRegions(regions)
+      const regions = provinces.filter(row => row.country == formCountry.code)
+      updateRegion({ value: '', array: regions } )
     }
-    const clearField = () => {
-      setRegionName('')
-    }
-    clearField()
-    updateRegions()
-  }, [countryCode])
 
-  useEffect(() => {
-    updateRegionName(regionName)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [regionName])
+    setRegionArray()
+  }, [formCountry.code])
 
   const handleChange = (e) => {
-    setRegionName(e.target.value)
+    updateRegion({ ...formRegion, value: e.target.value })
   }
 
-  if (!countryCode || regions.length === 0) {
+  if (!formCountry.code || formRegion.array.length === 0) {
     return null
   }
 
@@ -40,10 +30,10 @@ export default function RegionSelector({ countryCode, updateRegionName }) {
         name="region"
         type="text"
         onChange={handleChange}
-        value={regionName}
+        value={formRegion.value}
       >
         <option value="">--</option>
-        {regions.map((region, i) => {
+        {formRegion.array.map((region, i) => {
           return(
             <option
               key={i}

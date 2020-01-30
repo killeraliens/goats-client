@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import config from '../../../config';
 
-export default function CountrySelector({ updateCountryCode }) {
+export default function CountrySelector({ updateCountry, formCountry }) {
   const [data, setData] = useState({ countries: [] })
-  const [selectedCountry, setSelectedCountry] = useState({ code: '', name: ''})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -19,15 +18,11 @@ export default function CountrySelector({ updateCountryCode }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    updateCountryCode(selectedCountry)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCountry, updateCountryCode])
 
   const handleChange = (e) => {
-    setSelectedCountry({
+    updateCountry({
       code: e.target.value,
-      name: e.target.options[e.target.selectedIndex].text
+      value: e.target.options[e.target.selectedIndex].text
     })
   }
 
@@ -42,7 +37,7 @@ export default function CountrySelector({ updateCountryCode }) {
         name="country"
         type="text"
         onChange={handleChange}
-        value={selectedCountry.code}
+        value={formCountry.code || ''}
       >
         <option value="">Select Country</option>
         {data.countries.map(({ country_name, country_code }) => {

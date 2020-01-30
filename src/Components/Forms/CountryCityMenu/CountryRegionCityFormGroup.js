@@ -1,50 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 import CountryRegionFormGroup from './CountryRegionFormGroup'
 import ValidationError from '../ValidationError/ValidationError';
 
 export default function CountryRegionCityFormGroup({ updateCountryRegionCity, formCountryRegionCity }) {
-  const [countryName, setCountryName] = useState(formCountryRegionCity.countryName.value)
-  const [regionName, setRegionName] = useState(formCountryRegionCity.regionName.value)
-  const [cityName, setCityName] = useState(formCountryRegionCity.cityName )
-
-  useEffect(() => {
-    updateCountryRegionCity({
-      countryName: { value: countryName },
-      regionName: { value: regionName },
-      cityName: cityName
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countryName, regionName, cityName])
-
-  useEffect(() => {
-    const updateValidationErrors = () => {
-      setCityName(prev => ({ ...prev, error: validateCityName() }))
-    }
-    updateValidationErrors()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cityName.value])
 
   const validateCityName = () => {
-    if (cityName.touched) {
-      const trimmedCityName = cityName.value.trim()
+    if (formCountryRegionCity.cityName.touched) {
+      const trimmedCityName = formCountryRegionCity.cityName.value.trim()
       return !(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(trimmedCityName)) && Boolean(trimmedCityName)
-      ? `City format doesn't look right`
-      : trimmedCityName.length > 26
-      ? 'City must be under 26 characters long'
-      : ''
+        ? `City format doesn't look right`
+        : trimmedCityName.length > 26
+          ? 'City must be under 26 characters long'
+          : ''
     }
     return ''
   }
 
-  const updateCountryRegion = ({ countryName, regionName }) => {
-    setCountryName(countryName)
-    setRegionName(regionName)
+  useEffect(() => {
+    const updateValidationErrors = () => {
+      updateCountryRegionCity({ ...formCountryRegionCity, cityName: { ...formCountryRegionCity.cityName, error: validateCityName() } })
+    }
+    updateValidationErrors()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formCountryRegionCity.cityName.value])
+
+  const updateCountryRegion = (countryRegionFields) => {
+    updateCountryRegionCity({ ...formCountryRegionCity, ...countryRegionFields})
   }
 
   return(
     <div className="fieldset-container">
-      <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} />
+      <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} formCountryRegion={{ countryName: formCountryRegionCity.countryName, regionName: formCountryRegionCity.regionName }}/>
       <fieldset className="CityFieldset">
         <label htmlFor="city">City</label>
         <input
@@ -52,20 +39,26 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
           id="cityName"
           name="cityName"
           value={formCountryRegionCity.cityName.value || ''}
-          onChange={e => setCityName({ value: e.target.value, touched: true })}
+          onChange={e => { updateCountryRegionCity({ ...formCountryRegionCity, cityName: { value: e.target.value, touched: true } })}}
           aria-label="city name"
           aria-required="false"
           aria-describedby="cityNameError"
-          aria-invalid={!!cityName.error}
+          aria-invalid={!!formCountryRegionCity.cityName.error}
+          autocomplete="off"
         />
-        <ValidationError id="cityNameError" message={cityName.error} />
+        <ValidationError id="cityNameError" message={formCountryRegionCity.cityName.error} />
       </fieldset>
     </div>
   )
 }
 
 CountryRegionCityFormGroup.defaultProps = {
-  updateCountryRegionCity: () => { console.log(`country, region, city updated`) }
+  updateCountryRegionCity: () => { console.log(`country, region, city updated`) },
+  formCountryRegionCity: {
+    countryName: { value: '', code: '' },
+    regionName: { value: '', array: [] },
+    cityName: { value: '', touched: false, error: '' }
+  }
 }
 
 CountryRegionCityFormGroup.propTypes = {

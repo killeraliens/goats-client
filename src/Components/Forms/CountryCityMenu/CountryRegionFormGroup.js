@@ -3,29 +3,20 @@ import CountrySelector from './CountrySelector';
 import RegionSelector from './RegionSelector';
 import PropTypes from 'prop-types';
 
-export default function CountryRegionFormGroup({ updateCountryRegion }) {
-  const [country, setCountry] = useState({code: '', name: ''})
-  const [regionName, setRegionName] = useState(null)
+export default function CountryRegionFormGroup({ updateCountryRegion, formCountryRegion }) {
 
   const updateCountry = (country) => {
-    setCountry(country)
+    updateCountryRegion({...formCountryRegion, countryName: {...country}})
   }
 
-  const updateRegionName = (name) => {
-    setRegionName(name)
+  const updateRegion = (region) => {
+    updateCountryRegion({ ...formCountryRegion, regionName: { ...region }})
   }
-
-  useEffect(() => {
-    updateCountryRegion({
-      countryName: country.name,
-      regionName: regionName
-    })
-  })
 
   return(
     <div className="fieldset-container sub-group">
-      <CountrySelector updateCountryCode={updateCountry} />
-      <RegionSelector countryCode={country.code} updateRegionName={updateRegionName} />
+      <CountrySelector updateCountry={updateCountry} formCountry={formCountryRegion.countryName}/>
+      <RegionSelector updateRegion={updateRegion} formRegion={formCountryRegion.regionName} formCountry={formCountryRegion.countryName}/>
     </div>
   )
 }
