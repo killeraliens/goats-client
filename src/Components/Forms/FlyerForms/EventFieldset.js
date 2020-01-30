@@ -4,23 +4,14 @@ import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityForm
 import ValidationError from '../ValidationError/ValidationError';
 
 export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity }) {
-  const [date, setDate] = useState(formDate)
-  const [venueName, setVenueName] = useState(formVenue)
 
   const updateCountryRegionCity = (fields) => {
     updateEventFields(fields)
   }
 
-  useEffect(() => {
-    updateEventFields({
-      date: date,
-      venueName: venueName
-    })
-  }, [date, venueName])
-
   const validateDate = () => {
-    if (date.touched && date.value !== "") {
-      const trimmedDate = date.value.trim()
+    if (formDate.touched && formDate.value !== "") {
+      const trimmedDate = formDate.value.trim()
       // return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
       return!(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
         ? `Format as MM/DD`
@@ -32,8 +23,8 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
   }
 
   const validateVenueName = () => {
-    if (venueName.touched) {
-      const trimmedVenueName = venueName.value.trim()
+    if (formVenue.touched) {
+      const trimmedVenueName = formVenue.value.trim()
       return !(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(trimmedVenueName)) && Boolean(trimmedVenueName)
         ? `Venue name format doesn't look right`
         : trimmedVenueName.length > 26
@@ -46,19 +37,19 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
 
   useEffect(() => {
     const updateValidationErrors = () => {
-      setDate(prev => ({ ...prev, error: validateDate() }))
+      updateEventFields({ date: { ...formDate, error: validateDate() }})
     }
     updateValidationErrors()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date.value])
+  }, [formDate.value])
 
   useEffect(() => {
     const updateValidationErrors = () => {
-      setVenueName(prev => ({ ...prev, error: validateVenueName() }))
+      updateEventFields({ venueName: { ...formVenue, error: validateVenueName() } })
     }
     updateValidationErrors()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [venueName.value])
+  }, [formVenue.value])
 
   const handleClick = (e) => {
     addTourStop(e)
@@ -75,16 +66,14 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
             type="text"
             placeholder="mm/dd"
             value={formDate.value || ''}
-            onChange={e => {
-              e.persist();
-              return setDate({ value: e.target.value, touched: true })
-            }}
+            onChange={e => { updateEventFields({ date: { value: e.target.value, touched: true } }) }}
             aria-label="date"
             aria-required="false"
             aria-describedby="dateError"
-            aria-invalid={!!date.error}
+            aria-invalid={!!formDate.error}
+            autocomplete="off"
           />
-          <ValidationError id="dateError" message={date.error} />
+          <ValidationError id="dateError" message={formDate.error} />
         </fieldset>
         <fieldset className="grow">
           <label htmlFor="venueName">Venue Name</label>
@@ -93,16 +82,13 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
             name="venueName"
             type="text"
             value={formVenue.value || ''}
-            onChange={e => {
-              e.persist();
-              return setVenueName({ value: e.target.value, touched: true })
-            }}
+            onChange={e => { updateEventFields({ venueName: { value: e.target.value, touched: true } })}}
             aria-label="venue name"
             aria-required="false"
             aria-describedby="venueNameError"
-            aria-invalid={!!venueName.error}
+            aria-invalid={!!formVenue.error}
           />
-          <ValidationError id="venueNameError" message={venueName.error} />
+          <ValidationError id="venueNameError" message={formVenue.error} />
         </fieldset>
       </div>
       <div className="fieldset-container">
