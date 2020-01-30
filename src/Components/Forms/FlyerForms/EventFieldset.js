@@ -71,7 +71,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
             aria-required="false"
             aria-describedby="dateError"
             aria-invalid={!!formDate.error}
-            autocomplete="off"
+            autoComplete="off"
           />
           <ValidationError id="dateError" message={formDate.error} />
         </fieldset>
@@ -104,11 +104,43 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
 }
 
 EventFieldset.defaultProps = {
-  updateEventFields: () => { console.log('default updateEventFields function')},
-  addTourStop: () => { console.log('default addTourStop function') }
+  updateEventFields: () => {},
+  addTourStop: () => {},
+  formDate: { error: "", touched: false, value: "" },
+  formVenue: { error: "", touched: false, value: "" },
+  formCountryRegionCity: {
+    cityName: { error: "", touched: false, value: "" },
+    countryName: { code: "", value: "" },
+    regionName: { array:[], value: "" }
+  }
 }
 
 EventFieldset.propTypes = {
   updateEventFields: PropTypes.func,
   addTourStop: PropTypes.func,
+  formDate: PropTypes.shape({
+    value: PropTypes.string,
+    touched: PropTypes.bool,
+    error: PropTypes.string
+  }),
+  formVenue: PropTypes.shape({
+    value: PropTypes.string,
+    touched: PropTypes.bool,
+    error: PropTypes.string
+  }),
+  formCountryRegionCity: PropTypes.shape({
+    cityName: PropTypes.shape({
+      value: PropTypes.string,
+      touched: PropTypes.bool,
+      error: PropTypes.string
+    }),
+    countryName: PropTypes.shape({
+      code: PropTypes.string,
+      value: PropTypes.string
+    }),
+    regionName: PropTypes.shape({
+      array: PropTypes.array,
+      value: PropTypes.string
+    }),
+  })
 }

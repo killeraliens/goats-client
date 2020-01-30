@@ -49,13 +49,15 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 }
 
 CountrySelector.defaultProps = {
-  countries: []
+  updateCountry: () => {},
+  formCountry: { code: "", value: "" },
 }
 
 CountrySelector.propTypes = {
-  countries: PropTypes.arrayOf(PropTypes.shape({
-    country_name: PropTypes.string,
-    country_code: PropTypes.string
-  }))
+  updateCountry: PropTypes.func,
+  formCountry: PropTypes.shape({
+    code: PropTypes.string,
+    value: PropTypes.string
+  }),
 }
 

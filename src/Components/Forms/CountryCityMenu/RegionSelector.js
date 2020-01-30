@@ -48,12 +48,23 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
 }
 
 RegionSelector.defaultProps = {
-  countryCode: null,
-  updateRegionName: () => { console.log('default updateRegionName function')}
+  updateRegion: () => {},
+  formCountry: { code: "", value: "" },
+  formRegion: { array: [], value: "" }
 }
 
 RegionSelector.propTypes = {
-  countryCode: PropTypes.string,
-  updateRegionName: PropTypes.func
+  updateRegion: PropTypes.func,
+  formRegion: PropTypes.shape({
+    array: PropTypes.arrayOf(PropTypes.shape({
+      short: PropTypes.string,
+      name: PropTypes.string
+    })),
+    value: PropTypes.string
+  }),
+  formCountry: PropTypes.shape({
+    code: PropTypes.string,
+    value: PropTypes.string
+  }),
 }
 

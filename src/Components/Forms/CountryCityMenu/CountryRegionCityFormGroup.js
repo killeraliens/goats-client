@@ -44,7 +44,7 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
           aria-required="false"
           aria-describedby="cityNameError"
           aria-invalid={!!formCountryRegionCity.cityName.error}
-          autocomplete="off"
+          autoComplete="off"
         />
         <ValidationError id="cityNameError" message={formCountryRegionCity.cityName.error} />
       </fieldset>
@@ -53,7 +53,7 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
 }
 
 CountryRegionCityFormGroup.defaultProps = {
-  updateCountryRegionCity: () => { console.log(`country, region, city updated`) },
+  updateCountryRegionCity: () => { },
   formCountryRegionCity: {
     countryName: { value: '', code: '' },
     regionName: { value: '', array: [] },
@@ -62,5 +62,20 @@ CountryRegionCityFormGroup.defaultProps = {
 }
 
 CountryRegionCityFormGroup.propTypes = {
-  updateCountryRegionCity: PropTypes.func
+  updateCountryRegionCity: PropTypes.func,
+  formCountryRegionCity: PropTypes.shape({
+    countryName: PropTypes.shape({
+      value: PropTypes.string,
+      code: PropTypes.string
+    }),
+    regionName: PropTypes.shape({
+      value: PropTypes.string,
+      array: PropTypes.array
+    }),
+    cityName: PropTypes.shape({
+      value: PropTypes.string,
+      touched: PropTypes.bool,
+      error: PropTypes.string
+    })
+  })
 }
