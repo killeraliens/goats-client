@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import config from '../../../config';
 
-export default function CountrySelector(props) {
+export default function CountrySelector({ updateCountryCode }) {
   const [data, setData] = useState({ countries: [] })
   const [selectedCountry, setSelectedCountry] = useState({ code: '', name: ''})
   const [loading, setLoading] = useState(true)
@@ -20,24 +20,23 @@ export default function CountrySelector(props) {
   }, []);
 
   useEffect(() => {
-    props.updateCountryCode(selectedCountry)
+    updateCountryCode(selectedCountry)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCountry, props.updateCountryCode])
+  }, [selectedCountry, updateCountryCode])
 
   const handleChange = (e) => {
     setSelectedCountry({
       code: e.target.value,
       name: e.target.options[e.target.selectedIndex].text
     })
-    // console.log(e.target.options[e.target.selectedIndex].text)
   }
 
   if (loading) {
     return <p>Loading Countries...</p>
   }
   return(
-    <fieldset className="grow">
-      <label htmlFor="country">Select A Country</label>
+    <fieldset className="CountryFieldset grow">
+      <label htmlFor="country">Select Country</label>
       <select
         id="country"
         name="country"

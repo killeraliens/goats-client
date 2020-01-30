@@ -8,7 +8,8 @@
   position: absolute;
   width: 1px;
 }
-/*
+
 .ValidationError {
-  line-height: 20px;
-} */
+  font-size: 10px;
+  color: orangered;
+}

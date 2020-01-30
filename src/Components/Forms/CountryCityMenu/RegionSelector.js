@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 let provinces = require('provinces')
 
-export default function RegionSelector(props) {
+export default function RegionSelector({ countryCode, updateRegionName }) {
   const [regions, setRegions] = useState([])
   const [regionName, setRegionName] = useState('')
 
   useEffect(() => {
-    // console.log('props country code changed', props.countryCode)
     const updateRegions = () => {
       /* eslint eqeqeq: 0 */
-      const regions = provinces.filter(row => row.country == props.countryCode)
+      const regions = provinces.filter(row => row.country == countryCode)
       setRegions(regions)
     }
     const clearField = () => {
@@ -18,10 +17,10 @@ export default function RegionSelector(props) {
     }
     clearField()
     updateRegions()
-  }, [props.countryCode])
+  }, [countryCode])
 
   useEffect(() => {
-    props.updateRegionName(regionName)
+    updateRegionName(regionName)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [regionName])
 
@@ -29,12 +28,12 @@ export default function RegionSelector(props) {
     setRegionName(e.target.value)
   }
 
-  if (!props.countryCode || regions.length === 0) {
+  if (!countryCode || regions.length === 0) {
     return null
   }
 
   return(
-    <fieldset className="no-grow">
+    <fieldset className="RegionFieldset no-grow">
       <label htmlFor="region">State/Province</label>
       <select
         id="region"
@@ -59,14 +58,12 @@ export default function RegionSelector(props) {
 }
 
 RegionSelector.defaultProps = {
-  country: { code: '', name: '' }
+  countryCode: null,
+  updateRegionName: () => { console.log('default updateRegionName function')}
 }
 
 RegionSelector.propTypes = {
-  country: PropTypes.shape({
-    code: PropTypes.string,
-    name: PropTypes.string
-  }),
+  countryCode: PropTypes.string,
   updateRegionName: PropTypes.func
 }
 

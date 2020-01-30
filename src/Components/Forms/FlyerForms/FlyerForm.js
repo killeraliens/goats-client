@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import '../Forms.css';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
+import EventFieldset from './EventFieldset';
 import EventsPreview from './EventsPreview';
 import FlyerUpload from '../ImageUpload/FlyerUpload';
-import ValidationError from '../ValidationError/ValidationError'
+import ValidationError from '../ValidationError/ValidationError';
 ;
 export default function FlyerForm({ newType, flyer, events, creatorId }) {
   const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
@@ -71,7 +72,10 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     touched()
   }, [formBody])
 
-  const updateCountryRegionCity = (fields) => {
+  // const updateCountryRegionCity = (fields) => {
+  //   setFormBody(prev => ({ ...prev, ...fields }))
+  // }
+  const updateEventFields = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
   }
 
@@ -123,12 +127,6 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
   // }
   }
 
-  // const validateImgUrl = () => {
-  //     return !Boolean(formBody.imgUrl.value)
-  //       ? 'imgUrl required'
-  //       : ''
-  // }
-
   const validateHeadline = () => {
     if (formBody.headline.touched) {
       const trimmedHeadline = formBody.headline.value.trim()
@@ -142,11 +140,9 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
   }
 
   const validateDate = () => {
-    if (formBody.date.touched) {
+    if (formBody.date.touched && formBody.date.value !== "") {
       const trimmedDate = formBody.date.value.trim()
-      return trimmedDate.length > 5
-        ? `Format as "MM/DD"`
-        : !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
+      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
         ? `Format as "MM/DD"`
         : ''
     }
@@ -154,15 +150,9 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
   }
 
   const updateValidationErrors = () => {
-    // setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: validateImgUrl()}}))
     setFormBody(prev => ({ ...prev, headline: { ...prev.headline, error: validateHeadline()}}))
     setFormBody(prev => ({ ...prev, date: { ...prev.date, error: validateDate() } }))
   }
-
-  // useEffect(() => {
-  //   updateValidationErrors()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [serverError])
 
   return(
     <form className="FlyerForm" onSubmit={handleSubmit}>
@@ -188,7 +178,8 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
       <EventsPreview events={formBody.events} />
-      <div className="EventFieldset">
+      <EventFieldset updateEventFields={updateEventFields} />
+      {/* <div className="EventFieldset">
         <div className="fieldset-container sub-group">
           <fieldset className="date">
             <label htmlFor="date">Date</label>
@@ -221,7 +212,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <button id="AddTourBtn" className="EventFieldset--add-btn tour">
           Add Tour Stop
         </button>
-      </div>
+      </div> */}
 
       <fieldset>
         <label htmlFor="bands">Band Lineup</label>

@@ -14,7 +14,6 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) 
       regionName: { value: regionName },
       cityName: cityName
     })
-    // MENTOR QUESTION : when I place updateCountryRegionCity fun into arr causes infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryName, regionName, cityName])
 
@@ -23,17 +22,17 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) 
       setCityName(prev => ({ ...prev, error: validateCityName() }))
     }
     updateValidationErrors()
-    // MENTOR QUESTION: I specifically dont want it updating with theres changes to validateCityName
-    // so I dont get this es-lint
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityName.value])
 
   const validateCityName = () => {
     if (cityName.touched) {
       const trimmedCityName = cityName.value.trim()
-      return trimmedCityName.length > 26
-          ? 'city must be under 26 characters long'
-          : ''
+      return !(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(trimmedCityName)) && Boolean(trimmedCityName)
+      ? `City format doesn't look right`
+      : trimmedCityName.length > 26
+      ? 'City must be under 26 characters long'
+      : ''
     }
     return ''
   }
@@ -45,10 +44,10 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) 
 
   return(
     <div className="fieldset-container">
-      <div className="fieldset-container sub-group">
-        <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} />
-      </div>
-      <fieldset className="grow">
+
+      <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} />
+
+      <fieldset className="CityFieldset">
         <label htmlFor="city">City</label>
         <input
           type="text"

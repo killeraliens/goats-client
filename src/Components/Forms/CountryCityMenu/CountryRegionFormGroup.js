@@ -3,7 +3,7 @@ import CountrySelector from './CountrySelector';
 import RegionSelector from './RegionSelector';
 import PropTypes from 'prop-types';
 
-export default function CountryRegionFormGroup(props) {
+export default function CountryRegionFormGroup({ updateCountryRegion }) {
   const [country, setCountry] = useState({code: '', name: ''})
   const [regionName, setRegionName] = useState(null)
 
@@ -16,7 +16,7 @@ export default function CountryRegionFormGroup(props) {
   }
 
   useEffect(() => {
-    props.updateCountryRegion({
+    updateCountryRegion({
       countryName: country.name,
       regionName: regionName
     })

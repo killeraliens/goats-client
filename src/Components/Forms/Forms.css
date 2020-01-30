@@ -52,12 +52,15 @@ label {
   display: inline-block;
 }
 
-input[type=text], input[type=datalist], input[type=password], input[type=email], div.textarea {
+input[type=text], input[type=datalist], input[type=password], input[type=email], div.textarea:read-write, select {
   background-color: white;
   border: solid 1px lightgrey;
   padding: 8px;
 }
 
+select {
+  height: 31px;
+}
 
 .form-controls button {
   margin-right: 8px;
@@ -65,7 +68,7 @@ input[type=text], input[type=datalist], input[type=password], input[type=email],
 
 .fieldset-container {
   display: flex;
-  max-width: 400px;
+  max-width: 499px;
 }
 
 .fieldset-container fieldset:not(:last-child) {
@@ -77,17 +80,40 @@ input[type=text], input[type=datalist], input[type=password], input[type=email],
 }
 
 /*  */
+.CountryFieldset, .CityFieldset{
+  width: 100%;
+}
+
+.CountryFieldset {
+  min-width: 100px;
+}
+
+.CityFieldset{
+  margin-left: 8px;
+}
+
+/* .CountryFieldset > select, .CityFieldset > input {
+  width: 100%;
+} */
+
+
 fieldset.grow {
   flex-grow: 1;
+  /* width: 100%; */
 }
 fieldset.no-shrink {
   flex-shrink: 0;
 }
 fieldset.date {
+  min-width: 66px;
   max-width: 66px;
 }
 
-.fieldset-container.sub-group {
+.fieldset-container {
+  width: 100%;
+}
+
+ .fieldset-container.sub-group {
   flex-grow: 1;
 }
 
@@ -95,9 +121,10 @@ fieldset.date {
   flex-grow: 0;
 }
 
-.fieldset-container.sub-group fieldset:last-child {
+
+/* .fieldset-container.sub-group fieldset:not(:last-child) {
     margin-right: 8px;
-  }
+  } */
 
 .EventFieldset.condensed {
   height: 0;
@@ -177,6 +204,11 @@ ul.EventInput--preview li > * {
 }
 
 @media (max-width: 599px) {
+
+  .CityFieldset{
+    margin-left: 0px;
+  }
+
   .fieldset-container:not(.sub-group) {
     flex-direction: column;
   }
