@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import CountryRegionFormGroup from './CountryRegionFormGroup'
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) {
-  const [countryName, setCountryName] = useState('')
-  const [regionName, setRegionName] = useState('')
-  const [cityName, setCityName] = useState({ value: '', touched: false, error: '' })
+export default function CountryRegionCityFormGroup({ updateCountryRegionCity, formCountryRegionCity }) {
+  const [countryName, setCountryName] = useState(formCountryRegionCity.countryName.value)
+  const [regionName, setRegionName] = useState(formCountryRegionCity.regionName.value)
+  const [cityName, setCityName] = useState(formCountryRegionCity.cityName )
 
   useEffect(() => {
     updateCountryRegionCity({
@@ -44,16 +44,14 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity }) 
 
   return(
     <div className="fieldset-container">
-
       <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} />
-
       <fieldset className="CityFieldset">
         <label htmlFor="city">City</label>
         <input
           type="text"
           id="cityName"
           name="cityName"
-          value={cityName.value || ''}
+          value={formCountryRegionCity.cityName.value || ''}
           onChange={e => setCityName({ value: e.target.value, touched: true })}
           aria-label="city name"
           aria-required="false"

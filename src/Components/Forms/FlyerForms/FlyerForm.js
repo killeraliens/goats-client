@@ -154,6 +154,31 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     setFormBody(prev => ({ ...prev, date: { ...prev.date, error: validateDate() } }))
   }
 
+  useEffect(() => {
+    console.log("EVENTS UPDATED", formBody.events)
+  }, [formBody.events])
+
+  const addTourStop = (e) => {
+    e.preventDefault()
+
+    let eventFields = ["date", "venueName", "countryName", "regionName", "cityName"]
+    let validValues = eventFields.filter(field => {
+      console.log(formBody[field])
+      if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
+        return formBody[field].value
+      }
+    })
+    if(validValues.length > 0) {
+      console.log('YES')
+      setFormBody(prev => ({
+        ...prev,
+        events: [
+          ...prev.events,
+          { date: formBody.date.value, venue_name: formBody.venueName.value, country_name: formBody.countryName.value, region_name: formBody.regionName.value, city_name: formBody.cityName.value }
+        ]}))
+    }
+  }
+
   return(
     <form className="FlyerForm" onSubmit={handleSubmit}>
       <FlyerUpload updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
@@ -178,7 +203,13 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
       <EventsPreview events={formBody.events} />
-      <EventFieldset updateEventFields={updateEventFields} />
+      <EventFieldset
+        updateEventFields={updateEventFields}
+        addTourStop={addTourStop}
+        formDate={formBody.date}
+        formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName}}
+        formVenue={formBody.venueName}
+      />
       {/* <div className="EventFieldset">
         <div className="fieldset-container sub-group">
           <fieldset className="date">

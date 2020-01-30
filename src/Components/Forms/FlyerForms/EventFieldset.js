@@ -3,19 +3,28 @@ import PropTypes from 'prop-types';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function EventFieldset({ updateEventFields }) {
-  const [date, setDate] = useState({ value: '', touched: false, error: '' })
-  const [venueName, setVenueName] = useState({ value: '', touched: false, error: '' })
+export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity }) {
+  const [date, setDate] = useState(formDate)
+  const [venueName, setVenueName] = useState(formVenue)
 
   const updateCountryRegionCity = (fields) => {
     updateEventFields(fields)
   }
+
+  useEffect(() => {
+    updateEventFields({
+      date: date,
+      venueName: venueName
+    })
+  }, [date, venueName])
 
   const validateDate = () => {
     if (date.touched && date.value !== "") {
       const trimmedDate = date.value.trim()
       // return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
       return!(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
+        ? `Format as MM/DD`
+        : trimmedDate.length > 5
         ? `Format as MM/DD`
         : ''
     }
@@ -34,12 +43,6 @@ export default function EventFieldset({ updateEventFields }) {
     return ''
   }
 
-  useEffect(() => {
-    updateEventFields({
-      date: date,
-      venueName: venueName
-    })
-  }, [date, venueName])
 
   useEffect(() => {
     const updateValidationErrors = () => {
@@ -57,6 +60,10 @@ export default function EventFieldset({ updateEventFields }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [venueName.value])
 
+  const handleClick = (e) => {
+    addTourStop(e)
+  }
+
   return(
     <div className="EventFieldset">
       <div className="fieldset-container sub-group">
@@ -67,7 +74,7 @@ export default function EventFieldset({ updateEventFields }) {
             name="date"
             type="text"
             placeholder="mm/dd"
-            value={date.value || ''}
+            value={formDate.value || ''}
             onChange={e => {
               e.persist();
               return setDate({ value: e.target.value, touched: true })
@@ -85,7 +92,7 @@ export default function EventFieldset({ updateEventFields }) {
             id="venueName"
             name="venueName"
             type="text"
-            value={venueName.value || ''}
+            value={formVenue.value || ''}
             onChange={e => {
               e.persist();
               return setVenueName({ value: e.target.value, touched: true })
@@ -99,9 +106,11 @@ export default function EventFieldset({ updateEventFields }) {
         </fieldset>
       </div>
       <div className="fieldset-container">
-        <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} />
+        <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
       </div>
-      <button id="AddTourBtn" className="EventFieldset--add-btn tour">
+      <button
+        onClick={handleClick}
+      >
         Add Tour Stop
       </button>
     </div>
@@ -109,9 +118,11 @@ export default function EventFieldset({ updateEventFields }) {
 }
 
 EventFieldset.defaultProps = {
-  updateEventFields: () => { console.log('default updateEventFields function')}
+  updateEventFields: () => { console.log('default updateEventFields function')},
+  addTourStop: () => { console.log('default addTourStop function') }
 }
 
 EventFieldset.propTypes = {
-  updateEventFields: PropTypes.func
+  updateEventFields: PropTypes.func,
+  addTourStop: PropTypes.func,
 }
