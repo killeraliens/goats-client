@@ -151,13 +151,17 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     e.preventDefault()
 
     let eventFields = ["date", "venueName", "countryName", "regionName", "cityName"]
+    let invalidValues = eventFields.filter(field => {
+      if (Boolean(formBody[field].error)) {
+        return formBody[field].value
+      }
+    })
     let validValues = eventFields.filter(field => {
-      console.log(formBody[field])
       if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
         return formBody[field].value
       }
     })
-    if(validValues.length > 0) {
+    if(invalidValues.length === 0 && validValues.length > 0) {
       console.log('YES')
       setFormBody(prev => ({
         ...prev,
