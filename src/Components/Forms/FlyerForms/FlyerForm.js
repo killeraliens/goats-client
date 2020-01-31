@@ -7,7 +7,8 @@ import EventFieldset from './EventFieldset';
 import EventsPreview from './EventsPreview';
 import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
-;
+import ContentEditable from '../ContentEditable';
+
 export default function FlyerForm({ newType, flyer, events, creatorId }) {
   const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
   const [formBody, setFormBody] = useState({
@@ -144,6 +145,19 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     setFormBody(prev => ({ ...prev, headline: { ...prev.headline, error: validateHeadline()}}))
   }
 
+  const validateContentEditableLength = (fieldStr, maxLength) => {
+    let stringNoHtml = formBody[fieldStr].value ? formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "") : ""
+    let stringNoSpace = stringNoHtml.replace(/\s/g, "")
+    if (stringNoSpace.length >= maxLength) {
+      return `Keep it under ${maxLength} characters`
+    }
+    return ""
+  }
+
+  const returnCleanContentEditable = (fieldStr) => {
+    return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
+  }
+
   useEffect(() => {
     console.log("EVENTS UPDATED", formBody.events)
   }, [formBody.events])
@@ -206,21 +220,57 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
       />
       <fieldset>
         <label htmlFor="bands">Band Lineup</label>
-        <div className="textarea" name="bands" id="bands" contentEditable></div>
+        <ContentEditable
+          id="bands"
+          name="bands"
+          className="textarea"
+          html={formBody.bands.value || ''}
+          ariaLabel="bands"
+          ariaRequired="false"
+          ariaDescribedBy="bandsError"
+          ariaInvalid={!!formBody.bands.error}
+          onChange={e => {
+            //console.log(returnCleanContentEditable("bands").length)
+            //console.log(formBody.bands.value.length)
+            return setFormBody(prev => ({ ...prev, bands: { value: e.target.value, touched: true, error: validateContentEditableLength("bands", 280) } }))
+          }}
+        />
+        <ValidationError id="bandsError" message={formBody.bands.error} />
       </fieldset>
       <fieldset>
         <label htmlFor="description">Details</label>
-        <div
-          className="textarea"
-          name="details"
+        <ContentEditable
           id="details"
-          value={formBody.details.value || ''}
-          contentEditable>
-        </div>
+          name="details"
+          className="textarea"
+          html={formBody.details.value || ''}
+          ariaLabel="details"
+          ariaRequired="false"
+          ariaDescribedBy="detailsError"
+          ariaInvalid={!!formBody.details.error}
+          onChange={e => {
+            return setFormBody(prev => ({ ...prev, details: { value: e.target.value, touched: true, error: validateContentEditableLength("details", 280) } }))
+          }}
+        />
+        <ValidationError id="detailsError" message={formBody.details.error} />
       </fieldset>
       <fieldset>
         <label htmlFor="publishComment">Publish With Comment</label>
-        <div className="textarea" name="publishComment" id="publishComment" contentEditable></div>
+        <ContentEditable
+          id="publishComment"
+          name="publishComment"
+          className="textarea"
+          html={formBody.publishComment.value || ''}
+          ariaLabel="publishComment"
+          ariaRequired="false"
+          ariaDescribedBy="publishCommentError"
+          ariaInvalid={!!formBody.publishComment.error}
+          onChange={e => {
+            return setFormBody(prev => ({ ...prev, publishComment: { value: e.target.value, touched: true, error: validateContentEditableLength("publishComment", 280) } }))
+          }}
+        />
+        <ValidationError id="publishCommentError" message={formBody.publishComment.error} />
+
       </fieldset>
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>

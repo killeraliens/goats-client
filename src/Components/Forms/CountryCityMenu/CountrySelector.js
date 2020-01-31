@@ -56,8 +56,6 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         value={formCountry.code || findCode(formCountry.value) || ''}
       >
         {optionDefault()}
-        {console.log(formCountry)}
-
         {data.countries.map(({ country_name, country_code }) => {
           return <option key={country_code} value={country_code}>{country_name}</option>
         })}
