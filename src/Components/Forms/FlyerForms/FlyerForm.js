@@ -89,6 +89,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     if (e.target.value === "Draft") {
       setFormBody(prev => ({ ...prev, listing_state: "Draft" }))
     }
@@ -223,7 +224,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
       </fieldset>
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>
-        <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button>
+        {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
         <input type="reset" onClick={resetForm} value="Cancel" />
       </div>
     </form>

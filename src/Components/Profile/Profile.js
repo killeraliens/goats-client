@@ -40,7 +40,7 @@ export default function Profile({ user, isCurrent, users, events, userFlyers, fe
         >
           Contributions
         </MainNavLink>,
-        draftsLink
+        // draftsLink
       ]} />
       <div className="Main--content">
         <Switch>
