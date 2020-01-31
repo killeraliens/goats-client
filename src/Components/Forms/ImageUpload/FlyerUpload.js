@@ -6,17 +6,17 @@ import defaultFlyer from '../../../assets/blood-texture.jpg'
 import ValidationError from '../ValidationError/ValidationError'
 import '../Forms.css'
 
-export default function FlyerUpload(props) {
+export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgError }) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState([])
-  const [imgUrl, setImgUrl] = useState(props.flyer.image_url || '')
+  const [imgUrl, setImgUrl] = useState(flyerImageUrl || '')
   const [imgUrlError, setImgUrlError] = useState({touched: false, error: ''})
-  const reset = () => {
-    setUploading(false)
-    setImages([])
-    setImgUrl(props.flyer.image_url || '')
-    setImgUrlError({ touched: false, error: '' })
-  }
+  // const reset = () => {
+  //   setUploading(false)
+  //   setImages([])
+  //   setImgUrl(flyerImageUrl || '')
+  //   setImgUrlError({ touched: false, error: '' })
+  // }
   useEffect(() => {
     if (!window.FileReader) {
       setImgUrlError(prev => ({...prev, error: "The file API isn't supported on this browser yet. User another broweser."}));
@@ -24,9 +24,9 @@ export default function FlyerUpload(props) {
   }, [])
   useEffect(() => {
     if (!Boolean(validateImgUrl())) {
-      props.updateImgUrl(imgUrl)
+      updateImgUrl(imgUrl)
     } else {
-      props.updateImgError(imgUrlError.error)
+      updateImgError(imgUrlError.error)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [imgUrl, imgUrlError.error])
