@@ -223,15 +223,15 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <ContentEditable
           id="bands"
           name="bands"
-          className="textarea"
+          className="textarea htmlField"
           html={formBody.bands.value || ''}
           ariaLabel="bands"
           ariaRequired="false"
           ariaDescribedBy="bandsError"
           ariaInvalid={!!formBody.bands.error}
           onChange={e => {
-            //console.log(returnCleanContentEditable("bands").length)
-            //console.log(formBody.bands.value.length)
+            console.log(returnCleanContentEditable("bands"))
+            console.log(formBody.bands.value)
             return setFormBody(prev => ({ ...prev, bands: { value: e.target.value, touched: true, error: validateContentEditableLength("bands", 280) } }))
           }}
         />
@@ -242,7 +242,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <ContentEditable
           id="details"
           name="details"
-          className="textarea"
+          className="textarea htmlField"
           html={formBody.details.value || ''}
           ariaLabel="details"
           ariaRequired="false"
@@ -259,7 +259,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
         <ContentEditable
           id="publishComment"
           name="publishComment"
-          className="textarea"
+          className="textarea htmlField"
           html={formBody.publishComment.value || ''}
           ariaLabel="publishComment"
           ariaRequired="false"
