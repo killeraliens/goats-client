@@ -29,6 +29,22 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   if (loading) {
     return <p>Loading Countries...</p>
   }
+
+  const findCode = (formCountryVal) => {
+    const country = data.countries.find(({ country_name, country_code }) => {
+      return country_name === formCountryVal
+    })
+    if (country && country.country_code) {
+      return country.country_code
+    }
+  }
+
+  const optionDefault = () => {
+    return  Boolean(formCountry.value)
+      ? <option value={findCode(formCountry.value)}>{formCountry.value}</option>
+      : <option value="">Select Country</option>
+  }
+
   return(
     <fieldset className="CountryFieldset grow">
       <label htmlFor="country">Select Country</label>
@@ -37,9 +53,11 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         name="country"
         type="text"
         onChange={handleChange}
-        value={formCountry.code || ''}
+        value={formCountry.code || findCode(formCountry.value) || ''}
       >
-        <option value="">Select Country</option>
+        {optionDefault()}
+        {console.log(formCountry)}
+
         {data.countries.map(({ country_name, country_code }) => {
           return <option key={country_code} value={country_code}>{country_name}</option>
         })}

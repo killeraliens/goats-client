@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 let provinces = require('provinces')
 
 export default function RegionSelector({ updateRegion, formRegion, formCountry }) {
-
   useEffect(() => {
     const setRegionArray = () => {
       /* eslint eqeqeq: 0 */
@@ -12,13 +11,16 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     }
 
     setRegionArray()
-  }, [formCountry.code])
+  }, [formCountry])
 
   const handleChange = (e) => {
     updateRegion({ ...formRegion, value: e.target.value })
   }
 
   if (!formCountry.code || formRegion.array.length === 0) {
+    // if(Boolean(formRegion.value)) {
+    //   return <p>{formRegion.value}</p>
+    // }
     return null
   }
 

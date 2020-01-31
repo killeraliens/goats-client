@@ -15,9 +15,9 @@ function EditProfileForm({ history }) {
   const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: user.image_url || '' },
-    countryName: { value: user.country_name || '' },
-    regionName: { value: user.region_name || '' },
-    cityName: { value: user.city_name || '', error: '' }
+    cityName: { error: "", touched: false, value: user.city_name || "" },
+    countryName: { code: "", value: user.country_name || "" },
+    regionName: { array: [], value: user.region_name || "" }
   })
 
   const updateCountryRegionCity = (fields) => {
@@ -46,7 +46,10 @@ function EditProfileForm({ history }) {
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
         <AvatarImageUpload user={user} updateImgUrl={updateImgUrl}/>
-        <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity}/>
+        <CountryRegionCityFormGroup
+          updateCountryRegionCity={updateCountryRegionCity}
+          formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName }}
+        />
         <div className="form-controls">
           <button type="submit" disabled={formBody.cityName.error}>Submit</button>
           <Link to={`/dashboard/${user.id}`}>Cancel</Link>
