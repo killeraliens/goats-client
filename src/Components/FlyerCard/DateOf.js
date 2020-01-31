@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 export default function DateOf({ date }) {
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -19,7 +17,12 @@ export default function DateOf({ date }) {
 }
 
 
+//let exampleDate = new Date("04/11/2020")
+DateOf.defaultProps = {
+  date: "2020-04-11T07:00:00.000Z"
+}
+
 DateOf.propTypes = {
-  date: PropTypes.string.isRequired
+  date: PropTypes.string
 }
 
