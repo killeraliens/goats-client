@@ -189,7 +189,7 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
 
   return(
     <form className="FlyerForm" onSubmit={handleSubmit}>
-      <FlyerUpload updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
+      <FlyerUpload formImgUrl={formBody.imgUrl} updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
       <fieldset>
         <label htmlFor="headline">Headline*</label>
         <input

@@ -5,12 +5,12 @@ import Spinner from '../../Spinner/Spinner'
 import defaultFlyer from '../../../assets/blood-texture.jpg'
 import ValidationError from '../ValidationError/ValidationError'
 import '../Forms.css'
-
-export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgError }) {
+//imgUrl: { value: flyer.image_url || '', error: '' },
+export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }) {
   const [uploading, setUploading] = useState(false)
-  const [images, setImages] = useState([])
-  const [imgUrl, setImgUrl] = useState(flyerImageUrl || '')
-  const [imgUrlError, setImgUrlError] = useState({touched: false, error: ''})
+  //const [images, setImages] = useState([])
+  // const [imgUrl, setImgUrl] = useState(formImgUrl.value || '')
+  // const [imgUrlError, setImgUrlError] = useState({touched: false, error: ''})
   // const reset = () => {
   //   setUploading(false)
   //   setImages([])
@@ -19,35 +19,37 @@ export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgErro
   // }
   useEffect(() => {
     if (!window.FileReader) {
-      setImgUrlError(prev => ({...prev, error: "The file API isn't supported on this browser yet. User another broweser."}));
+      //setImgUrlError(prev => ({...prev, error: "The file API isn't supported on this browser yet. User another broweser."}));
+      updateImgError("The file API isn't supported on this browser yet.User another broweser.")
     }
   }, [])
-  useEffect(() => {
-    if (!Boolean(validateImgUrl())) {
-      updateImgUrl(imgUrl)
-    } else {
-      updateImgError(imgUrlError.error)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [imgUrl, imgUrlError.error])
+//   useEffect(() => {
+//     if (!Boolean(validateImgUrl())) {
+//       updateImgUrl(imgUrl)
+//     } else {
+//       updateImgError(imgUrlError.error)
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [imgUrl, imgUrlError.error])
 
 
 
-  const validateImgUrl = () => {
-    if (imgUrlError.touched) {
-      return imgUrl.length === 0
-        ? 'Flyer image required'
-        : Boolean(imgUrlError.error)
-        ? imgUrlError.error
-        : ''
-    }
-    return ''
-  }
+  // const validateImgUrl = () => {
+  //   if (imgUrlError.touched) {
+  //     return imgUrl.length === 0
+  //       ? 'Flyer image required'
+  //       : Boolean(imgUrlError.error)
+  //       ? imgUrlError.error
+  //       : ''
+  //   }
+  //   return ''
+  // }
 
 
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
-      setImgUrlError({ error: '', touched: true })
+      //setImgUrlError({ error: '', touched: true })
+      updateImgError('')
       setUploading(true)
       const formData = new FormData()
       files.forEach((file, i) => {
@@ -61,15 +63,19 @@ export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgErro
             .then(images => {
               setUploading(false)
               if (images.length > 0) {
-                setImages(images)
-                setImgUrl(images[0].secure_url)
-                setImgUrlError({ touched: true, error: '' })
+                //setImages(images)
+                //setImgUrl(images[0].secure_url)
+                updateImgUrl(images[0].secure_url)
+                //setImgUrlError({ touched: true, error: '' })
+                updateImgError('')
               }
             })
-            .catch(err => alert('error in image upload'))
+            .catch(err => updateImgError('Error in upload, check connection'))
         } else {
           setUploading(false)
-          setImgUrlError({ error: 'File must be under 3MB', touched: true })
+          //setImages([])
+          updateImgError('File must be under 3MB')
+          //setImgUrlError({ error: 'File must be under 3MB', touched: true })
         }
       })
 
@@ -77,31 +83,34 @@ export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgErro
 
   const labelContent = () => {
     switch (true) {
-      case uploading && images.length === 0:
+      // case uploading && images.length === 0:
+      case uploading && formImgUrl.value.length === 0:
         return (
         <div className="FlyerPreview">
           <img
-            src={Boolean(imgUrl) ? imgUrl : defaultFlyer}
+            src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
             alt={`flyer image loading`}
           />
           <span><Spinner /></span>
         </div>
         )
-      case uploading && images.length > 0:
+      // case uploading && images.length > 0:
+      case uploading && formImgUrl.value.length > 0:
         return (
           <div className="FlyerPreview">
             <img
-              src={imgUrl}
+              src={formImgUrl.value}
               alt={`flyer image loading`}
             />
             <span><Spinner /></span>
           </div>
         )
-      case images.length > 0:
-        return (
+      // case images.length > 0:
+      case !uploading && formImgUrl.value.length > 0:
+        return(
           <div className="FlyerPreview">
             <img
-              src={Boolean(imgUrl) ? imgUrl : defaultFlyer}
+              src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
               alt={`flyer image loaded`}
             />
           </div>
@@ -110,7 +119,7 @@ export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgErro
         return (
           <div className="FlyerPreview">
             <img
-              src={Boolean(imgUrl) ? imgUrl : defaultFlyer}
+              src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
               alt={`add flyer image`}
             />
             <span>+FLYER IMAGE*</span>
@@ -134,9 +143,9 @@ export default function FlyerUpload({ flyerImageUrl, updateImgUrl, updateImgErro
         aria-label="flyer image"
         aria-required="true"
         aria-describedby="imageUrlError"
-        aria-invalid={imgUrlError.error}
+        aria-invalid={formImgUrl.error}
       />
-      <ValidationError id="imgUrlError" message={imgUrlError.error} />
+      <ValidationError id="imgUrlError" message={formImgUrl.error} />
     </fieldset>
   )
 }
