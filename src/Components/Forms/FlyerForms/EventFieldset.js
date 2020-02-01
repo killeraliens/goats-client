@@ -4,6 +4,14 @@ import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityForm
 import ValidationError from '../ValidationError/ValidationError';
 
 export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate }) {
+  let dateWithYear = (mmddFormat) => {
+    let currYear = new Date().getFullYear()
+    let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
+    let currDate = new Date()
+    let testIfNeg = testDateCurrYear - currDate
+    let year = testIfNeg > 0 ? currYear : currYear + 1
+    return new Date(mmddFormat + '/' + year)
+  }
 
   const updateCountryRegionCity = (fields) => {
     updateEventFields(fields)
@@ -21,6 +29,21 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
     }
     return ''
   }
+
+  const validateEndDate = () => {
+    if (formEndDate.touched && formEndDate.value !== "") {
+      const trimmedEndDate = formEndDate.value.trim()
+      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedEndDate))
+        ? `Format as MM/DD`
+        : trimmedEndDate.length > 5
+          ? `Format as MM/DD`
+          : dateWithYear(trimmedEndDate) < dateWithYear(formDate.value)
+          ? `Must be after start date`
+          : ''
+    }
+    return ''
+  }
+
 
   const validateVenueName = () => {
     if (formVenue.touched) {
@@ -41,6 +64,14 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
     updateValidationErrors()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formDate.value])
+
+  useEffect(() => {
+    const updateValidationErrors = () => {
+      updateEventFields({ endDate: { ...formEndDate, error: validateEndDate() } })
+    }
+    updateValidationErrors()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formEndDate.value])
 
   useEffect(() => {
     const updateValidationErrors = () => {
@@ -74,6 +105,16 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
           <ValidationError id="endDateError" message={formEndDate.error} />
         </fieldset>
       )
+  }
+
+  const addTourStopBtn = () => {
+    return(
+      <button
+        onClick={handleClick}
+      >
+        Add Tour Stop
+      </button>
+    )
   }
 
   return(
@@ -116,11 +157,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
       </div>
-      <button
-        onClick={handleClick}
-      >
-        Add Tour Stop
-      </button>
+      { formType === "Tour" ? addTourStopBtn() : null}
     </div>
   )
 }

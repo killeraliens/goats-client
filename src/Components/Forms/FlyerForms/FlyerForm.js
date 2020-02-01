@@ -137,7 +137,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       modified: generatedModified
     }
 
-    let dateFormatted = (mmddFormat) => {
+    let dateWithYear = (mmddFormat) => {
       let currYear = new Date().getFullYear()
       let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
       let currDate = new Date()
@@ -150,7 +150,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       return {
         id: event.id,
         flyer_id: generatedFlyerId,
-        date: dateFormatted(event.date),
+        date: dateWithYear(event.date),
         venue_name: event.venueName.capitalize(),
         city_name: event.cityName.capitalize(),
         region_name: event.regionName,
