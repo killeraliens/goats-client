@@ -12,6 +12,7 @@ export default function AuthedSplit({ mainComponent }) {
   const [events, setEvents] = useState([])
   const [users, setUsers] = useState([])
   const [fetching, setFetching] = useState(false)
+
   const updateUsers = (changedUser) => {
     let foundUser = users.find(user => user.id == changedUser.id)
     let updatedUser = {...foundUser, ...changedUser}
@@ -22,9 +23,29 @@ export default function AuthedSplit({ mainComponent }) {
     sets.then(() => console.log('updated users array', users))
   }
 
+  const addFlyer = (flyer) => {
+    console.log('flyers length', flyers.length)
+    // const sets = new Promise((res, rej) => {
+    // })
+    let prevFlyers = flyers
+    setFlyers([ ...prevFlyers, {...flyer} ])
+    //sets.then(() => console.log('updated flyers length', flyers))
+  }
+
+  const addEvent = (event) => {
+    console.log('events length', events.length)
+    const sets = new Promise((res, rej) => {
+      let prevEvents = events
+      setEvents([...prevEvents, { ...event }])
+    })
+    sets.then(() => console.log('updated events length', events))
+  }
+
   const contextValue = {
     flyers: flyers,
+    addFlyer: addFlyer,
     events: events,
+    addEvent: addEvent,
     users: users,
     fetching: fetching,
     updateUsers: updateUsers

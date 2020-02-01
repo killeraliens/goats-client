@@ -1,16 +1,18 @@
-import React, {  useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
 import '../Forms.css';
-import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
+import AuthedContext from '../../../AuthedContext';
 import EventFieldset from './EventFieldset';
 import EventsPreview from './EventsPreview';
 import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
+import DUMMY from '../../../DUMMY';
 const uuid = require('uuid/v1');
 
-export default function FlyerForm({ newType, flyer, events, creatorId }) {
+export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
+  console.log('Dummy', DUMMY.flyers)
+  const authedContext = useContext(AuthedContext)
   const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
   const [formBody, setFormBody] = useState({
     id: flyer.id || '',
@@ -99,14 +101,18 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
     if (e.target.value === "Draft") {
       setFormBody(prev => ({ ...prev, listing_state: "Draft" }))
     }
+    //generated/formatting
+    String.prototype.capitalize = function () {
+      return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
+    };
     let generatedFlyerId = uuid()
     let generatedModified = new Date(Date.now())
-    const postBody = {
-      id: Boolean(formBody.id) ? formBody.id : generatedFlyerId,
-      creator_id: formBody.creatorId,
+    const flyerPostBody = {
+      id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
+      creator_id: formBody.creatorId.toString(),
       type: formBody.type,
       image_url: formBody.imgUrl.value,
-      headline: formBody.headline.value,
+      headline: formBody.headline.value.capitalize(),
       bands: formBody.bands.value,
       details: formBody.details.value,
       publish_comment: formBody.publishComment.value,
@@ -124,26 +130,37 @@ export default function FlyerForm({ newType, flyer, events, creatorId }) {
       return new Date(mmddFormat + '/' + year)
     }
     const eventPostBodies = formBody.events.map(event => {
-      return ({
+      let generatedEventId = uuid()
+      return {
+        id: generatedEventId,
         flyer_id: generatedFlyerId,
         date: dateFormatted(event.date),
-        venue_name: event.venueName,
-        city_name: event.cityName,
+        venue_name: event.venueName.capitalize(),
+        city_name: event.cityName.capitalize(),
         region_name: event.regionName,
         country_name: event.countryName
-      })
+      }
     })
-
-    console.log('postBOD', JSON.stringify(postBody))
-    console.log('formBOD', formBody)
-  //   const options = {
+    // let test = JSON.stringify(flyerPostBody)
+    // console.log(typeof test["creator_id"])
+    console.log('uploading flyer body...', flyerPostBody)
+    //DUMMY.flyers.push(flyerPostBody)
+    authedContext.addFlyer(flyerPostBody)
+    eventPostBodies.forEach(eventPostBody => {
+      console.log(`uploading events for flyer id ${flyerPostBody.id}`, eventPostBody)
+      //DUMMY.events.push(eventPostBody)
+      authedContext.addEvent(eventPostBody)
+    })
+    resetForm()
+    history.push('/forum')
+  //   const flyerOptions = {
   //     method: 'POST',
-  //     body: JSON.stringify(postBody),
+  //     body: JSON.stringify(flyerPostBody),
   //     headers: {
   //       "Content-Type": "application/json",
   //     }
   //   }
-  //   const response = await fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
+  //   const response = await fetch(`${config.API_ENDPOINT}/api/flyer`, flyerOptions)
   //   const body = await response.json();
 
   //   if (!response.ok) {
