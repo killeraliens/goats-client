@@ -7,10 +7,11 @@ import EventsPreview from './EventsPreview';
 import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
-import DUMMY from '../../../DUMMY';
+//import DUMMY from '../../../DUMMY';
 const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
+  console.log('newType in form', newType)
   const authedContext = useContext(AuthedContext)
   const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
   const [formBody, setFormBody] = useState({
@@ -18,8 +19,9 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     imgUrl: { value: flyer.image_url || '' , error: ''},
     headline: { value: flyer.headline || '', touched: false, error: '' },
     events: flyerEvents || [],
-    //event.flyer_id gets set on server along with flyer id
+    //
     date: { value: '', touched: false, error: ''},
+    endDate: { value: '', touched: false, error: '' },
     venueName: { value: '', touched: false, error: ''},
     countryName: { value: '', code: ''},
     regionName: { value: '', array: [] },
@@ -44,6 +46,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       headline: { value: flyer.headline || '', touched: false, error: '' },
       events: flyerEvents || [],
       date: { value: '', touched: false, error: '' },
+      endDate: { value: '', touched: false, error: '' },
       venueName: { value: '', touched: false, error: '' },
       countryName: { value: '', code: '' },
       regionName: { value: '', array: [] },
@@ -62,12 +65,18 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     setFormBody(prev => ({
       ...prev,
       date: { value: '', touched: false, error: '' },
+      endDate: { value: '', touched: false, error: '' },
       venueName: { value: '', touched: false, error: '' },
       countryName: { value: '', code: '' },
       regionName: { value: '', array: [] },
       cityName: { value: '', error: '' },
     }))
   }
+
+  useEffect(() => {
+    setFormBody(prev => ({ ...prev, type: newType }))
+    resetForm()
+  }, [newType])
 
   useEffect(() => {
     const setDisabledIfErrors = () => {
@@ -90,9 +99,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     touched()
   }, [formBody])
 
-  // const updateCountryRegionCity = (fields) => {
-  //   setFormBody(prev => ({ ...prev, ...fields }))
-  // }
   const updateEventFields = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
   }
@@ -111,7 +117,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     if (e.target.value === "Draft") {
       setFormBody(prev => ({ ...prev, listing_state: "Draft" }))
     }
-    //generated/formatting
+
     String.prototype.capitalize = function () {
       return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
     };
@@ -130,7 +136,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       created: Boolean(formBody.created) ? formBody.created : generatedModified,
       modified: generatedModified
     }
-    //iterate and create event posts
+
     let dateFormatted = (mmddFormat) => {
       let currYear = new Date().getFullYear()
       let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
@@ -151,8 +157,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         country_name: event.countryName
       }
     })
-    // let test = JSON.stringify(flyerPostBody)
-    // console.log(typeof test["creator_id"])
+
     console.log('uploading flyer body...', flyerPostBody)
     //DUMMY.flyers.push(flyerPostBody)
     authedContext.addFlyer(flyerPostBody)
@@ -216,7 +221,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   const addTourStop = (e) => {
     e.preventDefault()
 
-    let eventFields = ["date", "venueName", "countryName", "regionName", "cityName"]
+    let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
     let invalidValues = eventFields.filter(field => {
       if (Boolean(formBody[field].error)) {
         return formBody[field].value
@@ -288,6 +293,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         formDate={formBody.date}
         formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName}}
         formVenue={formBody.venueName}
+        formType={formBody.type}
+        formEndDate={formBody.endDate}
       />
       <fieldset>
         <label htmlFor="bands">Band Lineup</label>

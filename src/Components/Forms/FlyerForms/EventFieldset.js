@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity }) {
+export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate }) {
 
   const updateCountryRegionCity = (fields) => {
     updateEventFields(fields)
@@ -34,7 +34,6 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
     return ''
   }
 
-
   useEffect(() => {
     const updateValidationErrors = () => {
       updateEventFields({ date: { ...formDate, error: validateDate() }})
@@ -53,6 +52,28 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
 
   const handleClick = (e) => {
     addTourStop(e)
+  }
+
+  const endDateFieldSet = () => {
+      return(
+        <fieldset className="date endDate">
+          <label htmlFor="endDate">End Date</label>
+          <input
+            id="endDate"
+            name="endDate"
+            type="text"
+            placeholder="mm/dd"
+            value={formEndDate.value || ''}
+            onChange={e => { updateEventFields({ endDate: { value: e.target.value, touched: true } }) }}
+            aria-label="endDate"
+            aria-required="false"
+            aria-describedby="endDateError"
+            aria-invalid={!!formEndDate.error}
+            autoComplete="off"
+          />
+          <ValidationError id="endDateError" message={formEndDate.error} />
+        </fieldset>
+      )
   }
 
   return(
@@ -75,6 +96,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
           />
           <ValidationError id="dateError" message={formDate.error} />
         </fieldset>
+        { formType === "Fest" ? endDateFieldSet() : null }
         <fieldset className="grow">
           <label htmlFor="venueName">Venue Name</label>
           <input
@@ -123,6 +145,11 @@ EventFieldset.propTypes = {
     touched: PropTypes.bool,
     error: PropTypes.string
   }),
+  formEndDate: PropTypes.shape({
+    value: PropTypes.string,
+    touched: PropTypes.bool,
+    error: PropTypes.string
+  }),
   formVenue: PropTypes.shape({
     value: PropTypes.string,
     touched: PropTypes.bool,
@@ -142,5 +169,10 @@ EventFieldset.propTypes = {
       array: PropTypes.array,
       value: PropTypes.string
     }),
-  })
+  }),
+  formType: PropTypes.oneOf([
+    "Fest",
+    "Tour",
+    "Show"
+  ])
 }
