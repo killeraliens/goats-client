@@ -11,7 +11,6 @@ import DUMMY from '../../../DUMMY';
 const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
-  console.log('Dummy', DUMMY.flyers)
   const authedContext = useContext(AuthedContext)
   const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
   const [formBody, setFormBody] = useState({
@@ -57,6 +56,17 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       listingState: flyer.listing_state || "Public",
       created: flyer.created || ''
     })
+  }
+
+  const resetEventFields = () => {
+    setFormBody(prev => ({
+      ...prev,
+      date: { value: '', touched: false, error: '' },
+      venueName: { value: '', touched: false, error: '' },
+      countryName: { value: '', code: '' },
+      regionName: { value: '', array: [] },
+      cityName: { value: '', error: '' },
+    }))
   }
 
   useEffect(() => {
@@ -152,7 +162,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       authedContext.addEvent(eventPostBody)
     })
     resetForm()
-    history.push('/forum')
+    history.push(`/dashboard/${formBody.creatorId}`)
   //   const flyerOptions = {
   //     method: 'POST',
   //     body: JSON.stringify(flyerPostBody),
@@ -203,9 +213,10 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
   }
 
-  useEffect(() => {
-    console.log("EVENTS UPDATED", formBody.events)
-  }, [formBody.events])
+  // useEffect(() => {
+  //   console.log("EVENTS UPDATED", formBody.events)
+  //   resetEventFields()
+  // }, [formBody.events])
 
   const addTourStop = (e) => {
     e.preventDefault()
@@ -233,7 +244,9 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
             regionName: formBody.regionName.value,
             cityName: formBody.cityName.value
           }
-        ]}))
+        ]
+      }))
+      resetEventFields()
     }
   }
 
@@ -249,7 +262,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
           placeholder={`${newType} Headline`}
           value={formBody.headline.value || ''}
           onChange={e => {
-            e.persist();
             return setFormBody(prev => ({ ...prev, headline: { value: e.target.value, touched: true } }))
           }}
           aria-label="headline"
