@@ -267,6 +267,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
           placeholder={`${newType} Headline`}
           value={formBody.headline.value || ''}
           onChange={e => {
+            e.persist()
             return setFormBody(prev => ({ ...prev, headline: { value: e.target.value, touched: true } }))
           }}
           aria-label="headline"
@@ -382,8 +383,14 @@ FlyerForm.propTypes = {
     ]),
     image_url: PropTypes.string,
     headline: PropTypes.string,
-    created: PropTypes.string,
-    modified: PropTypes.string,
+    created: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
+    modified: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
     bands: PropTypes.string,
     details: PropTypes.string,
     publish_comment: PropTypes.string,
@@ -405,9 +412,11 @@ FlyerForm.propTypes = {
       PropTypes.number,
       PropTypes.string
     ]),
-    date: PropTypes.string,
+    date: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
     venue_name: PropTypes.string,
-    modified: PropTypes.string,
     city_name: PropTypes.string,
     region_name: PropTypes.string,
     country_name: PropTypes.string

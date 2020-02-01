@@ -16,8 +16,6 @@ export default function Comments({ flyer, flyerCreator }) {
 }
 
 Comments.defaultProps = {
-  // flyer: {},
-  // flyerCreator: {},
 }
 
 Comments.propTypes = {
@@ -28,7 +26,10 @@ Comments.propTypes = {
       PropTypes.string
     ]).isRequired,
     publish_comment: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired
+    modified: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]).isRequired
   }).isRequired,
   flyerCreator: PropTypes.shape({
     id: PropTypes.oneOfType([

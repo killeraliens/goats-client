@@ -34,13 +34,19 @@ export default function Comment({ user, isCreator, comment, modified }) {
 }
 
 Comment.defaultProps = {
-  isCreator: false
+  isCreator: false,
+  comment: ''
 }
 
 Comment.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string
-  }),
-  isCreator: PropTypes.bool
+    imageUrl: PropTypes.string,
+  }).isRequired,
+  isCreator: PropTypes.bool,
+  comment: PropTypes.string,
+  modified: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date)
+  ]).isRequired
 }

@@ -94,7 +94,10 @@ EventsPreview.defaultProps = {
 EventsPreview.propTypes = {
   formEvents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
-    date: PropTypes.string,
+    date: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
     venueName: PropTypes.string,
     countryName: PropTypes.string,
     regionName: PropTypes.string,

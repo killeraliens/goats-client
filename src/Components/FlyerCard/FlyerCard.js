@@ -45,11 +45,7 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
   )
 }
 
-// MENTOR QUESTION: default or required?
 FlyerCard.defaultProps = {
-  // flyer: {},
-  flyerEvents: [],
-  // flyerCreator: {}
 }
 
 FlyerCard.propTypes = {
@@ -69,8 +65,14 @@ FlyerCard.propTypes = {
     ]).isRequired,
     image_url: PropTypes.string.isRequired,
     headline: PropTypes.string.isRequired,
-    created: PropTypes.string,
-    modified: PropTypes.string,
+    created: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]).isRequired,
+    modified: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]).isRequired,
     bands: PropTypes.string,
     details: PropTypes.string,
     publish_comment: PropTypes.string,
@@ -87,8 +89,16 @@ FlyerCard.propTypes = {
     id: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ]).isRequired
-  })),
+    ]).isRequired,
+    date: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
+    venueName: PropTypes.string,
+    countryName: PropTypes.string,
+    regionName: PropTypes.string,
+    cityName: PropTypes.string
+  })).isRequired,
   flyerCreator: PropTypes.shape({
     id: PropTypes.oneOfType([
       PropTypes.string,
