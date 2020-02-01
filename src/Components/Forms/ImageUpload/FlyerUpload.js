@@ -18,9 +18,9 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
       updateImgError('')
-      setUploading(true)
       const formData = new FormData()
       files.forEach((file, i) => {
+        setUploading(true)
         if (file.size < 3000000) {
           formData.append(i, file)
           fetch(`${config.API_ENDPOINT}/api/image-upload`, {
@@ -41,33 +41,24 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
           updateImgError('File must be under 3MB')
         }
       })
-
   }
 
   const labelContent = () => {
     switch (true) {
-      case uploading && formImgUrl.value.length === 0:
-        return (
-        <div className="FlyerPreview">
-          <img
-            src={defaultFlyer}
-            alt={`flyer image loading`}
-          />
-          <span><Spinner /></span>
-        </div>
-        )
-      case uploading && formImgUrl.value.length > 0:
+
+      case uploading:
         return (
           <div className="FlyerPreview">
             <img
-              src={formImgUrl.value}
+              src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
               alt={`flyer image loading`}
             />
             <span><Spinner /></span>
           </div>
         )
+
       case !uploading && formImgUrl.value.length > 0:
-        return(
+        return (
           <div className="FlyerPreview">
             <img
               src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
@@ -75,6 +66,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
             />
           </div>
         )
+
       default:
         return (
           <div className="FlyerPreview">
