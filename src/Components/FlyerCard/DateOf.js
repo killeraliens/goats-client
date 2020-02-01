@@ -25,6 +25,6 @@ DateOf.propTypes = {
   date: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date)
-  ])
+  ]).isRequired
 }
 
