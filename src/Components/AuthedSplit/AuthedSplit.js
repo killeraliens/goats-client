@@ -24,21 +24,11 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   const addFlyer = (flyer) => {
-    console.log('flyers length', flyers.length)
-    // const sets = new Promise((res, rej) => {
-    // })
-    let prevFlyers = flyers
-    setFlyers([ ...prevFlyers, {...flyer} ])
-    //sets.then(() => console.log('updated flyers length', flyers))
+    setFlyers(prev => ([ ...prev, {...flyer}]))
   }
 
   const addEvent = (event) => {
-    console.log('events length', events.length)
-    const sets = new Promise((res, rej) => {
-      let prevEvents = events
-      setEvents([...prevEvents, { ...event }])
-    })
-    sets.then(() => console.log('updated events length', events))
+    setEvents(prev => ([...prev, { ...event }]))
   }
 
   const contextValue = {
