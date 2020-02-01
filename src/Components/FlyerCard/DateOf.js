@@ -17,12 +17,14 @@ export default function DateOf({ date }) {
 }
 
 
-//let exampleDate = new Date("04/11/2020")
+//let exampleDate = new Date("04/11/2020") or "2020-04-11T07:00:00.000Z"
 DateOf.defaultProps = {
-  date: "2020-04-11T07:00:00.000Z"
 }
 
 DateOf.propTypes = {
-  date: PropTypes.string
+  date: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date)
+  ])
 }
 
