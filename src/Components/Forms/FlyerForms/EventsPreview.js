@@ -4,13 +4,15 @@ import Location from '../../FlyerCard/Location';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-export default function EventsPreview({ events }) {
+export default function EventsPreview({ formEvents, deleteFormEvent }) {
+
   String.prototype.capitalize = function () {
     return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
   };
+
   return(
     <ul className="EventInput--preview">
-      {events.map((event, i) => {
+      {formEvents.map((event, i) => {
         let cityName = event.cityName
           ? event.cityName.capitalize()
           : null
@@ -27,16 +29,27 @@ export default function EventsPreview({ events }) {
           ? event.venueName.capitalize()
           : null
 
-        function isUpperCase(str) {
+        function isAllCaps(str) {
           return str === str.toUpperCase();
         }
         const regionOrCountry = () => {
           switch (true) {
-            case (regionName && countryName) && isUpperCase(regionName) === true:
+            case (regionName && countryName) && isAllCaps(regionName) === true:
               return regionName;
-            case (regionName && countryName) && isUpperCase(regionName) === false:
+            case (regionName && countryName) && isAllCaps(regionName) === false:
               return countryName;
             case (!regionName):
+              return countryName;
+            default:
+              return null
+          }
+        }
+
+        const regionAndCountry = () => {
+          switch (true) {
+            case !!regionName && !!countryName:
+              return regionName + ', ' + countryName;
+            case !regionName && !!countryName:
               return countryName;
             default:
               return null
@@ -52,12 +65,19 @@ export default function EventsPreview({ events }) {
           }
         }
 
+        const handleDelete = (e) => {
+          deleteFormEvent(e.target.parentElement.id)
+        }
+
         return (
-          <li key={i}>
-            <i className="fa fa-minus-circle delete-i"></i>
+          <li key={event.id} id={event.id}>
+            <i
+              className="fa fa-minus-circle delete-i"
+              onClick={handleDelete}
+            >
+            </i>
             <span className="date-i">{event.date}</span>
-            {/* <span className="city-i">{cityName}{cityComma()}{regionOrCountry()}</span> */}
-            <span className="city-i">{cityName}{cityComma()}{regionName}</span>
+            <span className="city-i">{cityName}{cityComma()}{regionAndCountry()}</span>
             <span className="venue-i">{venueName}</span>
           </li>
         )
@@ -67,15 +87,18 @@ export default function EventsPreview({ events }) {
 }
 
 EventsPreview.defaultProps = {
-  events: []
+  formEvents: [],
+  deleteFormEvent: () => {}
 }
 
 EventsPreview.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.shape({
+  formEvents: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
     date: PropTypes.string,
     venueName: PropTypes.string,
     countryName: PropTypes.string,
     regionName: PropTypes.string,
     cityName: PropTypes.string
-  }))
+  })),
+  deleteFormEvent: PropTypes.func
 }

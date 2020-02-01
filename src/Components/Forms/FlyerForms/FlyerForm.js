@@ -140,9 +140,9 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       return new Date(mmddFormat + '/' + year)
     }
     const eventPostBodies = formBody.events.map(event => {
-      let generatedEventId = uuid()
+      // let generatedEventId = uuid()
       return {
-        id: generatedEventId,
+        id: event.id,
         flyer_id: generatedFlyerId,
         date: dateFormatted(event.date),
         venue_name: event.venueName.capitalize(),
@@ -213,11 +213,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
   }
 
-  // useEffect(() => {
-  //   console.log("EVENTS UPDATED", formBody.events)
-  //   resetEventFields()
-  // }, [formBody.events])
-
   const addTourStop = (e) => {
     e.preventDefault()
 
@@ -233,11 +228,13 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       }
     })
     if(invalidValues.length === 0 && validValues.length > 0) {
+      let generatedEventId = uuid()
       setFormBody(prev => ({
         ...prev,
         events: [
           ...prev.events,
           {
+            id: generatedEventId,
             date: formBody.date.value,
             venueName: formBody.venueName.value,
             countryName: formBody.countryName.value,
@@ -248,6 +245,14 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       }))
       resetEventFields()
     }
+  }
+
+  const deleteFormEvent = (id) => {
+    let filteredEvents = formBody.events.filter(event => event.id !== id)
+    setFormBody(prev => ({
+      ...prev,
+      events: filteredEvents
+    }))
   }
 
   return(
@@ -272,7 +277,10 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         />
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
-      <EventsPreview events={formBody.events} />
+      <EventsPreview
+        formEvents={formBody.events}
+        deleteFormEvent={deleteFormEvent}
+      />
       <EventFieldset
         updateEventFields={updateEventFields}
         addTourStop={addTourStop}
