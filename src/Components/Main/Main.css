@@ -1,0 +1,32 @@
+.Main {
+  height: 100%;
+}
+
+.Main--header--title {
+  font-weight: normal;
+}
+
+.Main--content {
+  margin: 16px;
+  height: 100%;
+  /* padding: 16px 16px 60px 16px; */
+}
+
+.Main--content.no-margin {
+  margin: 0;
+}
+
+@media (max-width: 399px) {
+  .Main--content {
+    margin: 8px;
+  }
+
+  .Main--content.no-margin {
+    margin: 0;
+  }
+
+  .Main--header {
+    padding: 12px;
+  }
+}
+

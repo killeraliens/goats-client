@@ -1,0 +1,296 @@
+/* .Main--content form:not(.header-form) { */
+form {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
+
+form:not(.SignInForm, .SignUpForm) {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
+
+form.header-form {
+  background-color: rgb(46, 46, 46);
+  color: white;
+  max-width: 100%;
+  padding: 16px;
+  padding-top: 54px;
+}
+
+form.header-form input {
+  color: black;
+}
+
+legend {
+  padding: 0;
+  display: table;
+}
+fieldset {
+  border: 0;
+  padding: 0.01em 0 0 0;
+  margin: 0;
+  margin-bottom: 16px;
+  min-width: 0;
+}
+
+legend, label {
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+fieldset * {
+  width: 100%;
+}
+
+body:not(:-moz-handler-blocked) fieldset {
+  display: table-cell;
+}
+
+label {
+  display: inline-block;
+}
+
+input[type=text], input[type=datalist], input[type=password], input[type=email], div.textarea:read-write, select {
+  background-color: white;
+  border: solid 1px lightgrey;
+  padding: 8px;
+}
+
+select {
+  height: 31px;
+}
+
+.form-controls button {
+  margin-right: 8px;
+}
+
+.fieldset-container {
+  display: flex;
+  max-width: 499px;
+}
+
+.fieldset-container fieldset:not(:last-child) {
+  margin-right: 8px;
+}
+
+.tip::before {
+  content: "Format Tip: "
+}
+
+/*  */
+.CountryFieldset, .CityFieldset{
+  width: 100%;
+}
+
+.CountryFieldset {
+  min-width: 100px;
+}
+
+.CityFieldset{
+  margin-left: 8px;
+}
+
+/* .CountryFieldset > select, .CityFieldset > input {
+  width: 100%;
+} */
+
+
+fieldset.grow {
+  flex-grow: 1;
+  /* width: 100%; */
+}
+fieldset.no-shrink {
+  flex-shrink: 0;
+}
+fieldset.date {
+  min-width: 66px;
+  max-width: 66px;
+}
+
+.fieldset-container {
+  width: 100%;
+}
+
+ .fieldset-container.sub-group {
+  flex-grow: 1;
+}
+
+.fieldset-container.sub-group.no-grow {
+  flex-grow: 0;
+}
+
+
+/* .fieldset-container.sub-group fieldset:not(:last-child) {
+    margin-right: 8px;
+  } */
+
+.EventFieldset.condensed {
+  height: 0;
+  overflow: hidden;
+}
+
+ul.EventInput--preview {
+   /* padding-top: 8px;
+  padding-bottom: 8px; */
+}
+
+ul.EventInput--preview li {
+  margin-bottom: 16px;
+}
+
+ul.EventInput--preview li > * {
+  display: flex;
+}
+
+.EventInput--preview li span i {
+  color: darkgrey;
+}
+
+.date-i::before {
+  font-family: "FontAwesome";
+  content: '\f133';
+  width: 20px;
+  /* margin-right: 4px; */
+  color: darkgray;
+}
+
+.city-i::before {
+  font-family: "FontAwesome";
+  content: '\f041';
+  width: 20px;
+  /* margin-right: 4px; */
+  color: darkgray;
+}
+
+.venue-i::before {
+  font-family: "FontAwesome";
+  content: '\f276';
+  width: 20px;
+  /* margin-right: 4px; */
+  color: darkgray;
+}
+
+.delete-i {
+  /* margin-right: 32px; */
+  position: relative;
+  left: -32px;
+  height: 0;
+  color: orangered;
+}
+
+.EventFieldset {
+  height: auto;
+  overflow: visible;
+  background: lightgray;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 799px){
+  /* form > * {
+    max-width: 666px;
+    margin-left: auto;
+    margin-right: auto;
+  } */
+
+}
+
+@media (max-width: 599px) {
+  /* .Main--content form:not(.header-form) {
+    padding: 24px;
+  } */
+}
+
+@media (max-width: 599px) {
+
+  .CityFieldset{
+    margin-left: 0px;
+  }
+
+  .fieldset-container:not(.sub-group) {
+    flex-direction: column;
+  }
+
+  .fieldset-container fieldset:not(:last-child) {
+    margin-right: 0px;
+  }
+
+  .fieldset-container.sub-group fieldset:first-child {
+    flex-grow: 2;
+    margin-right: 8px;
+  }
+
+  .fieldset-container.sub-group fieldset:last-child {
+    flex-grow: 1;
+    margin-right: 0px;
+  }
+
+  fieldset.grow {
+    flex-grow: 0;
+  }
+  fieldset.no-shrink {
+    flex-shrink: 0;
+  }
+  fieldset.date {
+    width: inherit;
+  }
+}
+
+/*  */
+legend.key {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  border: solid 1px lightgray;
+  padding: 8px;
+}
+
+div.textarea {
+  border: ridge 2px;
+  min-height: 5em;
+  overflow: auto;
+}
+
+/* Temp placement until component made */
+.AvatarPreview {
+  width: fit-content;
+}
+
+.AvatarPreview * {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.AvatarPreview > label > div > span {
+  color: white;
+  /* text-align: center; */
+  justify-content: center;
+  font-size: 10px;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(175deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .5));
+}
+
+
+.FlyerPreview, .FlyerPreview > * {
+  position: relative;
+}
+
+.FlyerPreview > span {
+  background: linear-gradient(175deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .5));
+  position: absolute;
+  top: 0;
+  border-radius: 0;
+  height: calc(100% - 2px);
+  min-width: fit-content;
+  min-height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+

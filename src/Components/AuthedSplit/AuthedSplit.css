@@ -1,0 +1,38 @@
+.AuthedSplit {
+  display: flex;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.Menu, .Main {
+  height: 100%;
+  overflow: scroll;
+}
+
+.Menu {
+  width: 72px;
+  padding: 1px;
+}
+
+.Main {
+  width: 100%;
+}
+
+
+@media (max-width: 399px) {
+
+  .Menu {
+    position: fixed;
+    bottom: 0px;
+    height: auto;
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .Main {
+    padding-bottom: 76px;
+  }
+
+}

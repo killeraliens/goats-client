@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
-import { NavLink } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
-
+import PrivateRoute from './Components/PrivateRoute'
+import Dashboard from './Components/Dashboard/Dashboard'
+import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
-
-
-
-
+import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
+import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 
 class App extends Component {
   constructor() {
@@ -19,10 +19,6 @@ class App extends Component {
     }
 
   }
-
-
-
-  //onFailure = (error) => { this.setState({ error }) }
 
   fetchApiData = async (type) => {
     const response = await fetch(`${config.API_ENDPOINT}/api/${type}`);
@@ -35,31 +31,17 @@ class App extends Component {
     return body
   }
 
-  // async componentDidMount () {
-  //   // console.log('THIS STATE',this.state)
-  //   //console.log('THIS LOCAL', localStorage)
-  //   this.fetchApiData('event')
-  //     .then(events => {
-  //       this.setState({ events })
-  //     })
-  //     .catch(err => {
-  //       console.log('Error on fetch events', err)
-  //     })
-
-  // }
-
-  // addEvent = (newEvent) => {
-  //   console.log('adding new event to state', newEvent)
-  //   const events = [...this.state.events, newEvent]
-  //   this.setState({ events })
-  // }
-
   updateAuthenticated = (user) => {
     this.setState({
       user
     }, () => {
       localStorage.setItem("user", JSON.stringify(this.state.user))
     })
+  }
+
+  updateUser = (newProps) => {
+    console.log('setting new user values in app context')
+    this.setState({ user: {...this.state.user, ...newProps}}, () => console.log('current user:', this.state.user))
   }
 
   destroyCurrentLoginState = () => {
@@ -69,29 +51,25 @@ class App extends Component {
   render() {
     const context = {
       user: this.state.user,
-      updateAuthenticated: this.updateAuthenticated
+      updateAuthenticated: this.updateAuthenticated,
+      updateUser: this.updateUser
     }
-
-    const LoginOrLogoutLink = this.state.user //&& this.state.user
-      ? <button onClick={this.destroyCurrentLoginState}>Logout</button> //send request to api / followup w context this.destroyCurrentLoginState() {}
-      : <NavLink to='/signin'>Sign In</NavLink>
 
     return(
       <div className="App">
         <AppContext.Provider value={context}>
-          <Landing />
-          {/* <nav>
-            <NavLink to='/'>Events</NavLink>{<br/>}
-            <NavLink to='/add-event'>Add Event</NavLink>{<br/>}
-            {LoginOrLogoutLink}
-          </nav>
-          <main>
-            <Switch>
-              <Route path={`/profile/:user_id`} component={ProfilePg} />
-              <Route path="/signin" component={SignInForm}/>
-              <Route path="/signup" component={SignUpForm}/>
-            </Switch>
-          </main> */}
+          <Switch>
+            <Route exact path="/public/:action" component={Landing}/>
+            <PrivateRoute path={`/dashboard/:user_id`} render={props =>
+              <AuthedSplit mainComponent={<Dashboard {...props}/>} />
+            } />
+            <PrivateRoute path={`/forum`} render={props =>
+              <AuthedSplit mainComponent={<Forum {...props}/>} />
+            } />
+            <PrivateRoute path={`/create-flyer`} render={props =>
+              <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
+            } />
+          </Switch>
         </ AppContext.Provider >
       </div>
     )

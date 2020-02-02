@@ -1,0 +1,42 @@
+.MainNavLink {
+  display: inline-block;
+  line-height: 24px;
+  padding: 0px 8px;
+  color: white;
+  background-color: rgb(46, 46, 46);
+  margin-left: 0;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  text-decoration: none;
+}
+
+.MainNavLink.whitesmoke-black.active {
+  background-color: whitesmoke;
+  color: black;
+}
+
+.MainNavLink.green-white.active {
+  background-color: green;
+  color: white;
+}
+
+.MainNavLink.blue-white.active {
+  background-color: blue;
+  color: white;
+}
+
+.MainNavLink--count {
+  position: relative;
+  right: -2px;
+  top: -1px;
+  font-size: 10px;
+  font-weight: bold;
+  display: inline-block;
+	border-radius: 4px;
+  padding: 0px 4px;
+  line-height: 14px;
+  margin-left: 6px;
+  background-color: orangered;
+  text-align: center;
+  color: white;
+}

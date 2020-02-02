@@ -1,8 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import config from '../../../config'
+import PropTypes from 'prop-types';
+import config from '../../../config';
 import { Link, withRouter } from 'react-router-dom';
-import ValidationError  from '../ValidationError/ValidationError'
-import AppContext from '../../../AppContext'
+import ValidationError  from '../ValidationError/ValidationError';
+import CentralContainer from '../../CentralContainer/CentralContainer';
+import AppContext from '../../../AppContext';
+import '../Forms.css';
 
 function SignInForm(props) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
@@ -83,16 +86,18 @@ function SignInForm(props) {
       resetForm()
       let user = body.token ? body : null
       context.updateAuthenticated(user)
-      props.history.push(`/profile/${user.id}`)
+      props.history.push(`/forum`)
     }
   }
 
   const required = "*"
 
   return(
-    <div>
-      <form onSubmit={handleOnSubmit}>
-        <div className="form-group">
+    <CentralContainer>
+      <form className="SignInForm" onSubmit={handleOnSubmit}>
+        <h1>Sign In</h1>
+        <p></p>
+        <fieldset>
           <label htmlFor="username">Username{required}</label>
           <input
             type="text"
@@ -108,8 +113,8 @@ function SignInForm(props) {
           />
           <ValidationError id="usernameError" message={username.error} />
 
-        </div>
-        <div className="form-group">
+        </fieldset>
+        <fieldset>
           <label htmlFor="password">Password{required}</label>
           <input
             type="password"
@@ -124,12 +129,20 @@ function SignInForm(props) {
             onBlur={updateValidationErrors}
           />
           <ValidationError id="passwordError" message={password.error} />
+        </fieldset>
+        <div className="form-controls">
+          <button type="submit" disabled={username.error || password.error}>submit</button>
+          <Link to="/public/signup">New Account</Link>
         </div>
-        <button type="submit" disabled={username.error || password.error}>submit</button>
-        <Link to="/signup">Sign Up</Link>
       </form>
-    </div>
+    </CentralContainer>
   );
+}
+
+SignInForm.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  })
 }
 
 export default withRouter(SignInForm);

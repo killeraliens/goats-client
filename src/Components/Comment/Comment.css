@@ -1,0 +1,33 @@
+.Comment {
+  border-top: solid 1px dimgrey;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.Comment--header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Comment--handle {
+  margin-bottom: 0;
+  margin-left: 8px;
+}
+
+.Comment span {
+  font-size: 10px;
+  font-weight: normal;
+}
+
+.Comment--comment {
+  margin-bottom: 0;
+}
+
+.Comment--isCreator {
+  margin-left: 4px;
+}
+
+.Comment--modified-at {
+ text-align: right;
+}

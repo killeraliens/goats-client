@@ -1,8 +1,11 @@
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ValidationError from '../ValidationError/ValidationError';
+import CentralContainer from '../../CentralContainer/CentralContainer';
 import config from '../../../config';
 import AppContext from '../../../AppContext'
+import '../Forms.css';
 
 class SignUpForm extends Component {
 
@@ -45,8 +48,9 @@ class SignUpForm extends Component {
       .then(newUser => {
         this.resetForm()
         this.context.updateAuthenticated(true, newUser)
-        this.props.history.push(`/`)
+        //this.props.history.push(`/forum`)
         //this.props.history.push(`/profile/${newUser.id}`)
+        this.props.history.push(`/dashboard/${newUser.username}`)
       })
       .catch(error => {
         console.log('SignUpForm form error', error)
@@ -70,6 +74,7 @@ class SignUpForm extends Component {
       repeatPassword: { value: '', touched: false },
       error: null
     })
+    this.props.history.push('/signin')
   }
 
   validateName = () => {
@@ -120,71 +125,78 @@ class SignUpForm extends Component {
     const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();
 
     return (
-      <form className='SignUpForm' onSubmit={this.handleSubmit}>
-        <h2>Sign Up</h2>
-        <div className="form-group">
-          <label htmlFor="username">Name*</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            onChange={this.updateValue}
-            value={this.state.username.value}
-            aria-label="create a unique username"
-            aria-required="true"
-            aria-describedby="usernameError"
-            aria-invalid={usernameError}
-          />
-          <ValidationError id="usernameError" message={usernameError} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email*</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            onChange={this.updateValue}
-            value={this.state.email.value}
-            aria-label="enter the email you would like associated with this account"
-            aria-required="true"
-            aria-describedby="emailError"
-            aria-invalid={emailError}
-          />
-          <ValidationError id="emailError" message={emailError} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password*</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={this.updateValue}
-            value={this.state.password.value}
-            aria-label="create a password"
-            aria-required="true"
-            aria-describedby="passwordError"
-            aria-invalid={passwordError}
-          />
-          <ValidationError id="passwordError" message={passwordError} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="repeat-password">Repeat Password*</label>
-          <input
-            type="password"
-            id="repeatPassword"
-            name="repeatPassword"
-            onChange={this.updateValue}
-            value={this.state.repeatPassword.value}
-            aria-label="re-enter password"
-            aria-required="true"
-            aria-describedby="repeatPasswordError"
-            aria-invalid={repeatPasswordError}
-          />
-          <ValidationError id="repeatPasswordError" message={repeatPasswordError}  />
-        </div>
-        <button type="reset" onClick={this.resetForm}>Cancel</button>
-        <button type="submit" disabled={(this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Ok Done</button>
-      </form>
+      <CentralContainer>
+        <form className='SignUpForm' onSubmit={this.handleSubmit}>
+          <h1>New Account</h1>
+          <p>Your email will only be used for account purposes.</p>
+          <fieldset className="form-group">
+            <label htmlFor="username">Username*</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              onChange={this.updateValue}
+              value={this.state.username.value}
+              aria-label="create a unique username"
+              aria-required="true"
+              aria-describedby="usernameError"
+              aria-invalid={usernameError}
+            />
+            <ValidationError id="usernameError" message={usernameError} />
+          </fieldset>
+          <fieldset className="form-group">
+            <label htmlFor="email">Email*</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              onChange={this.updateValue}
+              value={this.state.email.value}
+              aria-label="enter the email you would like associated with this account"
+              aria-required="true"
+              aria-describedby="emailError"
+              aria-invalid={emailError}
+            />
+            <ValidationError id="emailError" message={emailError} />
+          </fieldset>
+          <fieldset className="form-group">
+            <label htmlFor="password">Password*</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={this.updateValue}
+              value={this.state.password.value}
+              aria-label="create a password"
+              aria-required="true"
+              aria-describedby="passwordError"
+              aria-invalid={passwordError}
+            />
+            <ValidationError id="passwordError" message={passwordError} />
+          </fieldset>
+          <fieldset className="form-group">
+            <label htmlFor="repeat-password">Repeat Password*</label>
+            <input
+              type="password"
+              id="repeatPassword"
+              name="repeatPassword"
+              onChange={this.updateValue}
+              value={this.state.repeatPassword.value}
+              aria-label="re-enter password"
+              aria-required="true"
+              aria-describedby="repeatPasswordError"
+              aria-invalid={repeatPasswordError}
+            />
+            <ValidationError id="repeatPasswordError" message={repeatPasswordError}  />
+          </fieldset>
+          <div className="form-controls">
+            <button type="submit" disabled={(this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Sign Up</button>
+            <button type="reset" onClick={this.resetForm}>Cancel</button>
+            <Link to="/public/signin">back to sign in</Link>
+          </div>
+        </form>
+
+      </CentralContainer>
     )
   }
 }
