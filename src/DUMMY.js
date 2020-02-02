@@ -109,7 +109,7 @@ export default {
     {
       "id": "1",
       "flyer_id": "1",
-      "date": "2020-04-12T00:00:00.000Z",
+      "date": "2020-03-13T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -119,7 +119,7 @@ export default {
     {
       "id": "2",
       "flyer_id": "1",
-      "date": "2020-04-13T00:00:00.000Z",
+      "date": "2020-03-14T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -129,7 +129,7 @@ export default {
     {
       "id": "3",
       "flyer_id": "1",
-      "date": "2020-04-14T00:00:00.000Z",
+      "date": "2020-03-15T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
@@ -139,7 +139,7 @@ export default {
     {
       "id": "4",
       "flyer_id": "1",
-      "date": "2020-04-15T00:00:00.000Z",
+      "date": "2020-03-16T00:00:00.000Z",
       "venue_name": "Foro San Rafael",
       "modified": "2019-01-03T16:00:00.000Z",
       "city_name": "Mexico City",
