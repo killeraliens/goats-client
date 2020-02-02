@@ -11,7 +11,6 @@ import ContentEditable from '../ContentEditable';
 const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
-  console.log('newType in form', newType)
   const authedContext = useContext(AuthedContext)
   const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
   const [formBody, setFormBody] = useState({
@@ -37,6 +36,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   })
   const [disabled, setDisabled] = useState(true)
   const [touched, setTouched] = useState(false)
+  const [showFestEvents, setShowFestEvents] = useState([])
   // const [serverError, setServerError] = useState(null)
 
   const resetForm = () => {
@@ -78,6 +78,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     resetForm()
   }, [newType])
 
+
   useEffect(() => {
     const setDisabledIfErrors = () => {
       let errors = Object.values(formBody).filter(value => value && Boolean(value.error))
@@ -111,63 +112,162 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: error } }))
   }
 
-  const handleSubmit = (e) => {
+  // handleSubmit, addShowOrFestStop (postBody) Helpers
+  String.prototype.capitalize = function () {
+    return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
+  };
+  const dateWithYear = (mmddFormat) => {
+    let currYear = new Date().getFullYear()
+    let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
+    let currDate = new Date()
+    let testIfNeg = testDateCurrYear - currDate
+    let year = testIfNeg > 0 ? currYear : currYear + 1
+    return new Date(mmddFormat + '/' + year)
+  }
+  const returnCleanContentEditable = (fieldStr) => {
+    return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
+  }
+  const dateToMMDDString = (date) => {
+    return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate()))
+  }
+
+  const returnShowFestEventsArr = () => {
+    if (formBody.type === "Show" || formBody.type === "Fest") {
+
+      let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
+      let invalidValues = eventFields.filter(field => {
+        if (Boolean(formBody[field].error)) {
+          return formBody[field].value
+        }
+      })
+      let validValues = eventFields.filter(field => {
+        if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
+          return formBody[field].value
+        }
+      })
+
+      if (invalidValues.length === 0 && validValues.length > 0) {
+        let dayCount = formBody.type === "Fest"
+          ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
+          : 1
+
+        function addDaysToDateReturnMMDDString(date, days) {
+          const copy = new Date(Number(dateWithYear(date)))
+          copy.setDate(dateWithYear(date).getDate() + days)
+          return dateToMMDDString(copy)
+        }
+
+        let eventsArr = []
+        if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
+          for (let i = 0; i < 1; i++) {
+            console.log('setting 1 event into arr', eventsArr)
+            let newEvent = {
+              id: uuid(),
+              date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              venueName: formBody.venueName.value,
+              countryName: formBody.countryName.value,
+              regionName: formBody.regionName.value,
+              cityName: formBody.cityName.value
+            }
+            eventsArr.push(newEvent)
+          }
+        } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
+          for (let i = 0; i <= dayCount && i < 10; i++) {
+            console.log('setting 1 event into arr', eventsArr)
+            let newEvent = {
+              id: uuid(),
+              date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              venueName: formBody.venueName.value,
+              countryName: formBody.countryName.value,
+              regionName: formBody.regionName.value,
+              cityName: formBody.cityName.value
+            }
+            eventsArr.push(newEvent)
+          }
+        }
+        console.log('finished setting events', eventsArr)
+        return eventsArr
+      }
+      return []
+    }
+    return []
+}
+  //
+
+
+
+  useEffect(() => {
+    if (formBody.type === "Show" || formBody.type === "Fest") {
+      let showFestEventsArr = returnShowFestEventsArr()
+      function setNewEvents() {
+        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
+      }
+      return setNewEvents()
+    }
+  }, [
+    formBody.date.value,
+    formBody.endDate.value,
+    formBody.venueName.value,
+    formBody.countryName.value,
+    formBody.regionName.value,
+    formBody.cityName.value
+  ])
+
+
+  const handleSubmit = async(e) => {
     e.preventDefault()
 
     if (e.target.value === "Draft") {
       setFormBody(prev => ({ ...prev, listing_state: "Draft" }))
     }
 
-    String.prototype.capitalize = function () {
-      return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
-    };
-    let generatedFlyerId = uuid()
-    let generatedModified = new Date(Date.now())
-    const flyerPostBody = {
-      id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
-      creator_id: formBody.creatorId.toString(),
-      type: formBody.type,
-      image_url: formBody.imgUrl.value,
-      headline: formBody.headline.value.capitalize(),
-      bands: formBody.bands.value,
-      details: formBody.details.value,
-      publish_comment: formBody.publishComment.value,
-      listing_state: formBody.listingState,
-      created: Boolean(formBody.created) ? formBody.created : generatedModified,
-      modified: generatedModified
-    }
-
-    let dateWithYear = (mmddFormat) => {
-      let currYear = new Date().getFullYear()
-      let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
-      let currDate = new Date()
-      let testIfNeg = testDateCurrYear - currDate
-      let year = testIfNeg > 0 ? currYear : currYear + 1
-      return new Date(mmddFormat + '/' + year)
-    }
-    const eventPostBodies = formBody.events.map(event => {
-      // let generatedEventId = uuid()
-      return {
-        id: event.id,
-        flyer_id: generatedFlyerId,
-        date: dateWithYear(event.date),
-        venue_name: event.venueName.capitalize(),
-        city_name: event.cityName.capitalize(),
-        region_name: event.regionName,
-        country_name: event.countryName
+    // promise.then(() => {
+      console.log("formBody events!", formBody.events)
+      console.log("showFestEvents !", showFestEvents)
+      let generatedFlyerId = uuid()
+      let generatedModified = new Date(Date.now())
+      const flyerPostBody = {
+        id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
+        creator_id: formBody.creatorId.toString(),
+        type: formBody.type,
+        image_url: formBody.imgUrl.value,
+        headline: formBody.headline.value.capitalize(),
+        bands: formBody.bands.value,
+        details: formBody.details.value,
+        publish_comment: formBody.publishComment.value,
+        listing_state: formBody.listingState,
+        created: Boolean(formBody.created) ? formBody.created : generatedModified,
+        modified: generatedModified
       }
-    })
 
-    console.log('uploading flyer body...', flyerPostBody)
-    //DUMMY.flyers.push(flyerPostBody)
-    authedContext.addFlyer(flyerPostBody)
-    eventPostBodies.forEach(eventPostBody => {
-      console.log(`uploading events for flyer id ${flyerPostBody.id}`, eventPostBody)
-      //DUMMY.events.push(eventPostBody)
-      authedContext.addEvent(eventPostBody)
-    })
-    resetForm()
-    history.push(`/dashboard/${formBody.creatorId}`)
+      const eventPostBodies = formBody.events.map(event => {
+        // let generatedEventId = uuid()
+        return {
+          id: event.id,
+          flyer_id: generatedFlyerId,
+          date: dateWithYear(event.date),
+          venue_name: event.venueName.capitalize(),
+          city_name: event.cityName.capitalize(),
+          region_name: event.regionName,
+          country_name: event.countryName
+        }
+      })
+
+      console.log('uploading flyer body...', flyerPostBody)
+      console.log('form bods events here...', formBody.events)
+      //DUMMY.flyers.push(flyerPostBody)
+      authedContext.addFlyer(flyerPostBody)
+      eventPostBodies.forEach(eventPostBody => {
+        console.log(`uploading events for flyer id ${flyerPostBody.id}`, eventPostBody)
+        //DUMMY.events.push(eventPostBody)
+        authedContext.addEvent(eventPostBody)
+      })
+      resetForm()
+      history.push(`/dashboard/${formBody.creatorId}`)
+    // } )
+
+
+
   //   const flyerOptions = {
   //     method: 'POST',
   //     body: JSON.stringify(flyerPostBody),
@@ -188,6 +288,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   //   }
   // }
   }
+
+
 
   const validateHeadline = () => {
     if (formBody.headline.touched) {
@@ -214,10 +316,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return ""
   }
 
-  const returnCleanContentEditable = (fieldStr) => {
-    return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
-  }
 
+  //EventFieldset
   const addTourStop = (e) => {
     e.preventDefault()
 
@@ -251,7 +351,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       resetEventFields()
     }
   }
-
   const deleteFormEvent = (id) => {
     let filteredEvents = formBody.events.filter(event => event.id !== id)
     setFormBody(prev => ({
@@ -259,6 +358,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       events: filteredEvents
     }))
   }
+  //
 
   return(
     <form className="FlyerForm" onSubmit={handleSubmit}>
@@ -308,8 +408,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
           ariaDescribedBy="bandsError"
           ariaInvalid={!!formBody.bands.error}
           onChange={e => {
-            console.log(returnCleanContentEditable("bands"))
-            console.log(formBody.bands.value)
             return setFormBody(prev => ({ ...prev, bands: { value: e.target.value, touched: true, error: validateContentEditableLength("bands", 280) } }))
           }}
         />

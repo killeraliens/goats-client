@@ -31,6 +31,9 @@ export default function CreateFlyer({ users, flyers, events, fetching}) {
           <Route exact path='/create-flyer/fest' render={({ history }) => {
             return <FlyerForm history={history} newType="Fest" creatorId={context.user.id} />
           }} />
+          <Route exact path='/create-flyer/tour' render={({ history }) => {
+            return <FlyerForm history={history} newType="Tour" creatorId={context.user.id} />
+          }} />
         </Switch>
 
       </div>
