@@ -26,18 +26,26 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
           <h2>{flyer.headline}</h2>
         </div>
         <ThroughDates flyerEvents={flyerEvents} />
-        {flyer.type === "Tour"
+        {flyer.type === "Tour" && flyerEvents.length > 1
           ? (
             <Accordian triggerNode={<Location isTourAbbrev={true} />}>
               <Locations flyerEvents={flyerEvents} isFullTourListing={true} />
             </Accordian>
           )
-          : <Locations flyerEvents={flyerEvents} />
+          : flyerEvents.length > 0
+          ? <Locations flyerEvents={flyerEvents} />
+          : null
         }
-        <Accordian triggerNode={<p>...Details</p>}>
-          <p>{flyer.bands}</p>
-          <p>{flyer.details}</p>
-        </Accordian>
+       {
+         Boolean(flyer.bands) || Boolean(flyer.details)
+           ? (
+              <Accordian triggerNode={<p>...Details</p>}>
+                <p>{flyer.bands}</p>
+                <p>{flyer.details}</p>
+              </Accordian>
+           )
+           : null
+       }
       </div>
       <Comments flyer={flyer} flyerCreator={flyerCreator}/>
 

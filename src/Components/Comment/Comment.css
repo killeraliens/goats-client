@@ -27,3 +27,7 @@
 .Comment--isCreator {
   margin-left: 4px;
 }
+
+.Comment--modified-at {
+ text-align: right;
+}

@@ -6,7 +6,15 @@ import './Comment.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
 
 export default function Comment({ user, isCreator, comment, modified }) {
-  const modifiedAt = new Date(modified).toLocaleString()
+  const dateToMMDDTimeString = (date) => {
+    return ((date.getMonth() > 8)
+      ? (date.getMonth() + 1)
+      : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9)
+      ? date.getDate()
+      : ('0' + date.getDate())) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes()
+  }
+  // const modifiedAt = new Date(modified).toLocaleString()
+  const modifiedAt = dateToMMDDTimeString(new Date(modified))
   return (
     <div className="Comment">
         <div className="Comment--header">
@@ -19,13 +27,13 @@ export default function Comment({ user, isCreator, comment, modified }) {
             </Link>
             <h3 className="Comment--handle username">
               {user.username}
-              {isCreator ? <span className="Comment--isCreator">[creator]</span> : null}
             </h3>
           </div>
           <span className="Comment--modified-at">
-             {/* Jan 10, 2020 - 22:33 MST */}
-          mentioned: {modifiedAt}
-            </span>
+          {isCreator ? <span className="Comment--isCreator">[creator] </span> : null}
+          mentioned:<br />{modifiedAt}
+
+          </span>
         </div>
         {comment ? <p className="Comment--comment">{comment}</p> : null}
     </div>
