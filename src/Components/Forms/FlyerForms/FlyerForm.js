@@ -160,7 +160,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         let eventsArr = []
         if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
           for (let i = 0; i < 1; i++) {
-            console.log('setting 1 event into arr', eventsArr)
             let newEvent = {
               id: uuid(),
               date: addDaysToDateReturnMMDDString(formBody.date.value, i),
@@ -173,7 +172,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
           }
         } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
           for (let i = 0; i <= dayCount && i < 10; i++) {
-            console.log('setting 1 event into arr', eventsArr)
             let newEvent = {
               id: uuid(),
               date: addDaysToDateReturnMMDDString(formBody.date.value, i),
@@ -221,51 +219,40 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       setFormBody(prev => ({ ...prev, listing_state: "Draft" }))
     }
 
-    // promise.then(() => {
-      console.log("formBody events!", formBody.events)
-      console.log("showFestEvents !", showFestEvents)
-      let generatedFlyerId = uuid()
-      let generatedModified = new Date(Date.now())
-      const flyerPostBody = {
-        id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
-        creator_id: formBody.creatorId.toString(),
-        type: formBody.type,
-        image_url: formBody.imgUrl.value,
-        headline: formBody.headline.value.capitalize(),
-        bands: formBody.bands.value,
-        details: formBody.details.value,
-        publish_comment: formBody.publishComment.value,
-        listing_state: formBody.listingState,
-        created: Boolean(formBody.created) ? formBody.created : generatedModified,
-        modified: generatedModified
+    let generatedFlyerId = uuid()
+    let generatedModified = new Date(Date.now())
+    const flyerPostBody = {
+      id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
+      creator_id: formBody.creatorId.toString(),
+      type: formBody.type,
+      image_url: formBody.imgUrl.value,
+      headline: formBody.headline.value.capitalize(),
+      bands: returnCleanContentEditable("bands"),
+      details: returnCleanContentEditable("details"),
+      publish_comment: returnCleanContentEditable("publishComment"),
+      listing_state: formBody.listingState,
+      created: Boolean(formBody.created) ? formBody.created : generatedModified,
+      modified: generatedModified
+    }
+
+    const eventPostBodies = formBody.events.map(event => {
+      return {
+        id: event.id,
+        flyer_id: generatedFlyerId,
+        date: dateWithYear(event.date),
+        venue_name: event.venueName.capitalize(),
+        city_name: event.cityName.capitalize(),
+        region_name: event.regionName,
+        country_name: event.countryName
       }
+    })
 
-      const eventPostBodies = formBody.events.map(event => {
-        // let generatedEventId = uuid()
-        return {
-          id: event.id,
-          flyer_id: generatedFlyerId,
-          date: dateWithYear(event.date),
-          venue_name: event.venueName.capitalize(),
-          city_name: event.cityName.capitalize(),
-          region_name: event.regionName,
-          country_name: event.countryName
-        }
-      })
-
-      console.log('uploading flyer body...', flyerPostBody)
-      console.log('form bods events here...', formBody.events)
-      //DUMMY.flyers.push(flyerPostBody)
-      authedContext.addFlyer(flyerPostBody)
-      eventPostBodies.forEach(eventPostBody => {
-        console.log(`uploading events for flyer id ${flyerPostBody.id}`, eventPostBody)
-        //DUMMY.events.push(eventPostBody)
-        authedContext.addEvent(eventPostBody)
-      })
-      resetForm()
-      history.push(`/dashboard/${formBody.creatorId}`)
-    // } )
-
+    authedContext.addFlyer(flyerPostBody)
+    eventPostBodies.forEach(eventPostBody => {
+      authedContext.addEvent(eventPostBody)
+    })
+    resetForm()
+    history.push(`/dashboard/${formBody.creatorId}`)
 
 
   //   const flyerOptions = {
