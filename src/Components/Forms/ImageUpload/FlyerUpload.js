@@ -15,6 +15,16 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
     }
   }, [])
 
+  // helper //https://stackoverflow.com/questions/46946380/fetch-api-request-timeout
+  const fetchWithTimeout = (url, options, timeout = 7000) => {
+    return Promise.race([
+      fetch(url, options),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), timeout)
+      )
+    ]);
+  }
+
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
       updateImgError('')
@@ -23,11 +33,13 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
         setUploading(true)
         if (file.size < 3000000) {
           formData.append(i, file)
-          fetch(`${config.API_ENDPOINT}/api/image-upload`, {
+          fetchWithTimeout(`${config.API_ENDPOINT}/api/image-upload`, {
             method: 'POST',
             body: formData
-          })
-            .then(res => res.json())
+          }, 5000)
+            .then(res => {
+              return res.json()
+            })
             .then(images => {
               setUploading(false)
               if (images.length > 0) {
@@ -35,7 +47,10 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
                 updateImgError('')
               }
             })
-            .catch(err => updateImgError('Error in upload, check connection'))
+            .catch(err => {
+              setUploading(false)
+              updateImgError('Error in upload, check connection')
+            })
         } else {
           setUploading(false)
           updateImgError('File must be under 3MB')
