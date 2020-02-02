@@ -36,16 +36,37 @@ export default function Forum({ flyers, events, users, fetching }) {
   })
   console.log('region hash ', regionHash)
   console.log('country hash ', countriesHash)
-
+  const getRegionsForCountry = (country) => {
+    let arr = Object.keys(regionHash).filter(region => {
+      return regionHash[region].country_name === country
+    })
+    return arr
+    // for (const [key, val] of regionHash) {
+    //   if (val.country_name === country) {
+    //     return
+    //   }
+    // }
+  }
   const filterLinks = Object.keys(countriesHash).sort().map(country => {
+    let regions = getRegionsForCountry(country)
     return (
-      <MainNavLink to={`/forum/${country}`}>
-        {country}
-        <span className="MainNavLink--count">{countriesHash[country]}</span>
-      </MainNavLink>
+      <React.Fragment>
+        <MainNavLink to={`/forum/${country}`}>
+          {country}
+          <span className="MainNavLink--count">{countriesHash[country]}</span>
+        </MainNavLink>
+        {regions.sort().map(region => {
+          return (
+            <MainNavLink to={`/forum/${region}`}>
+              {region}
+              <span className="MainNavLink--count">{regionHash[region].count}</span>
+            </MainNavLink>
+          )
+        })}
+      </React.Fragment>
     )
   })
-  const routes = Object.keys(countriesHash).map(country => {
+  const countryRoutes = Object.keys(countriesHash).map(country => {
     const flyerEvents = events.filter(event => event.country_name === country)
 
     let countryFlyers = []
@@ -64,6 +85,25 @@ export default function Forum({ flyers, events, users, fetching }) {
     }}/>
   })
 
+  const regionRoutes = Object.keys(regionHash).map(region => {
+    const flyerEvents = events.filter(event => event.region_name === region)
+
+    let regionFlyers = []
+    for (let i = 0; i < flyerEvents.length; i++) {
+      flyers.forEach(flyer => {
+        if (flyer.id === flyerEvents[i].flyer_id) {
+          if (!regionFlyers.find(cflyer => cflyer.id == flyer.id)) {
+            regionFlyers.push(flyer)
+          }
+        }
+      })
+    }
+
+    return <Route key={region} path={`/forum/${region}`} render={() => {
+      return <Country countryName={regionHash[region].country_name} regionName={region} countryFlyers={regionFlyers} events={events} users={users} fetching={fetching} />
+    }} />
+  })
+
   return(
     <div className="Forum">
       <MainHeader >
@@ -77,7 +117,8 @@ export default function Forum({ flyers, events, users, fetching }) {
           <Route exact path={`/forum`} render={() => {
             return <Feed flyers={flyers} events={events} users={users} fetching={fetching} />
           }} />
-          { routes }
+          { countryRoutes }
+          { regionRoutes}
         </Switch>
 
       </div>
