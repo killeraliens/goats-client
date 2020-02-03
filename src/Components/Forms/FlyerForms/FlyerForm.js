@@ -171,7 +171,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
             eventsArr.push(newEvent)
           }
         } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
-          for (let i = 0; i <= dayCount && i < 10; i++) {
+          for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
             let newEvent = {
               id: uuid(),
               date: addDaysToDateReturnMMDDString(formBody.date.value, i),
@@ -190,9 +190,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     }
     return []
 }
-  //
-
-
 
   useEffect(() => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
