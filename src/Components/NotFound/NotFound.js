@@ -20,7 +20,7 @@ export default function NotFound({ message, link }) {
             <p><Link to={`/dashboard/${context.user.id}`}>Back to dashboard</Link></p>
           </div >
         )
-        : Boolean(context.user) && Boolean(context.user.id)
+        : Boolean(context.user) && Boolean(context.user.id) && !!link
         ? (
           <div>
             <p>{message}</p>
@@ -39,7 +39,7 @@ export default function NotFound({ message, link }) {
 
 NotFound.defaultProps = {
   message: 'Page not found',
-  link: <Link to="/public/signin">Back to sign in</Link>
+  //link: <Link to="/public/signin">Back to sign in</Link>
 }
 
 NotFound.propTypes = {

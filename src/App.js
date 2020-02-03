@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
@@ -96,7 +96,13 @@ class App extends Component {
             <PrivateRoute path={`/create-flyer`} render={props =>
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
-            <Route component={NotFound} />
+            {context.user && context.user.id
+              ? (
+                <Route render={() => {
+                  return <NotFound link={<Link to="/forum">Back to forum</Link>} />
+                }} />
+              )
+              : <Redirect to="/public/signin" />
             } />
           </Switch>
         </ AppContext.Provider >
