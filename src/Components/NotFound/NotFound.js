@@ -18,6 +18,7 @@ export default function NotFound({ message, link }) {
           <div>
             <p>{message}</p>
             <p><Link to={`/dashboard/${context.user.id}`}>Back to dashboard</Link></p>
+            <p> <Link to="/public/signin">Back to sign in (temp dummy escape hatch)</Link></p>
           </div >
         )
         : Boolean(context.user) && Boolean(context.user.id) && !!link
