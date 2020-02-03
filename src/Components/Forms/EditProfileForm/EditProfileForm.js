@@ -11,7 +11,6 @@ import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityForm
 
 function EditProfileForm({ history }) {
   const context = useContext(AppContext)
-  const contextAuthed = useContext(AuthedContext)
   const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: user.image_url || '' },
@@ -38,7 +37,6 @@ function EditProfileForm({ history }) {
       city_name: formBody.cityName.value
     }
     context.updateUser(updatedUserProps)
-    //contextAuthed.updateUsers(updatedUserProps)
     context.updateUsers(updatedUserProps)
     history.push(`/dashboard/${user.id}`)
   }

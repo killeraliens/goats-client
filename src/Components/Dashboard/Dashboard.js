@@ -12,15 +12,11 @@ import './Dashboard.css'
 function Dashboard({ match, flyers, events, fetching }) {
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
-  console.log('APP context users (using props not this)', context.users)
-  //console.log('USERS IN DASH', users)
-
-  const foundUser = context.users.find(user => parseInt(user.id) === parseInt(paramsId));
-  const userFlyers = flyers.filter(flyer => parseInt(flyer.creator_id) === parseInt(foundUser.id))
+  const foundUser = context.users.find(user => user.id.toString() === paramsId.toString());
+  const userFlyers = flyers.filter(flyer => flyer.creator_id.toString() === foundUser.id.toString())
   // const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   //const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
-  /* eslint eqeqeq: 0 */
-  if (foundUser && context.user && context.user.id == paramsId) {
+  if (foundUser && context.user && context.user.id.toString() === paramsId.toString()) {
     return(
       <div className="Dashboard">
         <MainHeaderNav links={[

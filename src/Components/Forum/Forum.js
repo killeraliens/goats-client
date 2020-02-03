@@ -12,6 +12,7 @@ export default function Forum({ flyers, events, fetching }) {
   const users = useContext(AppContext).users
   const countriesHash = {}
   const regionHash = {}
+
   events.forEach(event => {
     if (Boolean(event.country_name)) {
       if (!Object.keys(countriesHash).includes(event.country_name)) {
@@ -22,6 +23,7 @@ export default function Forum({ flyers, events, fetching }) {
       return
     }
   })
+
   events.forEach(event => {
     if (Boolean(event.region_name)) {
       if (!Object.keys(regionHash).includes(event.region_name)) {
@@ -35,19 +37,14 @@ export default function Forum({ flyers, events, fetching }) {
       return
     }
   })
-  console.log('region hash ', regionHash)
-  console.log('country hash ', countriesHash)
+
   const getRegionsForCountry = (country) => {
     let arr = Object.keys(regionHash).filter(region => {
       return regionHash[region].country_name === country
     })
     return arr
-    // for (const [key, val] of regionHash) {
-    //   if (val.country_name === country) {
-    //     return
-    //   }
-    // }
   }
+
   const filterLinks = Object.keys(countriesHash).sort().map(country => {
     let regions = getRegionsForCountry(country)
     return (
@@ -67,9 +64,9 @@ export default function Forum({ flyers, events, fetching }) {
       </React.Fragment>
     )
   })
+
   const countryRoutes = Object.keys(countriesHash).map(country => {
     const flyerEvents = events.filter(event => event.country_name === country)
-
     let countryFlyers = []
     for ( let i=0; i < flyerEvents.length; i++ ) {
       flyers.forEach(flyer => {
@@ -88,7 +85,6 @@ export default function Forum({ flyers, events, fetching }) {
 
   const regionRoutes = Object.keys(regionHash).map(region => {
     const flyerEvents = events.filter(event => event.region_name === region)
-
     let regionFlyers = []
     for (let i = 0; i < flyerEvents.length; i++) {
       flyers.forEach(flyer => {
@@ -129,5 +125,31 @@ export default function Forum({ flyers, events, fetching }) {
 }
 
 Forum.propTypes = {
-
+  flyers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    creator_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  })),
+  events: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    flyer_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  })),
+  // users: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.oneOfType([
+  //     PropTypes.number,
+  //     PropTypes.string
+  //   ]).isRequired
+  // })),
+  fetching: PropTypes.bool
 }
