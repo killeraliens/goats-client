@@ -16,8 +16,8 @@ export default function About() {
         </p>
         <p>
           This project is in testing and development mode. It needs people like you to sign up and post content.
-          If you come across any bugs, issues, or general improvements while using this site email ali@goatsguide.com.
-          If you are a developer and would like to contribute, email me!
+          {/* If you come across any bugs, issues, or general improvements while using this site email ali@goatsguide.com.
+          If you are a developer and would like to contribute, email me. */}
         </p>
       </section>
     </CentralContainer>
