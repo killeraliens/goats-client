@@ -38,7 +38,8 @@ function EditProfileForm({ history }) {
       city_name: formBody.cityName.value
     }
     context.updateUser(updatedUserProps)
-    contextAuthed.updateUsers(updatedUserProps)
+    //contextAuthed.updateUsers(updatedUserProps)
+    context.updateUsers(updatedUserProps)
     history.push(`/dashboard/${user.id}`)
   }
 
