@@ -7,13 +7,13 @@
 export default {
   "users": [
     {
-      "id": "3",
+      "id": "2",
       "username": "killeraliens",
       "admin": "false",
       "email": "killeraliens@outlook.com",
       "image_url": "",
-      "created": "2019-01-01T00:00:00.000Z",
-      "last_login": "2020-01-23T20:47:47.355Z",
+      "created": "2020-01-07T17:47:15.309Z",
+      "last_login": "2020-02-03T03:37:42.336Z",
       "city_name": "",
       "region_name": "",
       "country_name": ""
