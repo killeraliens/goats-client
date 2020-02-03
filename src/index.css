@@ -18,7 +18,7 @@ code {
     monospace;
 }
 
-form {
+body form {
   padding: 24px;
   background-color: whitesmoke;
   max-width: 500px;
