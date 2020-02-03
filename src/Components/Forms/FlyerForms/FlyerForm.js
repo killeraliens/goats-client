@@ -367,10 +367,15 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         />
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
-      <EventsPreview
-        formEvents={formBody.events}
-        deleteFormEvent={deleteFormEvent}
-      />
+      { formBody.type === "Tour"
+        ? (
+          <EventsPreview
+            formEvents={formBody.events}
+            deleteFormEvent={deleteFormEvent}
+          />
+        )
+        : null
+      }
       <EventFieldset
         updateEventFields={updateEventFields}
         addTourStop={addTourStop}
