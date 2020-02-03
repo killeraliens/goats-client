@@ -9,6 +9,7 @@ import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
+import NotFound from './Components/NotFound/NotFound';
 import DUMMY from './DUMMY.js'
 
 class App extends Component {
@@ -94,6 +95,8 @@ class App extends Component {
             } />
             <PrivateRoute path={`/create-flyer`} render={props =>
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
+            } />
+            <Route component={NotFound} />
             } />
           </Switch>
         </ AppContext.Provider >

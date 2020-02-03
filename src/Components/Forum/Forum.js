@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
 import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import Feed from '../Feed/Feed.js';
 import Country from '../Country/Country.js';
 import AppContext from '../../AppContext';
-
+import NotFound from '../NotFound/NotFound';
 
 export default function Forum({ flyers, events, fetching }) {
   const users = useContext(AppContext).users
@@ -117,6 +117,9 @@ export default function Forum({ flyers, events, fetching }) {
           }} />
           { countryRoutes }
           { regionRoutes}
+          < Route render={() => {
+            return <NotFound link={<Link to="/forum">Back to forum</Link>} />
+          }} />
         </Switch>
 
       </div>

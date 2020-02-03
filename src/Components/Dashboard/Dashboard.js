@@ -8,12 +8,15 @@ import SignOutLink from '../SignOutLink/SignOutLink';
 import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
 import Profile from '../Profile/Profile';
 import './Dashboard.css'
+import NotFound from '../NotFound/NotFound';
 
 function Dashboard({ match, flyers, events, fetching }) {
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
   const foundUser = context.users.find(user => user.id.toString() === paramsId.toString());
-  const userFlyers = flyers.filter(flyer => flyer.creator_id.toString() === foundUser.id.toString())
+  const userFlyers = foundUser
+    ? flyers.filter(flyer => flyer.creator_id.toString() === foundUser.id.toString())
+    : []
   // const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   //const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
   if (foundUser && context.user && context.user.id.toString() === paramsId.toString()) {
@@ -31,15 +34,17 @@ function Dashboard({ match, flyers, events, fetching }) {
             return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} />
           }} />
         </Switch>
-
       </div>
     )
   }
-  return (
-    <div className="Dashboard">
-      {foundUser ? <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} /> : <p>User Not Found</p>}
-    </div>
-  )
+  if(foundUser) {
+    return (
+      <div className="Dashboard">
+        <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} />
+      </div>
+    )
+  }
+  return <NotFound message="User doesn't exist"/>
 }
 
 Dashboard.defaultProps = {

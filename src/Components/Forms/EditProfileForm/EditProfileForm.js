@@ -63,6 +63,6 @@ EditProfileForm.defaultProps = {
 }
 
  EditProfileForm.propTypes = {
-   history: PropTypes.func
+   history: PropTypes.object
  }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './Landing.css';
 import MainNav from '../MainNav/MainNav';
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
@@ -32,6 +32,7 @@ export default function Landing(props) {
         <Route path="/public/about" component={About} />
         <Route path="/public/signin" component={SignInForm} />
         <Route path="/public/signup" component={SignUpForm} />
+        <Redirect to="/public/signin" />
       </Switch>
     </div>
   )

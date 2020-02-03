@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import MainHeader from '../MainHeader/MainHeader';
 import MainNav from '../MainNav/MainNav';
@@ -28,12 +28,13 @@ export default function CreateFlyer({ flyers, events, fetching}) {
           <Route exact path='/create-flyer/show' render={({ history }) => {
             return <FlyerForm history={history} newType="Show" creatorId={context.user.id} />
           }}/>
-          <Route exact path='/create-flyer/fest' render={({ history }) => {
+          <Route path='/create-flyer/fest' render={({ history }) => {
             return <FlyerForm history={history} newType="Fest" creatorId={context.user.id} />
           }} />
-          <Route exact path='/create-flyer/tour' render={({ history }) => {
+          <Route path='/create-flyer/tour' render={({ history }) => {
             return <FlyerForm history={history} newType="Tour" creatorId={context.user.id} />
           }} />
+          <Redirect to="/create-flyer" />
         </Switch>
 
       </div>
