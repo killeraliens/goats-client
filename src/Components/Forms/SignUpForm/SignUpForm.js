@@ -47,7 +47,7 @@ class SignUpForm extends Component {
       })
       .then(newUser => {
         this.resetForm()
-        this.context.updateAuthenticated(true, newUser)
+        this.context.updateAuthenticated(newUser)
         //this.props.history.push(`/forum`)
         //this.props.history.push(`/profile/${newUser.id}`)
         this.props.history.push(`/dashboard/${newUser.id}`)
