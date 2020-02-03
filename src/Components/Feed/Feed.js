@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Feed.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
 import Spinner from '../Spinner/Spinner';
+import AppContext from '../../AppContext';
 
-export default function Feed({ flyers, events, users, fetching, listing_state }) {
-  // const [filterLinks, setFilterLinks] = useState([])
-
+export default function Feed({ flyers, events, fetching, listing_state }) {
+  const users = useContext(AppContext).users
   if (fetching) {
     return <Spinner />
   }
@@ -54,12 +54,12 @@ Feed.propTypes = {
       PropTypes.string
     ]).isRequired
   })),
-  users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired
-  })),
+  // users: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.oneOfType([
+  //     PropTypes.number,
+  //     PropTypes.string
+  //   ]).isRequired
+  // })),
   fetching: PropTypes.bool,
   listing_state: PropTypes.oneOf([
     'Draft',

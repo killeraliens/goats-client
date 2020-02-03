@@ -9,16 +9,14 @@ import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
 import Profile from '../Profile/Profile';
 import './Dashboard.css'
 
-function Dashboard({ match, users, flyers, events, fetching }) {
-  //console.log("match path in Dash", match.path)
+function Dashboard({ match, flyers, events, fetching }) {
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
-  /* eslint eqeqeq: 0 */
-  console.log(context.user)
+  console.log('APP context users (using props not this)', context.users)
+  //console.log('USERS IN DASH', users)
 
-  const foundUser = users.find(user => user.id == paramsId);
-  /* eslint eqeqeq: 0 */
-  const userFlyers = flyers.filter(flyer => flyer.creator_id  == foundUser.id) //parseINt
+  const foundUser = context.users.find(user => parseInt(user.id) === parseInt(paramsId));
+  const userFlyers = flyers.filter(flyer => parseInt(flyer.creator_id) === parseInt(foundUser.id))
   // const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   //const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
   /* eslint eqeqeq: 0 */
@@ -34,7 +32,7 @@ function Dashboard({ match, users, flyers, events, fetching }) {
             return <EditProfileForm history={history}/>
           }}/>
           <Route path={`/dashboard/${foundUser.id}`} render={() => {
-            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
+            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} />
           }} />
         </Switch>
 
@@ -43,7 +41,7 @@ function Dashboard({ match, users, flyers, events, fetching }) {
   }
   return (
     <div className="Dashboard">
-      {foundUser ? <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={users} fetching={fetching} /> : <p>User Not Found</p>}
+      {foundUser ? <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} /> : <p>User Not Found</p>}
     </div>
   )
 }
@@ -76,12 +74,12 @@ Dashboard.propTypes = {
       PropTypes.string
     ]).isRequired
   })),
-  users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired
-  })),
+  // users: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.oneOfType([
+  //     PropTypes.number,
+  //     PropTypes.string
+  //   ]).isRequired
+  // })),
   fetching: PropTypes.bool
 }
 

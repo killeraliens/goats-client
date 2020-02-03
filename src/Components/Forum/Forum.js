@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
 import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import Feed from '../Feed/Feed.js';
 import Country from '../Country/Country.js';
+import AppContext from '../../AppContext';
 
 
-export default function Forum({ flyers, events, users, fetching }) {
-
+export default function Forum({ flyers, events, fetching }) {
+  const users = useContext(AppContext).users
   const countriesHash = {}
   const regionHash = {}
   events.forEach(event => {

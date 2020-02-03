@@ -13,9 +13,18 @@ export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
   const [events, setEvents] = useState([])
   //const [users, setUsers] = useState([])
-  const users = useContext(AppContext).users
-  const updateUsers = useContext(AppContext).updateUsers
+  //const contextUsers = useContext(AppContext).users
+  //const [users, setUsers] = useState(contextUsers)
+  //const users = useContext(AppContext).users
+  //const updateUsers = useContext(AppContext).updateUsers
   const [fetching, setFetching] = useState(false)
+
+  // useEffect(() => {
+  //   const updateUsersPassedProps = () => {
+  //     setUsers(contextUsers)
+  //   }
+  //   updateUsersPassedProps()
+  // }, [contextUsers])
 
   // const updateUsers = (changedUser) => {
   //   let foundUser = users.find(user => user.id == changedUser.id)
@@ -74,7 +83,8 @@ export default function AuthedSplit({ mainComponent }) {
     <div className="AuthedSplit">
       <Menu />
       <AuthedContext.Provider value={contextValue}>
-        <Main component={React.cloneElement(mainComponent, {users, updateUsers, ...contextValue} )}/>
+        {/* <Main component={React.cloneElement(mainComponent, {users, ...contextValue} )}/> */}
+        <Main component={React.cloneElement(mainComponent, { ...contextValue })} />
       </AuthedContext.Provider>
     </div>
   )
