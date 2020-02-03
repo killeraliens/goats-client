@@ -31,6 +31,18 @@ export default {
       "country_name": "Denmark"
     },
     {
+      "id": "5",
+      "username": "demonbaby",
+      "admin": "false",
+      "email": "devilmaster@sampleemail.com",
+      "image_url": "",
+      "created": "2019-01-03T00:00:00.000Z",
+      "last_login": "2019-01-03T18:00:00.000Z",
+      "city_name": "Copenhagen",
+      "region_name": "",
+      "country_name": "Denmark"
+    },
+    {
       "id": "667",
       "username": "greyalien",
       "admin": "false",
