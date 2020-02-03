@@ -17,3 +17,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+form {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
+
+form:not(.SignInForm, .SignUpForm) {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
