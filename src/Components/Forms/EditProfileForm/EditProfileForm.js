@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AppContext from '../../../AppContext';
-import AuthedContext from '../../../AuthedContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
@@ -9,7 +9,7 @@ import '../Forms.css';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 
 
-function EditProfileForm({ history }) {
+export default function EditProfileForm({ history }) {
   const context = useContext(AppContext)
   const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
@@ -58,4 +58,11 @@ function EditProfileForm({ history }) {
   )
 }
 
-export default EditProfileForm
+EditProfileForm.defaultProps = {
+  history: { push: () => {}}
+}
+
+ EditProfileForm.propTypes = {
+   history: PropTypes.func
+ }
+

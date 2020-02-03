@@ -52,17 +52,15 @@ class App extends Component {
   }
 
   updateUsers = (changedUser) => {
-    let foundUser = this.state.users.find(user => user.id == changedUser.id)
+    let foundUser = this.state.users.find(user => user.id.toString() === changedUser.id.toString())
     let updatedUser;
     if (!foundUser) {
-      console.log('couldnt find user, creating new for ', changedUser)
       foundUser = {
         id: changedUser.id,
         username: changedUser.username,
         admin: false,
         image_url: changedUser.image_url,
         created: changedUser.created,
-        last_login: changedUser.last_login,
         city_name: changedUser.city_name,
         region_name: changedUser.region_name,
         country_name: changedUser.country_name
