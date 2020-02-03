@@ -30,7 +30,6 @@ class SignUpForm extends Component {
       email: email.value,
       password: password.value
     }
-    console.log('POSTBODY', postBody)
     const options = {
       method: 'POST',
       body: JSON.stringify(postBody),
@@ -52,7 +51,6 @@ class SignUpForm extends Component {
         this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {
-        console.log('SignUpForm form error', error)
         this.setState({ error })
       })
 

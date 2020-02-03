@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   updateAuthenticated = (user) => {
-    console.log('updating locale with', user)
     this.setState({
       user
     }, () => {
@@ -44,8 +43,7 @@ class App extends Component {
   }
 
   updateUser = (newProps) => {
-    console.log('setting new user values in app context')
-    this.setState({ user: {...this.state.user, ...newProps}}, () => console.log('current user:', this.state.user))
+    this.setState({ user: {...this.state.user, ...newProps}})
   }
 
   destroyCurrentLoginState = () => {

@@ -22,7 +22,7 @@ export default function CountryRegionFormGroup({ updateCountryRegion, formCountr
 }
 
 CountryRegionFormGroup.defaultProps = {
-  updateCountryRegion: () => { console.log(`country or region updated`) },
+  updateCountryRegion: () => {},
   formCountryRegion: {
     countryName: { value: '', code: '' },
     regionName: { value: '', array: [] },

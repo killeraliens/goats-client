@@ -103,7 +103,7 @@ export default function AvatarImageUpload(props) {
 
 AvatarImageUpload.defaultProps = {
   user: { username: '', imgUrl: ''},
-  updateImgUrl: () => { console.log('updateImgUrl default function')}
+  updateImgUrl: () => { }
 }
 
 AvatarImageUpload.propTypes = {

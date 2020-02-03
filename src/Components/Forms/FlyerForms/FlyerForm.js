@@ -36,7 +36,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   })
   const [disabled, setDisabled] = useState(true)
   const [touched, setTouched] = useState(false)
-  const [showFestEvents, setShowFestEvents] = useState([])
   // const [serverError, setServerError] = useState(null)
 
   const resetForm = () => {
@@ -183,7 +182,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
             eventsArr.push(newEvent)
           }
         }
-        console.log('finished setting events', eventsArr)
         return eventsArr
       }
       return []
