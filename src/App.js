@@ -8,14 +8,16 @@ import Dashboard from './Components/Dashboard/Dashboard'
 import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
-import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
+import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
+import DUMMY from './DUMMY.js'
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
-      error: null
+      error: null,
+      users: DUMMY.users || []
     }
 
   }
@@ -49,11 +51,36 @@ class App extends Component {
     this.updateAuthenticated(null)
   }
 
+  updateUsers = (changedUser) => {
+    let foundUser = this.state.users.find(user => user.id == changedUser.id)
+    let updatedUser;
+    if (!foundUser) {
+      console.log('couldnt find user, creating new for ', changedUser)
+      foundUser = {
+        id: changedUser.id,
+        username: changedUser.username,
+        admin: false,
+        image_url: changedUser.image_url,
+        created: changedUser.created,
+        last_login: changedUser.last_login,
+        city_name: changedUser.city_name,
+        region_name: changedUser.region_name,
+        country_name: changedUser.country_name
+      }
+      updatedUser = { ...foundUser }
+    }
+    updatedUser = { ...foundUser, ...changedUser }
+    let filteredUsers = this.state.users.filter(user => user.id.toString() !== changedUser.id.toString())
+    this.setState({ users: [...filteredUsers, { ...updatedUser }] })
+  }
+
   render() {
     const context = {
       user: this.state.user,
       updateAuthenticated: this.updateAuthenticated,
-      updateUser: this.updateUser
+      updateUser: this.updateUser,
+      users: this.state.users,
+      updateUsers: this.updateUsers
     }
 
     return(
