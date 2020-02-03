@@ -18,3 +18,14 @@ code {
     monospace;
 }
 
+body form {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
+
+body form:not(.SignInForm, .SignUpForm) {
+  padding: 24px;
+  background-color: whitesmoke;
+  max-width: 500px;
+}
