@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import config from '../../../config'
+import AppContext from '../../../AppContext'
 import Spinner from '../../Spinner/Spinner'
 import defaultFlyer from '../../../assets/blood-texture.jpg'
 import ValidationError from '../ValidationError/ValidationError'
 import '../Forms.css'
 
+
 export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }) {
   const [uploading, setUploading] = useState(false)
-
+  const context = useContext(AppContext)
   useEffect(() => {
     if (!window.FileReader) {
       updateImgError("The file API isn't supported on this browser yet.User another broweser.")
@@ -35,7 +37,10 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
           formData.append(i, file)
           fetchWithTimeout(`${config.API_ENDPOINT}/api/image-upload`, {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+              'Authorization': `Bearer ${context.user.token}`
+            }
           }, 5000)
             .then(res => {
               return res.json()
