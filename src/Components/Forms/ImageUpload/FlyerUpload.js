@@ -41,7 +41,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
             headers: {
               'Authorization': `Bearer ${context.user.token}`
             }
-          }, 5000)
+          }, 15000)
             .then(res => {
               return res.json()
             })
