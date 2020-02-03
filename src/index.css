@@ -18,20 +18,3 @@ code {
     monospace;
 }
 
-body form {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}
-
-form.FlyerForm {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}
-
-form:not(.SignInForm, .SignUpForm) {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}

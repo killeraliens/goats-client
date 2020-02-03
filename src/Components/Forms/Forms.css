@@ -1,17 +1,5 @@
 /* .Main--content form:not(.header-form) { */
-form {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}
-
-form.FlyerForm {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}
-
-form:not(.SignInForm, .SignUpForm) {
+body form:not(.SignInForm, .SignUpForm) {
   padding: 24px;
   background-color: whitesmoke;
   max-width: 500px;
