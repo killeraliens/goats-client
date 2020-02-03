@@ -14,6 +14,8 @@ function Dashboard({ match, users, flyers, events, fetching }) {
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
   /* eslint eqeqeq: 0 */
+  console.log(context.user)
+
   const foundUser = users.find(user => user.id == paramsId);
   /* eslint eqeqeq: 0 */
   const userFlyers = flyers.filter(flyer => flyer.creator_id  == foundUser.id) //parseINt

@@ -9,8 +9,6 @@ export default {
     {
       "id": "3",
       "username": "killeraliens",
-      "password_digest": "hello123",
-      "token": "sampletoken",
       "admin": "false",
       "email": "killeraliens@outlook.com",
       "image_url": "",
@@ -23,8 +21,6 @@ export default {
     {
       "id": "666",
       "username": "devilmaster",
-      "password_digest": "hello123",
-      "token": "sampletoken",
       "admin": "false",
       "email": "devilmaster@sampleemail.com",
       "image_url": "https://media2.fdncms.com/sacurrent/imager/u/original/17106401/devils_3_legend_production_company.jpg",
@@ -37,8 +33,6 @@ export default {
     {
       "id": "667",
       "username": "greyalien",
-      "password_digest": "hello123",
-      "token": "sampletoken",
       "admin": "false",
       "email": "greyalien@sampleemail.com",
       "image_url": "https://www.newshub.co.nz/dam/form-uploaded-images/roswell-ufo-alien-CREDIT-GETTY-1120.jpg",

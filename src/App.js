@@ -32,6 +32,7 @@ class App extends Component {
   }
 
   updateAuthenticated = (user) => {
+    console.log('updating locale with', user)
     this.setState({
       user
     }, () => {
