@@ -1,0 +1,12 @@
+.SuccessBox {
+  display: flex;
+  justify-content: space-around;
+  /* text-align: center; */
+  padding: 32px;
+  background-color: green;
+  color: white;
+}
+
+.profile-blue {
+  background-color: blue;
+}
