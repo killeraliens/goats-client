@@ -78,11 +78,11 @@ class SignUpForm extends Component {
     const username = this.state.username.value.trim();
     return username.length === 0
       ? 'username required'
-      : username.length < 4 || username.length > 12
-        ? 'username must be between 4 and 12 characters long'
-        : this.state.error && this.state.error.message === `Username ${username} is already in use.`
-          ? 'username already exists'
-          : null
+      : !(/^[a-zA-Z]{4,12}$/.test(username))
+        ? 'must be between 4 and 12 characters long, letters only'
+          : this.state.error && this.state.error.message === `Username ${username} is already in use.`
+            ? 'username is already in use'
+            : null
   }
 
   validateEmail = () => {

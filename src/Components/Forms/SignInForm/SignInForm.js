@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import ValidationError  from '../ValidationError/ValidationError';
 import CentralContainer from '../../CentralContainer/CentralContainer';
 import AppContext from '../../../AppContext';
+import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 
 function SignInForm(props) {
@@ -40,10 +41,6 @@ function SignInForm(props) {
       const trimmedUsername = username.value.trim()
       return trimmedUsername.length === 0
       ? 'username required'
-      : trimmedUsername.length < 4 || trimmedUsername.length > 12
-      ? 'username must be between 4 and 12 characters long'
-      : serverError && serverError.message && (/(username)|(exists)/.test(serverError.message))
-      ? serverError.message
       : ''
     }
     return ''
