@@ -1,3 +1,7 @@
+.Menu {
+  z-index: 2;
+}
+
 .Menu--pal {
   display: flex;
   flex-direction: column;
