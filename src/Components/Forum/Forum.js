@@ -105,7 +105,7 @@ export default function Forum({ flyers, events, fetching }) {
   return(
     <div className="Forum" id="Forum">
       <MainHeader >
-         Goat's Forum
+        Goat's Forum
       </MainHeader>
       <MainNav
         links={filterLinks}
@@ -123,8 +123,9 @@ export default function Forum({ flyers, events, fetching }) {
         </Switch>
 
       </div>
-
     </div>
+
+
   )
 }
 

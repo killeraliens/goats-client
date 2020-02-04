@@ -6,7 +6,6 @@ import Forum from '../Forum/Forum';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
-// import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
@@ -54,7 +53,6 @@ export default function AuthedSplit({ mainComponent }) {
     <div className="AuthedSplit">
       <Menu />
       <AuthedContext.Provider value={contextValue}>
-        {/* <ScrollToTop /> */}
         <Main component={React.cloneElement(mainComponent, { ...contextValue })} />
       </AuthedContext.Provider>
     </div>

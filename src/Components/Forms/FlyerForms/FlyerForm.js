@@ -271,8 +271,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   // }
   }
 
-
-
   const validateHeadline = () => {
     if (formBody.headline.touched) {
       const trimmedHeadline = formBody.headline.value.trim()
