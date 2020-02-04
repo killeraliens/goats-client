@@ -4,6 +4,7 @@ import './Feed.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
 import Spinner from '../Spinner/Spinner';
 import AppContext from '../../AppContext';
+// import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 export default function Feed({ flyers, events, fetching, listing_state }) {
   const users = useContext(AppContext).users
@@ -12,6 +13,7 @@ export default function Feed({ flyers, events, fetching, listing_state }) {
   }
   return(
     <div className="Feed">
+      {/* <ScrollToTop /> */}
       {flyers.map(flyer => {
         /* eslint eqeqeq: 0 */
         const flyerEvents = events.filter(event => event.flyer_id == flyer.id)

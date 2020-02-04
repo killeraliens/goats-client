@@ -5,6 +5,8 @@
   height: 100%;
   max-width: 100%;
   /* padding: 16px 16px 60px 16px; */
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 60px;
    -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;

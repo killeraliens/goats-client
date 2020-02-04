@@ -103,7 +103,7 @@ export default function Forum({ flyers, events, fetching }) {
   })
 
   return(
-    <div className="Forum">
+    <div className="Forum" id="Forum">
       <MainHeader >
          Goat's Forum
       </MainHeader>
