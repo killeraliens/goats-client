@@ -11,7 +11,6 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
 import NotFound from './Components/NotFound/NotFound';
 import DUMMY from './DUMMY.js';
-import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 
 class App extends Component {
   constructor() {
@@ -83,7 +82,6 @@ class App extends Component {
 
     return(
       <div className="App">
-        <ScrollToTop />
         <AppContext.Provider value={context}>
           <Switch>
             <Route exact path="/public/:action" component={Landing}/>
