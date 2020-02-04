@@ -11,6 +11,7 @@ import '../Forms.css';
 function SignInForm(props) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [password, setPassword] = useState({ value: '', touched: false, error: '' })
+  const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const context = useContext(AppContext)
 
@@ -60,7 +61,7 @@ function SignInForm(props) {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-
+    setFetching(true)
     const postBody = {
       username: username.value,
       password: password.value
@@ -77,9 +78,11 @@ function SignInForm(props) {
 
     if (!response.ok) {
       setServerError(body)
+      setFetching(false)
       //alert(body.message)
       //context.updateAuthenticated(null)
     } else {
+      setFetching(false)
       resetForm()
       let user = body.token ? body : null
       context.updateAuthenticated(user)
@@ -89,7 +92,9 @@ function SignInForm(props) {
   }
 
   const required = "*"
-
+  if (fetching) {
+    return <Spinner />
+  }
   return(
     <CentralContainer>
       <form className="SignInForm" onSubmit={handleOnSubmit}>

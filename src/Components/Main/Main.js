@@ -11,7 +11,7 @@ export default function Main({ component }) {
     <div className="Main">
       <ScrollToTop component={component} >
       { component }
-      </ScrollToTop> />
+      </ScrollToTop>
     </div>
   )
 }

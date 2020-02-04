@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import ValidationError from '../ValidationError/ValidationError';
 import CentralContainer from '../../CentralContainer/CentralContainer';
 import config from '../../../config';
-import AppContext from '../../../AppContext'
+import AppContext from '../../../AppContext';
+import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 
 class SignUpForm extends Component {
@@ -16,7 +17,8 @@ class SignUpForm extends Component {
       username: { value: '', touched: false },
       email: { value: '', touched: false },
       password: { value: '', touched: false },
-      repeatPassword: { value: '', touched: false }
+      repeatPassword: { value: '', touched: false },
+      fetching: false
     }
   }
 
@@ -24,6 +26,7 @@ class SignUpForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({fetching: true})
     const { username, email, password } = this.state
     const postBody = {
       username: username.value,
@@ -40,17 +43,20 @@ class SignUpForm extends Component {
     fetch(`${config.API_ENDPOINT}/api/auth/signup`, options)
       .then(res => {
         if (!res.ok) {
+          this.setState({fetching: false})
           return res.json().then(error => Promise.reject(error))
         }
         return res.json()
       })
       .then(newUser => {
+        this.setState({ fetching: false })
         this.resetForm()
         this.context.updateAuthenticated(newUser)
         this.context.updateUsers(newUser)
         this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {
+        this.setState({ fetching: false })
         this.setState({ error })
       })
 
@@ -121,6 +127,9 @@ class SignUpForm extends Component {
     const passwordError = this.state.password.touched && this.validatePassword();
     const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();
 
+    if (this.state.fetching) {
+      return <Spinner />
+    }
     return (
       <CentralContainer>
         <form className='SignUpForm' onSubmit={this.handleSubmit}>
