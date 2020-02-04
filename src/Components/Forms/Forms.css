@@ -1,12 +1,12 @@
 /* .Main--content form:not(.header-form) { */
 /* refer to index.css */
-body form {
+/* body form {
   padding: 24px;
   background-color: whitesmoke;
   max-width: 500px;
 }
 
-body form:not(.SignInForm, .SignUpForm) {
+body form:not(form.SignInForm, form.SignUpForm) {
   padding: 24px;
   background-color: whitesmoke;
   max-width: 500px;
@@ -16,7 +16,7 @@ form.FlyerForm {
   padding: 24px;
   background-color: whitesmoke;
   max-width: 500px;
-}
+} */
 
 
 form.header-form {
