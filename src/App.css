@@ -59,7 +59,8 @@ ul li {
   position: fixed;
   height: 100%;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .flex-center-between {
