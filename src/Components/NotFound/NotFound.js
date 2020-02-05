@@ -40,7 +40,7 @@ export default function NotFound({ message, link }) {
 
 NotFound.defaultProps = {
   message: 'Page not found',
-  //link: <Link to="/public/signin">Back to sign in</Link>
+  link: <Link to="/public/signin">Back to sign in</Link>
 }
 
 NotFound.propTypes = {
