@@ -33,7 +33,7 @@ class App extends Component {
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null,
-      users: DUMMY.users || []
+      users: []
     }
 
   }
@@ -47,6 +47,16 @@ class App extends Component {
     }
 
     return body
+  }
+
+  async componentDidMount() {
+    this.fetchApiData('user')
+      .then(users => {
+        this.setState({ users })
+      })
+      .catch(err => {
+        console.log('Error on fetch users', err)
+      })
   }
 
   updateAuthenticated = (user) => {
