@@ -42,13 +42,12 @@ export default function EditProfileForm({ history }) {
     e.preventDefault()
     setFetching(true)
 
-    const updatedUserProps = {
-      id: user.id.toString(),
-      image_url: formBody.imgUrl.value,
-      country_name: formBody.countryName.value,
-      region_name: formBody.regionName.value,
-      city_name: formBody.cityName.value
-    }
+    // const updatedUserProps = {
+    //   image_url: formBody.imgUrl.value,
+    //   country_name: formBody.countryName.value,
+    //   region_name: formBody.regionName.value,
+    //   city_name: formBody.cityName.value
+    // }
     const patchBody = {
       image_url: formBody.imgUrl.value,
       country_name: formBody.countryName.value,
@@ -64,18 +63,21 @@ export default function EditProfileForm({ history }) {
       }
     }
     const response = await fetch(`${config.API_ENDPOINT}/user/${user.id}`, options)
-    const body = await response.json();
 
     if (!response.ok) {
+      const body = await response.json();
       setServerError(body.message)
       setFetching(false)
     } else {
       setFetching(false)
       resetForm()
-      let patchedUser = body.token ? body : null
+      const patchedUser = {
+        ...user,
+        ...patchBody
+      }
       context.updateUser(patchedUser)
       context.updateUsers(patchedUser)
-      history.push(`/dashboard/${user.id}`)
+      history.push(`/dashboard/${patchedUser.id}`)
     }
   }
 
