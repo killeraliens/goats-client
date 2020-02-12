@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
+import config from '../../../config'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AppContext from '../../../AppContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
-import config from '../../../config'
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
+import Spinner from '../../Spinner/Spinner';
 
 
 export default function EditProfileForm({ history }) {
@@ -19,7 +20,7 @@ export default function EditProfileForm({ history }) {
     regionName: { array: [], value: user.region_name || "" }
   })
   const [fetching, setFetching] = useState(false)
-  const [serverError, setServerError] = useState(null)
+  const [serverError, setServerError] = useState("")
 
   const resetForm = () => {
     setFormBody({
@@ -42,12 +43,6 @@ export default function EditProfileForm({ history }) {
     e.preventDefault()
     setFetching(true)
 
-    // const updatedUserProps = {
-    //   image_url: formBody.imgUrl.value,
-    //   country_name: formBody.countryName.value,
-    //   region_name: formBody.regionName.value,
-    //   city_name: formBody.cityName.value
-    // }
     const patchBody = {
       image_url: formBody.imgUrl.value,
       country_name: formBody.countryName.value,
@@ -69,6 +64,7 @@ export default function EditProfileForm({ history }) {
       setServerError(body.message)
       setFetching(false)
     } else {
+      setServerError('')
       setFetching(false)
       resetForm()
       const patchedUser = {
@@ -81,6 +77,9 @@ export default function EditProfileForm({ history }) {
     }
   }
 
+  if (fetching) {
+    return <Spinner />
+  }
   return(
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
@@ -93,6 +92,7 @@ export default function EditProfileForm({ history }) {
           <button type="submit" disabled={formBody.cityName.error}>Submit</button>
           <Link to={`/dashboard/${user.id}`}>Cancel</Link>
         </div>
+        { Boolean(serverError) ? <p>{serverError}</p> : null }
       </form>
     </div>
   )

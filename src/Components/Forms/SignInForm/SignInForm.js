@@ -79,8 +79,6 @@ function SignInForm(props) {
     if (!response.ok) {
       setServerError(body)
       setFetching(false)
-      //alert(body.message)
-      //context.updateAuthenticated(null)
     } else {
       setFetching(false)
       resetForm()

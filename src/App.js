@@ -11,6 +11,21 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
 import NotFound from './Components/NotFound/NotFound';
 import DUMMY from './DUMMY.js';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+function sanitizeUser(user) {
+  return {
+    id: user.id,
+    username: user.username,
+    admin: user.admin,
+    image_url: user.image_url,
+    created: user.created,
+    city_name: user.city_name,
+    region_name: user.region_name,
+    country_name: user.country_name,
+    city_id: user.city_id
+  }
+}
 
 class App extends Component {
   constructor() {
@@ -54,21 +69,14 @@ class App extends Component {
     let foundUser = this.state.users.find(user => user.id.toString() === changedUser.id.toString())
     let updatedUser;
     if (!foundUser) {
-      foundUser = {
-        id: changedUser.id,
-        username: changedUser.username,
-        admin: false,
-        image_url: changedUser.image_url,
-        created: changedUser.created,
-        city_name: changedUser.city_name,
-        region_name: changedUser.region_name,
-        country_name: changedUser.country_name
-      }
-      updatedUser = { ...foundUser }
+      updatedUser = { ...changedUser }
+      console.log('not found user', updatedUser)
+    } else {
+      updatedUser = { ...foundUser, ...changedUser }
+      console.log('existing user changed', updatedUser)
     }
-    updatedUser = { ...foundUser, ...changedUser }
     let filteredUsers = this.state.users.filter(user => user.id.toString() !== changedUser.id.toString())
-    this.setState({ users: [...filteredUsers, { ...updatedUser }] })
+    this.setState({ users: [...filteredUsers, { ...sanitizeUser(updatedUser) }] })
   }
 
   render() {
@@ -94,14 +102,17 @@ class App extends Component {
             <PrivateRoute path={`/create-flyer`} render={props =>
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
-            {context.user && context.user.id
+            <Route render={() => {
+              return <NotFound link={<Link to="/forum">Back to forum</Link>} />
+            }} />
+            {/* {context.user && context.user.id
               ? (
                 <Route render={() => {
                   return <NotFound link={<Link to="/forum">Back to forum</Link>} />
                 }} />
               )
               : <Redirect to="/public/signin" />
-            } />
+            } /> */}
           </Switch>
         </ AppContext.Provider >
       </div>

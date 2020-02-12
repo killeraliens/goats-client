@@ -21,13 +21,14 @@ export default function NotFound({ message, link }) {
             <p> <Link to="/public/signin">Back to sign in (temp dummy escape hatch)</Link></p>
           </div >
         )
-        // : Boolean(context.user) && Boolean(context.user.id) && !!link
-        // ? (
-        //   <div>
-        //     <p>{message}</p>
-        //     <p> {link}</p>
-        //   </div >
-        // )
+        : Boolean(context.user) && Boolean(context.user.id) && !!link
+        ? (
+          <div>
+            <p>{message}</p>
+            <p> {link}</p>
+            <p> <Link to="/public/signin">Back to sign in (temp dummy escape hatch)</Link></p>
+          </div >
+        )
         : (
           <div>
             <p>{ message }</p>
@@ -40,7 +41,7 @@ export default function NotFound({ message, link }) {
 
 NotFound.defaultProps = {
   message: 'Page not found',
-  link: <Link to="/public/signin">Back to sign in</Link>
+  //link: <Link to="/public/signin">Back to sign in</Link>
 }
 
 NotFound.propTypes = {
