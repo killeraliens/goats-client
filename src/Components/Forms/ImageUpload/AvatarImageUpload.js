@@ -22,7 +22,7 @@ export default function AvatarImageUpload(props) {
       formData.append(i, file)
     })
 
-    fetch(`${config.API_ENDPOINT}/api/image-upload`, {
+    fetch(`${config.API_ENDPOINT}/image-upload`, {
       method: 'POST',
       body: formData
     })
