@@ -146,6 +146,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       })
 
       if (invalidValues.length === 0 && validValues.length > 0) {
+        // check to see if date field is filled or no event
         let dayCount = formBody.type === "Fest"
           ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
           : 1
@@ -187,7 +188,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       return []
     }
     return []
-}
+  }
 
   useEffect(() => {
     if (formBody.type === "Show" || formBody.type === "Fest") {

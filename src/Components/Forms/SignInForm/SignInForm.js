@@ -73,7 +73,7 @@ function SignInForm(props) {
         "Content-Type": "application/json",
       }
     }
-    const response = await fetch(`${config.API_ENDPOINT}/api/auth/signin`, options)
+    const response = await fetch(`${config.API_ENDPOINT}/auth/signin`, options)
     const body = await response.json();
 
     if (!response.ok) {

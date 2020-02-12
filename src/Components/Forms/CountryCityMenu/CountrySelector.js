@@ -10,7 +10,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
-      const result = await axios(`${config.API_ENDPOINT}/api/country`)
+      const result = await axios(`${config.API_ENDPOINT}/country`)
       setLoading(false)
       setData({ countries: result.data })
     }

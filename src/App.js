@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   fetchApiData = async (type) => {
-    const response = await fetch(`${config.API_ENDPOINT}/api/${type}`);
+    const response = await fetch(`${config.API_ENDPOINT}/${type}`);
     const body = await response.json();
 
     if (response.status !== 200) {

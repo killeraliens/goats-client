@@ -40,7 +40,7 @@ class SignUpForm extends Component {
         "Content-Type": "application/json",
       }
     }
-    fetch(`${config.API_ENDPOINT}/api/auth/signup`, options)
+    fetch(`${config.API_ENDPOINT}/auth/signup`, options)
       .then(res => {
         if (!res.ok) {
           this.setState({fetching: false})
