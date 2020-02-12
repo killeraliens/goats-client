@@ -5,7 +5,7 @@ import AppContext from '../../../AppContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
-// import config from '../../../config'
+import config from '../../../config'
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 
 
@@ -18,6 +18,17 @@ export default function EditProfileForm({ history }) {
     countryName: { code: "", value: user.country_name || "" },
     regionName: { array: [], value: user.region_name || "" }
   })
+  const [fetching, setFetching] = useState(false)
+  const [serverError, setServerError] = useState(null)
+
+  const resetForm = () => {
+    setFormBody({
+      imgUrl: { value: user.image_url || '' },
+      cityName: { error: "", touched: false, value: user.city_name || "" },
+      countryName: { code: "", value: user.country_name || "" },
+      regionName: { array: [], value: user.region_name || "" }
+    })
+  }
 
   const updateCountryRegionCity = (fields) => {
     setFormBody(prev => ({ ...prev, ...fields }))
@@ -27,8 +38,10 @@ export default function EditProfileForm({ history }) {
     setFormBody(prev => ({ ...prev, imgUrl: {value: url }}))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setFetching(true)
+
     const updatedUserProps = {
       id: user.id.toString(),
       image_url: formBody.imgUrl.value,
@@ -36,9 +49,34 @@ export default function EditProfileForm({ history }) {
       region_name: formBody.regionName.value,
       city_name: formBody.cityName.value
     }
-    context.updateUser(updatedUserProps)
-    context.updateUsers(updatedUserProps)
-    history.push(`/dashboard/${user.id}`)
+    const patchBody = {
+      image_url: formBody.imgUrl.value,
+      country_name: formBody.countryName.value,
+      region_name: formBody.regionName.value,
+      city_name: formBody.cityName.value
+    }
+    const options = {
+      method: 'PATCH',
+      body: JSON.stringify(patchBody),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
+      }
+    }
+    const response = await fetch(`${config.API_ENDPOINT}/user/${user.id}`, options)
+    const body = await response.json();
+
+    if (!response.ok) {
+      setServerError(body.message)
+      setFetching(false)
+    } else {
+      setFetching(false)
+      resetForm()
+      let patchedUser = body.token ? body : null
+      context.updateUser(patchedUser)
+      context.updateUsers(patchedUser)
+      history.push(`/dashboard/${user.id}`)
+    }
   }
 
   return(
