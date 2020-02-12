@@ -22,11 +22,11 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
       />
       <div className="Card--body">
         <div className="Card--header">
-          <div className="Flyer--icon-type Tag">{flyer.type}</div>
+          <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
           <h2>{flyer.headline}</h2>
         </div>
         <ThroughDates flyerEvents={flyerEvents} />
-        {flyer.type === "Tour" && flyerEvents.length > 1
+        {flyer.flyer_type === "Tour" && flyerEvents.length > 1
           ? (
             <Accordian triggerNode={<Location isTourAbbrev={true} />}>
               <Locations flyerEvents={flyerEvents} isFullTourListing={true} />
@@ -66,7 +66,7 @@ FlyerCard.propTypes = {
       PropTypes.number,
       PropTypes.string
     ]).isRequired,
-    type: PropTypes.oneOf([
+    flyer_type: PropTypes.oneOf([
       "Fest",
       "Tour",
       "Show"
