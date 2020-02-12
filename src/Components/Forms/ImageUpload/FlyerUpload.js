@@ -35,7 +35,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
         setUploading(true)
         if (file.size < 3000000) {
           formData.append(i, file)
-          fetchWithTimeout(`${config.API_ENDPOINT}/api/image-upload`, {
+          fetchWithTimeout(`${config.API_ENDPOINT}/image-upload`, {
             method: 'POST',
             body: formData,
             headers: {
