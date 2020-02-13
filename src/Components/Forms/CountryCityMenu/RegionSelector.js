@@ -5,8 +5,7 @@ let provinces = require('provinces')
 export default function RegionSelector({ updateRegion, formRegion, formCountry }) {
   useEffect(() => {
     const setRegionArray = () => {
-      /* eslint eqeqeq: 0 */
-      const regions = provinces.filter(row => row.country == formCountry.code)
+      const regions = provinces.filter(row => row.country === formCountry.code)
       updateRegion({ value: '', array: regions } )
     }
 

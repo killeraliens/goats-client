@@ -11,15 +11,15 @@ import './Dashboard.css'
 import NotFound from '../NotFound/NotFound';
 
 function Dashboard({ match, flyers, users, events, fetching }) {
-  const context = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const paramsId = match.params.user_id
-  const foundUser = users.find(user => user.id.toString() === paramsId.toString());
+  const foundUser = users.find(user => user.id === paramsId);
   const userFlyers = foundUser
-    ? flyers.filter(flyer => flyer.creator_id.toString() === foundUser.id.toString())
+    ? flyers.filter(flyer => flyer.creator_id === foundUser.id)
     : []
   // const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   //const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
-  if (foundUser && context.user && context.user.id.toString() === paramsId.toString()) {
+  if (foundUser && user && user.id === paramsId) {
     return(
       <div className="Dashboard">
         <MainHeaderNav links={[
@@ -44,11 +44,12 @@ function Dashboard({ match, flyers, users, events, fetching }) {
       </div>
     )
   }
-  return <NotFound message="User doesn't exist"/>
+  return <NotFound message="User doesn't exist" />
 }
 
 Dashboard.defaultProps = {
-  match: { params: {} }
+  match: { params: {} },
+  fetching: false
 }
 
 Dashboard.propTypes = {
@@ -57,17 +58,14 @@ Dashboard.propTypes = {
   }),
   flyers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([
-      PropTypes.number,
       PropTypes.string
     ]).isRequired,
     creator_id: PropTypes.oneOfType([
-      PropTypes.number,
       PropTypes.string
     ]).isRequired
   })),
   events: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([
-      PropTypes.number,
       PropTypes.string
     ]).isRequired,
     flyer_id: PropTypes.oneOfType([
@@ -75,12 +73,12 @@ Dashboard.propTypes = {
       PropTypes.string
     ]).isRequired
   })),
-  // users: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.oneOfType([
-  //     PropTypes.number,
-  //     PropTypes.string
-  //   ]).isRequired
-  // })),
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  })),
   fetching: PropTypes.bool
 }
 

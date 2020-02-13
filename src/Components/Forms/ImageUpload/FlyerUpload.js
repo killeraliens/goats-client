@@ -12,9 +12,12 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
   const [uploading, setUploading] = useState(false)
   const context = useContext(AppContext)
   useEffect(() => {
-    if (!window.FileReader) {
-      updateImgError("The file API isn't supported on this browser yet.User another broweser.")
+    const checkIfUploader = () => {
+      if (!window.FileReader) {
+        updateImgError("The file API isn't supported on this browser yet.User another broweser.")
+      }
     }
+    checkIfUploader()
   }, [])
 
   // helper //https://stackoverflow.com/questions/46946380/fetch-api-request-timeout
@@ -71,7 +74,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
           <div className="FlyerPreview">
             <img
               src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
-              alt={`flyer image loading`}
+              alt={`flyer loading`}
             />
             <span><Spinner /></span>
           </div>
@@ -82,7 +85,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
           <div className="FlyerPreview">
             <img
               src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
-              alt={`flyer image loaded`}
+              alt={`flyer loaded`}
             />
           </div>
         )
@@ -92,7 +95,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
           <div className="FlyerPreview">
             <img
               src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
-              alt={`add flyer image`}
+              alt={`add flyer`}
             />
             <span>+FLYER IMAGE*</span>
           </div>

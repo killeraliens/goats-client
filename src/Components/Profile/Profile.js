@@ -11,9 +11,9 @@ import './Profile.css';
 export default function Profile({ user, isCurrent, users, events, userFlyers, fetching }) {
   const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
-  const draftsLink = isCurrent
-    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
-    : null;
+  // const draftsLink = isCurrent
+  //   ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
+  //   : null;
   return(
     <div className="Profile">
       <MainHeader heightClass="dbl-height">

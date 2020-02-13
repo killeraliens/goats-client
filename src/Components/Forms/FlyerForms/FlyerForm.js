@@ -12,7 +12,7 @@ const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
   const authedContext = useContext(AuthedContext)
-  const flyerEvents = events.filter(event => event.flyer_id == flyer.id)
+  const flyerEvents = events.filter(event => event.flyer_id === flyer.id)
   const [formBody, setFormBody] = useState({
     id: flyer.id || '',
     imgUrl: { value: flyer.image_url || '' , error: ''},
@@ -36,7 +36,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   })
   const [disabled, setDisabled] = useState(true)
   const [touched, setTouched] = useState(false)
-  // const [serverError, setServerError] = useState(null)
+  const [serverError, setServerError] = useState('')
 
   const resetForm = () => {
     setFormBody({
@@ -56,7 +56,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       creatorId: flyer.creator_id || creatorId,
       type: flyer.type || newType,
       listingState: flyer.listing_state || "Public",
-      created: flyer.created || ''
+      //created: flyer.created || ''
     })
   }
 
@@ -115,6 +115,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   String.prototype.capitalize = function () {
     return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
   };
+
   const dateWithYear = (mmddFormat) => {
     let currYear = new Date().getFullYear()
     let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
@@ -215,10 +216,10 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       setFormBody(prev => ({ ...prev, listing_state: "Draft" }))
     }
 
-    let generatedFlyerId = uuid()
+    //let generatedFlyerId = uuid()
     let generatedModified = new Date(Date.now())
     const flyerPostBody = {
-      id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
+      //id: Boolean(formBody.id) ? formBody.idtoString() : generatedFlyerId,
       creator_id: formBody.creatorId.toString(),
       type: formBody.type,
       image_url: formBody.imgUrl.value,
@@ -227,14 +228,14 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       details: returnCleanContentEditable("details"),
       publish_comment: returnCleanContentEditable("publishComment"),
       listing_state: formBody.listingState,
-      created: Boolean(formBody.created) ? formBody.created : generatedModified,
-      modified: generatedModified
+      //created: Boolean(formBody.created) ? formBody.created : generatedModified,
+      //modified: generatedModified
     }
 
     const eventPostBodies = formBody.events.map(event => {
       return {
-        id: event.id,
-        flyer_id: generatedFlyerId,
+        //id: event.id,
+        //flyer_id: generatedFlyerId,
         event_date: dateWithYear(event.date),
         venue_name: event.venueName.capitalize(),
         city_name: event.cityName.capitalize(),
@@ -262,7 +263,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   //   const body = await response.json();
 
   //   if (!response.ok) {
-  //     setServerError(body)
+  //     setServerError(body.message)
   //   } else {
   //     resetForm()
   //     let user = body.token ? body : null

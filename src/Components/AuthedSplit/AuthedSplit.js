@@ -3,8 +3,6 @@ import config from '../../config';
 import PropTypes from 'prop-types';
 import AuthedContext from '../../AuthedContext';
 import AppContext from '../../AppContext';
-//import DUMMY from '../../DUMMY';
-import Forum from '../Forum/Forum';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
@@ -60,24 +58,23 @@ export default function AuthedSplit({ mainComponent }) {
     updateUsers: updateUsers
   }
 
-  const fetchApiData = async (type) => {
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.token}`
-      }
-    }
-    const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
-    const body = await response.json();
-
-    if (!response.ok) {
-      setServerError(body.message)
-    }
-
-    return body
-  }
 
   useEffect(() => {
+    const fetchApiData = async (type) => {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${user.token}`
+        }
+      }
+      const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
+      const body = await response.json();
+      if (!response.ok) {
+        setServerError(body.message)
+      }
+      return body
+    }
+
     const getAll = async () => {
       setFetching(true)
       let eventsData = await fetchApiData("event")
@@ -90,18 +87,17 @@ export default function AuthedSplit({ mainComponent }) {
       const eventsSet = new Promise((resolve, reject) => {
         resolve(setEvents(eventsData))
       })
-
       const usersSet = new Promise((resolve, reject) => {
         resolve(setUsers(usersData))
       })
 
-      Promise.all([flyersSet, eventsSet, usersSet]).then(function (values) {
+      Promise.all([flyersSet, eventsSet, usersSet]).then((values) => {
         setServerError('')
         setFetching(false)
       });
     }
     getAll()
-  }, [])
+  }, [user.token])
 
   if (Boolean(serverError)) {
     return <p>{serverError}</p>
@@ -110,14 +106,10 @@ export default function AuthedSplit({ mainComponent }) {
     <div className="AuthedSplit">
       <Menu />
       <AuthedContext.Provider value={contextValue}>
-        <Main component={React.cloneElement(mainComponent, { ...contextValue })} />
+        <Main component={React.cloneElement(mainComponent, { flyers, events, users })} />
       </AuthedContext.Provider>
     </div>
   )
-}
-
-AuthedSplit.defaultProps = {
-  mainComponent: <Forum />
 }
 
 AuthedSplit.propTypes = {
