@@ -142,11 +142,6 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const usernameError = this.validateName();
-    const emailError = this.validateEmail();
-    const passwordError = this.validatePassword();
-    const repeatPasswordError = this.validateRepeatPassword();
-
     if (this.state.fetching) {
       return <Spinner />
     }
