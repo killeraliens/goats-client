@@ -77,18 +77,21 @@ class SignUpForm extends Component {
       repeatPassword: { value: '', touched: false },
       error: null
     })
-    this.props.history.push('/signin')
+    this.props.history.push('/public/signin')
   }
 
   validateName = () => {
-    const username = this.state.username.value.trim();
-    return username.length === 0
-      ? 'username required'
-      : !(/^[a-zA-Z]{4,12}$/.test(username))
-        ? 'must be between 4 and 12 characters long, letters only'
-          : this.state.error && this.state.error.message === `Username ${username} is already in use.`
-            ? 'username is already in use'
-            : null
+    if (this.state.username.touched) {
+      const username = this.state.username.value.trim();
+      return username.length === 0
+        ? 'username required'
+        : !(/^[a-zA-Z]{4,12}$/.test(username))
+          ? 'must be between 4 and 12 characters long, letters only'
+            : this.state.error && this.state.error.message === `Username ${username} is already in use.`
+              ? 'username is already in use'
+              : ''
+    }
+    return ''
   }
 
   validateEmail = () => {
@@ -122,7 +125,7 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const usernameError = this.state.username.touched && this.validateName();
+    const usernameError = this.validateName();
     const emailError = this.state.email.touched && this.validateEmail();
     const passwordError = this.state.password.touched && this.validatePassword();
     const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();

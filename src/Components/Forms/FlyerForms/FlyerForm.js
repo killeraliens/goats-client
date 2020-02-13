@@ -30,7 +30,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     details: { value: flyer.details|| '', touched: false, error: '' },
     publishComment: { value: flyer.publish_comment || '', touched: false, error: '' },
     creatorId: flyer.creator_id || creatorId,
-    type: flyer.type || newType,
+    type: flyer.flyer_type || newType,
     listingState: flyer.listing_state || "Public",
     created: flyer.created || ''
   })
@@ -188,7 +188,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       return []
     }
     return []
-  }
+ }
 
   useEffect(() => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
@@ -235,7 +235,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       return {
         id: event.id,
         flyer_id: generatedFlyerId,
-        date: dateWithYear(event.date),
+        event_date: dateWithYear(event.date),
         venue_name: event.venueName.capitalize(),
         city_name: event.cityName.capitalize(),
         region_name: event.regionName,
@@ -467,7 +467,7 @@ FlyerForm.propTypes = {
       PropTypes.number,
       PropTypes.string
     ]),
-    type: PropTypes.oneOf([
+    flyer_type: PropTypes.oneOf([
       "Fest",
       "Tour",
       "Show"
@@ -503,7 +503,7 @@ FlyerForm.propTypes = {
       PropTypes.number,
       PropTypes.string
     ]),
-    date: PropTypes.oneOfType([
+    event_date: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date)
     ]),

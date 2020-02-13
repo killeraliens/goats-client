@@ -80,10 +80,8 @@ class App extends Component {
     let updatedUser;
     if (!foundUser) {
       updatedUser = { ...changedUser }
-      console.log('not found user', updatedUser)
     } else {
       updatedUser = { ...foundUser, ...changedUser }
-      console.log('existing user changed', updatedUser)
     }
     let filteredUsers = this.state.users.filter(user => user.id.toString() !== changedUser.id.toString())
     this.setState({ users: [...filteredUsers, { ...sanitizeUser(updatedUser) }] })
@@ -115,14 +113,6 @@ class App extends Component {
             <Route render={() => {
               return <NotFound link={<Link to="/forum">Back to forum</Link>} />
             }} />
-            {/* {context.user && context.user.id
-              ? (
-                <Route render={() => {
-                  return <NotFound link={<Link to="/forum">Back to forum</Link>} />
-                }} />
-              )
-              : <Redirect to="/public/signin" />
-            } /> */}
           </Switch>
         </ AppContext.Provider >
       </div>
