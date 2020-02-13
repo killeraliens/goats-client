@@ -14,10 +14,10 @@ class SignUpForm extends Component {
     super(props);
 
     this.state = {
-      username: { value: '', touched: false },
-      email: { value: '', touched: false },
-      password: { value: '', touched: false },
-      repeatPassword: { value: '', touched: false },
+      username: { value: '', touched: false, error: '' },
+      email: { value: '', touched: false, error: '' },
+      password: { value: '', touched: false, error: '' },
+      repeatPassword: { value: '', touched: false, error: '' },
       fetching: false
     }
   }
@@ -52,12 +52,12 @@ class SignUpForm extends Component {
         this.setState({ fetching: false })
         this.resetForm()
         this.context.updateAuthenticated(newUser)
-        //this.context.updateUsers(newUser)
         this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {
         this.setState({ fetching: false })
         this.setState({ error })
+        this.updateValidationErrors()
       })
 
   }
@@ -71,10 +71,10 @@ class SignUpForm extends Component {
 
   resetForm = () => {
     this.setState({
-      username: { value: '', touched: false },
-      email: { value: '', touched: false },
-      password: { value: '', touched: false },
-      repeatPassword: { value: '', touched: false },
+      username: { value: '', touched: false, error: '' },
+      email: { value: '', touched: false, error: '' },
+      password: { value: '', touched: false, error: '' },
+      repeatPassword: { value: '', touched: false, error: '' },
       error: null
     })
     this.props.history.push('/public/signin')
@@ -95,40 +95,57 @@ class SignUpForm extends Component {
   }
 
   validateEmail = () => {
-    const email = this.state.email.value.trim();
-    return email.length === 0
-      ? 'email required'
-      : !(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
-        ? 'email has incorrect format'
-        : null
+    if (this.state.email.touched) {
+      const email = this.state.email.value.trim();
+      return email.length === 0
+        ? 'email required'
+        : !(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
+          ? 'email has incorrect format'
+          : ''
+    }
+    return ''
   }
 
   validatePassword = () => {
-    const password = this.state.password.value.trim();
-    return password.length === 0
-      ? 'password required'
-      : password.length < 5 || password.length > 12
-        ? 'password must be between 5 and 12 characters long'
-        : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
-          ? 'password must have at least one letter and one number'
-          : null
+    if (this.state.password.touched) {
+      const password = this.state.password.value.trim();
+      return password.length === 0
+        ? 'password required'
+        : password.length < 5 || password.length > 12
+          ? 'password must be between 5 and 12 characters long'
+          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
+            ? 'password must have at least one letter and one number'
+            : ''
+    }
+    return ''
   }
 
   validateRepeatPassword = () => {
-    const password = this.state.password.value.trim();
-    const repeatPassword = this.state.repeatPassword.value.trim();
-    return repeatPassword.length === 0
-      ? 'enter password a second time'
-      : repeatPassword !== password
-        ? "passwords don't match"
-        : null
+    if (this.state.repeatPassword.touched) {
+      const password = this.state.password.value.trim();
+      const repeatPassword = this.state.repeatPassword.value.trim();
+      return repeatPassword.length === 0
+        ? 'enter password a second time'
+        : repeatPassword !== password
+          ? "passwords don't match"
+          : ''
+    }
+  }
+
+  updateValidationErrors = () => {
+    this.setState(prev => ({
+      username: { ...prev.username, error: this.validateName() },
+      email: { ...prev.email, error: this.validateEmail() },
+      password: { ...prev.password, error: this.validatePassword() },
+      repeatPassword: { ...prev.repeatPassword, error: this.validateRepeatPassword() }
+    }))
   }
 
   render() {
     const usernameError = this.validateName();
-    const emailError = this.state.email.touched && this.validateEmail();
-    const passwordError = this.state.password.touched && this.validatePassword();
-    const repeatPasswordError = this.state.repeatPassword.touched && this.validateRepeatPassword();
+    const emailError = this.validateEmail();
+    const passwordError = this.validatePassword();
+    const repeatPasswordError = this.validateRepeatPassword();
 
     if (this.state.fetching) {
       return <Spinner />
@@ -149,9 +166,11 @@ class SignUpForm extends Component {
               aria-label="create a unique username"
               aria-required="true"
               aria-describedby="usernameError"
-              aria-invalid={usernameError}
+              aria-invalid={!!this.state.username.error}
+              onBlur={() => { this.updateValidationErrors()}}
+              autoComplete="new-password"
             />
-            <ValidationError id="usernameError" message={usernameError} />
+            <ValidationError id="usernameError" message={this.state.username.error} />
           </fieldset>
           <fieldset className="form-group">
             <label htmlFor="email">Email*</label>
@@ -164,9 +183,11 @@ class SignUpForm extends Component {
               aria-label="enter the email you would like associated with this account"
               aria-required="true"
               aria-describedby="emailError"
-              aria-invalid={emailError}
+              aria-invalid={!!this.state.email.error}
+              onBlur={() => { this.updateValidationErrors() }}
+              autoComplete="new-password"
             />
-            <ValidationError id="emailError" message={emailError} />
+            <ValidationError id="emailError" message={this.state.email.error} />
           </fieldset>
           <fieldset className="form-group">
             <label htmlFor="password">Password*</label>
@@ -179,9 +200,10 @@ class SignUpForm extends Component {
               aria-label="create a password"
               aria-required="true"
               aria-describedby="passwordError"
-              aria-invalid={passwordError}
+              aria-invalid={!!this.state.password.error}
+              onBlur={() => { this.updateValidationErrors() }}
             />
-            <ValidationError id="passwordError" message={passwordError} />
+            <ValidationError id="passwordError" message={this.state.password.error} />
           </fieldset>
           <fieldset className="form-group">
             <label htmlFor="repeat-password">Repeat Password*</label>
@@ -194,12 +216,18 @@ class SignUpForm extends Component {
               aria-label="re-enter password"
               aria-required="true"
               aria-describedby="repeatPasswordError"
-              aria-invalid={repeatPasswordError}
+              aria-invalid={!!this.state.repeatPassword.error}
+              onBlur={() => { this.updateValidationErrors() }}
             />
-            <ValidationError id="repeatPasswordError" message={repeatPasswordError}  />
+            <ValidationError id="repeatPasswordError" message={this.state.repeatPassword.error}  />
           </fieldset>
           <div className="form-controls">
-            <button type="submit" disabled={(this.validateName() || this.validateEmail() || this.validatePassword() || this.validateRepeatPassword())}>Sign Up</button>
+            <button type="submit" disabled={(
+              !!this.state.username.error
+              || !!this.state.email.error
+              || !!this.state.password.error
+              || !!this.state.repeatPassword.error
+              )}>Sign Up</button>
             <button type="reset" onClick={this.resetForm}>Cancel</button>
             <Link to="/public/signin">back to sign in</Link>
           </div>
