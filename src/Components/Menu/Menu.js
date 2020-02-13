@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import defaultAvatar from '../../assets/default-avatar.jpg'
@@ -10,7 +10,12 @@ import './Menu.css'
 
 export default function Menu() {
   const context = useContext(AppContext)
-  let avatarImage = context.user.image_url ? context.user.image_url : defaultAvatar
+  let avatarUrl = context.user.image_url ? context.user.image_url : defaultAvatar
+  // const [avatar, setAvatar] = useState(avatarUrl)
+  // useEffect(() => {
+  //   let url = context.user.image_url ? context.user.image_url : defaultAvatar
+  //   setAvatar(url)
+  // }, [context.user.image_url])
   return (
     <div className="Menu">
       <div className="Menu--pal">
@@ -20,7 +25,7 @@ export default function Menu() {
         <NavLink to={`/dashboard/${context.user.id}`} className="Menu--pal--btn">
           <Avatar
             className="Avatar-small"
-            imageUrl={avatarImage}
+            imageUrl={avatarUrl}
             username={context.user.username}
             />
         </NavLink>

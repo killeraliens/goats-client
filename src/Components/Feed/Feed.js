@@ -5,8 +5,8 @@ import FlyerCard from '../FlyerCard/FlyerCard';
 import Spinner from '../Spinner/Spinner';
 import AppContext from '../../AppContext';
 
-export default function Feed({ flyers, events, fetching, listing_state }) {
-  const users = useContext(AppContext).users
+export default function Feed({ flyers, events, users, fetching, listing_state }) {
+  // const users = useContext(AppContext).users
   if (fetching) {
     return <Spinner />
   }

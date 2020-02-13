@@ -52,7 +52,7 @@ class SignUpForm extends Component {
         this.setState({ fetching: false })
         this.resetForm()
         this.context.updateAuthenticated(newUser)
-        this.context.updateUsers(newUser)
+        //this.context.updateUsers(newUser)
         this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {

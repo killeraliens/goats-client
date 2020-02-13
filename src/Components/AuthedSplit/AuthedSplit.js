@@ -9,9 +9,24 @@ import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
 
+function sanitizeUser(user) {
+  return {
+    id: user.id,
+    username: user.username,
+    admin: user.admin,
+    image_url: user.image_url,
+    created: user.created,
+    city_name: user.city_name,
+    region_name: user.region_name,
+    country_name: user.country_name,
+    city_id: user.city_id
+  }
+}
+
 export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
   const [events, setEvents] = useState([])
+  const [users, setUsers] = useState([])
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState('')
   const { user } = useContext(AppContext)
@@ -23,12 +38,26 @@ export default function AuthedSplit({ mainComponent }) {
     setEvents(prev => ([...prev, { ...event }]))
   }
 
+  const updateUsers = (changedUser) => {
+    let foundUser = users.find(user => user.id.toString() === changedUser.id.toString())
+    let updatedUser;
+    if (!foundUser) {
+      updatedUser = { ...changedUser }
+    } else {
+      updatedUser = { ...foundUser, ...changedUser }
+    }
+    let filteredUsers = users.filter(user => user.id !== changedUser.id)
+    setUsers([...filteredUsers, { ...sanitizeUser(updatedUser) }])
+  }
+
   const contextValue = {
     flyers: flyers,
     addFlyer: addFlyer,
     events: events,
     addEvent: addEvent,
     fetching: fetching,
+    users: users,
+    updateUsers: updateUsers
   }
 
   const fetchApiData = async (type) => {
@@ -53,6 +82,7 @@ export default function AuthedSplit({ mainComponent }) {
       setFetching(true)
       let eventsData = await fetchApiData("event")
       let flyersData = await fetchApiData("flyer")
+      let usersData = await fetchApiData("user")
 
       const flyersSet = new Promise((resolve, reject) => {
         resolve(setFlyers(flyersData))
@@ -61,13 +91,17 @@ export default function AuthedSplit({ mainComponent }) {
         resolve(setEvents(eventsData))
       })
 
-      Promise.all([flyersSet, eventsSet]).then(function (values) {
+      const usersSet = new Promise((resolve, reject) => {
+        resolve(setUsers(usersData))
+      })
+
+      Promise.all([flyersSet, eventsSet, usersSet]).then(function (values) {
         setServerError('')
         setFetching(false)
       });
     }
     getAll()
-  }, [user])
+  }, [])
 
   if (Boolean(serverError)) {
     return <p>{serverError}</p>

@@ -9,8 +9,8 @@ import Country from '../Country/Country.js';
 import AppContext from '../../AppContext';
 import NotFound from '../NotFound/NotFound';
 
-export default function Forum({ flyers, events, fetching }) {
-  const users = useContext(AppContext).users
+export default function Forum({ flyers, events, users, fetching }) {
+  //const users = useContext(AppContext).users
   const countriesHash = {}
   const regionHash = {}
 
@@ -56,7 +56,7 @@ export default function Forum({ flyers, events, fetching }) {
         </MainNavLink>
         {regions.sort().map(region => {
           return (
-            <MainNavLink to={`/forum/${region}`}>
+            <MainNavLink key={region} to={`/forum/${region}`}>
               {region}
               <span className="MainNavLink--count">{regionHash[region].count}</span>
             </MainNavLink>
@@ -121,7 +121,6 @@ export default function Forum({ flyers, events, fetching }) {
             return <NotFound link={<Link to="/forum">Back to forum</Link>} />
           }} />
         </Switch>
-
       </div>
     </div>
 

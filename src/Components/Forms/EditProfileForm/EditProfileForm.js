@@ -3,6 +3,7 @@ import config from '../../../config'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AppContext from '../../../AppContext';
+import AuthedContext from '../../../AuthedContext';
 import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
 import './EditProfileForm.css';
 import '../Forms.css';
@@ -12,6 +13,7 @@ import Spinner from '../../Spinner/Spinner';
 
 export default function EditProfileForm({ history }) {
   const context = useContext(AppContext)
+  const authedContext = useContext(AuthedContext)
   const [user] = useState(context.user)
   const [formBody, setFormBody] = useState({
     imgUrl: { value: user.image_url || '' },
@@ -72,7 +74,7 @@ export default function EditProfileForm({ history }) {
         ...patchBody
       }
       context.updateUser(patchedUser)
-      context.updateUsers(patchedUser)
+      authedContext.updateUsers(patchedUser)
       history.push(`/dashboard/${patchedUser.id}`)
     }
   }

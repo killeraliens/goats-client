@@ -10,10 +10,10 @@ import Profile from '../Profile/Profile';
 import './Dashboard.css'
 import NotFound from '../NotFound/NotFound';
 
-function Dashboard({ match, flyers, events, fetching }) {
+function Dashboard({ match, flyers, users, events, fetching }) {
   const context = useContext(AppContext)
   const paramsId = match.params.user_id
-  const foundUser = context.users.find(user => user.id.toString() === paramsId.toString());
+  const foundUser = users.find(user => user.id.toString() === paramsId.toString());
   const userFlyers = foundUser
     ? flyers.filter(flyer => flyer.creator_id.toString() === foundUser.id.toString())
     : []
@@ -31,7 +31,7 @@ function Dashboard({ match, flyers, events, fetching }) {
             return <EditProfileForm history={history}/>
           }}/>
           <Route path={`/dashboard/${foundUser.id}`} render={() => {
-            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} />
+            return <Profile user={foundUser} isCurrent={true} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
           }} />
         </Switch>
       </div>
@@ -40,7 +40,7 @@ function Dashboard({ match, flyers, events, fetching }) {
   if(foundUser) {
     return (
       <div className="Dashboard">
-        <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={context.users} fetching={fetching} />
+        <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
       </div>
     )
   }
