@@ -10,6 +10,7 @@ export default function Feed({ flyers, events, users, fetching, listing_state })
   if (fetching) {
     return <Spinner />
   }
+
   return(
     <div className="Feed">
       {flyers.map(flyer => {

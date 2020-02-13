@@ -8,7 +8,7 @@ export default function ThroughDates({ flyerEvents }) {
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
 
-  let eventDates = flyerEvents.map(event => event.date)
+  let eventDates = flyerEvents.map(event => event.event_date)
   eventDates = eventDates.filter(Boolean)
 
   // https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
