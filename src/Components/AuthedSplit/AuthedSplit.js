@@ -28,12 +28,15 @@ export default function AuthedSplit({ mainComponent }) {
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState('')
   const { user } = useContext(AppContext)
+
   const addFlyer = (flyer) => {
     setFlyers(prev => ([ ...prev, {...flyer}]))
   }
 
-  const addEvent = (event) => {
-    setEvents(prev => ([...prev, { ...event }]))
+  const addEvents = (events) => {
+    //setEvents(prev => ([...prev, { ...event }]))
+    //let flyersPrevEvents = prev.filter(event => event.flyer_id === events[0])
+    setEvents(prev => ([...prev, ...events]))
   }
 
   const updateUsers = (changedUser) => {
@@ -92,7 +95,7 @@ export default function AuthedSplit({ mainComponent }) {
     flyers: flyers,
     addFlyer: addFlyer,
     events: events,
-    addEvent: addEvent,
+    addEvents: addEvents,
     fetching: fetching,
     users: users,
     updateUsers: updateUsers
