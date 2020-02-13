@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Link } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
@@ -7,11 +7,14 @@ import MainNavLink from '../MainNavLink/MainNavLink';
 import Feed from '../Feed/Feed.js';
 import Country from '../Country/Country.js';
 import NotFound from '../NotFound/NotFound';
+import AuthedContext from '../../AuthedContext';
 
-export default function Forum({ flyers, events, users, fetching }) {
+//export default function Forum({ flyers, events, users, fetching }) {
+export default function Forum() {
+  const { flyers, events, users, fetching } = useContext(AuthedContext)
+
   const countriesHash = {}
   const regionHash = {}
-
   events.forEach(event => {
     if (Boolean(event.country_name)) {
       if (!Object.keys(countriesHash).includes(event.country_name)) {
@@ -121,22 +124,20 @@ export default function Forum({ flyers, events, users, fetching }) {
         </Switch>
       </div>
     </div>
-
-
   )
 }
 
 Forum.propTypes = {
-  flyers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    creator_id: PropTypes.string.isRequired
-  })).isRequired,
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    flyer_id: PropTypes.string.isRequired
-  })).isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired
-  })).isRequired,
-  fetching: PropTypes.bool
+  // flyers: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.string,
+  //   creator_id: PropTypes.string
+  // })),
+  // events: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.string,
+  //   flyer_id: PropTypes.string
+  // })),
+  // users: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.string
+  // })),
+  // fetching: PropTypes.bool
 }

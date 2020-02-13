@@ -48,17 +48,6 @@ export default function AuthedSplit({ mainComponent }) {
     setUsers([...filteredUsers, { ...sanitizeUser(updatedUser) }])
   }
 
-  const contextValue = {
-    flyers: flyers,
-    addFlyer: addFlyer,
-    events: events,
-    addEvent: addEvent,
-    fetching: fetching,
-    users: users,
-    updateUsers: updateUsers
-  }
-
-
   useEffect(() => {
     const fetchApiData = async (type) => {
       const options = {
@@ -99,6 +88,16 @@ export default function AuthedSplit({ mainComponent }) {
     getAll()
   }, [user.token])
 
+  const contextValue = {
+    flyers: flyers,
+    addFlyer: addFlyer,
+    events: events,
+    addEvent: addEvent,
+    fetching: fetching,
+    users: users,
+    updateUsers: updateUsers
+  }
+
   if (Boolean(serverError)) {
     return <p>{serverError}</p>
   }
@@ -106,7 +105,7 @@ export default function AuthedSplit({ mainComponent }) {
     <div className="AuthedSplit">
       <Menu />
       <AuthedContext.Provider value={contextValue}>
-        <Main component={React.cloneElement(mainComponent, { flyers, events, users })} />
+        <Main component={React.cloneElement(mainComponent, { flyers, events, users, fetching })} />
       </AuthedContext.Provider>
     </div>
   )

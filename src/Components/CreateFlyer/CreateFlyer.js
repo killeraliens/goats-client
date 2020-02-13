@@ -8,7 +8,7 @@ import MainNavLink from '../MainNavLink/MainNavLink';
 import FlyerForm from '../Forms/FlyerForms/FlyerForm';
 
 
-export default function CreateFlyer({ flyers, events, fetching}) {
+export default function CreateFlyer() {
   const context = useContext(AppContext)
   const formLinks = [
     <MainNavLink to={'/create-flyer/show'} >Single Show</MainNavLink>,
@@ -40,34 +40,4 @@ export default function CreateFlyer({ flyers, events, fetching}) {
       </div>
     </div>
   )
-}
-
-CreateFlyer.propTypes = {
-  flyers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
-    creator_id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired
-  })),
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
-    flyer_id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired
-  })),
-  // users: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.oneOfType([
-  //     PropTypes.number,
-  //     PropTypes.string
-  //   ]).isRequired
-  // })),
-  fetching: PropTypes.bool
 }
