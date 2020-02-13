@@ -10,6 +10,7 @@ import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
 import Profile from '../Profile/Profile';
 import './Dashboard.css'
 import NotFound from '../NotFound/NotFound';
+import Spinner from '../Spinner/Spinner';
 
 function Dashboard({ match }) {
   const { user } = useContext(AppContext)
@@ -46,7 +47,18 @@ function Dashboard({ match }) {
       </div>
     )
   }
-  return <NotFound message="User doesn't exist" />
+  if(fetching) {
+    return (
+      <div className="Dashboard">
+        <Spinner />
+      </div>
+    )
+  }
+  return (
+    <div className="Dashboard">
+      <NotFound message="User doesn't exist" />
+    </div>
+  )
 }
 
 Dashboard.defaultProps = {
