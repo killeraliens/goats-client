@@ -4,9 +4,15 @@ import {Link} from 'react-router-dom';
 import notFoundImage from '../../assets/leatherfaceraw.jpg';
 import AppContext from '../../AppContext';
 import './NotFound.css'
+import AuthedContext from '../../AuthedContext';
+import Spinner from '../Spinner/Spinner';
 
 export default function NotFound({ message, link }) {
   const context = useContext(AppContext)
+  const { fetching } = useContext(AuthedContext)
+  if (fetching) {
+    return <Spinner />
+  }
   return (
     <div
       className="NotFound"

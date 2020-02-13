@@ -22,6 +22,13 @@ function Dashboard({ match }) {
     : []
   // const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   //const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
+  if (fetching) {
+    return (
+      <div className="Dashboard">
+        <Spinner />
+      </div>
+    )
+  }
   if (foundUser && user && user.id === paramsId) {
     return(
       <div className="Dashboard">
@@ -44,13 +51,6 @@ function Dashboard({ match }) {
     return (
       <div className="Dashboard">
         <Profile user={foundUser} isCurrent={false} userFlyers={userFlyers} events={events} users={users} fetching={fetching} />
-      </div>
-    )
-  }
-  if(fetching) {
-    return (
-      <div className="Dashboard">
-        <Spinner />
       </div>
     )
   }
