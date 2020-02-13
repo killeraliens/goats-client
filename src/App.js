@@ -68,7 +68,11 @@ class App extends Component {
   }
 
   updateUser = (newProps) => {
-    this.setState({ user: {...this.state.user, ...newProps}})
+    this.setState({
+      user: {...this.state.user, ...newProps}
+    }, () => {
+      localStorage.setItem("user", JSON.stringify(this.state.user))
+    })
   }
 
   destroyCurrentLoginState = () => {
