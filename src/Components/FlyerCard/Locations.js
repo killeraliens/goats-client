@@ -7,7 +7,7 @@ export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev
     let eventLocation = {}
     if (isFullTourListing) {
       for (const [key, val] of Object.entries(event)) {
-        if (["date", "city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
+        if (["event_date", "city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
           eventLocation[key] = val
         }
       }
@@ -27,7 +27,7 @@ export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev
       return (
         <div className="Flyer--locations">
           {eventLocations.map((location, i) => {
-            if (location.date) {
+            if (location.event_date) {
               return <Location key={i} eventLocation={location} hasTourEventDate={true}/>
             }
             return <Location key={i} eventLocation={location} />
@@ -60,14 +60,17 @@ Locations.defaultProps = {
 
 Locations.propTypes = {
   flyerEvents: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
+    id:  PropTypes.string,
+    flyer_id: PropTypes.string,
+    event_date: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.string
     ]),
     city_name: PropTypes.string,
     region_name: PropTypes.string,
     country_name: PropTypes.string,
-    venue_name: PropTypes.string
+    venue_name: PropTypes.string,
+    city_id: PropTypes.number
   })),
   isFullTourListing: PropTypes.bool,
   isTourAbbrev: PropTypes.bool

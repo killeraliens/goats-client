@@ -71,7 +71,7 @@ export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate
     return (
       <p className="Flyer--location">
         <FontAwesomeIcon icon={faMapMarker} />
-        <DateOf date={ eventLocation.date }/>
+        <DateOf date={ eventLocation.event_date }/>
         {cityName}{cityComma()}{regionOrCountry()}{venueDash()}{venueName}
       </p>
     )
@@ -92,10 +92,17 @@ Location.defaultProps = {
 
 Location.propTypes = {
   eventLocation: PropTypes.shape({
+    id: PropTypes.string,
+    flyer_id: PropTypes.string,
+    event_date: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.string
+    ]),
     city_name: PropTypes.string,
     region_name: PropTypes.string,
     country_name: PropTypes.string,
-    venue_name: PropTypes.string
+    venue_name: PropTypes.string,
+    city_id: PropTypes.number
   }),
   isTourAbbrev: PropTypes.bool,
   hasTourEventDate: PropTypes.bool
