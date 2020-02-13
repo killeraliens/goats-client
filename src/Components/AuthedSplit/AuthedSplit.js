@@ -67,7 +67,7 @@ export default function AuthedSplit({ mainComponent }) {
       });
     }
     getAll()
-  }, [])
+  }, [user])
 
   if (Boolean(serverError)) {
     return <p>{serverError}</p>
