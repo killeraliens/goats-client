@@ -11,7 +11,6 @@ import Profile from '../Profile/Profile';
 import './Dashboard.css'
 import NotFound from '../NotFound/NotFound';
 
-// function Dashboard({ match, flyers, users, events, fetching }) {
 function Dashboard({ match }) {
   const { user } = useContext(AppContext)
   const { flyers, events, users, fetching } = useContext(AuthedContext)
@@ -58,32 +57,7 @@ Dashboard.defaultProps = {
 Dashboard.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
-  }),
-  // flyers: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.oneOfType([
-  //     PropTypes.string
-  //   ]).isRequired,
-  //   creator_id: PropTypes.oneOfType([
-  //     PropTypes.string
-  //   ]).isRequired
-  // })),
-  // events: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.oneOfType([
-  //     PropTypes.string
-  //   ]).isRequired,
-  //   flyer_id: PropTypes.oneOfType([
-  //     PropTypes.number,
-  //     PropTypes.string
-  //   ]).isRequired
-  // })),
-  // users: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.oneOfType([
-  //     PropTypes.number,
-  //     PropTypes.string
-  //   ]).isRequired
-  // })),
-  // fetching: PropTypes.bool
+  })
 }
 
-//export default withRouter(Dashboard)
 export default Dashboard
