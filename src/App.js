@@ -10,22 +10,6 @@ import Landing from './Components/Landing/Landing'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
 import NotFound from './Components/NotFound/NotFound';
-import DUMMY from './DUMMY.js';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-
-// function sanitizeUser(user) {
-//   return {
-//     id: user.id,
-//     username: user.username,
-//     admin: user.admin,
-//     image_url: user.image_url,
-//     created: user.created,
-//     city_name: user.city_name,
-//     region_name: user.region_name,
-//     country_name: user.country_name,
-//     city_id: user.city_id
-//   }
-// }
 
 class App extends Component {
   constructor() {
@@ -33,31 +17,8 @@ class App extends Component {
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null
-      // users: []
     }
-
   }
-
-  // fetchApiData = async (type) => {
-  //   const response = await fetch(`${config.API_ENDPOINT}/${type}`);
-  //   const body = await response.json();
-
-  //   if (response.status !== 200) {
-  //     throw Error(body.message)
-  //   }
-
-  //   return body
-  // }
-
-  // async componentDidMount() {
-  //   this.fetchApiData('user')
-  //     .then(users => {
-  //       this.setState({ users })
-  //     })
-  //     .catch(err => {
-  //       console.log('Error on fetch users', err)
-  //     })
-  // }
 
   updateAuthenticated = (user) => {
     this.setState({
@@ -79,25 +40,11 @@ class App extends Component {
     this.updateAuthenticated(null)
   }
 
-  // updateUsers = (changedUser) => {
-  //   let foundUser = this.state.users.find(user => user.id.toString() === changedUser.id.toString())
-  //   let updatedUser;
-  //   if (!foundUser) {
-  //     updatedUser = { ...changedUser }
-  //   } else {
-  //     updatedUser = { ...foundUser, ...changedUser }
-  //   }
-  //   let filteredUsers = this.state.users.filter(user => user.id.toString() !== changedUser.id.toString())
-  //   this.setState({ users: [...filteredUsers, { ...sanitizeUser(updatedUser) }] })
-  // }
-
   render() {
     const context = {
       user: this.state.user,
       updateAuthenticated: this.updateAuthenticated,
       updateUser: this.updateUser
-      // users: this.state.users,
-      // updateUsers: this.updateUsers
     }
 
     return(
