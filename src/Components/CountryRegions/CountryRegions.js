@@ -37,23 +37,23 @@ export default function CountryRegions({ format }) {
   }, []);
 
   let countryRegionRoutes = []
-  for (let i = 0; i < data.length; i++) {
-    countryRegionRoutes.push(
-      <React.Fragment key={i}>
-        <Route key={data[i].country_name} path={`/forum/${data[i].country_name}`} render={() => {
-          return <Country countryName={data[i].country_name} />
-        }} />
-        {data[i].regions.map(region => {
-          if (Boolean(region.region_name)) {
-            return <Route key={region.region_name} path={`/forum/${region.region_name}`} render={() => {
-              // return <Country countryName={data[i].country_name} regionName={region} countryFlyers={regionFlyers} events={events} users={users} fetching={fetching} />
-              return <Country countryName={data[i].country_name} regionName={region.region_name} />
-            }} />
-
-          }
-        })}
-      </React.Fragment>
-    )
+  if (format === "routes") {
+    for (let i = 0; i < data.length; i++) {
+      countryRegionRoutes.push(
+        <React.Fragment key={i}>
+          <Route key={data[i].country_name} path={`/forum/${data[i].country_name}`} render={() => {
+            return <Country countryName={data[i].country_name} />
+          }} />
+          {data[i].regions.map(region => {
+            if (Boolean(region.region_name)) {
+              return <Route key={region.region_name} path={`/forum/${region.region_name}`} render={() => {
+                return <Country countryName={data[i].country_name} regionName={region.region_name} />
+              }} />
+            }
+          })}
+        </React.Fragment>
+      )
+    }
   }
 
   if( loading ) {
@@ -64,7 +64,6 @@ export default function CountryRegions({ format }) {
   }
   if (format === "links") {
     return (
-      <MainNav links={
         data.map((country, i) => {
           return (
             <React.Fragment key={i}>
@@ -83,10 +82,8 @@ export default function CountryRegions({ format }) {
             </React.Fragment>
           )
         })
-      } />
     )
   }
-
   return (
     countryRegionRoutes.map(route => route)
   )

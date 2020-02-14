@@ -7,7 +7,14 @@ export default function MainNav(props) {
   return(
     <div className="MainNav">
       <ul className="MainNav--links">
-        {props.links.map((link, i) => <li key={i}>{link}</li>)}
+        {props.links.length > 0
+          ? props.links.map((link, i) => <li key={i}>{link}</li>)
+          : (
+            React.Children.map(props.children, (child, i) => (
+              <li key={i}>{React.cloneElement(child, { key: i })}</li>
+            ))
+          )
+        }
       </ul>
     </div>
   )
@@ -18,5 +25,6 @@ MainNav.defaultProps = {
 }
 
 MainNav.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.object)
+  links: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.node
 }
