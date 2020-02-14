@@ -11,7 +11,7 @@ export default function MainNav(props) {
           ? props.links.map((link, i) => <li key={i}>{link}</li>)
           : (
             React.Children.map(props.children, (child, i) => (
-              <li key={i}>{React.cloneElement(child, { key: i })}</li>
+              <li key={i}>{React.cloneElement(child, { ...child, key: i })}</li>
             ))
           )
         }
