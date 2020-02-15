@@ -13,9 +13,8 @@ import './FlyerCard.css';
 
 
 export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
-
   return (
-    <div className="FlyerCard Card">
+    <div className="FlyerCard Card" id={`${flyer.id}`}>
       <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} />
       <img className="Flyer--image"
         src={flyer.image_url}

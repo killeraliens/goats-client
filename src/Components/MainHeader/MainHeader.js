@@ -4,7 +4,7 @@ import './MainHeader.css'
 
 export default function MainHeader(props) {
   return (
-    <header className={`MainHeader ${props.heightClass}`}>
+    <header className={`MainHeader ${props.heightClass}`} id="MainHeader">
       {props.children}
     </header>
   )

@@ -64,7 +64,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       creatorId: flyer.creator_id || creatorId,
       type: flyer.type || newType,
       listingState: flyer.listing_state || "Public",
-      //created: flyer.created || ''
     })
   }
 

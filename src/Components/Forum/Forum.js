@@ -8,9 +8,10 @@ import Country from '../Country/Country.js';
 import NotFound from '../NotFound/NotFound';
 import AuthedContext from '../../AuthedContext';
 import CountryRegions from '../CountryRegions/CountryRegions'
+import Spinner from '../Spinner/Spinner'
 
 export default function Forum() {
-  const { flyers, events, users, fetching } = useContext(AuthedContext)
+  const { flyers, events, users, fetching, fetchingAdditional, total, handleClickLoad } = useContext(AuthedContext)
 
   return(
     <div className="Forum" id="Forum">
@@ -24,7 +25,17 @@ export default function Forum() {
       <div className="Main--content">
         <Switch>
           <Route exact path={`/forum`} render={() => {
-            return <Feed flyers={flyers} events={events} users={users} fetching={fetching} />
+            return (
+              <Feed
+                flyers={flyers}
+                events={events}
+                users={users}
+                fetching={fetching}
+                fetchingAdditional={fetchingAdditional}
+                total={total}
+                handleClickLoad={handleClickLoad}
+                />
+            )
           }} />
           <CountryRegions format={"routes"} />
           < Route render={() => {

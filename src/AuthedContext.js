@@ -1,13 +1,17 @@
 import React from 'react'
 
 const AuthedContext = React.createContext({
-  events: [],
-  addEvent: () => {},
   flyers: [],
   addFlyer: () => {},
+  deleteFlyer: () => {},
+  events: [],
+  addEvents: () => {},
   users: [],
   updateUsers: () => {},
-  fetching: false
+  fetching: false,
+  fetchingAdditional: false,
+  total: 0,
+  handleClickLoad: () => {}
 })
 
 export default AuthedContext
