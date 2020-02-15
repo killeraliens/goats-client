@@ -7,6 +7,7 @@ import Locations from './Locations';
 import Accordian from '../Accordian/Accordian';
 import Location from './Location';
 import Comments from '../Comments/Comments';
+import FlyerCardMenu from '../FlyerCardMenu/FlyerCardMenu'
 import './FlyerCard.css';
 
 
@@ -15,7 +16,7 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
 
   return (
     <div className="FlyerCard Card">
-
+      <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} />
       <img className="Flyer--image"
         src={flyer.image_url}
         alt={flyer.headline}

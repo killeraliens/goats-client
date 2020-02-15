@@ -12,7 +12,7 @@ function scrollToTop() {
 export default function Main({ component }) {
   useEffect(() => {
      return scrollToTop()
-  }, [component])
+  }, [{ ...component.type.displayName }])
 
   return(
     <div className="Main" id="Main">

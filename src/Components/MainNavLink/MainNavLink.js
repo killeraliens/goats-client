@@ -33,7 +33,8 @@ MainNavLink.propTypes = {
   activeColorClass: PropTypes.oneOf([
     'whitesmoke-black',
     'green-white',
-    'blue-white'
+    'blue-white',
+    'red-white'
   ]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

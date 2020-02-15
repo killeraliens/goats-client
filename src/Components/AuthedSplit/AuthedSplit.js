@@ -33,6 +33,10 @@ export default function AuthedSplit({ mainComponent }) {
     setFlyers(prev => ([ ...prev, {...flyer}]))
   }
 
+  const deleteFlyer = (flyerId) => {
+    setFlyers(prev => ([...prev.filter(flyer => flyer.id !== flyerId)]))
+  }
+
   const addEvents = (events) => {
     //setEvents(prev => ([...prev, { ...event }]))
     //let flyersPrevEvents = prev.filter(event => event.flyer_id === events[0])
@@ -94,6 +98,7 @@ export default function AuthedSplit({ mainComponent }) {
   const contextValue = {
     flyers: flyers,
     addFlyer: addFlyer,
+    deleteFlyer: deleteFlyer,
     events: events,
     addEvents: addEvents,
     fetching: fetching,

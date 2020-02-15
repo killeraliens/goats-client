@@ -25,6 +25,11 @@
   color: white;
 }
 
+.MainNavLink.red-white.active {
+  background-color: orangered;
+  color: white;
+}
+
 .MainNavLink--count {
   position: relative;
   right: -2px;
