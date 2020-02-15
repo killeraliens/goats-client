@@ -11,10 +11,12 @@ function scrollToTop() {
 
 export default function Main({ component, children}) {
   const { props, ...restProps } = component
-  // console.log(restProps)
+  const matchPath = props && props.match && props.match.path
+    ? props.match.path
+    : null
   useEffect(() => {
      return scrollToTop()
-  }, [props.match.path])
+  }, [matchPath])
 
 
   return(
