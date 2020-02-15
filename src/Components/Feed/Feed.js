@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import './Feed.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
 import Spinner from '../Spinner/Spinner';
-import AppContext from '../../AppContext';
 import { HashLink as Link } from 'react-router-hash-link';
-import { Redirect } from 'react-router-dom'
+import { animateScroll } from "react-scroll";
+function scrollToTop() {
+  animateScroll.scrollToTop({
+    containerId: "Main"
+  });
+}
 
 export default function Feed({
   flyers,
@@ -46,10 +50,11 @@ export default function Feed({
   // }, [handleClickLoad])
 
 
-  const resetHash = () => {
-    window.location.hash = 'MainHeader'
-    setFocusId('MainHeader')
-  }
+
+  // const resetHash = () => {
+  //   window.location.hash = 'MainHeader'
+  //   setFocusId('MainHeader')
+  // }
 
   if (fetching) {
     return <Spinner />
@@ -72,7 +77,8 @@ export default function Feed({
             : null
           : flyers.length < total
             ? <Link to={`#`} onClick={handleClickLoad}>More....</Link>
-            : <Link to={`#MainHeader`} onClick={resetHash}>Scroll To Top</Link>
+            : <Link to={`#`} onClick={scrollToTop}>Scroll To Top</Link>
+            // onClick={resetHash}
         }
       </div>
     </div>

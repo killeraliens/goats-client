@@ -11,7 +11,7 @@ function scrollToTop() {
 
 export default function Main({ component, children}) {
   const { props, ...restProps } = component
-  console.log(restProps)
+  // console.log(restProps)
   useEffect(() => {
      return scrollToTop()
   }, [props.match.path])
