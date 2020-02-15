@@ -18,23 +18,38 @@ export default function Feed({
   handleClickLoad
 }) {
 
-  const [lastFlyerInArray, setLastFlyer] = useState('')
-
-  useEffect(() => {
-    const update = () => {
-      console.log(flyers)
-      let last = (flyers.length <= total) && (flyers.slice(-1)[0] && flyers.slice(-1)[0].id) ? flyers.slice(-1)[0].id : ''
-      setLastFlyer(last)
-      console.log('last flyer!', lastFlyerInArray)
-    }
-    const redirectToLast = () => {
-      window.location.hash = lastFlyerInArray
-    }
-    update()
-    redirectToLast()
-  }, [handleClickLoad])
+  const [focusId, setFocusId] = useState('')
 
 
+  // useEffect(() => {
+  //   const focusLastFlyer = () => {
+  //     let last = (flyers.length <= total) && (flyers.slice(-1)[0] && flyers.slice(-1)[0].id) ? flyers.slice(-1)[0].id : ''
+  //     setFocusId(last)
+  //     console.log(flyers)
+  //     console.log('last flyer!', focusId)
+  //   }
+  //   const redirectToLast = () => {
+  //     if (Boolean(focusId)) {
+  //       const lf = document.getElementById(`${focusId}`)
+  //       if(Boolean(lf)) {
+  //         window.location.hash = focusId
+  //         lf.scrollIntoView()
+  //       } else {
+  //         window.location.hash = ''
+  //         setFocusId(`MainHeader`)
+  //         document.getElementById(`MainHeader`).scrollIntoView()
+  //       }
+  //     }
+  //   }
+  //   focusLastFlyer()
+  //   redirectToLast()
+  // }, [handleClickLoad])
+
+
+  const resetHash = () => {
+    window.location.hash = 'MainHeader'
+    setFocusId('MainHeader')
+  }
 
   if (fetching) {
     return <Spinner />
@@ -56,8 +71,8 @@ export default function Feed({
             ? flyers.length = 0
             : null
           : flyers.length < total
-            ? <Link to={`#${lastFlyerInArray}`} onClick={handleClickLoad}>More....</Link>
-            : <Link to={`#MainHeader`}>Scroll To Top</Link>
+            ? <Link to={`#`} onClick={handleClickLoad}>More....</Link>
+            : <Link to={`#MainHeader`} onClick={resetHash}>Scroll To Top</Link>
         }
       </div>
     </div>

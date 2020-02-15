@@ -9,10 +9,13 @@ function scrollToTop() {
   });
 }
 
-export default function Main({ component, children }) {
-  // useEffect(() => {
-  //    return scrollToTop()
-  // }, [{ ...component.type.displayName }])
+export default function Main({ component, children}) {
+  const { props, ...restProps } = component
+  console.log(restProps)
+  useEffect(() => {
+     return scrollToTop()
+  }, [props.match.path])
+
 
   return(
     <div className="Main" id="Main">

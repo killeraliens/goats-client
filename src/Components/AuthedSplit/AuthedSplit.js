@@ -7,7 +7,7 @@ import AppContext from '../../AppContext';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
-import Spinner from '../Spinner/Spinner'
+//import Spinner from '../Spinner/Spinner'
 
 
 function sanitizeUser(user) {
@@ -36,7 +36,7 @@ export default function AuthedSplit({ mainComponent }) {
   const { user } = useContext(AppContext)
 
   const addFlyer = (flyer) => {
-    setFlyers(prev => ([ ...prev, {...flyer}]))
+    setFlyers(prev => ([...prev, { ...flyer }].sort((a, b) => (a.modified > b.modified) ? -1 : 1)))
     setTotal(prev => prev + 1)
   }
 
@@ -79,7 +79,6 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   const handleClickLoad = async () => {
-    console.log('CLICKEDDD')
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
