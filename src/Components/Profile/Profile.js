@@ -6,14 +6,17 @@ import Avatar from '../Avatar/Avatar';
 import Feed from '../Feed/Feed';
 import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
+import NotFound from '../NotFound/NotFound'
 import './Profile.css';
 
-export default function Profile({ user, isCurrent, users, events, userFlyers, fetching }) {
+export default function Profile({ user, isCurrent, userFlyers, fetching }) {
   const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
-  // const draftsLink = isCurrent
-  //   ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
-  //   : null;
+  const draftsLink = isCurrent
+    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
+    : null;
+
+
   return(
     <div className="Profile">
       <MainHeader heightClass="dbl-height">
@@ -40,18 +43,21 @@ export default function Profile({ user, isCurrent, users, events, userFlyers, fe
         >
           Contributions
         </MainNavLink>,
-        // draftsLink
+        draftsLink
       ]} />
       <div className="Main--content">
         <Switch>
           <Route exact path={`/dashboard/${user.id}`} render={() => {
-            return <Feed flyers={publicFlyers} events={events} users={users} fetching={fetching} />
+            return <Feed flyers={publicFlyers} fetching={fetching} />
           }} />
           <Route path={`/dashboard/${user.id}/contributions`} render={() => {
-            return <Feed flyers={publicFlyers} events={events} users={users} fetching={fetching} />
+            return <Feed flyers={publicFlyers} fetching={fetching} />
           }} />
           <Route path={`/dashboard/${user.id}/drafts`} render={() => {
-            return <Feed flyers={draftFlyers} events={events} users={users} fetching={fetching} />
+            return <Feed flyers={draftFlyers} fetching={fetching} />
+          }} />
+          < Route render={() => {
+            return <NotFound message='Profile not found' isFetching={fetching}/>
           }} />
         </Switch>
       </div>
@@ -59,34 +65,78 @@ export default function Profile({ user, isCurrent, users, events, userFlyers, fe
   )
 }
 
+Profile.defaultProps = {
+  userFlyers: [],
+  user: {
+    image_url: '',
+    country_name: '',
+    region_name: '',
+    city_name: '',
+    city_id: null
+  },
+  fetching: false
+}
+
 Profile.propTypes = {
   userFlyers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
+    id: PropTypes.string.isRequired,
+    creator_id: PropTypes.string.isRequired,
+    flyer_type: PropTypes.oneOf([
+      "Fest",
+      "Tour",
+      "Show"
     ]).isRequired,
-    creator_id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired
-  })),
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
+    image_url: PropTypes.string.isRequired,
+    headline: PropTypes.string.isRequired,
+    created: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
     ]).isRequired,
-    flyer_id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired
+    modified: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]).isRequired,
+    bands: PropTypes.string,
+    details: PropTypes.string,
+    publish_comment: PropTypes.string,
+    listing_state: PropTypes.oneOf([
+      'Draft',
+      'Private',
+      'Public',
+      'Flagged',
+      'Banned',
+      'Archived'
+    ]).isRequired,
+    creator_username: PropTypes.string.isRequired,
+    creator_image_url: PropTypes.string,
+    events: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      event_date: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date)
+      ]),
+      venue_name: PropTypes.string,
+      country_name: PropTypes.string,
+      region_name: PropTypes.string,
+      city_name: PropTypes.string,
+      city_id: PropTypes.number
+    })).isRequired
   })),
+
   user: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
+    id:PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    image_url: PropTypes.string.isRequired
+    image_url: PropTypes.string,
+    admin: PropTypes.bool.isRequired,
+    country_name: PropTypes.string,
+    region_name: PropTypes.string,
+    city_name: PropTypes.string,
+    city_id: PropTypes.number,
+    created: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]).isRequired
   }),
+
   fetching: PropTypes.bool
 }

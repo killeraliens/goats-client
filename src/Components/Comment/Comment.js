@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import './Comment.css';
-import FlyerCard from '../FlyerCard/FlyerCard';
 import { dateToMMDDTimeString } from '../../dateHelpers'
 
 export default function Comment({ userId, username, imageUrl, isCreator, comment, modified }) {

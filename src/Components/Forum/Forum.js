@@ -2,17 +2,13 @@ import React, { useContext } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
 import MainNav from '../MainNav/MainNav';
-import MainNavLink from '../MainNavLink/MainNavLink';
 import Feed from '../Feed/Feed.js';
-import Country from '../Country/Country.js';
 import NotFound from '../NotFound/NotFound';
 import AuthedContext from '../../AuthedContext';
 import CountryRegions from '../CountryRegions/CountryRegions'
-import Spinner from '../Spinner/Spinner'
 
 export default function Forum() {
-  const { flyers, events, users, fetching, fetchingAdditional, total, handleClickLoad } = useContext(AuthedContext)
-
+  const { flyers, fetching, fetchingAdditional, total, handleClickLoad } = useContext(AuthedContext)
   return(
     <div className="Forum" id="Forum">
       <MainHeader >
@@ -28,8 +24,6 @@ export default function Forum() {
             return (
               <Feed
                 flyers={flyers}
-                events={events}
-                users={users}
                 fetching={fetching}
                 fetchingAdditional={fetchingAdditional}
                 total={total}

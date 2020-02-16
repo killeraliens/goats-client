@@ -27,8 +27,6 @@ export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
   const [total, setTotal] = useState(0)
   const [limit] = useState(2)
-  const [events, setEvents] = useState([])
-  const [users, setUsers] = useState([])
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState('')
@@ -44,24 +42,6 @@ export default function AuthedSplit({ mainComponent }) {
     setTotal(prev => prev - 1)
   }
 
-  const addEvents = (events) => {
-    //setEvents(prev => ([...prev, { ...event }]))
-    //let flyersPrevEvents = prev.filter(event => event.flyer_id === events[0])
-    setEvents(prev => ([...prev, ...events]))
-  }
-
-  const updateUsers = (changedUser) => {
-    let foundUser = users.find(user => user.id.toString() === changedUser.id.toString())
-    let updatedUser;
-    if (!foundUser) {
-      updatedUser = { ...changedUser }
-    } else {
-      updatedUser = { ...foundUser, ...changedUser }
-    }
-    let filteredUsers = users.filter(user => user.id !== changedUser.id)
-    setUsers([...filteredUsers, { ...sanitizeUser(updatedUser) }])
-  }
-
   const fetchApiData = async (type) => {
     const options = {
       headers: {
@@ -73,61 +53,42 @@ export default function AuthedSplit({ mainComponent }) {
     const body = await response.json();
     if (!response.ok) {
       setServerError(body.message)
+      return {
+        flyers: flyers,
+        count: total
+      }
     }
     return body
   }
 
   const handleClickLoad = async () => {
+    setServerError('')
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
     const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}`)
-    const flyersSet = new Promise((resolve, reject) => {
-      resolve(setFlyers(prev => ([...prev, ...flyersData.flyers])))
-    })
-    flyersSet.then(() => {
-      setFetchingAdditional(false)
-    })
-
+    setFlyers(prev => ([...prev, ...flyersData.flyers]))
+    setFetchingAdditional(false)
   }
 
   useEffect(() => {
-
     const getAll = async () => {
+      setServerError('')
       setFetching(true)
-      const eventsData = await fetchApiData("event")
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
-      const usersData = await fetchApiData("user")
-
-      const flyersSet = new Promise((resolve, reject) => {
-          setTotal(parseInt(flyersData.total))
-          resolve(setFlyers(flyersData.flyers))
-      })
-      const eventsSet = new Promise((resolve, reject) => {
-        resolve(setEvents(eventsData))
-      })
-      const usersSet = new Promise((resolve, reject) => {
-        resolve(setUsers(usersData))
-      })
-
-      Promise.all([flyersSet, eventsSet, usersSet]).then((values) => {
-        setServerError('')
-        setFetching(false)
-      });
+      setTotal(parseInt(flyersData.total))
+      setFlyers(flyersData.flyers)
+      setFetching(false)
     }
     getAll()
-  }, [user.token])
+  }, [user])
 
   const contextValue = {
     flyers: flyers,
     addFlyer: addFlyer,
     deleteFlyer: deleteFlyer,
-    events: events,
-    addEvents: addEvents,
     fetching: fetching,
-    users: users,
-    updateUsers: updateUsers,
-    // fetchingAdditional: fetchingAdditional,
+    fetchingAdditional: fetchingAdditional,
     total: total,
     handleClickLoad: handleClickLoad
   }
@@ -140,12 +101,6 @@ export default function AuthedSplit({ mainComponent }) {
       <Menu />
       <AuthedContext.Provider value={contextValue}>
         <Main component={React.cloneElement(mainComponent)} >
-          {/* {fetchingAdditional
-            ? <Spinner/>
-            : flyers.length < total
-              ? <Link to="#" onClick={handleClickLoad}>More....</Link>
-              : <Link to={`#MainHeader`} >Scroll To Top</Link>
-            } */}
         </Main>
       </AuthedContext.Provider>
     </div>

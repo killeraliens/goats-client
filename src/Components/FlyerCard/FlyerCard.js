@@ -12,7 +12,8 @@ import './FlyerCard.css';
 
 
 
-export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
+export default function FlyerCard({ flyer }) {
+  const flyerEvents = flyer.events || []
   return (
     <div className="FlyerCard Card" id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}
@@ -48,25 +49,26 @@ export default function FlyerCard({ flyer, flyerEvents, flyerCreator }) {
            : null
        }
       </div>
-      <Comments flyer={flyer} flyerCreator={flyerCreator}/>
+      <Comments flyer={flyer} />
 
     </div>
   )
 }
 
 FlyerCard.defaultProps = {
+  flyer: {
+    bands: '',
+    details: '',
+    publish_comment: '',
+    creator_image_url: '',
+    events: []
+  },
 }
 
 FlyerCard.propTypes = {
   flyer: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
-    creator_id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
+    id:  PropTypes.string.isRequired,
+    creator_id: PropTypes.string.isRequired,
     flyer_type: PropTypes.oneOf([
       "Fest",
       "Tour",
@@ -92,28 +94,21 @@ FlyerCard.propTypes = {
       'Flagged',
       'Banned',
       'Archived'
-    ]).isRequired
+    ]).isRequired,
+    creator_username: PropTypes.string.isRequired,
+    creator_image_url: PropTypes.string,
+    events: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      flyer_id: PropTypes.string.isRequired,
+      event_date: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date)
+      ]),
+      venue_name: PropTypes.string,
+      country_name: PropTypes.string,
+      region_name: PropTypes.string,
+      city_name: PropTypes.string,
+      city_id: PropTypes.number
+    }))
   }).isRequired,
-  flyerEvents: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]).isRequired,
-    date: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date)
-    ]),
-    venueName: PropTypes.string,
-    countryName: PropTypes.string,
-    regionName: PropTypes.string,
-    cityName: PropTypes.string
-  })).isRequired,
-  flyerCreator: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]).isRequired,
-    image_url: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
-  }).isRequired
 }

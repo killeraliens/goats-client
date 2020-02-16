@@ -13,8 +13,8 @@ import Spinner from '../../Spinner/Spinner';
 const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
-  const authedContext = useContext(AuthedContext)
-  const context = useContext(AppContext)
+  const { addFlyer } = useContext(AuthedContext)
+  const { user } = useContext(AppContext)
   const flyerEvents = events.filter(event => event.flyer_id === flyer.id)
   const [formBody, setFormBody] = useState({
     id: flyer.id || '',
@@ -45,6 +45,24 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   useEffect(() => {
     console.log('SERver error state', serverError)
   }, [fetching])
+
+  useEffect(() => {
+    if (formBody.type === "Show" || formBody.type === "Fest") {
+      let showFestEventsArr = returnShowFestEventsArr()
+      function setNewEvents() {
+        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
+      }
+      return setNewEvents()
+    }
+  }, [
+    formBody.date.value,
+    formBody.endDate.value,
+    formBody.venueName.value,
+    formBody.countryName.value,
+    formBody.regionName.value,
+    formBody.cityName.value
+  ])
+
 
   const resetForm = () => {
     setFormBody({
@@ -198,24 +216,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return []
  }
 
-  useEffect(() => {
-    if (formBody.type === "Show" || formBody.type === "Fest") {
-      let showFestEventsArr = returnShowFestEventsArr()
-      function setNewEvents() {
-        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
-      }
-      return setNewEvents()
-    }
-  }, [
-    formBody.date.value,
-    formBody.endDate.value,
-    formBody.venueName.value,
-    formBody.countryName.value,
-    formBody.regionName.value,
-    formBody.cityName.value
-  ])
-
-
   const handleSubmit = async(e) => {
     e.preventDefault()
 
@@ -237,7 +237,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       bands: returnCleanContentEditable("bands"),
       details: returnCleanContentEditable("details"),
       publish_comment: returnCleanContentEditable("publishComment"),
-      listing_state: e.target.value === "Draft" ? "Draft" : formBody.listingState,
+      listing_state: e.target.value === "Draft" ? "Draft" : "Public",
       events: eventPostBodies
     }
 
@@ -246,7 +246,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       body: JSON.stringify(flyerPostBody),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.user.token}`
+        'Authorization': `Bearer ${user.token}`
       }
     }
     const response = await fetch(`${config.API_ENDPOINT}/flyer`, options)
@@ -256,20 +256,22 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       setServerError(body.message)
       setFetching(false)
     } else {
-      resetForm()
       setServerError('')
+      resetForm()
       setFetching(false)
-      const { events, ...newFlyer } = body;
-      authedContext.addFlyer(newFlyer)
-      authedContext.addEvents(events)
+      //const { events, ...newFlyer } = body;
+      if (flyerPostBody.listing_state !== "Draft") {
+        addFlyer(body)
+      }
+
       if (flyerPostBody.listing_state === "Draft" ) {
         history.push(`/dashboard/${formBody.creatorId}/drafts`)
       }
       history.push(`/forum`)
     }
-
   }
 
+  // headline fieldset validation (updates on blur)
   const validateHeadline = () => {
     if (formBody.headline.touched) {
       const trimmedHeadline = formBody.headline.value.trim()
@@ -286,6 +288,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     setFormBody(prev => ({ ...prev, headline: { ...prev.headline, error: validateHeadline()}}))
   }
 
+  // bands, details, publish with comment fieldsets validation (updates on change)
   const validateContentEditableLength = (fieldStr, maxLength) => {
     let stringNoHtml = formBody[fieldStr].value ? formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "") : ""
     let stringNoSpace = stringNoHtml.replace(/\s/g, "")
@@ -295,8 +298,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return ""
   }
 
-
-  //EventFieldset
+  //EventFieldset props
   const addTourStop = (e) => {
     e.preventDefault()
 
@@ -330,6 +332,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       resetEventFields()
     }
   }
+
+  //EventPreview props
   const deleteFormEvent = (id) => {
     let filteredEvents = formBody.events.filter(event => event.id !== id)
     setFormBody(prev => ({
@@ -337,7 +341,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       events: filteredEvents
     }))
   }
-  //
+
+
   if (fetching) {
     return <Spinner />
   } else if (serverError) {

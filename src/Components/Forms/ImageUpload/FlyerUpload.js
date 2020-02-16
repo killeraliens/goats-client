@@ -6,6 +6,7 @@ import Spinner from '../../Spinner/Spinner'
 import defaultFlyer from '../../../assets/blood-texture.jpg'
 import ValidationError from '../ValidationError/ValidationError'
 import '../Forms.css'
+import { fetchWithTimeout } from '../../../fetchHelpers'
 
 
 export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }) {
@@ -19,16 +20,6 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
     }
     checkIfUploader()
   }, [])
-
-  // helper //https://stackoverflow.com/questions/46946380/fetch-api-request-timeout
-  const fetchWithTimeout = (url, options, timeout = 7000) => {
-    return Promise.race([
-      fetch(url, options),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('timeout')), timeout)
-      )
-    ]);
-  }
 
   const handleImgChange = (e) => {
     const files = Array.from(e.target.files)
@@ -44,7 +35,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
             headers: {
               'Authorization': `Bearer ${context.user.token}`
             }
-          }, 15000)
+          }, 5000)
             .then(res => {
               return res.json()
             })
