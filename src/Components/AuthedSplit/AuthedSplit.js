@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
 import config from '../../config';
 import PropTypes from 'prop-types';
 import AuthedContext from '../../AuthedContext';
