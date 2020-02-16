@@ -30,6 +30,7 @@ export default function Feed({
   return(
     <div className="Feed">
       {flyers.map(flyer => {
+        // console.log(flyer)
         const flyerEvents = events.filter(event => event.flyer_id === flyer.id)
         const flyerCreator = users.find(user => user.id === flyer.creator_id)
         if (!Boolean(flyerCreator) || flyer.listing_state !== `${listing_state}`) {

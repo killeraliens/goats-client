@@ -9,34 +9,30 @@ export default function Comments({ flyer, flyerCreator }) {
     : ""
   return(
     <div className="Comments">
-       <Comment user={flyerCreator} isCreator={true} comment={publishComment} modified={flyer.modified} />
+       <Comment userId={flyerCreator.id} username={flyerCreator.username} imageUrl={flyerCreator.image_url} isCreator={true} comment={publishComment} modified={flyer.modified} />
        {/* eventually map all flyer comments here */}
     </div>
   )
 }
 
 Comments.defaultProps = {
+  flyer: { publish_comment: '' },
+  flyerCreator: { image_url: ''}
 }
 
 Comments.propTypes = {
   //add other commenters as prop eventually
   flyer: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
-    publish_comment: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    publish_comment: PropTypes.string,
     modified: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date)
     ]).isRequired
   }).isRequired,
   flyerCreator: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
-    image_url: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    image_url: PropTypes.string,
     username: PropTypes.string.isRequired
   }).isRequired
 }

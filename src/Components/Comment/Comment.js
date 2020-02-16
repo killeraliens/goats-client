@@ -4,29 +4,23 @@ import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import './Comment.css';
 import FlyerCard from '../FlyerCard/FlyerCard';
+import { dateToMMDDTimeString } from '../../dateHelpers'
 
-export default function Comment({ user, isCreator, comment, modified }) {
-  const dateToMMDDTimeString = (date) => {
-    return ((date.getMonth() > 8)
-      ? (date.getMonth() + 1)
-      : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9)
-      ? date.getDate()
-      : ('0' + date.getDate())) + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes()
-  }
-  // const modifiedAt = new Date(modified).toLocaleString()
+export default function Comment({ userId, username, imageUrl, isCreator, comment, modified }) {
+
   const modifiedAt = dateToMMDDTimeString(new Date(modified))
   return (
     <div className="Comment">
         <div className="Comment--header">
           <div className="flex-center-between">
-            <Link to={`/dashboard/${user.id}/contributions`}>
+            <Link to={`/dashboard/${userId}/contributions`}>
               <Avatar
-                imageUrl={user.image_url}
-                username={user.username}
+                imageUrl={imageUrl}
+                username={username}
               />
             </Link>
             <h3 className="Comment--handle username">
-              {user.username}
+              {username}
             </h3>
           </div>
           <span className="Comment--modified-at">
@@ -42,15 +36,15 @@ export default function Comment({ user, isCreator, comment, modified }) {
 }
 
 Comment.defaultProps = {
+  imageUrl: '',
   isCreator: false,
-  comment: ''
+  comment: '',
 }
 
 Comment.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string,
-  }).isRequired,
+  userId: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
   isCreator: PropTypes.bool,
   comment: PropTypes.string,
   modified: PropTypes.oneOfType([
