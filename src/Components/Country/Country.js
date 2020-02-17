@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom'
+import NotFound from '../NotFound/NotFound'
 import Feed from '../Feed/Feed';
 import AppContext from '../../AppContext'
 import config from '../../config';
+
 export default function Country({ countryName, regionName}) {
   const [flyers, setFlyers] = useState([])
   const [total, setTotal] = useState(0)
@@ -23,8 +26,8 @@ export default function Country({ countryName, regionName}) {
     if (!response.ok) {
       setServerError(body.message)
       return {
-        flyers: flyers,
-        count: total
+        flyers: [],
+        count: 0
       }
     }
     return body
@@ -35,9 +38,13 @@ export default function Country({ countryName, regionName}) {
       setServerError('')
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}&country=${countryName}&region=${regionName}`)
-      setTotal(parseInt(flyersData.total))
-      setFlyers(flyersData.flyers)
-      setFetching(false)
+      if (Boolean(serverError)) {
+        setFetching(false)
+      } else {
+        setTotal(parseInt(flyersData.total))
+        setFlyers(flyersData.flyers)
+        setFetching(false)
+      }
     }
     getAll()
   }, [countryName, regionName])
@@ -48,12 +55,23 @@ export default function Country({ countryName, regionName}) {
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
     const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}&country=${countryName}&region=${regionName}`)
-    setFlyers(prev => ([...prev, ...flyersData.flyers]))
-    setFetchingAdditional(false)
+    if (Boolean(serverError)) {
+      setFetchingAdditional(false)
+    } else {
+      setTotal(parseInt(flyersData.total))
+      setFlyers(prev => ([...prev, ...flyersData.flyers]))
+      setFetchingAdditional(false)
+    }
   }
 
   if (Boolean(serverError)) {
-    return <p>Server error in country</p>
+    console.log('SERVER errr in country')
+    return (
+      <NotFound
+        message={`Session expired.`}
+        link={<Link to='/public/signin'>Sign in</Link>}
+      />
+    )
   }
 
   return(
@@ -71,7 +89,13 @@ export default function Country({ countryName, regionName}) {
       }
 
       <div className="Main--content">
-        <Feed flyers={flyers} fetching={fetching} />
+        <Feed
+          flyers={flyers}
+          fetching={fetching}
+          fetchingAdditional={fetchingAdditional}
+          total={total}
+          handleClickLoad={handleClickLoad}
+        />
       </div>
 
     </div>

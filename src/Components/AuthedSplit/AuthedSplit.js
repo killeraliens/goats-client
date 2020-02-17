@@ -44,6 +44,7 @@ export default function AuthedSplit({ mainComponent }) {
     setTotal(prev => prev - 1)
   }
 
+
   const fetchApiData = async (type) => {
     const options = {
       headers: {
@@ -69,8 +70,13 @@ export default function AuthedSplit({ mainComponent }) {
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
     const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}`)
-    setFlyers(prev => ([...prev, ...flyersData.flyers]))
-    setFetchingAdditional(false)
+    if (Boolean(serverError)) {
+      setFetchingAdditional(false)
+    } else {
+      setTotal(parseInt(flyersData.total))
+      setFlyers(prev => ([...prev, ...flyersData.flyers]))
+      setFetchingAdditional(false)
+    }
   }
 
   useEffect(() => {
@@ -78,9 +84,13 @@ export default function AuthedSplit({ mainComponent }) {
       setServerError('')
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
-      setTotal(parseInt(flyersData.total))
-      setFlyers(flyersData.flyers)
-      setFetching(false)
+      if (Boolean(serverError)) {
+        setFetching(false)
+      } else {
+        setTotal(parseInt(flyersData.total))
+        setFlyers(flyersData.flyers)
+        setFetching(false)
+      }
     }
     getAll()
   }, [user])
@@ -94,18 +104,16 @@ export default function AuthedSplit({ mainComponent }) {
     total: total,
     handleClickLoad: handleClickLoad,
     serverError: serverError,
-
   }
 
   if (Boolean(serverError)) {
     console.log('SEREVER ERRROR in authed split', serverError)
-    //return <p>{serverError}</p>
-    //Router.browserHistory.push('/public/signin');
-    return (<NotFound
-      message={`${serverError}, log back in.`}
-      link={<Link to='/public/signin'>Sign in</Link>}
-      />)
-    //return <Redirect to="/public/signin" />
+    return (
+      <NotFound
+        message={`Session expired.`}
+        link={<Link to='/public/signin'>Sign in</Link>}
+      />
+    )
   }
   return(
     <div className="AuthedSplit">

@@ -22,32 +22,26 @@ function Dashboard({ match }) {
 
   useEffect(() => {
     const fetchApiData = async (type) => {
+      setFetching(true)
+      setServerError('')
       const options = {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${user.token}`
         }
       }
-      const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
+      const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
       const body = await response.json();
       if (!response.ok) {
         setServerError(body.message)
         setFetching(false)
-        return { flyers: [], creator: null }
+      } else {
+        setFoundUser(body.creator)
+        setFlyers(body.flyers)
+        setFetching(false)
       }
-      return body
     }
-
-    const getAll = async () => {
-      setFetching(true)
-      setServerError('')
-      const flyersData = await fetchApiData(`flyer?creator=${paramsId}`)
-      setFoundUser(flyersData.creator)
-      setFlyers(flyersData.flyers)
-      setFetching(false)
-    }
-    getAll()
-
+    fetchApiData()
   }, [match.url])
 
   if (fetching) {
@@ -59,10 +53,12 @@ function Dashboard({ match }) {
   }
   if (Boolean(serverError)) {
     console.log('SERVER errr in Dashboard')
-    return <NotFound
-      message={`${serverError}, log back in.`}
-      link={<Link to='/public/signin'>Sign in</Link>}
-    />
+    return (
+      <NotFound
+        message={`Session expired.`}
+        link={<Link to='/public/signin'>Sign in</Link>}
+      />
+    )
   }
   if (foundUser && user && user.id === paramsId) {
     return(

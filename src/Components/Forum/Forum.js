@@ -11,12 +11,14 @@ export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
 
   if (Boolean(serverError)) {
-    console.log('SERVER errr in Forum')
-    return (<NotFound
-      message={`${serverError}, log back in.`}
+    return (
+      <NotFound
+      message={`Session expired.`}
       link={<Link to='/public/signin'>Sign in</Link>}
-    />)
+      />
+    )
   }
+
   return(
     <div className="Forum" id="Forum">
       <MainHeader >
