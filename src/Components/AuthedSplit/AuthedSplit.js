@@ -55,8 +55,8 @@ export default function AuthedSplit({ mainComponent }) {
     if (!response.ok) {
       setServerError(body.message)
       return {
-        flyers: flyers,
-        count: total
+        flyers: [],
+        count: 0
       }
     }
     return body
@@ -91,7 +91,9 @@ export default function AuthedSplit({ mainComponent }) {
     fetching: fetching,
     fetchingAdditional: fetchingAdditional,
     total: total,
-    handleClickLoad: handleClickLoad
+    handleClickLoad: handleClickLoad,
+    serverError: serverError,
+
   }
 
   if (Boolean(serverError)) {

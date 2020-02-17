@@ -8,7 +8,11 @@ import AuthedContext from '../../AuthedContext';
 import CountryRegions from '../CountryRegions/CountryRegions'
 
 export default function Forum() {
-  const { flyers, fetching, fetchingAdditional, total, handleClickLoad } = useContext(AuthedContext)
+  const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
+
+  if (Boolean(serverError)) {
+    return <NotFound message={`${serverError}, log back in.`} />
+  }
   return(
     <div className="Forum" id="Forum">
       <MainHeader >
