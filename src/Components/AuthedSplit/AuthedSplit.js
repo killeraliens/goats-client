@@ -6,6 +6,7 @@ import AppContext from '../../AppContext';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
+import NotFound from '../NotFound/NotFound'
 //import Spinner from '../Spinner/Spinner'
 
 
@@ -94,7 +95,10 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   if (Boolean(serverError)) {
-    return <p>{serverError}</p>
+    //console.log('SEREVER ERRROR ', serverError)
+    //return <p>{serverError}</p>
+    //Router.browserHistory.push('/public/signin');
+    return <NotFound message={`${serverError}, log back in.`}/>
   }
   return(
     <div className="AuthedSplit">
