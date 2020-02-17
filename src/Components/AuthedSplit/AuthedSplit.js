@@ -30,8 +30,8 @@ export default function AuthedSplit({ mainComponent }) {
   const [limit] = useState(2)
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
-  const [serverError, setServerError] = useState('')
-  const { user } = useContext(AppContext)
+  //const [serverError, setServerError] = useState('')
+  const { user, serverError, setServerError } = useContext(AppContext)
 
   const addFlyer = (flyer) => {
     setFlyers(prev => ([...prev, { ...flyer }].sort((a, b) => (a.modified > b.modified) ? -1 : 1)))
