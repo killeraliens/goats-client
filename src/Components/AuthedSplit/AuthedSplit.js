@@ -7,6 +7,7 @@ import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
 import NotFound from '../NotFound/NotFound'
+import { Link } from 'react-router-dom';
 //import Spinner from '../Spinner/Spinner'
 
 
@@ -100,8 +101,11 @@ export default function AuthedSplit({ mainComponent }) {
     console.log('SEREVER ERRROR in authed split', serverError)
     //return <p>{serverError}</p>
     //Router.browserHistory.push('/public/signin');
-    //return <NotFound message={`${serverError}, log back in.`}/>
-    return <Redirect to="/public/signin" />
+    return (<NotFound
+      message={`${serverError}, log back in.`}
+      link={<Link to='/public/signin'>Sign in</Link>}
+      />)
+    //return <Redirect to="/public/signin" />
   }
   return(
     <div className="AuthedSplit">

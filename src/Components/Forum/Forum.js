@@ -12,7 +12,10 @@ export default function Forum() {
 
   if (Boolean(serverError)) {
     console.log('SERVER errr in Forum')
-    return <Redirect to="/public/signin" />
+    return (<NotFound
+      message={`${serverError}, log back in.`}
+      link={<Link to='/public/signin'>Sign in</Link>}
+    />)
   }
   return(
     <div className="Forum" id="Forum">
