@@ -40,7 +40,7 @@ class App extends Component {
     this.updateAuthenticated(null)
   }
 
-  setServerError = (serverError) => {
+  setAppError = (serverError) => {
     this.setState({ serverError })
   }
 
@@ -50,7 +50,7 @@ class App extends Component {
       updateAuthenticated: this.updateAuthenticated,
       updateUser: this.updateUser,
       serverError: this.state.serverError,
-      setServerError: this.setServerError
+      setAppError: this.setAppError
     }
 
     return(
@@ -67,11 +67,11 @@ class App extends Component {
             <PrivateRoute path={`/create-flyer`} render={props =>
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
-            <Route path="/" render={() => {
+            {/* <Route path="/" render={() => {
               return !this.state.user || this.state.serverError ? <Redirect to="/public/signin" /> : <Redirect to="/forum" />
-            }} />
+            }} /> */}
             <Route render={() => {
-              return <NotFound link={<Link to="/forum">Back to forum</Link>} />
+              return !this.state.user || this.state.serverError ? <NotFound link={<Link to="/public/signin">Sign In</Link>} /> : <NotFound link={<Link to="/forum">Back to forum</Link>} />
             }} />
           </Switch>
         </ AppContext.Provider >
