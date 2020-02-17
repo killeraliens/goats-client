@@ -67,10 +67,9 @@ class App extends Component {
             <PrivateRoute path={`/create-flyer`} render={props =>
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
-            <Route path="/">
-              {/* {!this.state.user || this.state.serverError ? <Landing /> : <Redirect to="/public/signin" /> } */}
-              <Redirect to="/public/signin" />
-            </Route>
+            <Route path="/" render={() => {
+              return !this.state.user || this.state.serverError ? <Redirect to="/public/signin" /> : <Redirect to="/forum" />
+            }} />
             <Route render={() => {
               return <NotFound link={<Link to="/forum">Back to forum</Link>} />
             }} />
