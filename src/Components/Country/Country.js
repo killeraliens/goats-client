@@ -52,6 +52,10 @@ export default function Country({ countryName, regionName}) {
     setFetchingAdditional(false)
   }
 
+  if (Boolean(serverError)) {
+    return <p>Server error in country</p>
+  }
+
   return(
     <div className="Country">
       {

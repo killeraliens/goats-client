@@ -97,10 +97,11 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   if (Boolean(serverError)) {
-    //console.log('SEREVER ERRROR ', serverError)
+    console.log('SEREVER ERRROR in authed split', serverError)
     //return <p>{serverError}</p>
     //Router.browserHistory.push('/public/signin');
-    return <NotFound message={`${serverError}, log back in.`}/>
+    //return <NotFound message={`${serverError}, log back in.`}/>
+    return <Redirect to="/public/signin" />
   }
   return(
     <div className="AuthedSplit">

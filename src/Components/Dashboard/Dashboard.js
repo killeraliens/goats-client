@@ -40,10 +40,10 @@ function Dashboard({ match }) {
 
     const getAll = async () => {
       setFetching(true)
+      setServerError('')
       const flyersData = await fetchApiData(`flyer?creator=${paramsId}`)
       setFoundUser(flyersData.creator)
       setFlyers(flyersData.flyers)
-      setServerError('')
       setFetching(false)
     }
     getAll()
@@ -56,6 +56,10 @@ function Dashboard({ match }) {
         <Spinner />
       </div>
     )
+  }
+  if (Boolean(serverError)) {
+    console.log('SERVER errr in Dashboard')
+    return <Redirect to="/public/signin" />
   }
   if (foundUser && user && user.id === paramsId) {
     return(

@@ -14,8 +14,8 @@ export default function CountryRegions({ format }) {
   const [serverError, setServerError] = useState('')
   const { user } = useContext(AppContext)
   useEffect(() => {
-    setFetching(true)
     const fetchData = async () => {
+      setFetching(true)
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -25,12 +25,13 @@ export default function CountryRegions({ format }) {
       const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
       const body = await response.json()
       if( !response.ok ) {
-        setFetching(false)
         setServerError(body.message)
+        setFetching(false)
+      } else {
+        setData(body)
+        setServerError('')
+        setFetching(false)
       }
-      setData(body)
-      setServerError('')
-      setFetching(false)
     }
 
     fetchData();
@@ -60,7 +61,7 @@ export default function CountryRegions({ format }) {
     return <Spinner />
   }
   if (Boolean(serverError)) {
-    return <p>{serverError}</p>
+    return <p>Server Error in menu</p>
   }
   if (format === "links") {
     return (
