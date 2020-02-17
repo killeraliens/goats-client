@@ -4,7 +4,9 @@ import React from 'react'
 const AppContext = React.createContext({
   user: {},
   updateAuthenticated: () => {},
-  updateUser: () => {}
+  updateUser: () => {},
+  serverError: null,
+  setServerError: () => {}
 })
 
 export default AppContext

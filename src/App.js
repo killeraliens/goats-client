@@ -16,7 +16,7 @@ class App extends Component {
     super();
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
-      error: null
+      serverError: null
     }
   }
 
@@ -40,11 +40,17 @@ class App extends Component {
     this.updateAuthenticated(null)
   }
 
+  setServerError = (serverError) => {
+    this.setState({ serverError })
+  }
+
   render() {
     const context = {
       user: this.state.user,
       updateAuthenticated: this.updateAuthenticated,
-      updateUser: this.updateUser
+      updateUser: this.updateUser,
+      serverError: this.state.serverError,
+      setServerError: this.setServerError
     }
 
     return(
@@ -62,7 +68,7 @@ class App extends Component {
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
             <Route path="/">
-              {this.state.user ? <Redirect to="/public/signin" /> : <Landing />}
+              {!this.state.user || this.state.serverError ? <Landing /> : <Redirect to="/public/signin" /> }
             </Route>
             <Route render={() => {
               return <NotFound link={<Link to="/forum">Back to forum</Link>} />
