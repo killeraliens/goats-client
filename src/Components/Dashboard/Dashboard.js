@@ -17,13 +17,13 @@ function Dashboard({ match }) {
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
-  const [error, setError] = useState('')
+  const [serverError, setServerError] = useState('')
   const [foundUser, setFoundUser] = useState(null)
 
   useEffect(() => {
     const fetchApiData = async (type) => {
       setFetching(true)
-      setError('')
+      setServerError('')
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,7 @@ function Dashboard({ match }) {
       const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
       const body = await response.json();
       if (!response.ok) {
-        setError(body.message)
+        setServerError(body.message)
         setFetching(false)
       } else {
         setFoundUser(body.creator)
@@ -44,16 +44,60 @@ function Dashboard({ match }) {
     fetchApiData()
   }, [match.url])
 
-  if (fetching) {
-    return (
-      <div className="Dashboard">
-        <Spinner />
-      </div>
-    )
+  switch (true) {
+    case fetching:
+      return (
+        <div className="Dashboard">
+          <Spinner />
+        </div>
+      )
+    case Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError)):
+      return (
+        <NotFound
+          message={`Session expired.`}
+          link={<Link to='/public/signin'>Sign in</Link>}
+        />
+      )
+    case foundUser && user && user.id === paramsId:
+      return (
+        <div className="Dashboard">
+          <MainHeaderNav links={[
+            <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
+            <SignOutLink />
+          ]} />
+          <Switch>
+            <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
+              return <EditProfileForm history={history} />
+            }} />
+            <Route path={`/dashboard/${foundUser.id}`} render={() => {
+              return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
+            }} />
+          </Switch>
+        </div>
+      )
+    case !!foundUser:
+        return (
+          <div className="Dashboard">
+            <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
+          </div>
+        )
+    default:
+      return(
+        <div className="Dashboard">
+          <NotFound message="User doesn't exist" isFetching={fetching} />
+        </div>
+      )
   }
 
+  // if (fetching) {
+  //   return (
+  //     <div className="Dashboard">
+  //       <Spinner />
+  //     </div>
+  //   )
+  // }
 
-  // if (Boolean(error) && (/(unauthorized|Unauthorized)/.test(error))) {
+  // if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
   //   return (
   //     <NotFound
   //       message={`Session expired.`}
@@ -61,36 +105,36 @@ function Dashboard({ match }) {
   //     />
   //   )
   // }
-  if (foundUser && user && user.id === paramsId) {
-    return(
-      <div className="Dashboard">
-        <MainHeaderNav links={[
-          <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
-          <SignOutLink />
-        ]}/>
-        <Switch>
-          <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
-            return <EditProfileForm history={history}/>
-          }}/>
-          <Route path={`/dashboard/${foundUser.id}`} render={() => {
-            return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
-          }} />
-        </Switch>
-      </div>
-    )
-  }
-  if(foundUser) {
-    return (
-      <div className="Dashboard">
-        <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
-      </div>
-    )
-  }
-  return (
-    <div className="Dashboard">
-      <NotFound message="User doesn't exist" isFetching={fetching} />
-    </div>
-  )
+  // if (foundUser && user && user.id === paramsId) {
+  //   return(
+  //     <div className="Dashboard">
+  //       <MainHeaderNav links={[
+  //         <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
+  //         <SignOutLink />
+  //       ]}/>
+  //       <Switch>
+  //         <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
+  //           return <EditProfileForm history={history}/>
+  //         }}/>
+  //         <Route path={`/dashboard/${foundUser.id}`} render={() => {
+  //           return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
+  //         }} />
+  //       </Switch>
+  //     </div>
+  //   )
+  // }
+  // if(foundUser) {
+  //   return (
+  //     <div className="Dashboard">
+  //       <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
+  //     </div>
+  //   )
+  // }
+  // return (
+  //   <div className="Dashboard">
+  //     <NotFound message="User doesn't exist" isFetching={fetching} />
+  //   </div>
+  // )
 }
 
 Dashboard.defaultProps = {

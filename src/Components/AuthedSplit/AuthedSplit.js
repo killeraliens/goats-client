@@ -10,21 +10,6 @@ import NotFound from '../NotFound/NotFound'
 import { Link } from 'react-router-dom';
 //import Spinner from '../Spinner/Spinner'
 
-
-function sanitizeUser(user) {
-  return {
-    id: user.id,
-    username: user.username,
-    admin: user.admin,
-    image_url: user.image_url,
-    created: user.created,
-    city_name: user.city_name,
-    region_name: user.region_name,
-    country_name: user.country_name,
-    city_id: user.city_id
-  }
-}
-
 export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
   const [total, setTotal] = useState(0)
@@ -43,7 +28,6 @@ export default function AuthedSplit({ mainComponent }) {
     setFlyers(prev => ([...prev.filter(flyer => flyer.id !== flyerId)]))
     setTotal(prev => prev - 1)
   }
-
 
   const fetchApiData = async (type) => {
     const options = {
@@ -106,24 +90,42 @@ export default function AuthedSplit({ mainComponent }) {
     serverError: serverError,
   }
 
-  if (Boolean(serverError)) {
-    console.log('SEREVER ERRROR in authed split', serverError)
-    return (
-      <NotFound
-        message={`Session expired.`}
-        link={<Link to='/public/signin'>Sign in</Link>}
-      />
-    )
+  switch (true) {
+    case Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError)):
+      return (
+        <NotFound
+          message={`Session expired.`}
+          link={<Link to='/public/signin'>Sign in</Link>}
+        />
+      )
+    default:
+      return (
+        <div className="AuthedSplit">
+          <Menu />
+          <AuthedContext.Provider value={contextValue}>
+            <Main component={React.cloneElement(mainComponent)} >
+            </Main>
+          </AuthedContext.Provider>
+        </div>
+      )
   }
-  return(
-    <div className="AuthedSplit">
-      <Menu />
-      <AuthedContext.Provider value={contextValue}>
-        <Main component={React.cloneElement(mainComponent)} >
-        </Main>
-      </AuthedContext.Provider>
-    </div>
-  )
+  // if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
+  //   return (
+  //     <NotFound
+  //       message={`Session expired.`}
+  //       link={<Link to='/public/signin'>Sign in</Link>}
+  //     />
+  //   )
+  // }
+  // return(
+  //   <div className="AuthedSplit">
+  //     <Menu />
+  //     <AuthedContext.Provider value={contextValue}>
+  //       <Main component={React.cloneElement(mainComponent)} >
+  //       </Main>
+  //     </AuthedContext.Provider>
+  //   </div>
+  // )
 }
 
 AuthedSplit.propTypes = {
