@@ -34,19 +34,19 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    const details = this.state.error && this.state.error.message
-      ? <details>{this.state.error.message}</details>
-      : null
+    // const details = this.state.error && this.state.error.message
+    //   ? <details>{this.state.error.message}</details>
+    //   : null
 
-    const message = this.state.error && this.state.error.message && typeof this.state.error.message === 'string'
-      ? <details>{this.state.error}</details>
-      : null
+    // const message = this.state.error && this.state.error.message && typeof this.state.error.message === 'string'
+    //   ? <details>{this.state.error}</details>
+    //   : null
 
     if (this.state.hasError) {
       return (
         <div className='ErrorBoundary'>
           <summary>Something went wrong.</summary>
-          {message}
+          <details>{this.state.error}</details>
         </div>
       )
     }

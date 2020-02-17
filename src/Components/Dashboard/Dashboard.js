@@ -17,13 +17,13 @@ function Dashboard({ match }) {
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const [error, setError] = useState('')
   const [foundUser, setFoundUser] = useState(null)
 
   useEffect(() => {
     const fetchApiData = async (type) => {
       setFetching(true)
-      setServerError('')
+      setError('')
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,7 @@ function Dashboard({ match }) {
       const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
       const body = await response.json();
       if (!response.ok) {
-        setServerError(body.message)
+        setError(body.message)
         setFetching(false)
       } else {
         setFoundUser(body.creator)
@@ -52,14 +52,15 @@ function Dashboard({ match }) {
     )
   }
 
-  if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
-    return (
-      <NotFound
-        message={`Session expired.`}
-        link={<Link to='/public/signin'>Sign in</Link>}
-      />
-    )
-  }
+
+  // if (Boolean(error) && (/(unauthorized|Unauthorized)/.test(error))) {
+  //   return (
+  //     <NotFound
+  //       message={`Session expired.`}
+  //       link={<Link to='/public/signin'>Sign in</Link>}
+  //     />
+  //   )
+  // }
   if (foundUser && user && user.id === paramsId) {
     return(
       <div className="Dashboard">
