@@ -13,11 +13,11 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user, serverError, setServerError } = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
-  //const [serverError, setServerError] = useState('')
+  const [serverError, setServerError] = useState('')
   const [foundUser, setFoundUser] = useState(null)
 
   useEffect(() => {

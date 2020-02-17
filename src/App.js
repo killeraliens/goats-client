@@ -68,7 +68,8 @@ class App extends Component {
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
             <Route path="/">
-              {!this.state.user || this.state.serverError ? <Landing /> : <Redirect to="/public/signin" /> }
+              {/* {!this.state.user || this.state.serverError ? <Landing /> : <Redirect to="/public/signin" /> } */}
+              <Redirect to="/public/signin" />
             </Route>
             <Route render={() => {
               return <NotFound link={<Link to="/forum">Back to forum</Link>} />
