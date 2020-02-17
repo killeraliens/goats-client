@@ -56,9 +56,6 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
           <Route path={`/dashboard/${user.id}/drafts`} render={() => {
             return <Feed flyers={draftFlyers} fetching={fetching} />
           }} />
-          < Route render={() => {
-            return <NotFound message='Profile not found' isFetching={fetching}/>
-          }} />
         </Switch>
       </div>
     </div>

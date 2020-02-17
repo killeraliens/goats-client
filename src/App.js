@@ -18,6 +18,7 @@ class App extends Component {
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null
     }
+    console.log(this.state.user)
   }
 
   updateAuthenticated = (user) => {
@@ -62,7 +63,7 @@ class App extends Component {
               <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
             } />
             <Route path="/">
-              {this.state.user ? <Redirect to="/forum" /> : <Landing />}
+              {this.state.user && Boolean(this.state.user.token) ? <Redirect to="/forum" /> : <Landing />}
             </Route>
             <Route render={() => {
               return <NotFound link={<Link to="/forum">Back to forum</Link>} />
