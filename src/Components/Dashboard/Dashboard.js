@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import AppContext from '../../AppContext';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import SignOutLink from '../SignOutLink/SignOutLink';
@@ -59,7 +59,10 @@ function Dashboard({ match }) {
   }
   if (Boolean(serverError)) {
     console.log('SERVER errr in Dashboard')
-    return <Redirect to="/public/signin" />
+    return <NotFound
+      message={`${serverError}, log back in.`}
+      link={<Link to='/public/signin'>Sign in</Link>}
+    />
   }
   if (foundUser && user && user.id === paramsId) {
     return(
