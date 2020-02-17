@@ -10,11 +10,11 @@ import Country from '../Country/Country';
 
 export default function CountryRegions({ format }) {
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [fetching, setFetching] = useState(true)
   const [serverError, setServerError] = useState('')
   const { user } = useContext(AppContext)
   useEffect(() => {
-    setLoading(true)
+    setFetching(true)
     const fetchData = async () => {
       const options = {
         headers: {
@@ -25,12 +25,12 @@ export default function CountryRegions({ format }) {
       const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
       const body = await response.json()
       if( !response.ok ) {
-        setLoading(false)
+        setFetching(false)
         setServerError(body.message)
       }
       setData(body)
       setServerError('')
-      setLoading(false)
+      setFetching(false)
     }
 
     fetchData();
@@ -56,7 +56,7 @@ export default function CountryRegions({ format }) {
     }
   }
 
-  if( loading ) {
+  if( fetching ) {
     return <Spinner />
   }
   if (Boolean(serverError)) {
