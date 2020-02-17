@@ -7,6 +7,7 @@ import PrivateRoute from './Components/PrivateRoute'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
+import ErrorBoundary from './Components/ErrorBoundary'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
 import NotFound from './Components/NotFound/NotFound';

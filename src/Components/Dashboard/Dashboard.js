@@ -51,8 +51,8 @@ function Dashboard({ match }) {
       </div>
     )
   }
-  if (Boolean(serverError)) {
-    console.log('SERVER errr in Dashboard')
+
+  if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
     return (
       <NotFound
         message={`Session expired.`}
