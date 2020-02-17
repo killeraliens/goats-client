@@ -17,7 +17,7 @@ class App extends Component {
     super();
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
-      serverError: null
+      error: null
     }
   }
 
@@ -41,8 +41,8 @@ class App extends Component {
     this.updateAuthenticated(null)
   }
 
-  setAppError = (serverError) => {
-    this.setState({ serverError })
+  setError = (serverError) => {
+    this.setState({ error: serverError })
   }
 
   render() {
@@ -50,8 +50,8 @@ class App extends Component {
       user: this.state.user,
       updateAuthenticated: this.updateAuthenticated,
       updateUser: this.updateUser,
-      serverError: this.state.serverError,
-      setAppError: this.setAppError
+      error: this.state.error,
+      setError: this.setError
     }
 
     return(
@@ -60,20 +60,25 @@ class App extends Component {
           <Switch>
             <Route exact path="/public/:action" component={Landing}/>
             <PrivateRoute path={`/dashboard/:user_id`} render={props =>
-              <AuthedSplit mainComponent={<Dashboard {...props}/>} />
+              <ErrorBoundary>
+                <AuthedSplit mainComponent={<Dashboard {...props}/>} />
+              </ErrorBoundary>
             } />
             <PrivateRoute path={`/forum`} render={props =>
-              <AuthedSplit mainComponent={<Forum {...props}/>} />
+              <ErrorBoundary>
+                <AuthedSplit mainComponent={<Forum {...props}/>} />
+              </ErrorBoundary>
             } />
             <PrivateRoute path={`/create-flyer`} render={props =>
-              <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
+              <ErrorBoundary>
+                <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
+              </ErrorBoundary>
             } />
-            {/* <Route path="/" render={() => {
-              return !this.state.user || this.state.serverError ? <Redirect to="/public/signin" /> : <Redirect to="/forum" />
-            }} /> */}
-            <Route render={() => {
-              return !this.state.user || this.state.serverError ? <NotFound link={<Link to="/public/signin">Sign In</Link>} /> : <NotFound link={<Link to="/forum">Back to forum</Link>} />
-            }} />
+            <Route render={() =>
+               !this.state.user || this.state.error
+                ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
+                : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
+            } />
           </Switch>
         </ AppContext.Provider >
       </div>
