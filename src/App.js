@@ -75,7 +75,7 @@ class App extends Component {
                 </ErrorBoundary>
               } />
               <Route path='/' render={() =>
-                this.state.error && this.state.user
+                this.state.error || !this.state.user
                   ? <Redirect to="/public/signin" /> //<NotFound link={<Link to="/public/signin">Sign In</Link>} />
                   : <Redirect to="/forum" /> //<NotFound link={<Link to="/forum">Back to forum</Link>} />
               } />
