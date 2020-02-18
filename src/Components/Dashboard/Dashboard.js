@@ -13,12 +13,13 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user, updateAuthenticated } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState('')
   const [foundUser, setFoundUser] = useState(null)
+
 
   useEffect(() => {
     const fetchApiData = async (type) => {
@@ -52,12 +53,13 @@ function Dashboard({ match }) {
         </div>
       )
     case Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError)):
-      return (
-        <NotFound
-          message={`Session expired.`}
-          link={<Link to='/public/signin'>Sign in</Link>}
-        />
-      )
+      // return (
+      //   <NotFound
+      //     message={`Session expired.`}
+      //     link={<Link to='/public/signin'>Sign in</Link>}
+      //   />
+      // )
+      setError(`Unauthorized.`)
     case foundUser && user && user.id === paramsId:
       return (
         <div className="Dashboard">

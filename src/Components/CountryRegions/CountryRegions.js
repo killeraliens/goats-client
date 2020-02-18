@@ -13,7 +13,7 @@ export default function CountryRegions({ format }) {
   const [data, setData] = useState([])
   const [fetching, setFetching] = useState(true)
   const [serverError, setServerError] = useState('')
-  const { user } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,39 +60,45 @@ export default function CountryRegions({ format }) {
     }
   }
 
-  if( fetching ) {
-    return <Spinner />
+
+
+  switch (true) {
+    case fetching:
+      return <Spinner />
+
+    case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
+      // return null
+      setError(serverError)
+
+    case format === "links":
+        return (
+          data.map((country, i) => {
+            return (
+              <React.Fragment key={i}>
+                <MainNavLink to={`/forum/${country.country_name}`}>
+                  {country.country_name}
+                  <span className="MainNavLink--count">{country.per_country}</span>
+                </MainNavLink>
+                {country.regions.map(region => {
+                  return (
+                    <MainNavLink key={region.region_name} to={`/forum/${region.region_name}`}>
+                      {region.region_name}
+                      <span className="MainNavLink--count">{region.per_region}</span>
+                    </MainNavLink>
+                  )
+                })}
+              </React.Fragment>
+            )
+          })
+        )
+
+    default:
+      return (
+        countryRegionRoutes.map(route => route)
+      )
   }
 
-  if (Boolean(serverError)) {
-    return null
-  }
 
-  if (format === "links") {
-    return (
-        data.map((country, i) => {
-          return (
-            <React.Fragment key={i}>
-              <MainNavLink to={`/forum/${country.country_name}`}>
-                {country.country_name}
-                <span className="MainNavLink--count">{country.per_country}</span>
-              </MainNavLink>
-              {country.regions.map(region => {
-                return (
-                  <MainNavLink key={region.region_name} to={`/forum/${region.region_name}`}>
-                    {region.region_name}
-                    <span className="MainNavLink--count">{region.per_region}</span>
-                  </MainNavLink>
-                )
-              })}
-            </React.Fragment>
-          )
-        })
-    )
-  }
-  return (
-    countryRegionRoutes.map(route => route)
-  )
 }
 
 CountryRegions.defaultProps = {
