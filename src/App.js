@@ -54,14 +54,9 @@ class App extends Component {
       setError: this.setError
     }
 
-    if ( Boolean(this.state.error) ) {
-      return <NotFound message={`${this.state.error}`} link={<Link to="/public/signin">Sign In</Link>} />
-    }
-
     return(
       <div className="App">
         <AppContext.Provider value={context}>
-          <ErrorBoundary>
             <Switch>
               <Route exact path="/public/:action" component={Landing}/>
               <PrivateRoute path={`/dashboard/:user_id`} render={props =>
@@ -79,13 +74,18 @@ class App extends Component {
                   <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
                 </ErrorBoundary>
               } />
+              <Route path='/' render={() =>
+                this.state.error && this.state.user
+                  ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
+                  : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
+              } />
+              } />
               <Route render={() =>
                 !this.state.user || this.state.error
                   ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
                   : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
               } />
             </Switch>
-          </ErrorBoundary>
         </ AppContext.Provider >
       </div>
     )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import NotFound from './NotFound/NotFound'
 
 class ErrorBoundary extends Component {
 
@@ -34,19 +35,10 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    // const details = this.state.error && this.state.error.message
-    //   ? <details>{this.state.error.message}</details>
-    //   : null
-
-    // const message = this.state.error && this.state.error.message && typeof this.state.error.message === 'string'
-    //   ? <details>{this.state.error}</details>
-    //   : null
-
     if (this.state.hasError) {
       return (
         <div className='ErrorBoundary'>
-          <summary>Something went wrong.</summary>
-          <details>{this.state.error}</details>
+          <NotFound message='Something went wrong.' link={<Link to='/public/signin'/>}/>
         </div>
       )
     }
