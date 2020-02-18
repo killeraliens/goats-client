@@ -42,7 +42,7 @@ function Dashboard({ match }) {
       }
     }
     fetchApiData()
-  }, [match.url])
+  }, [match.url, user])
 
   switch (true) {
     case fetching:
@@ -81,60 +81,15 @@ function Dashboard({ match }) {
             <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
           </div>
         )
-    default:
-      return(
+    case Boolean(serverError):
+      return (
         <div className="Dashboard">
           <NotFound message="User doesn't exist" isFetching={fetching} />
         </div>
       )
+    default:
+      return null
   }
-
-  // if (fetching) {
-  //   return (
-  //     <div className="Dashboard">
-  //       <Spinner />
-  //     </div>
-  //   )
-  // }
-
-  // if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
-  //   return (
-  //     <NotFound
-  //       message={`Session expired.`}
-  //       link={<Link to='/public/signin'>Sign in</Link>}
-  //     />
-  //   )
-  // }
-  // if (foundUser && user && user.id === paramsId) {
-  //   return(
-  //     <div className="Dashboard">
-  //       <MainHeaderNav links={[
-  //         <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
-  //         <SignOutLink />
-  //       ]}/>
-  //       <Switch>
-  //         <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
-  //           return <EditProfileForm history={history}/>
-  //         }}/>
-  //         <Route path={`/dashboard/${foundUser.id}`} render={() => {
-  //           return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
-  //         }} />
-  //       </Switch>
-  //     </div>
-  //   )
-  // }
-  // if(foundUser) {
-  //   return (
-  //     <div className="Dashboard">
-  //       <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
-  //     </div>
-  //   )
-  // }
-  // return (
-  //   <div className="Dashboard">
-  //     <NotFound message="User doesn't exist" isFetching={fetching} />
-  //   </div>
-  // )
 }
 
 Dashboard.defaultProps = {
