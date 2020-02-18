@@ -13,7 +13,7 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user, setError, updateUser } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
@@ -60,7 +60,6 @@ function Dashboard({ match }) {
       //   />
       // )
       setError(`Unauthorized.`)
-      updateUser(null)
     case foundUser && user && user.id === paramsId:
       return (
         <div className="Dashboard">
