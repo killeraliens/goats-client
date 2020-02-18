@@ -41,6 +41,7 @@ export default function Country({ countryName, regionName}) {
       if (Boolean(serverError)) {
         setFetching(false)
       } else {
+        console.log(flyersData)
         setTotal(parseInt(flyersData.total))
         setFlyers(flyersData.flyers)
         setFetching(false)
@@ -63,6 +64,7 @@ export default function Country({ countryName, regionName}) {
       setFetchingAdditional(false)
     }
   }
+
 
   if (Boolean(serverError)) {
     console.log('SERVER errr in country')
