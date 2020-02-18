@@ -49,7 +49,6 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   const handleClickLoad = async () => {
-    //setServerError('')
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
@@ -65,7 +64,6 @@ export default function AuthedSplit({ mainComponent }) {
 
   useEffect(() => {
     const getAll = async () => {
-      //setServerError('')
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
       if (Boolean(serverError)) {
@@ -92,12 +90,6 @@ export default function AuthedSplit({ mainComponent }) {
 
   switch (true) {
     case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
-      // return (
-        // <NotFound
-        //   message={`Session expired.`}
-        //   link={<Link to='/public/signin'>Sign in</Link>}
-        // />
-        // )
         setError(`Unauthorized.`)
     default:
       return (
@@ -110,23 +102,6 @@ export default function AuthedSplit({ mainComponent }) {
         </div>
       )
   }
-  // if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
-  //   return (
-  //     <NotFound
-  //       message={`Session expired.`}
-  //       link={<Link to='/public/signin'>Sign in</Link>}
-  //     />
-  //   )
-  // }
-  // return(
-  //   <div className="AuthedSplit">
-  //     <Menu />
-  //     <AuthedContext.Provider value={contextValue}>
-  //       <Main component={React.cloneElement(mainComponent)} >
-  //       </Main>
-  //     </AuthedContext.Provider>
-  //   </div>
-  // )
 }
 
 AuthedSplit.propTypes = {
