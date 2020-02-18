@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Route } from 'react-router-dom';
 import AppContext from '../../AppContext'
+import AuthedContext from '../../AuthedContext'
 import PropTypes from 'prop-types';
 import config from '../../config';
 import Spinner from '../Spinner/Spinner';

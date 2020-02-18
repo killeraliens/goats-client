@@ -11,7 +11,8 @@ const AuthedContext = React.createContext({
   fetching: false,
   fetchingAdditional: false,
   total: 0,
-  handleClickLoad: () => {}
+  handleClickLoad: () => {},
+  serverError: ''
 })
 
 export default AuthedContext
