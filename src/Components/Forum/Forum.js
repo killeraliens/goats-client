@@ -10,7 +10,7 @@ import CountryRegions from '../CountryRegions/CountryRegions'
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
 
-  if (Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError))) {
+  if (Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError))) {
     return (
       <NotFound
       message={`Session expired.`}
