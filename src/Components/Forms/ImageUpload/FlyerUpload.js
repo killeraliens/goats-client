@@ -27,7 +27,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
       const formData = new FormData()
       files.forEach((file, i) => {
         setUploading(true)
-        if (file.size < 3000000) {
+        if (file.size < 4000000) {
           formData.append(i, file)
           fetchWithTimeout(`${config.API_ENDPOINT}/image-upload`, {
             method: 'POST',
@@ -35,7 +35,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
             headers: {
               'Authorization': `Bearer ${context.user.token}`
             }
-          }, 5000)
+          }, 10000)
             .then(res => {
               return res.json()
             })
@@ -52,7 +52,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
             })
         } else {
           setUploading(false)
-          updateImgError('File must be under 3MB')
+          updateImgError('File must be under 4MB')
         }
       })
   }
