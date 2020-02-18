@@ -98,7 +98,7 @@ export default function AuthedSplit({ mainComponent }) {
         //   link={<Link to='/public/signin'>Sign in</Link>}
         // />
         // )
-        setError(`Session expired.`)
+        setError(`Unauthorized.`)
     default:
       return (
         <div className="AuthedSplit">

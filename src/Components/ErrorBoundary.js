@@ -38,7 +38,9 @@ class ErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className='ErrorBoundary'>
-          <NotFound message='Something went wrong.' link={<Link to="/public/signin">Sign In</Link>}/>
+          <NotFound
+            message={`${Boolean(this.state.error) ? this.state.error : 'Something went wrong.'}`}
+            link={<Link to="/public/signin">Sign In</Link>}/>
         </div>
       )
     }
