@@ -8,21 +8,14 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const abortController = new AbortController()
-    const signal = abortController.signal
 
     const fetchData = async () => {
       setLoading(true)
-      const result = await axios(`${config.API_ENDPOINT}/country`, { signal: signal })
+      const result = await axios(`${config.API_ENDPOINT}/country`)
       setData({ countries: result.data })
       setLoading(false)
     }
     fetchData();
-
-    const cleanup = () => {
-      abortController.abort()
-    }
-    return cleanup()
 
   }, []);
 

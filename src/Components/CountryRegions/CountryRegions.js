@@ -14,6 +14,7 @@ export default function CountryRegions({ format }) {
   const [fetching, setFetching] = useState(true)
   const [serverError, setServerError] = useState('')
   const { user, setError } = useContext(AppContext)
+  const { total } = useContext(AuthedContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +39,7 @@ export default function CountryRegions({ format }) {
     }
 
     fetchData();
-  }, []);
+  }, [total]);
 
   let countryRegionRoutes = []
   if (format === "routes") {
