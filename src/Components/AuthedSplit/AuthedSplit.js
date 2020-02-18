@@ -17,7 +17,7 @@ export default function AuthedSplit({ mainComponent }) {
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState('')
-  const { user} = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
 
   const addFlyer = (flyer) => {
     setFlyers(prev => ([...prev, { ...flyer }].sort((a, b) => (a.modified > b.modified) ? -1 : 1)))
@@ -93,10 +93,11 @@ export default function AuthedSplit({ mainComponent }) {
   switch (true) {
     case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
       return (
-        <NotFound
-          message={`Session expired.`}
-          link={<Link to='/public/signin'>Sign in</Link>}
-        />
+        // <NotFound
+        //   message={`Session expired.`}
+        //   link={<Link to='/public/signin'>Sign in</Link>}
+        // />
+        setError(`Session expired.`)
       )
     default:
       return (

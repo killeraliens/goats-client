@@ -57,29 +57,31 @@ class App extends Component {
     return(
       <div className="App">
         <AppContext.Provider value={context}>
-          <Switch>
-            <Route exact path="/public/:action" component={Landing}/>
-            <PrivateRoute path={`/dashboard/:user_id`} render={props =>
-              <ErrorBoundary>
-                <AuthedSplit mainComponent={<Dashboard {...props}/>} />
-              </ErrorBoundary>
-            } />
-            <PrivateRoute path={`/forum`} render={props =>
-              <ErrorBoundary>
-                <AuthedSplit mainComponent={<Forum {...props}/>} />
-              </ErrorBoundary>
-            } />
-            <PrivateRoute path={`/create-flyer`} render={props =>
-              <ErrorBoundary>
-                <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
-              </ErrorBoundary>
-            } />
-            <Route render={() =>
-               !this.state.user || this.state.error
-                ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
-                : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
-            } />
-          </Switch>
+          <ErrorBoundary>
+            <Switch>
+              <Route exact path="/public/:action" component={Landing}/>
+              <PrivateRoute path={`/dashboard/:user_id`} render={props =>
+                <ErrorBoundary>
+                  <AuthedSplit mainComponent={<Dashboard {...props}/>} />
+                </ErrorBoundary>
+              } />
+              <PrivateRoute path={`/forum`} render={props =>
+                <ErrorBoundary>
+                  <AuthedSplit mainComponent={<Forum {...props}/>} />
+                </ErrorBoundary>
+              } />
+              <PrivateRoute path={`/create-flyer`} render={props =>
+                <ErrorBoundary>
+                  <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
+                </ErrorBoundary>
+              } />
+              <Route render={() =>
+                !this.state.user || this.state.error
+                  ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
+                  : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
+              } />
+            </Switch>
+          </ErrorBoundary>
         </ AppContext.Provider >
       </div>
     )

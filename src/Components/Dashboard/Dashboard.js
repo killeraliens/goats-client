@@ -13,7 +13,7 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user } = useContext(AppContext)
+  const { user, updateAuthenticated } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
@@ -53,10 +53,11 @@ function Dashboard({ match }) {
       )
     case Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError)):
       return (
-        <NotFound
-          message={`Session expired.`}
-          link={<Link to='/public/signin'>Sign in</Link>}
-        />
+        // <NotFound
+        //   message={`Session expired.`}
+        //   link={<Link to='/public/signin'>Sign in</Link>}
+        // />
+        updateAuthenticated(null)
       )
     case foundUser && user && user.id === paramsId:
       return (
