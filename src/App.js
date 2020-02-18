@@ -54,6 +54,10 @@ class App extends Component {
       setError: this.setError
     }
 
+    if ( Boolean(this.state.error) ) {
+      return <NotFound message={`${this.state.error}`} link={<Link to="/public/signin">Sign In</Link>} />
+    }
+
     return(
       <div className="App">
         <AppContext.Provider value={context}>

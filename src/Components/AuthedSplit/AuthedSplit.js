@@ -92,13 +92,13 @@ export default function AuthedSplit({ mainComponent }) {
 
   switch (true) {
     case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
-      return (
+      // return (
         // <NotFound
         //   message={`Session expired.`}
         //   link={<Link to='/public/signin'>Sign in</Link>}
         // />
+        // )
         setError(`Session expired.`)
-      )
     default:
       return (
         <div className="AuthedSplit">

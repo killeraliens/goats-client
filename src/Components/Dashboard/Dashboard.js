@@ -53,11 +53,10 @@ function Dashboard({ match }) {
       )
     case Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError)):
       return (
-        // <NotFound
-        //   message={`Session expired.`}
-        //   link={<Link to='/public/signin'>Sign in</Link>}
-        // />
-        updateAuthenticated(null)
+        <NotFound
+          message={`Session expired.`}
+          link={<Link to='/public/signin'>Sign in</Link>}
+        />
       )
     case foundUser && user && user.id === paramsId:
       return (
