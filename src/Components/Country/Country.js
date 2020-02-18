@@ -12,7 +12,7 @@ export default function Country({ countryName, regionName}) {
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState('')
-  const { user } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
 
   const fetchApiData = async (type) => {
     const options = {
@@ -66,14 +66,8 @@ export default function Country({ countryName, regionName}) {
   }
 
 
-  if (Boolean(serverError)) {
-    console.log('SERVER errr in country')
-    return (
-      <NotFound
-        message={`Session expired.`}
-        link={<Link to='/public/signin'>Sign in</Link>}
-      />
-    )
+  if (Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError))) {
+    setError(`Unauthorized.`)
   }
 
   return(
