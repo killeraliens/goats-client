@@ -43,10 +43,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   const [fetching, setFetching] = useState(false)
 
   useEffect(() => {
-    console.log('SERver error state', serverError)
-  }, [fetching])
-
-  useEffect(() => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
       let showFestEventsArr = returnShowFestEventsArr()
       function setNewEvents() {

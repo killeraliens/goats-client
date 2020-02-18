@@ -49,7 +49,7 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   const handleClickLoad = async () => {
-    setServerError('')
+    //setServerError('')
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
@@ -65,7 +65,7 @@ export default function AuthedSplit({ mainComponent }) {
 
   useEffect(() => {
     const getAll = async () => {
-      setServerError('')
+      //setServerError('')
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
       if (Boolean(serverError)) {
@@ -77,7 +77,7 @@ export default function AuthedSplit({ mainComponent }) {
       }
     }
     getAll()
-  }, [user])
+  }, [user, serverError])
 
   const contextValue = {
     flyers: flyers,
@@ -91,7 +91,7 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   switch (true) {
-    case Boolean(serverError) && (/(unauthorized|Unauthorized)/.test(serverError)):
+    case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
       return (
         <NotFound
           message={`Session expired.`}
