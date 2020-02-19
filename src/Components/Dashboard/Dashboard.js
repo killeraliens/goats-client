@@ -25,6 +25,7 @@ function Dashboard({ match }) {
     const fetchApiData = async (type) => {
       setFetching(true)
       setServerError('')
+      setError(null)
       const options = {
         headers: {
           "Content-Type": "application/json",
