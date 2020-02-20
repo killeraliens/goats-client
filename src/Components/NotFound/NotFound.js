@@ -44,7 +44,8 @@ export default function NotFound({ message, link, isFetching }) {
 }
 
 NotFound.defaultProps = {
-  message: 'Page not found'
+  message: 'Page not found',
+  // link:  <Link to="/public/signin">Back to sign in</Link>
 }
 
 NotFound.propTypes = {

@@ -19,17 +19,13 @@ function Dashboard({ match }) {
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState('')
   const [foundUser, setFoundUser] = useState(null)
-  console.log('user', user)
-  console.log('error', error)
-  console.log('servererror', serverError)
-
 
   useEffect(() => {
     const fetchApiData = async (type) => {
       console.log('fetching dashboard for user', user)
       setFetching(true)
       setServerError('')
-      setError(null)
+      // setError(null)
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -83,9 +79,7 @@ function Dashboard({ match }) {
           </div>
         )
     case !!serverError:
-      console.log('server er in dashboard', serverError)
-      console.log('curr app error', error)
-      console.log('found user', foundUser)
+      console.log('server rrr',serverError)
       return (
         <div className="Dashboard">
           <NotFound message="User doesn't exist" isFetching={fetching} />
