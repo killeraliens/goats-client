@@ -19,6 +19,9 @@ function Dashboard({ match }) {
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState('')
   const [foundUser, setFoundUser] = useState(null)
+  console.log('user', user)
+  console.log('error', error)
+  console.log('servererror', serverError)
 
 
   useEffect(() => {
@@ -79,7 +82,7 @@ function Dashboard({ match }) {
             <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
           </div>
         )
-    case Boolean(serverError):
+    case !!serverError:
       console.log('server er in dashboard', serverError)
       console.log('curr app error', error)
       console.log('found user', foundUser)
