@@ -13,7 +13,7 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
@@ -55,12 +55,13 @@ function Dashboard({ match }) {
     //   )
 
     case !!serverError && serverError.status === 401:
-      return (
-          <NotFound
-            message="Session expired"
-            isFetching={fetching}
-            link={<Link to='/public/signin' >Sign In</Link>}/>
-      )
+      setError(serverError)
+      // return (
+      //     <NotFound
+      //       message="Session expired"
+      //       isFetching={fetching}
+      //       link={<Link to='/public/signin' >Sign In</Link>}/>
+      // )
 
     case !!serverError && serverError.status === 404:
       return (

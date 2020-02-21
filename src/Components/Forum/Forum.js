@@ -5,19 +5,24 @@ import MainNav from '../MainNav/MainNav';
 import Feed from '../Feed/Feed.js';
 import NotFound from '../NotFound/NotFound';
 import AuthedContext from '../../AuthedContext';
+import AppContext from '../../AppContext'
 import CountryRegions from '../CountryRegions/CountryRegions'
+import App from '../../App';
 
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
+  const { error } = useContext(AppContext)
 
   switch (true) {
-    case !!serverError && serverError.status === 401:
+    // case !!serverError && serverError.status === 401:
+    case !!error && error.status === 401:
     return (
       <NotFound
         message="Session expired"
         isFetching={fetching}
         link={<Link to='/public/signin' >Sign In</Link>} />
     )
+
 
     default:
       return(
