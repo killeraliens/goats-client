@@ -11,7 +11,7 @@ import NotFound from '../NotFound/NotFound'
 
 
 export default function CreateFlyer() {
-  const { user } = useContext(AppContext)
+  const { user, error } = useContext(AppContext)
   const { serverError, fetching } = useContext(AuthedContext)
   const formLinks = [
     <MainNavLink to={'/create-flyer/show'} >Single Show</MainNavLink>,
@@ -21,7 +21,8 @@ export default function CreateFlyer() {
 
   switch (true) {
 
-    case !!serverError && serverError.status === 401:
+    // case !!serverError && serverError.status === 401:
+    case !!error && error.status === 401:
 
     return (
       <div className="CreateFlyer">

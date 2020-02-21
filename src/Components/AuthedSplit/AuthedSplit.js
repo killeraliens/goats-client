@@ -66,6 +66,7 @@ export default function AuthedSplit({ mainComponent }) {
 
   useEffect(() => {
     const getAll = async () => {
+      setError(null)
       setServerError(null)
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
@@ -93,13 +94,14 @@ export default function AuthedSplit({ mainComponent }) {
 
   switch (true) {
     case !!serverError && serverError.status === 401:
-      return (
-          <NotFound
-            message="Session expired"
-            isFetching={fetching}
-            link={<Link to='/public/signin' >Sign In</Link>}
-          />
-      )
+      setError(serverError)
+      // return (
+      //     <NotFound
+      //       message="Session expired"
+      //       isFetching={fetching}
+      //       link={<Link to='/public/signin' >Sign In</Link>}
+      //     />
+      // )
 
     default:
       return (
