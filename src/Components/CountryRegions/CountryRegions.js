@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import AppContext from '../../AppContext'
 import AuthedContext from '../../AuthedContext'
 import PropTypes from 'prop-types';
 import config from '../../config';
 import Spinner from '../Spinner/Spinner';
-import MainNav from '../MainNav/MainNav';
+import NotFound from '../NotFound/NotFound';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import Country from '../Country/Country';
 
 export default function CountryRegions({ format}) {
   const [data, setData] = useState([])
   const [fetching, setFetching] = useState(true)
-  const [serverError, setServerError] = useState('')
+  const [serverError, setServerError] = useState(null)
   const { user, setError } = useContext(AppContext)
   const { total } = useContext(AuthedContext)
 
@@ -30,11 +30,10 @@ export default function CountryRegions({ format}) {
       const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
       const body = await response.json()
       if( !response.ok ) {
-        setServerError(body)
+        setServerError(response)
         setFetching(false)
       } else {
         setData(body)
-        setServerError(null)
         setFetching(false)
       }
     }
@@ -66,9 +65,17 @@ export default function CountryRegions({ format}) {
     case fetching:
       return <Spinner />
 
-    case !!serverError && serverError.status === 404:
-      // return null
-      setError(serverError)
+    case !!serverError && serverError.status === 401:
+      //setError(serverError)
+      return (
+        <div className="AuthedSplit">
+          <NotFound
+            message="Session expired"
+            isFetching={fetching}
+            link={<Link to='/public/signin' />}
+          />
+        </div>
+      )
 
     case format === "links":
         return (

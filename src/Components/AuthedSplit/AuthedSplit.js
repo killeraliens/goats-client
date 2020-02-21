@@ -39,7 +39,7 @@ export default function AuthedSplit({ mainComponent }) {
     const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
     const body = await response.json();
     if (!response.ok) {
-      setServerError(body)
+      setServerError(response)
       return {
         flyers: [],
         count: 0
@@ -67,7 +67,7 @@ export default function AuthedSplit({ mainComponent }) {
   useEffect(() => {
     const getAll = async () => {
       setServerError(null)
-      setError(null)
+      //setError(null)
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
       if (!!serverError) {
@@ -79,7 +79,7 @@ export default function AuthedSplit({ mainComponent }) {
       }
     }
     getAll()
-  }, [user, error])
+  }, [user])
 
   const contextValue = {
     flyers: flyers,
@@ -93,8 +93,17 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   switch (true) {
-    case !!serverError && serverError.status === 401://(/(authorized|Unauthorized)/.test(serverError)):
-      setError(serverError)
+    case !!serverError && serverError.status === 401:
+      //setError(serverError)
+      return (
+        <div className="AuthedSplit">
+          <NotFound
+            message="Session expired"
+            isFetching={fetching}
+            link={<Link to='/signin' />}
+          />
+        </div>
+      )
 
     default:
       return (

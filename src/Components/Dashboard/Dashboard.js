@@ -36,7 +36,6 @@ function Dashboard({ match }) {
         setServerError(response)
         setFetching(false)
       } else {
-        setServerError(null)
         setFoundUser(body.creator)
         setFlyers(body.flyers)
         setFetching(false)
@@ -44,6 +43,7 @@ function Dashboard({ match }) {
     }
     fetchApiData()
   }, [match.url, user])
+
 
   switch (true) {
     case fetching:
@@ -53,14 +53,24 @@ function Dashboard({ match }) {
         </div>
       )
     case !!serverError && serverError.status === 401:
+      //setError(serverError)
+      return (
+        <div className="Dashboard">
+          <NotFound
+            message="Session expired"
+            isFetching={fetching}
+            link={<Link to='/signin' />}
+          />
+        </div>
+      )
 
-      setError(serverError)
     case !!serverError && serverError.status === 404:
       return (
         <div className="Dashboard">
           <NotFound message="User doesn't exist" isFetching={fetching} />
         </div>
       )
+
     case foundUser && user && user.id === paramsId:
       return (
         <div className="Dashboard">
