@@ -8,6 +8,7 @@ import Spinner from '../Spinner/Spinner';
 import NotFound from '../NotFound/NotFound';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import Country from '../Country/Country';
+import MainNav from '../MainNav/MainNav';
 
 export default function CountryRegions({ format}) {
   const [data, setData] = useState([])
