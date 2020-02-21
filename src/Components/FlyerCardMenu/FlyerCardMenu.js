@@ -31,7 +31,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
       setServerError(body.message)
       setFetching(false)
     } else {
-      setServerError('')
+      setServerError(null)
       setFetching(false)
       deleteFlyer(flyerId)
     }
@@ -41,7 +41,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
   //   ? 'visible'
   //   : 'sr-only'
   if (visible) {
-    if (user && user.id && user.id === creatorId) {
+    if (user && user.id && user.id === creatorId || user && user.admin) {
       return (
         <div className='FlyerCardMenu'>
           <MainNav className={`FlyerCardMenu--Nav`}>
