@@ -111,8 +111,8 @@ class App extends Component {
               } /> */}
               <Route render={() =>
                 !this.state.user || this.state.error
-                  ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
-                  : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
+                  ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
+                  : <Redirect to="/forum" /> // <NotFound link={<Link to="/forum">Back to forum</Link>} />
               } />
             </Switch>
         </ AppContext.Provider >
