@@ -9,17 +9,18 @@ import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import Country from '../Country/Country';
 
-export default function CountryRegions({ format }) {
+export default function CountryRegions({ format}) {
   const [data, setData] = useState([])
   const [fetching, setFetching] = useState(true)
   const [serverError, setServerError] = useState('')
   const { user, setError } = useContext(AppContext)
   const { total } = useContext(AuthedContext)
 
+
   useEffect(() => {
     const fetchData = async () => {
       setFetching(true)
-      setServerError('')
+      setServerError(null)
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -29,11 +30,11 @@ export default function CountryRegions({ format }) {
       const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
       const body = await response.json()
       if( !response.ok ) {
-        setServerError(body.message)
+        setServerError(body)
         setFetching(false)
       } else {
         setData(body)
-        setServerError('')
+        setServerError(null)
         setFetching(false)
       }
     }
@@ -46,12 +47,12 @@ export default function CountryRegions({ format }) {
     for (let i = 0; i < data.length; i++) {
       countryRegionRoutes.push(
         <React.Fragment key={i}>
-          <Route key={data[i].country_name} path={`/forum/${data[i].country_name}`} render={() => {
+          <Route exact key={data[i].country_name} path={`/forum/${data[i].country_name}`} render={() => {
             return <Country countryName={data[i].country_name} />
           }} />
           {data[i].regions.map(region => {
             if (Boolean(region.region_name)) {
-              return <Route key={region.region_name} path={`/forum/${region.region_name}`} render={() => {
+              return <Route exact key={region.region_name} path={`/forum/${region.region_name}`} render={() => {
                 return <Country countryName={data[i].country_name} regionName={region.region_name} />
               }} />
             }
@@ -67,7 +68,7 @@ export default function CountryRegions({ format }) {
     case fetching:
       return <Spinner />
 
-    case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
+    case !!serverError && serverError.status === 404:
       // return null
       setError(serverError)
 
@@ -94,9 +95,7 @@ export default function CountryRegions({ format }) {
         )
 
     default:
-      return (
-        countryRegionRoutes.map(route => route)
-      )
+      return  countryRegionRoutes.map(route => route)
   }
 
 

@@ -16,8 +16,8 @@ export default function AuthedSplit({ mainComponent }) {
   const [limit] = useState(2)
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
-  const [serverError, setServerError] = useState('')
-  const { user, setError } = useContext(AppContext)
+  const [serverError, setServerError] = useState(null)
+  const { user, setError, error } = useContext(AppContext)
 
   const addFlyer = (flyer) => {
     setFlyers(prev => ([...prev, { ...flyer }].sort((a, b) => (a.modified > b.modified) ? -1 : 1)))
@@ -39,22 +39,23 @@ export default function AuthedSplit({ mainComponent }) {
     const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
     const body = await response.json();
     if (!response.ok) {
-      setServerError(body.message)
+      setServerError(body)
       return {
         flyers: [],
         count: 0
       }
     }
+    setServerError(null)
     return body
   }
 
   const handleClickLoad = async () => {
-    setServerError('')
+    setServerError(null)
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
     const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}`)
-    if (Boolean(serverError)) {
+    if (!!serverError) {
       setFetchingAdditional(false)
     } else {
       setTotal(parseInt(flyersData.total))
@@ -65,7 +66,7 @@ export default function AuthedSplit({ mainComponent }) {
 
   useEffect(() => {
     const getAll = async () => {
-      setServerError('')
+      setServerError(null)
       setError(null)
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
@@ -78,7 +79,7 @@ export default function AuthedSplit({ mainComponent }) {
       }
     }
     getAll()
-  }, [user])
+  }, [user, error])
 
   const contextValue = {
     flyers: flyers,
@@ -88,12 +89,13 @@ export default function AuthedSplit({ mainComponent }) {
     fetchingAdditional: fetchingAdditional,
     total: total,
     handleClickLoad: handleClickLoad,
-    serverError: serverError,
+    serverError: serverError
   }
 
   switch (true) {
-    case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
-        setError(`Unauthorized.`)
+    case !!serverError && serverError.status === 401://(/(authorized|Unauthorized)/.test(serverError)):
+      setError(serverError)
+
     default:
       return (
         <div className="AuthedSplit">

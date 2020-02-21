@@ -10,14 +10,14 @@ import CountryRegions from '../CountryRegions/CountryRegions'
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
 
-  if (Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError))) {
-    return (
-      <NotFound
-      message={`Session expired.`}
-      link={<Link to='/public/signin'>Sign in</Link>}
-      />
-    )
-  }
+  // if (Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError))) {
+  //   return (
+  //     <NotFound
+  //     message={`Session expired.`}
+  //     link={<Link to='/public/signin'>Sign in</Link>}
+  //     />
+  //   )
+  // }
 
   return(
     <div className="Forum" id="Forum">
@@ -41,7 +41,7 @@ export default function Forum() {
                 />
             )
           }} />
-          <CountryRegions format={"routes"} />
+          <CountryRegions format={"routes"}/>
           < Route render={() => {
             return <NotFound link={<Link to="/forum">Back to forum</Link>} />
           }} />

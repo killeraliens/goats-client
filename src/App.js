@@ -17,7 +17,8 @@ class App extends Component {
     super();
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
-      error: null
+      error: null,
+      fetching: false
     }
   }
 
@@ -45,6 +46,33 @@ class App extends Component {
     this.setState({ error: serverError })
   }
 
+  // not tested
+  checkIsAuthed = async (user_id, token) => {
+    this.setState({ fetching: true })
+    const postBody = {
+      user_id: user_id,
+      token: token
+    }
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(postBody),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+    const response = await fetch(`${config.API_ENDPOINT}/auth/check`, options)
+    const body = await response.json();
+
+    if (!response.ok) {
+      this.setError(body)
+      this.setState({ fetching: false })
+      return false
+    } else {
+      this.setState({ fetching: false, error: null })
+      return true
+    }
+  }
+
   render() {
     const context = {
       user: this.state.user,
@@ -55,10 +83,12 @@ class App extends Component {
     }
 
     return(
+
       <div className="App">
         <AppContext.Provider value={context}>
             <Switch>
-              <Route exact path="/public/:action" component={Landing}/>
+              <Route exact path="/" component={Landing} />
+              <Route path="/public/:action" component={Landing}/>
               <PrivateRoute path={`/dashboard/:user_id`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<Dashboard {...props}/>} />
@@ -74,14 +104,13 @@ class App extends Component {
                   <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
                 </ErrorBoundary>
               } />
-              <Route path='/' render={() =>
+              {/* <Route path='/' render={() =>
                 !this.state.user || this.state.error
                   ? <Redirect to="/public/signin" /> //<NotFound link={<Link to="/public/signin">Sign In</Link>} />
                   : <Redirect to="/forum" /> //<NotFound link={<Link to="/forum">Back to forum</Link>} />
-              } />
-              } />
+              } /> */}
               <Route render={() =>
-              (!this.state.user || this.state.error) || (this.state.user && this.state.error)
+                !this.state.user || this.state.error
                   ? <NotFound link={<Link to="/public/signin">Sign In</Link>} />  //<Redirect to="/public/signin" />
                   : <NotFound link={<Link to="/forum">Back to forum</Link>} />   // <Redirect to="/forum" />
               } />

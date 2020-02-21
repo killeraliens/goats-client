@@ -5,7 +5,7 @@ import Feed from '../Feed/Feed';
 import AppContext from '../../AppContext'
 import config from '../../config';
 
-export default function Country({ countryName, regionName}) {
+export default function Country({ countryName, regionName, match }) {
   const [flyers, setFlyers] = useState([])
   const [total, setTotal] = useState(0)
   const [limit] = useState(10)
@@ -66,8 +66,12 @@ export default function Country({ countryName, regionName}) {
   }
 
 
-  if (Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError))) {
+  if (!!serverError && (/(authorized|Unauthorized)/.test(serverError))) {
     setError(`Unauthorized.`)
+  }
+
+  if (flyers.length === 0) {
+  return <p>No flyers found for location {match.path}</p>
   }
 
   return(
@@ -100,5 +104,6 @@ export default function Country({ countryName, regionName}) {
 
 Country.defaultProps = {
   countryName: '',
-  regionName: ''
+  regionName: '',
+  match: { path: '' }
 }
