@@ -37,11 +37,9 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
     }
   }
 
-  // const visibleClass = visible
-  //   ? 'visible'
-  //   : 'sr-only'
+
   if (visible) {
-    if (user && user.id && user.id === creatorId || user && user.admin) {
+    if (((user && user.id) && (user.id === creatorId)) || (user && user.admin)) {
       return (
         <div className='FlyerCardMenu'>
           <MainNav className={`FlyerCardMenu--Nav`}>
@@ -68,7 +66,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
     )
   }
 
-  if (user && user.id && user.id === creatorId) {
+  if (((user && user.id) && (user.id === creatorId)) || (user && user.admin)) {
     return (
       <div className='FlyerCardMenuOpen'>
         <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
@@ -77,6 +75,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
       </div>
     )
   }
+
   return (
     <div className='FlyerCardMenu'>
       {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
