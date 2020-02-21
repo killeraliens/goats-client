@@ -76,24 +76,28 @@ export default function CountryRegions({ format}) {
 
     case format === "links":
         return (
-          data.map((country, i) => {
-            return (
-              <React.Fragment key={i}>
-                <MainNavLink to={`/forum/${country.country_name}`}>
-                  {country.country_name}
-                  <span className="MainNavLink--count">{country.per_country}</span>
-                </MainNavLink>
-                {country.regions.map(region => {
-                  return (
-                    <MainNavLink key={region.region_name} to={`/forum/${region.region_name}`}>
-                      {region.region_name}
-                      <span className="MainNavLink--count">{region.per_region}</span>
+          <MainNav>
+            {
+              data.map((country, i) => {
+                return (
+                  <React.Fragment key={i}>
+                    <MainNavLink to={`/forum/${country.country_name}`}>
+                      {country.country_name}
+                      <span className="MainNavLink--count">{country.per_country}</span>
                     </MainNavLink>
-                  )
-                })}
-              </React.Fragment>
-            )
-          })
+                    {country.regions.map(region => {
+                      return (
+                        <MainNavLink key={region.region_name} to={`/forum/${region.region_name}`}>
+                          {region.region_name}
+                          <span className="MainNavLink--count">{region.per_region}</span>
+                        </MainNavLink>
+                      )
+                    })}
+                  </React.Fragment>
+                )
+              })
+            }
+          </MainNav>
         )
 
     default:

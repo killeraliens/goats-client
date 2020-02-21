@@ -26,9 +26,8 @@ export default function Forum() {
           <MainHeader >
             Goat's Forum
           </MainHeader>
-          <MainNav>
-           <CountryRegions format={"links"} />
-          </MainNav>
+          <CountryRegions format={"links"} />
+
 
           <div className="Main--content">
             <Switch>
