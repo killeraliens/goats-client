@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 
 ReactDOM.render(
-<BrowserRouter>
-    <Route path="/" component={App}>
-      {/* <IndexRoute component={Landing} /> */}
-    </Route>
+<HashRouter>
   <App />
-</BrowserRouter>, document.getElementById('root'))
+</HashRouter>, document.getElementById('root'))
 
 
 
