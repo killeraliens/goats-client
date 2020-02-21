@@ -46,29 +46,26 @@ function Dashboard({ match }) {
 
 
   switch (true) {
-    case fetching:
-      return (
-        <div className="Dashboard">
-          <Spinner />
-        </div>
-      )
+    // case fetching:
+    //   return (
+    //     <div className="Dashboard">
+    //       <Spinner />
+    //     </div>
+    //   )
     case !!serverError && serverError.status === 401:
       //setError(serverError)
       return (
-        <div className="Dashboard">
           <NotFound
             message="Session expired"
             isFetching={fetching}
-            link={<Link to='/signin' />}
-          />
-        </div>
+            link={<Link to='/public/signin' >Sign In</Link>}/>
       )
 
     case !!serverError && serverError.status === 404:
       return (
-        <div className="Dashboard">
-          <NotFound message="User doesn't exist" isFetching={fetching} />
-        </div>
+        <NotFound
+          message="User doesn't exist"
+          isFetching={fetching} />
       )
 
     case foundUser && user && user.id === paramsId:

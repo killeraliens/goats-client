@@ -24,7 +24,7 @@ export default function Country({ countryName, regionName }) {
     const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
     const body = await response.json();
     if (!response.ok) {
-      setServerError(body.message)
+      setServerError(response)
       return {
         flyers: [],
         count: 0
@@ -55,7 +55,7 @@ export default function Country({ countryName, regionName }) {
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
     const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}&country=${countryName}&region=${regionName}`)
-    if (Boolean(serverError)) {
+    if (!!serverError) {
       setFetchingAdditional(false)
     } else {
       setTotal(parseInt(flyersData.total))
@@ -64,37 +64,52 @@ export default function Country({ countryName, regionName }) {
     }
   }
 
+  switch (true) {
 
-  if (!!serverError && serverError.status === 401) {
-    setError(`Unauthorized.`)
+    case !!serverError && serverError.status === 401:
+      //setError(serverError)
+      return (
+        <NotFound
+          message="Session expired"
+          isFetching={fetching}
+          link={<Link to='/public/signin' >Sign In</Link>}/>
+      )
+
+    case !!serverError && serverError.status === 404:
+      return (
+          <NotFound
+            message="Location doesn't exist"
+            isFetching={fetching} />
+      )
+
+    default:
+      return(
+        <div className="Country">
+          {
+            countryName && regionName
+            ? (
+                <h1 className="Main--header--title">
+                  {countryName}<br/>
+                  { regionName }
+                </h1>
+              )
+            : <h1 className="Main--header--title">{countryName}</h1>
+
+          }
+
+          <div className="Main--content">
+            <Feed
+              flyers={flyers}
+              fetching={fetching}
+              fetchingAdditional={fetchingAdditional}
+              total={total}
+              handleClickLoad={handleClickLoad}
+            />
+          </div>
+
+        </div>
+      )
   }
-
-  return(
-    <div className="Country">
-      {
-        countryName && regionName
-        ? (
-            <h1 className="Main--header--title">
-              {countryName}<br/>
-              { regionName }
-            </h1>
-          )
-        : <h1 className="Main--header--title">{countryName}</h1>
-
-      }
-
-      <div className="Main--content">
-        <Feed
-          flyers={flyers}
-          fetching={fetching}
-          fetchingAdditional={fetchingAdditional}
-          total={total}
-          handleClickLoad={handleClickLoad}
-        />
-      </div>
-
-    </div>
-  )
 }
 
 Country.defaultProps = {

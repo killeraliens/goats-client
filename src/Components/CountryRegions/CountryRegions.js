@@ -68,13 +68,10 @@ export default function CountryRegions({ format}) {
     case !!serverError && serverError.status === 401:
       //setError(serverError)
       return (
-        <div className="AuthedSplit">
           <NotFound
             message="Session expired"
             isFetching={fetching}
-            link={<Link to='/public/signin' />}
-          />
-        </div>
+            link={<Link to='/public/signin' >Sign In</Link>} />
       )
 
     case format === "links":

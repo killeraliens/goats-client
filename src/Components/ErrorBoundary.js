@@ -39,7 +39,7 @@ class ErrorBoundary extends Component {
       return (
         <div className='ErrorBoundary'>
           <NotFound
-            message={(/(authorized|Unauthorized)/.test(this.state.error)) ? 'Session Expired' : 'Something went wrong.'}
+            message={this.state.error.status === 401 ? 'Session Expired' : 'Something went wrong'}
             link={<Link to="/public/signin">Sign In</Link>}/>
         </div>
       )
