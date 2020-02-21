@@ -21,17 +21,17 @@ export default function CreateFlyer() {
 
   switch (true) {
 
-    // case !!serverError && serverError.status === 401:
-    // //setError(serverError)
-    // return (
-    //   <div className="CreateFlyer">
-    //     <NotFound
-    //       message="Session expired"
-    //       isFetching={fetching}
-    //       link={<Link to='/public/signin' />}
-    //     />
-    //   </div>
-    // )
+    case !!serverError && serverError.status === 401:
+
+    return (
+      <div className="CreateFlyer">
+        <NotFound
+          message="Session expired"
+          isFetching={fetching}
+          link={<Link to='/public/signin' >Sign In</Link>}
+        />
+      </div>
+    )
 
     default:
       return(

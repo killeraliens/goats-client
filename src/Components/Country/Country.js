@@ -12,7 +12,7 @@ export default function Country({ countryName, regionName }) {
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const { user, setError } = useContext(AppContext)
+  const { user } = useContext(AppContext)
 
   const fetchApiData = async (type) => {
     const options = {
@@ -67,7 +67,6 @@ export default function Country({ countryName, regionName }) {
   switch (true) {
 
     case !!serverError && serverError.status === 401:
-      //setError(serverError)
       return (
         <NotFound
           message="Session expired"

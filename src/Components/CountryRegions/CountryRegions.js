@@ -14,7 +14,7 @@ export default function CountryRegions({ format}) {
   const [data, setData] = useState([])
   const [fetching, setFetching] = useState(true)
   const [serverError, setServerError] = useState(null)
-  const { user, setError } = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const { total } = useContext(AuthedContext)
 
 
@@ -67,7 +67,6 @@ export default function CountryRegions({ format}) {
       return <Spinner />
 
     case !!serverError && serverError.status === 401:
-      //setError(serverError)
       return (
           <NotFound
             message="Session expired"

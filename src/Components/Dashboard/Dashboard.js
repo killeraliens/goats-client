@@ -13,11 +13,11 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user, setError } = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const [serverError, setServerError] = useState(null)
   const [foundUser, setFoundUser] = useState(null)
 
   useEffect(() => {
@@ -46,14 +46,15 @@ function Dashboard({ match }) {
 
 
   switch (true) {
+
     // case fetching:
     //   return (
     //     <div className="Dashboard">
     //       <Spinner />
     //     </div>
     //   )
+
     case !!serverError && serverError.status === 401:
-      //setError(serverError)
       return (
           <NotFound
             message="Session expired"
