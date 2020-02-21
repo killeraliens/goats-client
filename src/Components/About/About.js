@@ -1,5 +1,6 @@
 import React from 'react';
 import CentralContainer from '../CentralContainer/CentralContainer'
+import Mailto from 'react-protected-mailto'
 
 export default function About() {
   return (
@@ -16,6 +17,18 @@ export default function About() {
         </p>
         <p>
           This project is in testing and development mode. It needs people like you to sign up and post content.
+          Email
+          {' '}
+          <Mailto
+            email='goatsforum@gmail.com'
+            // headers={
+            //   { subject: 'General' },
+            //   { cc: 'friend@coston.cool' }
+            // }
+          />
+          {' '}
+          with errors, questions, or general improvements.
+          {/* If you come across any bugs, issues, or general improvements while using this site email goatsforum@gmail.com. */}
           {/* If you come across any bugs, issues, or general improvements while using this site email ali@goatsguide.com.
           If you are a developer and would like to contribute, email me. */}
         </p>
