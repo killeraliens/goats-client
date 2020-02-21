@@ -10,44 +10,49 @@ import CountryRegions from '../CountryRegions/CountryRegions'
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
 
-  // if (Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError))) {
-  //   return (
-  //     <NotFound
-  //     message={`Session expired.`}
-  //     link={<Link to='/public/signin'>Sign in</Link>}
-  //     />
-  //   )
-  // }
+  switch (true) {
+    case !!serverError && serverError.status === 401:
+    //setError(serverError)
+    return (
+      <NotFound
+        message="Session expired"
+        isFetching={fetching}
+        link={<Link to='/public/signin' >Sign In</Link>} />
+    )
 
-  return(
-    <div className="Forum" id="Forum">
-      <MainHeader >
-        Goat's Forum
-      </MainHeader>
-      <MainNav>
-       <CountryRegions format={"links"} />
-      </MainNav>
+    default:
+      return(
+        <div className="Forum" id="Forum">
+          <MainHeader >
+            Goat's Forum
+          </MainHeader>
+          <MainNav>
+           <CountryRegions format={"links"} />
+          </MainNav>
 
-      <div className="Main--content">
-        <Switch>
-          <Route exact path={`/forum`} render={() => {
-            return (
-              <Feed
-                flyers={flyers}
-                fetching={fetching}
-                fetchingAdditional={fetchingAdditional}
-                total={total}
-                handleClickLoad={handleClickLoad}
-                />
-            )
-          }} />
-          <CountryRegions format={"routes"}/>
-          < Route render={() => {
-            return <NotFound link={<Link to="/forum">Back to forum</Link>} />
-          }} />
-        </Switch>
-      </div>
-    </div>
-  )
+          <div className="Main--content">
+            <Switch>
+              <Route exact path={`/forum`} render={() => {
+                return (
+                  <Feed
+                    flyers={flyers}
+                    fetching={fetching}
+                    fetchingAdditional={fetchingAdditional}
+                    total={total}
+                    handleClickLoad={handleClickLoad}
+                    />
+                )
+              }} />
+              <CountryRegions format={"routes"}/>
+              < Route render={() => {
+                return <NotFound link={<Link to="/forum">Back to forum</Link>} />
+              }} />
+            </Switch>
+          </div>
+        </div>
+      )
+
+  }
+
 }
 

@@ -12,9 +12,9 @@ import Country from '../Country/Country';
 export default function CountryRegions({ format}) {
   const [data, setData] = useState([])
   const [fetching, setFetching] = useState(true)
-  const [serverError, setServerError] = useState(null)
+  //const [serverError, setServerError] = useState(null)
   const { user, setError } = useContext(AppContext)
-  const { total } = useContext(AuthedContext)
+  const { total, setServerError, serverError } = useContext(AuthedContext)
 
 
   useEffect(() => {
@@ -67,12 +67,13 @@ export default function CountryRegions({ format}) {
 
     case !!serverError && serverError.status === 401:
       //setError(serverError)
-      return (
-          <NotFound
-            message="Session expired"
-            isFetching={fetching}
-            link={<Link to='/public/signin' >Sign In</Link>} />
-      )
+      return null
+      // return (
+      //     <NotFound
+      //       message="Session expired"
+      //       isFetching={fetching}
+      //       link={<Link to='/public/signin' >Sign In</Link>} />
+      // )
 
     case format === "links":
         return (
