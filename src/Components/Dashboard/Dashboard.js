@@ -13,7 +13,7 @@ import Spinner from '../Spinner/Spinner';
 import config from '../../config'
 
 function Dashboard({ match }) {
-  const { user, setError, error } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
   const paramsId = match.params.user_id
   const [flyers, setFlyers] = useState([])
   const [fetching, setFetching] = useState(false)
@@ -25,7 +25,6 @@ function Dashboard({ match }) {
       console.log('fetching dashboard for user', user)
       setFetching(true)
       setServerError('')
-      // setError(null)
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -53,8 +52,14 @@ function Dashboard({ match }) {
           <Spinner />
         </div>
       )
-    case Boolean(serverError) && (/(authorized|Unauthorized)/.test(serverError)):
-      setError(`Unauthorized.`)
+    case !!serverError && serverError.status === 401:
+      setError(serverError)
+    case !!serverError && serverError.status === 404:
+      return (
+        <div className="Dashboard">
+          <NotFound message="User doesn't exist" isFetching={fetching} />
+        </div>
+      )
     case foundUser && user && user.id === paramsId:
       return (
         <div className="Dashboard">
@@ -78,13 +83,6 @@ function Dashboard({ match }) {
             <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
           </div>
         )
-    case !!serverError:
-      console.log('server rrr',serverError)
-      return (
-        <div className="Dashboard">
-          <NotFound message="User doesn't exist" isFetching={fetching} />
-        </div>
-      )
     default:
       return null
   }

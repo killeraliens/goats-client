@@ -70,7 +70,7 @@ export default function AuthedSplit({ mainComponent }) {
       setError(null)
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
-      if (Boolean(serverError)) {
+      if (!!serverError) {
         setFetching(false)
       } else {
         setTotal(parseInt(flyersData.total))

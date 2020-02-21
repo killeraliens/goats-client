@@ -62,8 +62,6 @@ export default function CountryRegions({ format}) {
     }
   }
 
-
-
   switch (true) {
     case fetching:
       return <Spinner />
