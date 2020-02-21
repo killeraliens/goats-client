@@ -22,9 +22,8 @@ function Dashboard({ match }) {
 
   useEffect(() => {
     const fetchApiData = async (type) => {
-      console.log('fetching dashboard for user', user)
       setFetching(true)
-      setServerError('')
+      setServerError(null)
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +33,7 @@ function Dashboard({ match }) {
       const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
       const body = await response.json();
       if (!response.ok) {
-        setServerError(body.message)
+        setServerError(body)
         setFetching(false)
       } else {
         setFoundUser(body.creator)
