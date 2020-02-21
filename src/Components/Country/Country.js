@@ -11,7 +11,7 @@ export default function Country({ countryName, regionName }) {
   const [limit] = useState(10)
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const [serverError, setServerError] = useState(null)
   const { user, setError } = useContext(AppContext)
 
   const fetchApiData = async (type) => {
@@ -35,13 +35,12 @@ export default function Country({ countryName, regionName }) {
 
   useEffect(() => {
     const getAll = async () => {
-      setServerError('')
+      setServerError(null)
       setFetching(true)
       const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}&country=${countryName}&region=${regionName}`)
-      if (Boolean(serverError)) {
+      if (!!serverError) {
         setFetching(false)
       } else {
-        console.log(flyersData)
         setTotal(parseInt(flyersData.total))
         setFlyers(flyersData.flyers)
         setFetching(false)
@@ -51,7 +50,7 @@ export default function Country({ countryName, regionName }) {
   }, [countryName, regionName])
 
   const handleClickLoad = async () => {
-    setServerError('')
+    setServerError(null)
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
@@ -66,7 +65,7 @@ export default function Country({ countryName, regionName }) {
   }
 
 
-  if (!!serverError && (/(authorized|Unauthorized)/.test(serverError))) {
+  if (!!serverError && serverError.status === 401) {
     setError(`Unauthorized.`)
   }
 
