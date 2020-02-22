@@ -23,8 +23,12 @@ export default function Comment({ userId, username, imageUrl, isCreator, comment
             </h3>
           </div>
           <span className="Comment--modified-at">
-          {isCreator ? <span className="Comment--isCreator">[creator] </span> : null}
-          mentioned:<br />{modifiedAt}
+          {/* {isCreator ? <span className="Comment--isCreator">[creator] </span> : null}
+          mentioned:<br />{modifiedAt} */}
+
+          {isCreator
+            ? <span>published <br />{modifiedAt}</span>
+            : <span>mentioned <br />{modifiedAt}}</span>}
 
           </span>
         </div>
