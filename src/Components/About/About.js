@@ -14,10 +14,12 @@ export default function About() {
         <p>
           Your personal account information will never be shared,
           but the things you post on here will be visible to other members.
+          For now, this site will somewhat moderated by me.
+          If you post non-relevant material I may clean it up without telling you.
         </p>
         <p>
-          This project is in testing and development mode. It needs people like you to sign up and post content.
-          Email
+          This project is in testing and development mode and it needs people like you to sign up and post content.
+          If you are interested becoming a moderator in the future, email me. Also please send any errors, questions, or general improvements to
           {' '}
           <Mailto
             email='goatsforum@gmail.com'
@@ -27,7 +29,8 @@ export default function About() {
             // }
           />
           {' '}
-          with errors, questions, or general improvements.
+          Cheers - Ali
+          {/* with errors, questions, or general improvements. */}
           {/* If you come across any bugs, issues, or general improvements while using this site email goatsforum@gmail.com. */}
           {/* If you come across any bugs, issues, or general improvements while using this site email ali@goatsguide.com.
           If you are a developer and would like to contribute, email me. */}
