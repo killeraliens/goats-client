@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "goats-forum-browser-router",
+  "name": "goats-forum-hash-router",
   "routes": [
     {
       "src": "^/static/(.*)",

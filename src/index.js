@@ -5,9 +5,9 @@ import App from './App';
 import { BrowserRouter, HashRouter } from 'react-router-dom';
 
 ReactDOM.render(
-<BrowserRouter>
+<HashRouter>
   <App />
-</BrowserRouter>, document.getElementById('root'))
+</HashRouter>, document.getElementById('root'))
 
 
 
