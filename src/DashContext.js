@@ -5,5 +5,4 @@ const DashContext = React.createContext({
   deleteFlyerDash: () => { }
 })
 
-
 export default DashContext

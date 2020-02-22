@@ -7,7 +7,7 @@ import DashContext from '../../DashContext'
 import MainNavLink from '../MainNavLink/MainNavLink'
 import MainNav from '../MainNav/MainNav'
 import { Link } from 'react-router-dom';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function FlyerCardMenu({ creatorId, flyerId }) {
@@ -49,9 +49,13 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
             <MainNavLink
               callback={handleDelete}
               activeColorClass={'red-white'}
-              to={window.location.pathname}
+              to="#"
             >
-              {fetching ? '...' : 'Delete' }
+              {fetching
+                ? '...'
+                : user.admin && creatorId != user.id
+              ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
+                : `Delete` }
             </MainNavLink>
           </MainNav>
           <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
