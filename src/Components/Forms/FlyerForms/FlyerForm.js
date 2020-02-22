@@ -194,7 +194,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
           for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
             let newEvent = {
-              id: uuid(),
               date: addDaysToDateReturnMMDDString(formBody.date.value, i),
               venueName: formBody.venueName.value,
               countryName: formBody.countryName.value,
