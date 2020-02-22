@@ -113,8 +113,8 @@ class SignUpForm extends Component {
         ? 'password required'
         : password.length < 5 || password.length > 12
           ? 'password must be between 5 and 12 characters long'
-          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
-            ? 'password must have at least one letter and one number'
+           : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
+            ? 'password must have at least one letter and one number, no special characters'
             : ''
     }
     return ''
