@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import AppContext from '../../AppContext';
+import DashContext from '../../DashContext'
 import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
@@ -10,7 +11,8 @@ import Profile from '../Profile/Profile';
 import './Dashboard.css'
 import NotFound from '../NotFound/NotFound';
 import Spinner from '../Spinner/Spinner';
-import config from '../../config'
+import config from '../../config';
+
 
 function Dashboard({ match }) {
   const { user, setError } = useContext(AppContext)
@@ -44,15 +46,23 @@ function Dashboard({ match }) {
     fetchApiData()
   }, [match.url, user])
 
+  const deleteFlyer = (flyerId) => {
+    setFlyers(prev => ([...prev.filter(flyer => flyer.id !== flyerId)]))
+  }
+
+  const contextValue = {
+    flyers: flyers,
+    deleteFlyerDash: deleteFlyer
+  }
 
   switch (true) {
 
-    // case fetching:
-    //   return (
-    //     <div className="Dashboard">
-    //       <Spinner />
-    //     </div>
-    //   )
+    case fetching:
+      return (
+        <div className="Dashboard">
+          <Spinner />
+        </div>
+      )
 
     case !!serverError && serverError.status === 401:
       setError(serverError)
@@ -73,24 +83,28 @@ function Dashboard({ match }) {
     case foundUser && user && user.id === paramsId:
       return (
         <div className="Dashboard">
-          <MainHeaderNav links={[
-            <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
-            <SignOutLink />
-          ]} />
-          <Switch>
-            <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
-              return <EditProfileForm history={history} />
-            }} />
-            <Route path={`/dashboard/${foundUser.id}`} render={() => {
-              return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
-            }} />
-          </Switch>
-        </div>
+          <DashContext.Provider value={contextValue}>
+            <MainHeaderNav links={[
+              <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
+              <SignOutLink />
+            ]} />
+            <Switch>
+              <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
+                return <EditProfileForm history={history} />
+              }} />
+              <Route path={`/dashboard/${foundUser.id}`} render={() => {
+                return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
+              }} />
+            </Switch>
+          </DashContext.Provider>
+          </div>
       )
     case !!foundUser:
         return (
           <div className="Dashboard">
-            <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
+            <DashContext.Provider value={contextValue}>
+              <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
+            </DashContext.Provider>
           </div>
         )
     default:

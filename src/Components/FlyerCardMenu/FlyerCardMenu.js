@@ -3,6 +3,7 @@ import config from '../../config'
 import './FlyerCardMenu.css'
 import AppContext from '../../AppContext';
 import AuthedContext from '../../AuthedContext';
+import DashContext from '../../DashContext'
 import MainNavLink from '../MainNavLink/MainNavLink'
 import MainNav from '../MainNav/MainNav'
 import { Link } from 'react-router-dom';
@@ -15,6 +16,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
   const [serverError, setServerError] = useState('')
   const { user } = useContext(AppContext)
   const { deleteFlyer } = useContext(AuthedContext)
+  const { deleteFlyerDash } = useContext(DashContext)
 
   const handleDelete = async () => {
     setFetching(true)
@@ -34,6 +36,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
       setServerError(null)
       setFetching(false)
       deleteFlyer(flyerId)
+      deleteFlyerDash(flyerId)
     }
   }
 
