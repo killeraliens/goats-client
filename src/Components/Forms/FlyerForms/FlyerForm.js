@@ -438,7 +438,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
-        <input type="reset" onClick={resetForm} value="Cancel" />
+        <input type="reset" onClick={() => { history.push('/create-flyer')}} value="Cancel" />
       </div>
     </form>
   )
