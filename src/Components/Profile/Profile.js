@@ -28,7 +28,7 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
               imageUrl={user.image_url}
               username={user.username}
             />
-            <div>
+            <div >
               <h1 className="Main--header--title username">{user.username}</h1>
               <Location eventLocation={{
                 city_name: user.city_name,
