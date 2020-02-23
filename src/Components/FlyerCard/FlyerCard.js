@@ -9,8 +9,7 @@ import Location from './Location';
 import Comments from '../Comments/Comments';
 import FlyerCardMenu from '../FlyerCardMenu/FlyerCardMenu'
 import './FlyerCard.css';
-
-
+import { createMarkup } from '../../helpers/textHelpers'
 
 export default function FlyerCard({ flyer }) {
   const flyerEvents = flyer.events || []
@@ -42,8 +41,10 @@ export default function FlyerCard({ flyer }) {
          Boolean(flyer.bands) || Boolean(flyer.details)
            ? (
               <Accordian triggerNode={<p>...Details</p>}>
-                <p>{flyer.bands}</p>
-                <p>{flyer.details}</p>
+                <div dangerouslySetInnerHTML={createMarkup(flyer.bands)} />
+                <div dangerouslySetInnerHTML={createMarkup(flyer.details)} />
+                {/* <p>{flyer.bands}</p> */}
+                {/* <p>{flyer.details}</p> */}
               </Accordian>
            )
            : null
