@@ -41,8 +41,8 @@ export default function FlyerCard({ flyer }) {
          Boolean(flyer.bands) || Boolean(flyer.details)
            ? (
               <Accordian triggerNode={<p>...Details</p>}>
-                <div dangerouslySetInnerHTML={createMarkup(flyer.bands)} />
-                <div dangerouslySetInnerHTML={createMarkup(flyer.details)} />
+                <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`<p>${flyer.bands}<p/>`)}/>
+                <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`${flyer.details}`)}/>
                 {/* <p>{flyer.bands}</p> */}
                 {/* <p>{flyer.details}</p> */}
               </Accordian>

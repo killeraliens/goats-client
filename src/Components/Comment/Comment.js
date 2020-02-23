@@ -34,7 +34,7 @@ export default function Comment({ userId, username, imageUrl, isCreator, comment
           </span>
         </div>
       {comment
-        ? <p className="Comment--comment" dangerouslySetInnerHTML={createMarkup(comment)}></p>
+        ? <div className="Comment--comment" dangerouslySetInnerHTML={createMarkup(`<p>${comment}</p>`)} />
         : null}
     </div>
 

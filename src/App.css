@@ -72,3 +72,8 @@ ul li {
 .username::before {
   content: '@';
 }
+
+.html-display-p p {
+  margin: 0;
+  padding: 0;
+}
