@@ -24,7 +24,7 @@ export default function Country({ countryName, regionName }) {
     const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
     const body = await response.json();
     if (!response.ok) {
-      setServerError(response)
+      setServerError({ status: response.status, message: body.message })
       return {
         flyers: [],
         count: 0

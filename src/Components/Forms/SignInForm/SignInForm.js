@@ -77,7 +77,7 @@ function SignInForm(props) {
     const body = await response.json();
 
     if (!response.ok) {
-      setServerError(body)
+      setServerError({ status: response.status, message: body.message })
       setFetching(false)
     } else {
       setFetching(false)

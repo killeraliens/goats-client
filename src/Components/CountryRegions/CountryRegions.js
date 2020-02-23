@@ -31,7 +31,7 @@ export default function CountryRegions({ format}) {
       const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
       const body = await response.json()
       if( !response.ok ) {
-        setServerError(response)
+        setServerError({ status: response.status, message: body.message })
         setFetching(false)
       } else {
         setData(body)

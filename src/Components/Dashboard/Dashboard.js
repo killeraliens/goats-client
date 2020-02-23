@@ -35,7 +35,7 @@ function Dashboard({ match }) {
       const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
       const body = await response.json();
       if (!response.ok) {
-        setServerError(response)
+        setServerError({ status: response.status, message: body.message })
         setFetching(false)
       } else {
         setFoundUser(body.creator)

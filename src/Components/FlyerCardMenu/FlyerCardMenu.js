@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function FlyerCardMenu({ creatorId, flyerId }) {
   const [visible, setVisible] = useState(false)
   const [fetching, setFetching] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const [serverError, setServerError] = useState(null)
   const { user } = useContext(AppContext)
   const { deleteFlyer } = useContext(AuthedContext)
   const { deleteFlyerDash } = useContext(DashContext)
@@ -30,7 +30,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
     const response = await fetch(`${config.API_ENDPOINT}/flyer/${flyerId}`, options);
     if (!response.ok) {
       const body = await response.json();
-      setServerError(body.message)
+      setServerError({ status: response.status, message: body.message })
       setFetching(false)
     } else {
       setServerError(null)

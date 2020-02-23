@@ -20,7 +20,7 @@ export default function EditProfileForm({ history }) {
     regionName: { array: [], value: user.region_name || "" }
   })
   const [fetching, setFetching] = useState(false)
-  const [serverError, setServerError] = useState("")
+  const [serverError, setServerError] = useState(null)
 
   const resetForm = () => {
     setFormBody({
@@ -61,7 +61,7 @@ export default function EditProfileForm({ history }) {
 
     if (!response.ok) {
       const body = await response.json();
-      setServerError(body.message)
+      setServerError({ status: response.status, message: body.message })
       setFetching(false)
     } else {
       setServerError('')
@@ -91,7 +91,7 @@ export default function EditProfileForm({ history }) {
           <button type="submit" disabled={formBody.cityName.error}>Submit</button>
           <Link to={`/dashboard/${user.id}`}>Cancel</Link>
         </div>
-        { Boolean(serverError) ? <p>{serverError}</p> : null }
+        { serverError ? <p>{serverError.message}</p> : null }
       </form>
     </div>
   )
