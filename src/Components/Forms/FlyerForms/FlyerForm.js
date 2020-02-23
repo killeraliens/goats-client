@@ -12,11 +12,13 @@ import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
 import { dateWithYear, dateToMMDDString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
+//import NotFound from '../../NotFound/NotFound';
+//import { Link } from 'react-router-dom';
 const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
   const { addFlyer } = useContext(AuthedContext)
-  const { user } = useContext(AppContext)
+  const { user, setError } = useContext(AppContext)
   const flyerEvents = events.filter(event => event.flyer_id === flyer.id)
   const [formBody, setFormBody] = useState({
     id: flyer.id || '',
@@ -41,7 +43,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   })
   const [disabled, setDisabled] = useState(true)
   const [touched, setTouched] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const [serverError, setServerError] = useState(null)
   const [fetching, setFetching] = useState(false)
 
   useEffect(() => {
@@ -235,10 +237,10 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     const body = await response.json();
 
     if (!response.ok) {
-      setServerError(body.message)
+      setServerError({status: response.status, message: body.message })
       setFetching(false)
     } else {
-      setServerError('')
+      setServerError(null)
       resetForm()
       setFetching(false)
       //const { events, ...newFlyer } = body;
@@ -273,9 +275,10 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   // bands, details, publish with comment fieldsets validation (updates on change)
   const validateContentEditableLength = (fieldStr, maxLength) => {
     let stringNoHtml = formBody[fieldStr].value ? formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "") : ""
-    let stringNoSpace = stringNoHtml.replace(/\s/g, "")
-    if (stringNoSpace.length >= maxLength) {
-      return `Keep it under ${maxLength} characters`
+    //let stringNoSpace = stringNoHtml.replace(/\s/g, "")
+    // if (stringNoSpace.length >= maxLength) {
+    if (stringNoHtml.length > maxLength) {
+      return `Keep it under ${maxLength} characters. Current total ${stringNoHtml.length}.`
     }
     return ""
   }
@@ -327,11 +330,19 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
 
   if (fetching) {
     return <Spinner />
-  } else if (serverError) {
-    return <p>{serverError}</p>
+  }
+  else if (serverError && serverError.status === 404) {
+    setError(serverError)
+    // return (
+    //     <NotFound
+    //       message="Session expired"
+    //       isFetching={fetching}
+    //       link={<Link to='/public/signin' >Sign In</Link>}
+    //     />
+    // )
   }
   return(
-    <form className="FlyerForm" onSubmit={handleSubmit}>
+    <form className="FlyerForm" onSubmit={handleSubmit} aria-describedby="serverResponseError">
       <FlyerUpload formImgUrl={formBody.imgUrl} updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
       <fieldset>
         <label htmlFor="headline">Headline*</label>
@@ -383,7 +394,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
           ariaDescribedBy="bandsError"
           ariaInvalid={!!formBody.bands.error}
           onChange={e => {
-            return setFormBody(prev => ({ ...prev, bands: { value: e.target.value, touched: true, error: validateContentEditableLength("bands", 280) } }))
+            return setFormBody(prev => ({ ...prev, bands: { value: e.target.value, touched: true, error: validateContentEditableLength("bands", 1200) } }))
           }}
         />
         <ValidationError id="bandsError" message={formBody.bands.error} />
@@ -400,7 +411,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
           ariaDescribedBy="detailsError"
           ariaInvalid={!!formBody.details.error}
           onChange={e => {
-            return setFormBody(prev => ({ ...prev, details: { value: e.target.value, touched: true, error: validateContentEditableLength("details", 280) } }))
+            return setFormBody(prev => ({ ...prev, details: { value: e.target.value, touched: true, error: validateContentEditableLength("details", 600) } }))
           }}
         />
         <ValidationError id="detailsError" message={formBody.details.error} />
@@ -423,6 +434,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         <ValidationError id="publishCommentError" message={formBody.publishComment.error} />
 
       </fieldset>
+      {serverError && serverError.status === 400 ? <p><ValidationError id="serverResponseError" message={serverError.message} /></p> : null }
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
