@@ -331,7 +331,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   if (fetching) {
     return <Spinner />
   }
-  else if (serverError && serverError.status === 404) {
+  else if (serverError && serverError.status === 401) {
     setError(serverError)
     // return (
     //     <NotFound
