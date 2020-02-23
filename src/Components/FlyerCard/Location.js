@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DateOf from './DateOf';
 import { capitalize } from '../../helpers/textHelpers'
 
-export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate }) {
+export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate, allCountryFields }) {
 
   let cityName = eventLocation.city_name
     ? capitalize(eventLocation.city_name)
@@ -74,6 +74,18 @@ export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate
       </p>
     )
   }
+  if (allCountryFields) {
+    if( !!cityName || !!countryName || !!regionName) {
+      return (
+        <p className="Profile--location">
+          <FontAwesomeIcon icon={faMapMarker} />
+          {' '}{cityName}{cityComma()}{regionName}{' '}{countryName}
+        </p>
+      )
+    } else {
+      return null
+    }
+  }
   return (
     <p className="Flyer--location">
       <FontAwesomeIcon icon={faMapMarker} />
@@ -85,7 +97,8 @@ export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate
 Location.defaultProps = {
   eventLocation: {},
   isTourAbbrev: false,
-  tourEventDate: false
+  tourEventDate: false,
+  allCountryFields: false
 }
 
 Location.propTypes = {
@@ -103,5 +116,6 @@ Location.propTypes = {
     city_id: PropTypes.number
   }),
   isTourAbbrev: PropTypes.bool,
-  hasTourEventDate: PropTypes.bool
+  hasTourEventDate: PropTypes.bool,
+  allCountryFields: PropTypes.bool
 }

@@ -38,7 +38,9 @@ export default function CreateFlyer() {
       return(
         <div className="CreateFlyer">
           <MainHeader >
-            Create Flyer
+            <Link to='/create-flyer/show' className='header-link'>
+              Create Flyer
+            </Link>
           </MainHeader>
           <MainNav
             links={formLinks}

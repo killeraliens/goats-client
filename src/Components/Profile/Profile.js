@@ -7,6 +7,7 @@ import Feed from '../Feed/Feed';
 import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import NotFound from '../NotFound/NotFound'
+import Location from '../FlyerCard/Location'
 import './Profile.css';
 
 export default function Profile({ user, isCurrent, userFlyers, fetching }) {
@@ -27,7 +28,15 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
               imageUrl={user.image_url}
               username={user.username}
             />
-            <h1 className="Main--header--title username">{user.username}</h1>
+            <div>
+              <h1 className="Main--header--title username">{user.username}</h1>
+              <Location eventLocation={{
+                city_name: user.city_name,
+                region_name: user.region_name,
+                country_name: user.country_name
+              }}
+                allCountryFields={true} />
+            </div>
           </div>
         </div>
       </MainHeader>
