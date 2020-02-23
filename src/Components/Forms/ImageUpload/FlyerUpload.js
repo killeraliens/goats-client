@@ -6,7 +6,7 @@ import Spinner from '../../Spinner/Spinner'
 import defaultFlyer from '../../../assets/blood-texture.jpg'
 import ValidationError from '../ValidationError/ValidationError'
 import '../Forms.css'
-import { fetchWithTimeout } from '../../../fetchHelpers'
+import { fetchWithTimeout } from '../../../helpers/fetchHelpers'
 
 
 export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }) {

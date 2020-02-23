@@ -10,6 +10,8 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
+import { dateWithYear, dateToMMDDString } from '../../../helpers/dateHelpers'
+import { capitalize } from '../../../helpers/textHelpers'
 const uuid = require('uuid/v1');
 
 export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
@@ -132,26 +134,12 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: error } }))
   }
 
-  // handleSubmit, addShowOrFestStop (postBody) Helpers
-  String.prototype.capitalize = function () {
-    return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
-  };
-
-  const dateWithYear = (mmddFormat) => {
-    let currYear = new Date().getFullYear()
-    let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
-    let currDate = new Date()
-    let testIfNeg = testDateCurrYear - currDate
-    let year = testIfNeg > 0 ? currYear : currYear + 1
-    return new Date(mmddFormat + '/' + year)
-  }
   const returnCleanContentEditable = (fieldStr) => {
     return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
-  }
-  const dateToMMDDString = (date) => {
-    return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate()))
+    // return formBody[fieldStr].value
   }
 
+  // handleSubmit, addShowOrFestStop (postBody) Helpers
   const returnShowFestEventsArr = () => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
 
@@ -216,8 +204,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     const eventPostBodies = formBody.events.map(event => {
       return {
         event_date: dateWithYear(event.date),
-        venue_name: event.venueName.capitalize(),
-        city_name: event.cityName.capitalize(),
+        venue_name: capitalize(event.venueName),
+        city_name: capitalize(event.cityName),
         region_name: event.regionName,
         country_name: event.countryName
       }
@@ -227,7 +215,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       creator_id: formBody.creatorId,
       flyer_type: formBody.type,
       image_url: formBody.imgUrl.value,
-      headline: formBody.headline.value.capitalize(),
+      headline: capitalize(formBody.headline.value),
       bands: returnCleanContentEditable("bands"),
       details: returnCleanContentEditable("details"),
       publish_comment: returnCleanContentEditable("publishComment"),

@@ -3,38 +3,37 @@ import PropTypes from 'prop-types';
 import Location from '../../FlyerCard/Location';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { capitalize } from '../../../helpers/textHelpers'
 
 export default function EventsPreview({ formEvents, deleteFormEvent }) {
-
-  String.prototype.capitalize = function () {
-    return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
-  };
 
   return(
     <ul className="EventInput--preview">
       {formEvents.map((event, i) => {
         let cityName = event.cityName
-          ? event.cityName.capitalize()
+          ? capitalize(event.cityName)
           : null
 
         let regionName = event.regionName
-          ? event.regionName.capitalize()
+          ? capitalize(event.regionName)
           : null
 
         let countryName = event.countryName
-          ? event.countryName.capitalize()
+          ? capitalize(event.countryName)
           : null
 
         let venueName = event.venueName
-          ? event.venueName.capitalize()
+          ? capitalize(event.venueName)
           : null
 
         function isAllCaps(str) {
           return str === str.toUpperCase();
         }
+
         const regionOrCountry = () => {
           switch (true) {
-            case (regionName && countryName) && isAllCaps(regionName) === true:
+            // case (regionName && countryName) && isAllCaps(regionName) === true:
+            case (regionName && countryName) && ['United States'].includes(countryName):
               return regionName;
             case (regionName && countryName) && isAllCaps(regionName) === false:
               return countryName;

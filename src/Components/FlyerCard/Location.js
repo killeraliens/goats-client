@@ -3,26 +3,24 @@ import PropTypes from 'prop-types';
 import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DateOf from './DateOf';
+import { capitalize } from '../../helpers/textHelpers'
 
 export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate }) {
-  String.prototype.capitalize = function () {
-    return this.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
-  };
 
   let cityName = eventLocation.city_name
-    ? eventLocation.city_name.capitalize()
+    ? capitalize(eventLocation.city_name)
     : null
 
   let regionName = eventLocation.region_name
-    ? eventLocation.region_name.capitalize()
+    ? capitalize(eventLocation.region_name)
     : null
 
   let countryName = eventLocation.country_name
-    ? eventLocation.country_name.capitalize()
+    ? capitalize(eventLocation.country_name)
     : null
 
   let venueName = eventLocation.venue_name
-    ? eventLocation.venue_name.capitalize()
+    ? capitalize(eventLocation.venue_name)
     : null
 
   function isUpperCase(str) {
