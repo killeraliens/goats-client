@@ -135,8 +135,8 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   }
 
   const returnCleanContentEditable = (fieldStr) => {
-    return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
-    // return formBody[fieldStr].value
+    // return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
+    return formBody[fieldStr].value
   }
 
   // handleSubmit, addShowOrFestStop (postBody) Helpers

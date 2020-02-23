@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import './Comment.css';
 import { dateToMMDDTimeString } from '../../helpers/dateHelpers'
+import { createMarkup } from '../../helpers/textHelpers'
 
 export default function Comment({ userId, username, imageUrl, isCreator, comment, modified }) {
 
@@ -32,7 +33,7 @@ export default function Comment({ userId, username, imageUrl, isCreator, comment
 
           </span>
         </div>
-        {comment ? <p className="Comment--comment">{comment}</p> : null}
+      {comment ? <p className="Comment--comment" dangerouslySetInnerHTML={createMarkup(comment)}></p> : null}
     </div>
 
   )
