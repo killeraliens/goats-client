@@ -80,6 +80,7 @@ Profile.defaultProps = {
     city_name: '',
     city_id: null
   },
+  isCurrent: false,
   fetching: false
 }
 
@@ -143,6 +144,8 @@ Profile.propTypes = {
       PropTypes.instanceOf(Date)
     ]).isRequired
   }),
+
+  isCurrent: PropTypes.bool,
 
   fetching: PropTypes.bool
 }
