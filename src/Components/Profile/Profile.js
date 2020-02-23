@@ -14,7 +14,7 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
   const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
   const draftsLink = isCurrent
-    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts</MainNavLink>
+    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts{' '}{draftFlyers.length}</MainNavLink>
     : null;
 
 
@@ -50,7 +50,7 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
             return false
           }}
         >
-          Contributions
+          Contributions{' '}{publicFlyers.length}
         </MainNavLink>,
         draftsLink
       ]} />
