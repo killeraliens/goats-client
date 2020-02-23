@@ -26,7 +26,7 @@ export default function Feed({ flyers, fetching, fetchingAdditional, total, hand
       <div>
         {fetchingAdditional
           ? <Spinner />
-            : flyers.length === 0
+            : flyers.length === 0 && total === 0
             ? null
           : flyers.length < total
             ? <Link to={`#`} onClick={handleClickLoad}>More....</Link>
