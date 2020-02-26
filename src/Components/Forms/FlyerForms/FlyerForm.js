@@ -287,7 +287,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
           ? event.event_date
           : null
       console.log('date format in submit', formattedDate)
-      //console.log('typeof in submit', typeof event.event_date)
+
       return {
         event_date: formattedDate,
         venue_name: capitalize(event.venue_name),
@@ -404,6 +404,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   return(
     <form className="FlyerForm" onSubmit={handleSubmit} aria-describedby="serverResponseError">
       <FlyerUpload formImgUrl={formBody.imgUrl} updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
+      <div className="Flyer--icon-type Tag">{formBody.type}</div>
       <fieldset>
         <label htmlFor="headline">Headline*</label>
         <input

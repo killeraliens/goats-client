@@ -104,6 +104,9 @@ select {
   width: 100%;
 } */
 
+fieldset.image-upload-fieldset * {
+  margin-bottom: 0;
+}
 
 fieldset.grow {
   flex-grow: 1;

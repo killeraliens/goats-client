@@ -95,7 +95,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
   }
 
   return (
-    <fieldset>
+    <fieldset className="image-upload-fieldset FlyerUpload">
       <label htmlFor="imgUrl">
         {labelContent()}
       </label>

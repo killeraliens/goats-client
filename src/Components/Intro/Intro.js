@@ -49,7 +49,7 @@ export default function Intro() {
         <div>
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
           <h3>
-            Manage your public flyers (just delete for now) from dashboard or forum.
+            Manage any flyers you've posted from your dashboard or public forum.
           </h3>
         </div>
       {/* </section> */}
