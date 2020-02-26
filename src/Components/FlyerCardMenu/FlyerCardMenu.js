@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import config from '../../config'
 import './FlyerCardMenu.css'
 import AppContext from '../../AppContext';
@@ -6,7 +7,6 @@ import AuthedContext from '../../AuthedContext';
 import DashContext from '../../DashContext'
 import MainNavLink from '../MainNavLink/MainNavLink'
 import MainNav from '../MainNav/MainNav'
-import { Link } from 'react-router-dom';
 import { faEllipsisH, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -15,8 +15,8 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const { user } = useContext(AppContext)
-  const { deleteFlyer } = useContext(AuthedContext)
-  const { deleteFlyerDash } = useContext(DashContext)
+  const { deleteFlyer, updateFlyer } = useContext(AuthedContext)
+  const { deleteFlyerDash, updateFlyerDash } = useContext(DashContext)
 
   const handleDelete = async () => {
     setFetching(true)
@@ -40,6 +40,29 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
     }
   }
 
+  const handleEdit = async () => {
+
+    // setFetching(true)
+    // const options = {
+    //   method: 'PATCH',
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${user.token}`
+    //   },
+    // }
+    // const response = await fetch(`${config.API_ENDPOINT}/flyer/${flyerId}`, options);
+    // if (!response.ok) {
+    //   const body = await response.json()
+    //   setServerError({ status: response.status, message: body.message })
+    //   setFetching(false)
+    // } else {
+    //   setServerError(null)
+    //   setFetching(false)
+      // updateFlyer(flyerId)
+      // updateFlyerDash(flyerId)
+    // }
+  }
+
 
   if (visible) {
     if (((user && user.id) && (user.id === creatorId)) || (user && user.admin)) {
@@ -52,10 +75,21 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
               to="#"
             >
               {fetching
-                ? '...'
+                ? '  ...  '
                 : user.admin && creatorId != user.id
               ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
                 : `Delete` }
+            </MainNavLink>
+            <MainNavLink
+              //callback={handleEdit}
+              activeColorClass={'red-white'}
+              to={`/flyer/${flyerId}/edit`}
+            >
+              {fetching
+                ? '  ...  '
+                : user.admin && creatorId != user.id
+                ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Edit</span>
+                : `Edit`}
             </MainNavLink>
           </MainNav>
           <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>

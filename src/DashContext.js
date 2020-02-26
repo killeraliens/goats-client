@@ -2,7 +2,8 @@ import React from 'react'
 
 const DashContext = React.createContext({
   flyers: [],
-  deleteFlyerDash: () => { }
+  deleteFlyerDash: () => {},
+  updateFlyerDash: () => {}
 })
 
 export default DashContext

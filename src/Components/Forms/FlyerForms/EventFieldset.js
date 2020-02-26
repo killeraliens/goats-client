@@ -128,7 +128,9 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
             type="text"
             placeholder="mm/dd"
             value={formDate.value || ''}
-            onChange={e => { updateEventFields({ date: { value: e.target.value, touched: true } }) }}
+            onChange={e => {
+              updateEventFields({ date: { value: e.target.value, touched: true } })
+             }}
             aria-label="date"
             aria-required="false"
             aria-describedby="dateError"

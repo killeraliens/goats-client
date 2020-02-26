@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { withRouter } from 'react-router-dom'
 import config from '../../../config';
 import PropTypes from 'prop-types';
 import '../Forms.css';
@@ -10,21 +11,40 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { dateWithYear, dateToMMDDString } from '../../../helpers/dateHelpers'
+import { dateWithYear, dateToMMDDString, returnFirstDate } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 //import NotFound from '../../NotFound/NotFound';
 //import { Link } from 'react-router-dom';
 const uuid = require('uuid/v1');
+const MemoizedComponent = React.memo(EventsPreview,
+  (prevProps, nextProps) => {
+    if (prevProps !== nextProps) {
+      return false;
+    }
+    /*
+      When using this function you always need to return
+      a Boolean. For now we'll say the props are NOT equal
+      which means the component should rerender.
+    */
+    return true;
+  }
+)
 
-export default function FlyerForm({ history, newType, flyer, events, creatorId }) {
+
+
+function FlyerForm({ history, newType, flyer, creatorId }) {
   const { addFlyer } = useContext(AuthedContext)
   const { user, setError } = useContext(AppContext)
-  const flyerEvents = events.filter(event => event.flyer_id === flyer.id)
+
+    const firstDateVal = flyer && flyer.events && flyer.events.length > 0
+    ? dateToMMDDString(new Date(returnFirstDate(flyer.events.map(event => event.event_date))))
+    : ''
+
   const [formBody, setFormBody] = useState({
-    id: flyer.id || '',
+    //id: flyer.id || '',
     imgUrl: { value: flyer.image_url || '' , error: ''},
     headline: { value: flyer.headline || '', touched: false, error: '' },
-    events: flyerEvents || [],
+    events: flyer.events || [],
     //
     date: { value: '', touched: false, error: ''},
     endDate: { value: '', touched: false, error: '' },
@@ -46,30 +66,12 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   const [serverError, setServerError] = useState(null)
   const [fetching, setFetching] = useState(false)
 
-  useEffect(() => {
-    if (formBody.type === "Show" || formBody.type === "Fest") {
-      let showFestEventsArr = returnShowFestEventsArr()
-      function setNewEvents() {
-        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
-      }
-      return setNewEvents()
-    }
-  }, [
-    formBody.date.value,
-    formBody.endDate.value,
-    formBody.venueName.value,
-    formBody.countryName.value,
-    formBody.regionName.value,
-    formBody.cityName.value
-  ])
-
-
   const resetForm = () => {
     setFormBody({
       id: flyer.id || '',
       imgUrl: { value: flyer.image_url || '', error: '' },
       headline: { value: flyer.headline || '', touched: false, error: '' },
-      events: flyerEvents || [],
+      events: flyer.events || [],
       date: { value: '', touched: false, error: '' },
       endDate: { value: '', touched: false, error: '' },
       venueName: { value: '', touched: false, error: '' },
@@ -80,7 +82,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       details: { value: flyer.details || '', touched: false, error: '' },
       publishComment: { value: flyer.publish_comment || '', touched: false, error: '' },
       creatorId: flyer.creator_id || creatorId,
-      type: flyer.type || newType,
+      type: flyer.flyer_type || newType,
       listingState: flyer.listing_state || "Public",
     })
   }
@@ -98,10 +100,36 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
   }
 
   useEffect(() => {
+    if (formBody.type === "Show" || formBody.type === "Fest" ) {
+      let showFestEventsArr = returnShowFestEventsArr()
+      function setNewEvents() {
+        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
+      }
+      return setNewEvents()
+    }
+  }, [
+    formBody.date.value,
+    formBody.endDate.value,
+    formBody.venueName.value,
+    formBody.countryName.value,
+    formBody.regionName.value,
+    formBody.cityName.value,
+  ])
+
+  useEffect(() => {
+    if (flyer && flyer.events && flyer.events.length > 0) {
+      let showFestEventsArr = flyer.events
+      function setNewEvents() {
+        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
+      }
+      return setNewEvents()
+    }
+  }, [flyer.events])
+
+  useEffect(() => {
     setFormBody(prev => ({ ...prev, type: newType }))
     resetForm()
   }, [newType])
-
 
   useEffect(() => {
     const setDisabledIfErrors = () => {
@@ -141,10 +169,9 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return formBody[fieldStr].value
   }
 
-  // handleSubmit, addShowOrFestStop (postBody) Helpers
+  // formBody.events array for "Show" or "Fest" (hidden EventsPreview, unless edit)
   const returnShowFestEventsArr = () => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
-
       let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
       let invalidValues = eventFields.filter(field => {
         if (Boolean(formBody[field].error)) {
@@ -173,22 +200,22 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
           for (let i = 0; i < 1; i++) {
             let newEvent = {
-              date: addDaysToDateReturnMMDDString(formBody.date.value, i),
-              venueName: formBody.venueName.value,
-              countryName: formBody.countryName.value,
-              regionName: formBody.regionName.value,
-              cityName: formBody.cityName.value
+              event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              venue_name: formBody.venueName.value,
+              country_name: formBody.countryName.value,
+              region_name: formBody.regionName.value,
+              city_name: formBody.cityName.value
             }
             eventsArr.push(newEvent)
           }
         } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
           for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
             let newEvent = {
-              date: addDaysToDateReturnMMDDString(formBody.date.value, i),
-              venueName: formBody.venueName.value,
-              countryName: formBody.countryName.value,
-              regionName: formBody.regionName.value,
-              cityName: formBody.cityName.value
+              event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              venue_name: formBody.venueName.value,
+              country_name: formBody.countryName.value,
+              region_name: formBody.regionName.value,
+              city_name: formBody.cityName.value
             }
             eventsArr.push(newEvent)
           }
@@ -200,16 +227,61 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return []
  }
 
+  // formBody.events array for "Tour" (gens temp id for EventsPreview)
+  const addTourStop = (e) => {
+    e.preventDefault()
+
+    let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
+    let invalidValues = eventFields.filter(field => {
+      if (Boolean(formBody[field].error)) {
+        return formBody[field].value
+      }
+    })
+    let validValues = eventFields.filter(field => {
+      if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
+        return formBody[field].value
+      }
+    })
+    if (invalidValues.length === 0 && validValues.length > 0) {
+      let generatedEventId = uuid()
+      setFormBody(prev => ({
+        ...prev,
+        events: [
+          ...prev.events,
+          {
+            id: generatedEventId,
+            event_date: formBody.date.value,
+            venue_name: formBody.venueName.value,
+            country_name: formBody.countryName.value,
+            region_name: formBody.regionName.value,
+            city_name: formBody.cityName.value
+          }
+        ]
+      }))
+      resetEventFields()
+    }
+  }
+
+  //EventPreview props
+  const deleteFormEvent = (id) => {
+    let filteredEvents = formBody.events.filter(event => event.id !== id)
+    setFormBody(prev => ({
+      ...prev,
+      events: filteredEvents
+    }))
+  }
+
+
   const handleSubmit = async(e) => {
     e.preventDefault()
 
     const eventPostBodies = formBody.events.map(event => {
       return {
-        event_date: dateWithYear(event.date),
-        venue_name: capitalize(event.venueName),
-        city_name: capitalize(event.cityName),
-        region_name: event.regionName,
-        country_name: event.countryName
+        event_date: dateWithYear(event.event_date),
+        venue_name: capitalize(event.venue_name),
+        city_name: capitalize(event.city_name),
+        region_name: event.region_name,
+        country_name: event.country_name
       }
     })
 
@@ -283,49 +355,6 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
     return ""
   }
 
-  //EventFieldset props
-  const addTourStop = (e) => {
-    e.preventDefault()
-
-    let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
-    let invalidValues = eventFields.filter(field => {
-      if (Boolean(formBody[field].error)) {
-        return formBody[field].value
-      }
-    })
-    let validValues = eventFields.filter(field => {
-      if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
-        return formBody[field].value
-      }
-    })
-    if(invalidValues.length === 0 && validValues.length > 0) {
-      let generatedEventId = uuid()
-      setFormBody(prev => ({
-        ...prev,
-        events: [
-          ...prev.events,
-          {
-            id: generatedEventId,
-            date: formBody.date.value,
-            venueName: formBody.venueName.value,
-            countryName: formBody.countryName.value,
-            regionName: formBody.regionName.value,
-            cityName: formBody.cityName.value
-          }
-        ]
-      }))
-      resetEventFields()
-    }
-  }
-
-  //EventPreview props
-  const deleteFormEvent = (id) => {
-    let filteredEvents = formBody.events.filter(event => event.id !== id)
-    setFormBody(prev => ({
-      ...prev,
-      events: filteredEvents
-    }))
-  }
 
 
   if (fetching) {
@@ -364,7 +393,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
         />
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
-      { formBody.type === "Tour"
+      { formBody.type === "Tour" || flyer && flyer.events && flyer.events.length > 0
         ? (
           <EventsPreview
             formEvents={formBody.events}
@@ -438,7 +467,7 @@ export default function FlyerForm({ history, newType, flyer, events, creatorId }
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
-        <input type="reset" onClick={() => { history.push('/create-flyer')}} value="Cancel" />
+        <input type="reset" onClick={() => { history.goBack()}} value="Cancel" />
       </div>
     </form>
   )
@@ -450,6 +479,7 @@ FlyerForm.defaultProps = {
 }
 
 FlyerForm.propTypes = {
+  history: PropTypes.object,
   newType: PropTypes.oneOf([
     "Fest",
     "Tour",
@@ -458,7 +488,7 @@ FlyerForm.propTypes = {
   creatorId: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
-  ]).isRequired,
+  ]),
   flyer: PropTypes.shape({
     id: PropTypes.oneOfType([
       PropTypes.number,
@@ -493,24 +523,21 @@ FlyerForm.propTypes = {
       'Flagged',
       'Banned',
       'Archived'
-    ])
-  }),
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
     ]),
-    flyer_id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
-    event_date: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date)
-    ]),
-    venue_name: PropTypes.string,
-    city_name: PropTypes.string,
-    region_name: PropTypes.string,
-    country_name: PropTypes.string
-  }))
+    events: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      flyer_id: PropTypes.string,
+      event_date: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date)
+      ]),
+      venue_name: PropTypes.string,
+      city_name: PropTypes.string,
+      region_name: PropTypes.string,
+      country_name: PropTypes.string,
+      city_id: PropTypes.number
+    }))
+  })
 }
+
+export default withRouter(FlyerForm)

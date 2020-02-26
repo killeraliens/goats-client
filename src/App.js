@@ -10,6 +10,7 @@ import Landing from './Components/Landing/Landing'
 import ErrorBoundary from './Components/ErrorBoundary'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
+import EditFlyer from './Components/EditFlyer/EditFlyer'
 import NotFound from './Components/NotFound/NotFound';
 
 class App extends Component {
@@ -102,6 +103,11 @@ class App extends Component {
               <PrivateRoute path={`/create-flyer`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
+                </ErrorBoundary>
+              } />
+              <PrivateRoute path={`/flyer/:flyer_id/edit`} render={props =>
+                <ErrorBoundary>
+                  <AuthedSplit mainComponent={<EditFlyer {...props} />} />
                 </ErrorBoundary>
               } />
               {/* <Route path='/' render={() =>

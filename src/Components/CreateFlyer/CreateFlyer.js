@@ -58,7 +58,6 @@ export default function CreateFlyer() {
               }} />
               <Redirect to="/create-flyer" />
             </Switch>
-
           </div>
         </div>
       )

@@ -29,6 +29,10 @@ export default function AuthedSplit({ mainComponent }) {
     setTotal(prev => prev - 1)
   }
 
+  const updateFlyer = (flyerId) => {
+    console.log('update flyer clicked on', flyerId)
+  }
+
   const fetchApiData = async (type) => {
     const options = {
       headers: {
@@ -85,6 +89,7 @@ export default function AuthedSplit({ mainComponent }) {
     flyers: flyers,
     addFlyer: addFlyer,
     deleteFlyer: deleteFlyer,
+    updateFlyer: updateFlyer,
     fetching: fetching,
     fetchingAdditional: fetchingAdditional,
     total: total,
@@ -118,7 +123,7 @@ export default function AuthedSplit({ mainComponent }) {
 
 AuthedSplit.propTypes = {
   mainComponent: PropTypes.objectOf(function (propValue, key, componentName, location, propFullName) {
-    if (!["Dashboard", "Forum", "CreateFlyer"].includes(propValue.type.name)) {
+    if (!["Dashboard", "Forum", "CreateFlyer", "EditFlyer"].includes(propValue.type.name)) {
       return new Error(`Bad component prop: ${propValue.type.name}. Pass one of the following: "Dashboard", "Forum", "CreateFlyer"`)
     }
   })

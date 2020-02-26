@@ -50,9 +50,14 @@ function Dashboard({ match }) {
     setFlyers(prev => ([...prev.filter(flyer => flyer.id !== flyerId)]))
   }
 
+  const updateFlyer = (flyerId) => {
+    console.log('edit flyer clicked on', flyerId)
+  }
+
   const contextValue = {
     flyers: flyers,
-    deleteFlyerDash: deleteFlyer
+    deleteFlyerDash: deleteFlyer,
+    updateFlyerDash: updateFlyer
   }
 
   switch (true) {

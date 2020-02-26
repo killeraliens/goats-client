@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Location from '../../FlyerCard/Location';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { capitalize } from '../../../helpers/textHelpers'
 
 export default function EventsPreview({ formEvents, deleteFormEvent }) {
@@ -10,20 +7,21 @@ export default function EventsPreview({ formEvents, deleteFormEvent }) {
   return(
     <ul className="EventInput--preview">
       {formEvents.map((event, i) => {
-        let cityName = event.cityName
-          ? capitalize(event.cityName)
+
+        let cityName = event.city_name
+          ? capitalize(event.city_name)
           : null
 
-        let regionName = event.regionName
-          ? capitalize(event.regionName)
+        let regionName = event.region_name
+          ? capitalize(event.region_name)
           : null
 
-        let countryName = event.countryName
-          ? capitalize(event.countryName)
+        let countryName = event.country_name
+          ? capitalize(event.country_name)
           : null
 
-        let venueName = event.venueName
-          ? capitalize(event.venueName)
+        let venueName = event.venue_name
+          ? capitalize(event.venue_name)
           : null
 
         function isAllCaps(str) {
@@ -75,7 +73,7 @@ export default function EventsPreview({ formEvents, deleteFormEvent }) {
               onClick={handleDelete}
             >
             </i>
-            <span className="date-i">{event.date}</span>
+            <span className="date-i">{event.event_date}</span>
             <span className="city-i">{cityName}{cityComma()}{regionAndCountry()}</span>
             <span className="venue-i">{venueName}</span>
           </li>
@@ -92,15 +90,17 @@ EventsPreview.defaultProps = {
 
 EventsPreview.propTypes = {
   formEvents: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    date: PropTypes.oneOfType([
+    id: PropTypes.string.isRequired,
+    flyer_id: PropTypes.string,
+    event_date: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date)
-    ]),
-    venueName: PropTypes.string,
-    countryName: PropTypes.string,
-    regionName: PropTypes.string,
-    cityName: PropTypes.string
+    ]).isRequired,
+    venue_name: PropTypes.string.isRequired,
+    country_name: PropTypes.string.isRequired,
+    region_name: PropTypes.string.isRequired,
+    city_name: PropTypes.string.isRequired,
+    city_id: PropTypes.number
   })),
   deleteFormEvent: PropTypes.func
 }
