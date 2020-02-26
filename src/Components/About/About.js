@@ -29,11 +29,7 @@ export default function About() {
             // }
           />
           {' '}
-          Cheers - Ali
-          {/* with errors, questions, or general improvements. */}
-          {/* If you come across any bugs, issues, or general improvements while using this site email goatsforum@gmail.com. */}
-          {/* If you come across any bugs, issues, or general improvements while using this site email ali@goatsguide.com.
-          If you are a developer and would like to contribute, email me. */}
+          - Ali
         </p>
       </section>
     </CentralContainer>
