@@ -29,8 +29,14 @@ export default function AuthedSplit({ mainComponent }) {
     setTotal(prev => prev - 1)
   }
 
-  const updateFlyer = (flyerId) => {
-    console.log('update flyer clicked on', flyerId)
+  const updateFlyer = (flyerId, patchBody) => {
+    const flyerToUpdate = flyers.find(flyer => flyer.id === flyerId)
+    const updatedFlyer = {
+      ...flyerToUpdate,
+      ...patchBody
+    }
+    console.log('UPDATING CONTEXT', updatedFlyer)
+    setFlyers(prev => ([updatedFlyer, ...prev.filter(flyer => flyer.id !== flyerId)]))
   }
 
   const fetchApiData = async (type) => {

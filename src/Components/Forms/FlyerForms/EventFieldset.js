@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate }) {
+export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate, isDateReq }) {
   let dateWithYear = (mmddFormat) => {
     let currYear = new Date().getFullYear()
     let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
@@ -121,7 +121,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
     <div className="EventFieldset">
       <div className="fieldset-container sub-group">
         <fieldset className="date">
-          <label htmlFor="date">Date</label>
+          <label htmlFor="date">Date{isDateReq ? ' *' : null}</label>
           <input
             id="date"
             name="date"
@@ -213,5 +213,6 @@ EventFieldset.propTypes = {
     "Fest",
     "Tour",
     "Show"
-  ])
+  ]),
+  isDateReq: PropTypes.bool
 }

@@ -31,6 +31,26 @@ const dateToMMDDString = (date) => {
   return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate()))
 }
 
+const dateToMMDDYYYYString = (date) => {
+  return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate()) + '/' + date.getFullYear())
+}
+
+// 09/15, 3
+//--> 09/18
+function addDaysToDateReturnMMDDString(mmdd, days) {
+  const copy = new Date(Number(dateWithYear(mmdd)))
+  copy.setDate(dateWithYear(mmdd).getDate() + days)
+  return dateToMMDDString(copy)
+}
+
+// 09/15, 3
+//--> 09/18/2020
+function addDaysToDateReturnMMDDYYYYString(mmdd, days) {
+  const copy = new Date(Number(dateWithYear(mmdd)))
+  copy.setDate(dateWithYear(mmdd).getDate() + days)
+  return dateToMMDDYYYYString(copy)
+}
+
 
 //ThroughDates
 
@@ -62,10 +82,15 @@ const returnLastDate = (eventDates) => {
 }
 
 
+
+
 module.exports = {
   dateToMMDDTimeString,
   dateWithYear,
   dateToMMDDString,
+  dateToMMDDYYYYString,
   returnFirstDate,
-  returnLastDate
+  returnLastDate,
+  addDaysToDateReturnMMDDString,
+  addDaysToDateReturnMMDDYYYYString
 }

@@ -11,34 +11,29 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { dateWithYear, dateToMMDDString, returnFirstDate } from '../../../helpers/dateHelpers'
+import { dateWithYear, dateToMMDDString, dateToMMDDYYYYString, returnFirstDate, addDaysToDateReturnMMDDString, addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
-//import NotFound from '../../NotFound/NotFound';
-//import { Link } from 'react-router-dom';
+
 const uuid = require('uuid/v1');
-const MemoizedComponent = React.memo(EventsPreview,
-  (prevProps, nextProps) => {
-    if (prevProps !== nextProps) {
-      return false;
-    }
-    /*
-      When using this function you always need to return
-      a Boolean. For now we'll say the props are NOT equal
-      which means the component should rerender.
-    */
-    return true;
-  }
-)
+// const MemoizedComponent = React.memo(EventsPreview,
+//   (prevProps, nextProps) => {
+//     if (prevProps !== nextProps) {
+//       return false;
+//     }
+//     /*
+//       When using this function you always need to return
+//       a Boolean. For now we'll say the props are NOT equal
+//       which means the component should rerender.
+//     */
+//     return true;
+//   }
+// )
 
 
 
 function FlyerForm({ history, newType, flyer, creatorId }) {
-  const { addFlyer } = useContext(AuthedContext)
+  const { addFlyer, updateFlyer } = useContext(AuthedContext)
   const { user, setError } = useContext(AppContext)
-
-    const firstDateVal = flyer && flyer.events && flyer.events.length > 0
-    ? dateToMMDDString(new Date(returnFirstDate(flyer.events.map(event => event.event_date))))
-    : ''
 
   const [formBody, setFormBody] = useState({
     //id: flyer.id || '',
@@ -65,6 +60,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const [touched, setTouched] = useState(false)
   const [serverError, setServerError] = useState(null)
   const [fetching, setFetching] = useState(false)
+  const [isDateReq, setIsDateReq] = useState(false)
 
   const resetForm = () => {
     setFormBody({
@@ -88,6 +84,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   }
 
   const resetEventFields = () => {
+    setIsDateReq(false)
     setFormBody(prev => ({
       ...prev,
       date: { value: '', touched: false, error: '' },
@@ -98,6 +95,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       cityName: { value: '', error: '' },
     }))
   }
+
+
 
   useEffect(() => {
     if (formBody.type === "Show" || formBody.type === "Fest" ) {
@@ -184,20 +183,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         }
       })
 
-      if (invalidValues.length === 0 && validValues.length > 0) {
+      if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
         // check to see if date field is filled or no event
         let dayCount = formBody.type === "Fest"
           ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
           : 1
 
-        function addDaysToDateReturnMMDDString(date, days) {
-          const copy = new Date(Number(dateWithYear(date)))
-          copy.setDate(dateWithYear(date).getDate() + days)
-          return dateToMMDDString(copy)
-        }
-
         let eventsArr = []
         if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
+          setIsDateReq(false)
           for (let i = 0; i < 1; i++) {
             let newEvent = {
               event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
@@ -209,6 +203,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
             eventsArr.push(newEvent)
           }
         } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
+          setIsDateReq(false)
           for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
             let newEvent = {
               event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
@@ -221,6 +216,9 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
           }
         }
         return eventsArr
+      } else if (!Boolean(formBody.date.value) && validValues.length > 0) {
+        setIsDateReq(true)
+        return []
       }
       return []
     }
@@ -230,7 +228,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   // formBody.events array for "Tour" (gens temp id for EventsPreview)
   const addTourStop = (e) => {
     e.preventDefault()
-
     let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
     let invalidValues = eventFields.filter(field => {
       if (Boolean(formBody[field].error)) {
@@ -242,7 +239,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         return formBody[field].value
       }
     })
-    if (invalidValues.length === 0 && validValues.length > 0) {
+    if (Boolean(formBody["date"].value) && invalidValues.length === 0 && validValues.length > 0) {
       let generatedEventId = uuid()
       setFormBody(prev => ({
         ...prev,
@@ -259,6 +256,9 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         ]
       }))
       resetEventFields()
+
+    } else {
+      setIsDateReq(true)
     }
   }
 
@@ -276,8 +276,16 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     e.preventDefault()
 
     const eventPostBodies = formBody.events.map(event => {
+      console.log('date beofre format in submit', event.event_date)
+      const formattedDate = event.event_date && event.event_date.length === 5
+        ? dateWithYear(event.event_date)
+        : event.event_date && event.event_date.length > 5
+          ? event.event_date
+          : null
+      console.log('date format in submit', formattedDate)
+      //console.log('typeof in submit', typeof event.event_date)
       return {
-        event_date: dateWithYear(event.event_date),
+        event_date: formattedDate,
         venue_name: capitalize(event.venue_name),
         city_name: capitalize(event.city_name),
         region_name: event.region_name,
@@ -297,27 +305,45 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       events: eventPostBodies
     }
 
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(flyerPostBody),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`
-      }
-    }
-    const response = await fetch(`${config.API_ENDPOINT}/flyer`, options)
-    const body = await response.json();
+    const isPatch = formBody.id && Boolean(formBody.id) ? true : false
+    const patchId = isPatch ? formBody.id : null
+    const options = isPatch
+      ? ({
+        method: 'PATCH',
+        body: JSON.stringify(flyerPostBody),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+      : ({
+        method: 'POST',
+        body: JSON.stringify(flyerPostBody),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+
+    const response = await fetch(`${config.API_ENDPOINT}/flyer${isPatch ? `/${patchId}` : ''}`, options)
+    let body
 
     if (!response.ok) {
+      body = await response.json();
       setServerError({status: response.status, message: body.message })
       setFetching(false)
     } else {
       setServerError(null)
       resetForm()
       setFetching(false)
-      //const { events, ...newFlyer } = body;
       if (flyerPostBody.listing_state !== "Draft") {
-        addFlyer(body)
+        console.log('not a draft')
+        if (isPatch) {
+          updateFlyer(patchId, flyerPostBody)
+        } else {
+          body = await response.json();
+          addFlyer(body)
+        }
       }
 
       if (flyerPostBody.listing_state === "Draft" ) {
@@ -326,6 +352,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       history.push(`/forum`)
     }
   }
+
 
   // headline fieldset validation (updates on blur)
   const validateHeadline = () => {
@@ -410,6 +437,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         formVenue={formBody.venueName}
         formType={formBody.type}
         formEndDate={formBody.endDate}
+        isDateReq={isDateReq}
       />
       <fieldset>
         <label htmlFor="bands">Band Lineup</label>
@@ -461,13 +489,12 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
           }}
         />
         <ValidationError id="publishCommentError" message={formBody.publishComment.error} />
-
       </fieldset>
       {serverError && serverError.status === 400 ? <p><ValidationError id="serverResponseError" message={serverError.message} /></p> : null }
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
-        <input type="reset" onClick={() => { history.goBack()}} value="Cancel" />
+        <input type="reset" onClick={() => { history.goBack() }} value="Cancel" />
       </div>
     </form>
   )
