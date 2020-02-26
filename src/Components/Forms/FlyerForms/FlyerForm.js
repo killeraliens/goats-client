@@ -193,7 +193,9 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
           setIsDateReq(false)
           for (let i = 0; i < 1; i++) {
+            let generatedEventId = uuid()
             let newEvent = {
+              id: generatedEventId,
               event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,
@@ -205,7 +207,9 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
           setIsDateReq(false)
           for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
+            let generatedEventId = uuid()
             let newEvent = {
+              id: generatedEventId,
               event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,

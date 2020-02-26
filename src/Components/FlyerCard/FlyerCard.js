@@ -99,8 +99,8 @@ FlyerCard.propTypes = {
     creator_username: PropTypes.string.isRequired,
     creator_image_url: PropTypes.string,
     events: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      flyer_id: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      flyer_id: PropTypes.string,
       event_date: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.instanceOf(Date)

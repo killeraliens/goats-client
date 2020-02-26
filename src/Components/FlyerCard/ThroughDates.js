@@ -35,8 +35,8 @@ ThroughDates.defaultProps = {
 
 ThroughDates.propTypes = {
   flyerEvents: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    flyer_id: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    flyer_id: PropTypes.string,
     event_date: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date)
