@@ -119,27 +119,29 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
 
   return(
     <div className="EventFieldset">
-      <div className="fieldset-container sub-group">
-        <fieldset className="date">
-          <label htmlFor="date">Date{isDateReq ? ' *' : null}</label>
-          <input
-            id="date"
-            name="date"
-            type="text"
-            placeholder="mm/dd"
-            value={formDate.value || ''}
-            onChange={e => {
-              updateEventFields({ date: { value: e.target.value, touched: true } })
-             }}
-            aria-label="date"
-            aria-required="false"
-            aria-describedby="dateError"
-            aria-invalid={!!formDate.error}
-            autoComplete="off"
-          />
-          <ValidationError id="dateError" message={formDate.error} />
-        </fieldset>
-        { formType === "Fest" ? endDateFieldSet() : null }
+      <div className="fieldset-container fieldset-container-dates-venue">
+        <div className="fieldset-container sub-group">
+          <fieldset className="date">
+            <label htmlFor="date">Date{isDateReq ? ' *' : null}</label>
+            <input
+              id="date"
+              name="date"
+              type="text"
+              placeholder="mm/dd"
+              value={formDate.value || ''}
+              onChange={e => {
+                updateEventFields({ date: { value: e.target.value, touched: true } })
+              }}
+              aria-label="date"
+              aria-required="false"
+              aria-describedby="dateError"
+              aria-invalid={!!formDate.error}
+              autoComplete="off"
+            />
+            <ValidationError id="dateError" message={formDate.error} />
+          </fieldset>
+          { formType === "Fest" ? endDateFieldSet() : null }
+        </div>
         <fieldset className="grow">
           <label htmlFor="venueName">Venue Name</label>
           <input
@@ -155,6 +157,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
           />
           <ValidationError id="venueNameError" message={formVenue.error} />
         </fieldset>
+
       </div>
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>

@@ -30,7 +30,7 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
   }
 
   return(
-    <div className="fieldset-container">
+    <div className="fieldset-container fieldset-container-dates-venue">
       <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} formCountryRegion={{ countryName: formCountryRegionCity.countryName, regionName: formCountryRegionCity.regionName }}/>
       <fieldset className="CityFieldset">
         <label htmlFor="city">City</label>

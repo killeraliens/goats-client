@@ -124,8 +124,20 @@ fieldset.date {
   width: 100%;
 }
 
- .fieldset-container.sub-group {
-  flex-grow: 1;
+.fieldset-container-dates-venue {
+  display: flex;
+  flex-direction: row;
+}
+
+.fieldset-container-dates-venue * {
+  width: 100%;
+}
+
+
+.fieldset-container.sub-group {
+  /* flex-grow: 1; */
+  width: auto;
+  margin-right: 8px;
 }
 
 .fieldset-container.sub-group.no-grow {
@@ -199,6 +211,7 @@ ul.EventInput--preview li > * {
   margin-bottom: 16px;
 }
 
+
 @media (min-width: 799px){
   /* form > * {
     max-width: 666px;
@@ -208,11 +221,6 @@ ul.EventInput--preview li > * {
 
 }
 
-@media (max-width: 599px) {
-  /* .Main--content form:not(.header-form) {
-    padding: 24px;
-  } */
-}
 
 @media (max-width: 599px) {
 
@@ -220,7 +228,7 @@ ul.EventInput--preview li > * {
     margin-left: 0px;
   }
 
-  .fieldset-container:not(.sub-group) {
+  .fieldset-container:not(.sub-group, .fieldset-container-dates-venue) {
     flex-direction: column;
   }
 
@@ -246,6 +254,12 @@ ul.EventInput--preview li > * {
   }
   fieldset.date {
     width: inherit;
+  }
+}
+
+@media (max-width: 499px) {
+  .fieldset-container-dates-venue {
+    flex-direction: column;
   }
 }
 
