@@ -404,7 +404,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   return(
     <form className="FlyerForm" onSubmit={handleSubmit} aria-describedby="serverResponseError">
       <FlyerUpload formImgUrl={formBody.imgUrl} updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
-      <div className="Flyer--icon-type Tag">{formBody.type}</div>
+      <div className="Flyer--icon-type Tag margin-bottom-8">{formBody.type}</div>
       <fieldset>
         <label htmlFor="headline">Headline*</label>
         <input
