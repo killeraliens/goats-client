@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from '../../../helpers/textHelpers'
+import { dateWithYear, dateToMMDDYYYYString } from '../../../helpers/dateHelpers'
 
 export default function EventsPreview({ formEvents, deleteFormEvent }) {
 
   return(
     <ul className="EventInput--preview">
       {formEvents.map((event, i) => {
+
+        const eventDate = event.event_date && event.event_date.length === 5
+          ? dateToMMDDYYYYString(new Date(dateWithYear(event.event_date)))
+          : event.event_date && event.event_date.length > 10
+          ? dateToMMDDYYYYString(new Date(event.event_date))
+          : event.event_date && event.event_date.length === 9
+          ? '...'
+          : null
 
         let cityName = event.city_name
           ? capitalize(event.city_name)
@@ -73,7 +82,7 @@ export default function EventsPreview({ formEvents, deleteFormEvent }) {
               onClick={handleDelete}
             >
             </i>
-            <span className="date-i">{event.event_date}</span>
+            <span className="date-i">{eventDate}</span>
             <span className="city-i">{cityName}{cityComma()}{regionAndCountry()}</span>
             <span className="venue-i">{venueName}</span>
           </li>

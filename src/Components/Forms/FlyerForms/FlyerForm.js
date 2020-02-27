@@ -11,7 +11,7 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { dateWithYear, dateToMMDDString, dateToMMDDYYYYString, returnFirstDate, addDaysToDateReturnMMDDString, addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
+import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 
 const uuid = require('uuid/v1');
@@ -63,6 +63,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const [isDateReq, setIsDateReq] = useState(false)
 
   const resetForm = () => {
+    setIsDateReq(false)
     setFormBody({
       id: flyer.id || '',
       imgUrl: { value: flyer.image_url || '', error: '' },
@@ -168,7 +169,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     return formBody[fieldStr].value
   }
 
-  // formBody.events array for "Show" or "Fest" (hidden EventsPreview, unless edit)
+  // formBody.events array for "Show" or "Fest" (hidden EventsPreview, unless edit) (gens temp id for edit EventsPreview)
   const returnShowFestEventsArr = () => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
       let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
@@ -183,8 +184,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         }
       })
 
+      // check to see if date field is filled or no event
       if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
-        // check to see if date field is filled or no event
         let dayCount = formBody.type === "Fest"
           ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
           : 1
@@ -341,7 +342,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       resetForm()
       setFetching(false)
       if (flyerPostBody.listing_state !== "Draft") {
-        console.log('not a draft')
         if (isPatch) {
           updateFlyer(patchId, flyerPostBody)
         } else {
@@ -425,14 +425,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         />
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
-      { formBody.type === "Tour" || flyer && flyer.events && flyer.events.length > 0
-        ? (
-          <EventsPreview
-            formEvents={formBody.events}
-            deleteFormEvent={deleteFormEvent}
-          />
-        )
-        : null
+      {
+        formBody.type === "Tour" || formBody.type === "Fest" || formBody.type === "Show" || flyer && flyer.events && flyer.events.length > 0
+          ? (
+            <EventsPreview
+              formEvents={formBody.events}
+              deleteFormEvent={deleteFormEvent}
+            />
+          )
+          : null
       }
       <EventFieldset
         updateEventFields={updateEventFields}
