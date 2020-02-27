@@ -7,9 +7,7 @@ import { dateToMMDDTimeString } from '../../helpers/dateHelpers'
 import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '../../helpers/textHelpers'
 
 export default function Comment({ userId, username, imageUrl, isCreator, comment, modified, isPublishComment }) {
-  console.log('COMMENT RAW', comment)
-  console.log('COMMEN CLEAN', returnCleanContentEditable(comment))
-  console.log('COMMEN CLEAN L', returnCleanContentEditable(comment).length)
+
   const modifiedAt = dateToMMDDTimeString(new Date(modified))
   return (
     <div className="Comment">
