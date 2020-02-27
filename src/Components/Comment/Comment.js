@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import './Comment.css';
 import { dateToMMDDTimeString } from '../../helpers/dateHelpers'
-import { createMarkup } from '../../helpers/textHelpers'
+import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '../../helpers/textHelpers'
 
-export default function Comment({ userId, username, imageUrl, isCreator, comment, modified }) {
-
+export default function Comment({ userId, username, imageUrl, isCreator, comment, modified, isPublishComment }) {
+  console.log('COMMENT RAW', comment)
+  console.log('COMMEN CLEAN', returnCleanContentEditable(comment))
+  console.log('COMMEN CLEAN L', returnCleanContentEditable(comment).length)
   const modifiedAt = dateToMMDDTimeString(new Date(modified))
   return (
     <div className="Comment">
@@ -27,14 +29,14 @@ export default function Comment({ userId, username, imageUrl, isCreator, comment
           {/* {isCreator ? <span className="Comment--isCreator">[creator] </span> : null}
           mentioned:<br />{modifiedAt} */}
 
-          {isCreator
-            ? <span>published <br />{modifiedAt}</span>
+          {isPublishComment
+            ? <span>updated <br />{modifiedAt}</span>
             : <span>mentioned <br />{modifiedAt}}</span>}
 
           </span>
         </div>
-      {comment
-        ? <div className="Comment--comment" dangerouslySetInnerHTML={createMarkup(`<p>${comment}</p>`)} />
+      {comment && returnCleanContentEditable(comment).length > 0
+        ? <p className="Comment--comment" dangerouslySetInnerHTML={createMarkup(`${returnSanitizedHtml(comment)}`)} />
         : null}
     </div>
 
@@ -45,6 +47,7 @@ Comment.defaultProps = {
   imageUrl: '',
   isCreator: false,
   comment: '',
+  isPublishComment: true
 }
 
 Comment.propTypes = {
@@ -56,5 +59,6 @@ Comment.propTypes = {
   modified: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date)
-  ]).isRequired
+  ]).isRequired,
+  isPublishComment: PropTypes.bool
 }

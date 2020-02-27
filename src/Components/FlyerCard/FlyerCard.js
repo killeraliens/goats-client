@@ -9,7 +9,7 @@ import Location from './Location';
 import Comments from '../Comments/Comments';
 import FlyerCardMenu from '../FlyerCardMenu/FlyerCardMenu'
 import './FlyerCard.css';
-import { createMarkup } from '../../helpers/textHelpers'
+import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '../../helpers/textHelpers'
 
 export default function FlyerCard({ flyer }) {
   const flyerEvents = flyer.events || []
@@ -38,11 +38,11 @@ export default function FlyerCard({ flyer }) {
           : null
         }
        {
-         Boolean(flyer.bands) || Boolean(flyer.details)
+          (returnCleanContentEditable(flyer.bands).length > 0) || (returnCleanContentEditable(flyer.details).length > 0)
            ? (
-              <Accordian triggerNode={<p>...Details</p>}>
-                <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`<p>${flyer.bands}<p/>`)}/>
-                <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`${flyer.details}`)}/>
+              <Accordian triggerNode={<div>...Details</div>}>
+                {returnCleanContentEditable(flyer.bands).length > 0 ? <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`${returnSanitizedHtml(flyer.bands)}`)}/> : null}
+                {returnCleanContentEditable(flyer.details).length > 0 ? <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`${returnSanitizedHtml(flyer.details)}`)}/> : null}
                 {/* <p>{flyer.bands}</p> */}
                 {/* <p>{flyer.details}</p> */}
               </Accordian>

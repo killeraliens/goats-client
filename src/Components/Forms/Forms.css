@@ -258,10 +258,15 @@ ul.EventInput--preview li > * {
   }
 }
 
-@media (max-width: 499px) {
+@media (max-width: 399px) {
   .fieldset-container-dates-venue {
     flex-direction: column;
   }
+
+  .fieldset-container.sub-group {
+  /* width: auto; */
+  margin-right: 0px;
+}
 }
 
 /*  */

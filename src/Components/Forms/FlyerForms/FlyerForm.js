@@ -164,9 +164,10 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: error } }))
   }
 
-  const returnCleanContentEditable = (fieldStr) => {
-    // return formBody[fieldStr].value.replace(/(<[^>]*>)|(&nbsp;)/g, "")
-    return formBody[fieldStr].value
+
+  const returnCleanContentEditable = (htmlText) => {
+    // return htmlText.replace(/(<[^>]*>)|(&nbsp;)/g, "")
+    return htmlText
   }
 
   // formBody.events array for "Show" or "Fest" (hidden EventsPreview, unless edit) (gens temp id for edit EventsPreview)
@@ -303,9 +304,9 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       flyer_type: formBody.type,
       image_url: formBody.imgUrl.value,
       headline: capitalize(formBody.headline.value),
-      bands: returnCleanContentEditable("bands"),
-      details: returnCleanContentEditable("details"),
-      publish_comment: returnCleanContentEditable("publishComment"),
+      bands: returnCleanContentEditable(formBody.bands.value),
+      details: returnCleanContentEditable(formBody.details.value),
+      publish_comment: returnCleanContentEditable(formBody.publishComment.value),
       listing_state: e.target.value === "Draft" ? "Draft" : "Public",
       events: eventPostBodies
     }
