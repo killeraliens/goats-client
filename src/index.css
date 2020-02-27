@@ -52,3 +52,11 @@ body form.header-form {
 div.margin-bottom-8 {
   margin-bottom: 8px;
 }
+
+div.margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
+p.no-top-margin {
+  margin-top: 0;
+}

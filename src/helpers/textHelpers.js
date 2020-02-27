@@ -19,11 +19,14 @@ function createMarkup(htmlText) {
 
 const returnSanitizedHtml = (htmlText) => {
   const clean = sanitizeHtml(htmlText, {
-    allowedTags: ['b', 'i', 'em', 'strong', 'a'],
+    allowedTags: ['b', 'i', 'em', 'strong', 'a', 'div', 'br'],
     allowedAttributes: {
-      'a': ['href']
+      'a': ['href', 'target']
     },
-    allowedIframeHostnames: ['www.youtube.com']
+    allowedIframeHostnames: ['www.youtube.com'],
+    transformTags: {
+      'a': sanitizeHtml.simpleTransform('a', { target: '_blank' })
+    }
   });
   return clean
 }

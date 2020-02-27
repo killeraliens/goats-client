@@ -8,6 +8,7 @@
   margin-top: 0px;
 }
 
+
 .Accordian:hover, .Accordian *:hover {
   opacity: 1;
 }
@@ -31,4 +32,8 @@
   -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
+}
+
+.Accordian--content p:first-child {
+  margin-top: 0px;
 }

@@ -40,8 +40,8 @@ export default function FlyerCard({ flyer }) {
        {
           (returnCleanContentEditable(flyer.bands).length > 0) || (returnCleanContentEditable(flyer.details).length > 0)
            ? (
-              <Accordian triggerNode={<div>...Details</div>}>
-                {returnCleanContentEditable(flyer.bands).length > 0 ? <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`${returnSanitizedHtml(flyer.bands)}`)}/> : null}
+              <Accordian triggerNode={<div className="margin-bottom-16">...Details</div>}>
+                {returnCleanContentEditable(flyer.bands).length > 0 ? <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`<p>${returnSanitizedHtml(flyer.bands)}</p>`)}/> : null}
                 {returnCleanContentEditable(flyer.details).length > 0 ? <p className="html-display-p" dangerouslySetInnerHTML={createMarkup(`${returnSanitizedHtml(flyer.details)}`)}/> : null}
                 {/* <p>{flyer.bands}</p> */}
                 {/* <p>{flyer.details}</p> */}
