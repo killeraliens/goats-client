@@ -7,8 +7,8 @@ import { dateToMMDDTimeString } from '../../helpers/dateHelpers'
 import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '../../helpers/textHelpers'
 
 export default function Comment({ userId, username, imageUrl, isCreator, comment, modified, isPublishComment }) {
-
   const modifiedAt = dateToMMDDTimeString(new Date(modified))
+
   return (
     <div className="Comment">
         <div className="Comment--header">
@@ -24,20 +24,15 @@ export default function Comment({ userId, username, imageUrl, isCreator, comment
             </h3>
           </div>
           <span className="Comment--modified-at">
-          {/* {isCreator ? <span className="Comment--isCreator">[creator] </span> : null}
-          mentioned:<br />{modifiedAt} */}
-
-          {isPublishComment
-            ? <span>updated <br />{modifiedAt}</span>
-            : <span>mentioned <br />{modifiedAt}}</span>}
-
+            {isPublishComment
+              ? <span>updated <br />{modifiedAt}</span>
+              : <span>mentioned <br />{modifiedAt}}</span>}
           </span>
         </div>
       {comment && returnCleanContentEditable(comment).length > 0
         ? <p className="Comment--comment" dangerouslySetInnerHTML={createMarkup(`${returnSanitizedHtml(comment)}`)} />
         : null}
     </div>
-
   )
 }
 
