@@ -5,17 +5,38 @@ import config from '../../../config';
 
 export default function CountrySelector({ updateCountry, formCountry }) {
   const [data, setData] = useState({ countries: [] })
+  const [selected, setSelected] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const myAbortController = new AbortController();
 
     const fetchData = async () => {
       setLoading(true)
-      const result = await axios(`${config.API_ENDPOINT}/country`)
-      setData({ countries: result.data })
-      setLoading(false)
+
+      try {
+        const response = await fetch(`${config.API_ENDPOINT}/country`, { signal: myAbortController.signal })
+        const body = await response.json();
+        if (!response.ok) {
+          //setServerError({ status: response.status, message: body.message })
+          setLoading(false)
+        } else {
+          setLoading(false)
+          setData({ countries: body })
+        }
+      } catch (e) {
+        if (!myAbortController.signal.aborted) {
+           //setServerError({ status: e.status, message: e.message })
+          setLoading(false)
+        }
+      }
     }
     fetchData();
+
+    return () => {
+      // console.log('cleaned up')
+      myAbortController.abort();
+    }
 
   }, []);
 
@@ -40,11 +61,11 @@ export default function CountrySelector({ updateCountry, formCountry }) {
     }
   }
 
-  const optionDefault = () => {
-    return  Boolean(formCountry.value)
-      ? <option value={findCode(formCountry.value)}>{formCountry.value}</option>
-      : <option value="">Select Country</option>
-  }
+  // const optionDefault = () => {
+  //   return  Boolean(formCountry.value)
+  //     ? <option value={findCode(formCountry.value)}>{formCountry.value}</option>
+  //     : <option value="">Select Country</option>
+  // }
 
   return(
     <fieldset className="CountryFieldset grow">
@@ -56,7 +77,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         onChange={handleChange}
         value={formCountry.code || findCode(formCountry.value) || ''}
       >
-        {optionDefault()}
+        {/* {optionDefault()} */}
         {data.countries.map(({ country_name, country_code }) => {
           return <option key={country_code} value={country_code}>{country_name}</option>
         })}
