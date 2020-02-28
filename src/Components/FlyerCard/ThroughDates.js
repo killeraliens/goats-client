@@ -8,7 +8,6 @@ export default function ThroughDates({ flyerEvents }) {
   let eventDates = flyerEvents.map(event => event.event_date)
   eventDates = eventDates.filter(Boolean)
 
-
   switch (true) {
     case eventDates.length === 1:
       return (
