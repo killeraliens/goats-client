@@ -12,7 +12,9 @@ import './FlyerCard.css';
 import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '../../helpers/textHelpers'
 
 export default function FlyerCard({ flyer }) {
-  const flyerEvents = flyer.events || []
+  const flyerEvents = flyer.events && flyer.events.length > 0
+    ? flyer.events
+    : []
   return (
     <div className="FlyerCard Card" id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}

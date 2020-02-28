@@ -17,7 +17,7 @@ export default function ThroughDates({ flyerEvents }) {
           {returnFirstDate(eventDates)}
         </p>
       )
-    case eventDates.length > 2:
+    case eventDates.length > 1:
       return (
         <p className="Flyer--dates">
           <FontAwesomeIcon icon={faCalendar} />
