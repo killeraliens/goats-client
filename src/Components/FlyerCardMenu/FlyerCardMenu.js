@@ -40,30 +40,6 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
     }
   }
 
-  const handleEdit = async () => {
-
-    // setFetching(true)
-    // const options = {
-    //   method: 'PATCH',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${user.token}`
-    //   },
-    // }
-    // const response = await fetch(`${config.API_ENDPOINT}/flyer/${flyerId}`, options);
-    // if (!response.ok) {
-    //   const body = await response.json()
-    //   setServerError({ status: response.status, message: body.message })
-    //   setFetching(false)
-    // } else {
-    //   setServerError(null)
-    //   setFetching(false)
-      // updateFlyer(flyerId)
-      // updateFlyerDash(flyerId)
-    // }
-  }
-
-
   if (visible) {
     if (((user && user.id) && (user.id === creatorId)) || (user && user.admin)) {
       return (
@@ -81,7 +57,6 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
                 : `Delete` }
             </MainNavLink>
             <MainNavLink
-              //callback={handleEdit}
               activeColorClass={'red-white'}
               to={`/flyer/${flyerId}/edit`}
             >
