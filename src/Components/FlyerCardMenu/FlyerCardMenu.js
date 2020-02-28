@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 import config from '../../config'
 import './FlyerCardMenu.css'
 import AppContext from '../../AppContext';
@@ -15,8 +16,8 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const { user } = useContext(AppContext)
-  const { deleteFlyer, updateFlyer } = useContext(AuthedContext)
-  const { deleteFlyerDash, updateFlyerDash } = useContext(DashContext)
+  const { deleteFlyer } = useContext(AuthedContext)
+  const { deleteFlyerDash } = useContext(DashContext)
 
   const handleDelete = async () => {
     setFetching(true)
@@ -102,3 +103,7 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
 
 }
 
+FlyerCardMenu.propTypes = {
+  creatorId: PropTypes.string.isRequired,
+  flyerId: PropTypes.string.isRequired
+}
