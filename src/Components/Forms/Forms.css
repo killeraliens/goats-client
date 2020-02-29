@@ -89,7 +89,7 @@ select {
 
 /*  */
 .CountryFieldset, .CityFieldset{
-  width: 100%;
+  width: auto;
 }
 
 .CountryFieldset {
@@ -98,6 +98,11 @@ select {
 
 .CityFieldset{
   margin-left: 8px;
+}
+
+div.react-select-container {
+  /* width: 150px; */
+float: left;
 }
 
 /* .CountryFieldset > select, .CityFieldset > input {
@@ -325,3 +330,6 @@ div.textarea {
   color: white;
 }
 
+/* .CountrySelector {
+  color: black;
+} */

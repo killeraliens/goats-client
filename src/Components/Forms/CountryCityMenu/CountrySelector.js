@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import config from '../../../config';
+import Select from 'react-select'
+import { withRouter } from 'react-router-dom';
 
 export default function CountrySelector({ updateCountry, formCountry }) {
   const [data, setData] = useState({ countries: [] })
-  const [selected, setSelected] = useState(null)
+  //const [selected, setSelected] = useState(formCountry)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -42,9 +43,13 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 
 
   const handleChange = (e) => {
+    // updateCountry({
+    //   code: e.target.value,
+    //   value: e.target.options[e.target.selectedIndex].text
+    // })
     updateCountry({
-      code: e.target.value,
-      value: e.target.options[e.target.selectedIndex].text
+      code: e.value,
+      value: e.label
     })
   }
 
@@ -67,21 +72,85 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   //     : <option value="">Select Country</option>
   // }
 
+  const customStyles = {
+    control: (base, state) => {
+      console.log('BASE', base)
+      return {
+      background: 'white',
+      color: 'black',
+      //minWidth: 150,
+      // width: '100',
+      classNamePrefix: 'react-select-container',
+      padding: '2px',
+      display: 'inline-block',
+
+    }},
+    // singleValue: base => {
+    //   console.log('SINGLE BASE', base)
+    //   return {
+    //     ...base,
+    //     maxWidth: "100px"
+    //   }
+    // },
+    container: base => {
+      console.log('CONTAIN BASE', base)
+      return {
+        ...base,
+      }
+    },
+    menu: base => ({
+      ...base,
+      color: 'black',
+      borderRadius: 0,
+      hyphens: "auto",
+      marginTop: 0,
+      textAlign: "left",
+      wordWrap: "break-word"
+    }),
+    dropdownIndicator: base => ({
+      ...base,
+      display: 'none'
+    }),
+    indicatorsContainer: base => ({
+      ...base,
+      display: 'none'
+    })
+  }
+
+  const options = () => {
+    return data.countries.map(({ country_name, country_code }) => {
+      return  { value: country_code, label: country_name }
+    })
+
+  }
+
   return(
     <fieldset className="CountryFieldset grow">
       <label htmlFor="country">Select Country</label>
-      <select
+      <div className="SelectContainer">
+        <Select
+          className="react-select-container"
+          styles={customStyles}
+          defaultValue={{ value: formCountry.code, label: formCountry.value }}
+          onChange={handleChange}
+          options={options()}/>
+      </div>
+      {/* <select
         id="country"
         name="country"
         type="text"
         onChange={handleChange}
         value={formCountry.code || findCode(formCountry.value) || ''}
       >
-        {/* {optionDefault()} */}
+        {optionDefault()}
         {data.countries.map(({ country_name, country_code }) => {
-          return <option key={country_code} value={country_code}>{country_name}</option>
+          return (
+            <option key={country_code} value={country_code}>
+              {country_name}
+            </option>
+          )
         })}
-      </select>
+      </select> */}
     </fieldset>
   )
 }

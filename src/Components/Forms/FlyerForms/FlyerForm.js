@@ -30,7 +30,6 @@ const uuid = require('uuid/v1');
 // )
 
 
-
 function FlyerForm({ history, newType, flyer, creatorId }) {
   const { addFlyer, updateFlyer } = useContext(AuthedContext)
   const { user, setError } = useContext(AppContext)
@@ -97,8 +96,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     }))
   }
 
-
-
   useEffect(() => {
     if (formBody.type === "Show" || formBody.type === "Fest" ) {
       let showFestEventsArr = returnShowFestEventsArr()
@@ -163,7 +160,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const updateImgError = (error) => {
     setFormBody(prev => ({ ...prev, imgUrl: { ...prev.imgUrl, error: error } }))
   }
-
 
   const returnCleanContentEditable = (htmlText) => {
     // return htmlText.replace(/(<[^>]*>)|(&nbsp;)/g, "")
@@ -282,13 +278,12 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     e.preventDefault()
 
     const eventPostBodies = formBody.events.map(event => {
-      console.log('date beofre format in submit', event.event_date)
+
       const formattedDate = event.event_date && event.event_date.length === 5
         ? dateWithYear(event.event_date)
         : event.event_date && event.event_date.length > 5
           ? event.event_date
           : null
-      console.log('date format in submit', formattedDate)
 
       return {
         event_date: formattedDate,
