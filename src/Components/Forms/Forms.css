@@ -101,8 +101,9 @@ select {
 }
 
 div.react-select-container {
-  /* width: 150px; */
-float: left;
+width: 150px;
+/*  */
+/* display: inline-block; */
 }
 
 /* .CountryFieldset > select, .CityFieldset > input {

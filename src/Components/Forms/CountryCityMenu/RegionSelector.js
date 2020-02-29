@@ -19,7 +19,7 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     updateRegion({ ...formRegion, value: e.label })
   }
 
-  if (!formCountry.code || formRegion.array.length === 0) {
+  if (!formCountry.code || formRegion.array.length === 0 || ['BE', 'NL'].includes(formCountry.code)) {
     // if(Boolean(formRegion.value)) {
     //   return <p>{formRegion.value}</p>
     // }
