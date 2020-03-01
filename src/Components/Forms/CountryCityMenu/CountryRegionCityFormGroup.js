@@ -6,54 +6,7 @@ import Select from 'react-select'
 import  config from '../../../config'
 
 export default function CountryRegionCityFormGroup({ updateCountryRegionCity, formCountryRegionCity }) {
-  const [cities, setCities] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [keyUp, setKeyUp ] = useState(false)
-  const [cityValue, setCityValue] = useState(formCountryRegionCity.cityName.value)
 
-  const fetchData = async () => {
-    console.log('running fetch')
-    const countryCode = `countryIds=${formCountryRegionCity.countryName.code}`
-    const namePrefix = `namePrefix=${cityValue}`
-    setLoading(true)
-    const options = {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-        "X-RapidAPI-Key": `${config.X_RAPID_API_KEY}`
-      },
-      // signal: myAbortController.signal
-    }
-    try {
-      const response = await fetch(
-        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/?${countryCode}&${namePrefix}`,
-        options)
-      const body = await response.json();
-      if (!response.ok) {
-        setLoading(false)
-      } else {
-        setLoading(false)
-        console.log(body)
-        setCities(body.data)
-      }
-    } catch (e) {
-      setLoading(false)
-      // if (!myAbortController.signal.aborted) {
-      //   setLoading(false)
-      // }
-    }
-  }
-
-  useEffect(() => {
-    const myAbortController = new AbortController();
-    fetchData();
-
-    return () => {
-      myAbortController.abort();
-    }
-
-  }, [formCountryRegionCity.countryName.code, cityValue])
 
   const validateCityName = () => {
     if (formCountryRegionCity.cityName.touched) {
@@ -72,39 +25,19 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
       updateCountryRegionCity({ ...formCountryRegionCity, cityName: { ...formCountryRegionCity.cityName, error: validateCityName() } })
     }
     updateValidationErrors()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [formCountryRegionCity.cityName.value])
 
   const updateCountryRegion = (countryRegionFields) => {
     updateCountryRegionCity({ ...formCountryRegionCity, ...countryRegionFields})
   }
 
-  const cityOptions = () => {
-    // return [{ value: 'Phoenix', label: 'Phoenix'},
-    // { value: 'Denver', label: 'Denver'}]
-    return cities.map(city => {
-      return { value: city.city, label: city.city }
-    })
-  }
-
-  const getOptions = (input, callback) => {
-    console.log('get options', cityValue)
-    let options = { options: cityOptions() } // I just used my original props
-    setCityValue(input)
-    // callback(null, options)
-  }
-
   return(
     <div className="fieldset-container fieldset-container-dates-venue" >
       <CountryRegionFormGroup updateCountryRegion={updateCountryRegion} formCountryRegion={{ countryName: formCountryRegionCity.countryName, regionName: formCountryRegionCity.regionName }}/>
-      <fieldset className="CityFieldset" onKeyUp={function(e){ getOptions(e.target.value)}}>
+      <fieldset className="CityFieldset">
         <label htmlFor="city">City</label>
-        <Select
-          // options={cityOptions()}
-          onChange={e => { updateCountryRegionCity({ ...formCountryRegionCity, cityName: { value: e.value, touched: true } }) }}
-          asyncOptions={getOptions}
-        />
-        {/* <input
+        <input
           type="text"
           id="cityName"
           name="cityName"
@@ -116,7 +49,7 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
           aria-invalid={!!formCountryRegionCity.cityName.error}
           autoComplete="off"
         />
-        <ValidationError id="cityNameError" message={formCountryRegionCity.cityName.error} /> */}
+        <ValidationError id="cityNameError" message={formCountryRegionCity.cityName.error} />
       </fieldset>
     </div>
   )
