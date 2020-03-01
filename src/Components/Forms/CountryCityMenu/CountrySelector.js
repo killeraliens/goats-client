@@ -79,7 +79,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
       background: 'white',
       color: 'black',
       //minWidth: 150,
-      // width: '100',
+      // maxWidth: '100%',
       classNamePrefix: 'react-select-container',
       padding: '2px',
       display: 'inline-block',

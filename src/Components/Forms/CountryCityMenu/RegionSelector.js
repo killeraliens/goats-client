@@ -19,7 +19,7 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     updateRegion({ ...formRegion, value: e.label })
   }
 
-  if (!formCountry.code || formRegion.array.length === 0 || ['BE', 'NL'].includes(formCountry.code)) {
+  if (!formCountry.code || formRegion.array.length === 0 || !['US', 'CA'].includes(formCountry.code)) {
     // if(Boolean(formRegion.value)) {
     //   return <p>{formRegion.value}</p>
     // }
@@ -37,10 +37,9 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     control: (base, state) => ({
       background: 'white',
       color: 'black',
-      width: '100%',
-      flexGrow: 1,
+      // minWidth: '80px',
       padding: '2px',
-      display: 'inline-block'
+      display: 'inline-block',
     }),
     menu: base => ({
       ...base,

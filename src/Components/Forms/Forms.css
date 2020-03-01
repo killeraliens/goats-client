@@ -89,21 +89,27 @@ select {
 
 /*  */
 .CountryFieldset, .CityFieldset{
-  width: auto;
+  /* width: auto; */
 }
 
 .CountryFieldset {
-  min-width: 100px;
+  width: 100%;
+}
+
+.RegionFieldset {
+  width: 60%;
 }
 
 .CityFieldset{
-  margin-left: 8px;
+  /* margin-left: 8px; */
+  width: 100%;
 }
 
 div.react-select-container {
-width: 150px;
-/*  */
-/* display: inline-block; */
+/* width: 100%; */
+/* margin-right: inherit; */
+display: inline-block;
+/* margin-right: 8px; */
 }
 
 /* .CountryFieldset > select, .CityFieldset > input {
@@ -135,14 +141,13 @@ fieldset.date {
   flex-direction: row;
 }
 
-.fieldset-container-dates-venue * {
+.fieldset-container-dates-venue *:not(div.react-select-container) {
   width: 100%;
 }
 
 
 .fieldset-container.sub-group {
-  /* flex-grow: 1; */
-  width: auto;
+  display: contents;
   margin-right: 8px;
 }
 
@@ -150,11 +155,6 @@ fieldset.date {
   flex-grow: 0;
 }
 
-
-
-/* .fieldset-container.sub-group fieldset:not(:last-child) {
-    margin-right: 8px;
-  } */
 
 .EventFieldset.condensed {
   height: 0;
@@ -229,7 +229,7 @@ ul.EventInput--preview li > * {
 }
 
 
-@media (max-width: 599px) {
+@media (min-width: 399px) {
 
   .CityFieldset{
     margin-left: 0px;
@@ -243,18 +243,19 @@ ul.EventInput--preview li > * {
     margin-right: 0px;
   }
 
+
   .fieldset-container.sub-group fieldset:first-child {
     flex-grow: 2;
     margin-right: 8px;
   }
 
   .fieldset-container.sub-group fieldset:last-child {
-    flex-grow: 1;
-    margin-right: 0px;
+    /* flex-grow: 1; */
+    margin-right: 8px;
   }
 
   fieldset.grow {
-    flex-grow: 0;
+    flex-grow: 1;
   }
   fieldset.no-shrink {
     flex-shrink: 0;
@@ -262,6 +263,7 @@ ul.EventInput--preview li > * {
   fieldset.date {
     width: inherit;
   }
+
 }
 
 @media (max-width: 399px) {
@@ -270,7 +272,8 @@ ul.EventInput--preview li > * {
   }
 
   .fieldset-container.sub-group {
-  /* width: auto; */
+    display: flex;
+  width: auto;
   margin-right: 0px;
 }
 }
