@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 
 export default function CountrySelector({ updateCountry, formCountry }) {
   const [data, setData] = useState({ countries: [] })
-  //const [selected, setSelected] = useState(formCountry)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -43,10 +42,6 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 
 
   const handleChange = (e) => {
-    // updateCountry({
-    //   code: e.target.value,
-    //   value: e.target.options[e.target.selectedIndex].text
-    // })
     updateCountry({
       code: e.value,
       value: e.label
@@ -57,47 +52,16 @@ export default function CountrySelector({ updateCountry, formCountry }) {
     return <p>Loading Countries...</p>
   }
 
-  const findCode = (formCountryVal) => {
-    const country = data.countries.find(({ country_name, country_code }) => {
-      return country_name === formCountryVal
-    })
-    if (country && country.country_code) {
-      return country.country_code
-    }
-  }
-
-  // const optionDefault = () => {
-  //   return  Boolean(formCountry.value)
-  //     ? <option value={findCode(formCountry.value)}>{formCountry.value}</option>
-  //     : <option value="">Select Country</option>
-  // }
-
   const customStyles = {
-    control: (base, state) => {
-      console.log('BASE', base)
+    control: base => {
       return {
       background: 'white',
       color: 'black',
-      //minWidth: 150,
-      // maxWidth: '100%',
       classNamePrefix: 'react-select-container',
       padding: '2px',
       display: 'inline-block',
 
     }},
-    // singleValue: base => {
-    //   console.log('SINGLE BASE', base)
-    //   return {
-    //     ...base,
-    //     maxWidth: "100px"
-    //   }
-    // },
-    container: base => {
-      console.log('CONTAIN BASE', base)
-      return {
-        ...base,
-      }
-    },
     menu: base => ({
       ...base,
       color: 'black',
@@ -106,6 +70,11 @@ export default function CountrySelector({ updateCountry, formCountry }) {
       marginTop: 0,
       textAlign: "left",
       wordWrap: "break-word"
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isFocused ? 'blue' : 'white',
+      color: state.isFocused ? 'white' : 'black'
     }),
     dropdownIndicator: base => ({
       ...base,
@@ -135,22 +104,6 @@ export default function CountrySelector({ updateCountry, formCountry }) {
           onChange={handleChange}
           options={options()}/>
       </div>
-      {/* <select
-        id="country"
-        name="country"
-        type="text"
-        onChange={handleChange}
-        value={formCountry.code || findCode(formCountry.value) || ''}
-      >
-        {optionDefault()}
-        {data.countries.map(({ country_name, country_code }) => {
-          return (
-            <option key={country_code} value={country_code}>
-              {country_name}
-            </option>
-          )
-        })}
-      </select> */}
     </fieldset>
   )
 }

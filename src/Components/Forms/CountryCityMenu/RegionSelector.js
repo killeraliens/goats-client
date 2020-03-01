@@ -37,7 +37,6 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     control: (base, state) => ({
       background: 'white',
       color: 'black',
-      // minWidth: '80px',
       padding: '2px',
       display: 'inline-block',
     }),
@@ -49,6 +48,11 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
       marginTop: 0,
       textAlign: "left",
       wordWrap: "break-word"
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isFocused ? 'blue' : 'white',
+      color: state.isFocused ? 'white' : 'black'
     }),
     dropdownIndicator: base => ({
       ...base,
@@ -64,29 +68,10 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     <fieldset className="RegionFieldset no-grow">
       <label htmlFor="region">State/Province</label>
       <Select
-        className="react-select-container"
         styles={customStyles}
         defaultValue={{ value: formRegion.value, label: formRegion.value }}
         onChange={handleChange}
         options={options()} />
-      {/* <select
-        id="region"
-        name="region"
-        type="text"
-        onChange={handleChange}
-        value={formRegion.value}
-      >
-        <option value="">--</option>
-        {formRegion.array.map((region, i) => {
-          return(
-            <option
-              key={i}
-              value={!region.short ? region.name : region.short}>
-              {!region.short ? region.name : region.short}
-            </option>
-          )
-        })}
-      </select> */}
     </fieldset>
   )
 }
