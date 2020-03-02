@@ -10,7 +10,7 @@ import Landing from './Components/Landing/Landing'
 import ErrorBoundary from './Components/ErrorBoundary'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
-import EditFlyer from './Components/EditFlyer/EditFlyer'
+import GetFlyer from './Components/GetFlyer/GetFlyer'
 import NotFound from './Components/NotFound/NotFound';
 
 class App extends Component {
@@ -107,7 +107,12 @@ class App extends Component {
               } />
               <PrivateRoute path={`/flyer/:flyer_id/edit`} render={props =>
                 <ErrorBoundary>
-                  <AuthedSplit mainComponent={<EditFlyer {...props} />} />
+                  <AuthedSplit mainComponent={<GetFlyer isEdit={true} {...props} />} />
+                </ErrorBoundary>
+              } />
+              <PrivateRoute path={`/flyer/:flyer_id`} render={props =>
+                <ErrorBoundary>
+                  <AuthedSplit mainComponent={<GetFlyer {...props} />} />
                 </ErrorBoundary>
               } />
               {/* <Route path='/' render={() =>
@@ -116,7 +121,7 @@ class App extends Component {
                   : <Redirect to="/forum" /> //<NotFound link={<Link to="/forum">Back to forum</Link>} />
               } /> */}
               <Route render={() =>
-                !this.state.user || this.state.error
+              !this.state.user || (this.state.error && this.state.error.status == 401)
                   ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
                   : <Redirect to="/forum" /> // <NotFound link={<Link to="/forum">Back to forum</Link>} />
               } />

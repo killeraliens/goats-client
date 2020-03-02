@@ -5,7 +5,7 @@ function capitalize(text = '') {
   return text.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
 };
 
-const returnCleanContentEditable = (htmlText) => {
+const returnCleanContentEditable = (htmlText = '') => {
   return htmlText.replace(/(<[^>]*>)|(&nbsp;)/g, "")
 }
 
@@ -17,7 +17,7 @@ function createMarkup(htmlText) {
 //   return <div dangerouslySetInnerHTML={createMarkup('<div>Stuff</div>')} />;
 // }
 
-const returnSanitizedHtml = (htmlText) => {
+const returnSanitizedHtml = (htmlText = '') => {
   const clean = sanitizeHtml(htmlText, {
     allowedTags: ['b', 'i', 'em', 'strong', 'a', 'div', 'br'],
     allowedAttributes: {

@@ -129,7 +129,7 @@ export default function AuthedSplit({ mainComponent }) {
 
 AuthedSplit.propTypes = {
   mainComponent: PropTypes.objectOf(function (propValue, key, componentName, location, propFullName) {
-    if (!["Dashboard", "Forum", "CreateFlyer", "EditFlyer"].includes(propValue.type.name)) {
+    if (!["Dashboard", "Forum", "CreateFlyer", "GetFlyer"].includes(propValue.type.name)) {
       return new Error(`Bad component prop: ${propValue.type.name}. Pass one of the following: "Dashboard", "Forum", "CreateFlyer"`)
     }
   })

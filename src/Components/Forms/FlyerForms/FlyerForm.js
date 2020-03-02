@@ -13,6 +13,8 @@ import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
 import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
+import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
+import FlyerCard from '../../FlyerCard/FlyerCard';
 
 const uuid = require('uuid/v1');
 // const MemoizedComponent = React.memo(EventsPreview,
@@ -401,6 +403,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     <form className="FlyerForm" onSubmit={handleSubmit} aria-describedby="serverResponseError">
       <FlyerUpload formImgUrl={formBody.imgUrl} updateImgUrl={updateImgUrl} updateImgError={updateImgError} />
       <div className="Flyer--icon-type Tag margin-bottom-8">{formBody.type}</div>
+      {formBody.id ? <FlyerCardMenu creatorId={formBody.creatorId} flyerId={formBody.id} hasHandle={false}/> : null}
       <fieldset>
         <label htmlFor="headline">Headline*</label>
         <input

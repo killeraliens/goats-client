@@ -1,29 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import ThroughDates from './ThroughDates';
 import Locations from './Locations';
 import Accordian from '../Accordian/Accordian';
 import Location from './Location';
 import Comments from '../Comments/Comments';
-import FlyerCardMenu from '../FlyerCardMenu/FlyerCardMenu'
+import FlyerCardMenu from '../FlyerCardMenu/FlyerCardMenu';
 import './FlyerCard.css';
 import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '../../helpers/textHelpers'
 
-export default function FlyerCard({ flyer }) {
+export default function FlyerCard({ flyer, isEdit }) {
   const flyerEvents = flyer.events && flyer.events.length > 0
     ? flyer.events
     : []
+
   return (
     <div className="FlyerCard Card" id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}
-      <img className="Flyer--image"
-        src={flyer.image_url}
-        alt={flyer.headline}
-      />
+      <Link to={`/flyer/${flyer.id}`}>
+        <img className="Flyer--image"
+          src={flyer.image_url}
+          alt={flyer.headline}
+        />
+      </Link>
       <div className="Card--body">
-        <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} />
+        <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} hasHandle={isEdit ? false : true }/>
         <div className="Card--header">
           <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
           <h2>{flyer.headline}</h2>
@@ -58,6 +60,7 @@ export default function FlyerCard({ flyer }) {
   )
 }
 
+
 FlyerCard.defaultProps = {
   flyer: {
     bands: '',
@@ -66,6 +69,7 @@ FlyerCard.defaultProps = {
     creator_image_url: '',
     events: []
   },
+  isEdit: false
 }
 
 FlyerCard.propTypes = {
@@ -114,4 +118,5 @@ FlyerCard.propTypes = {
       city_id: PropTypes.number
     }))
   }).isRequired,
+  isEdit: PropTypes.bool
 }

@@ -10,6 +10,7 @@
   margin: 16px;
   height: 100%;
   /* padding: 16px 16px 60px 16px; */
+  margin-bottom: 40px;
 }
 
 .Main--content.no-margin {
@@ -19,6 +20,7 @@
 @media (max-width: 399px) {
   .Main--content {
     margin: 8px;
+    margin-bottom: 20px;
   }
 
   .Main--content.no-margin {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import config from '../../config'
 import './FlyerCardMenu.css'
@@ -10,15 +10,16 @@ import MainNavLink from '../MainNavLink/MainNavLink'
 import MainNav from '../MainNav/MainNav'
 import { faEllipsisH, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FlyerCard from '../FlyerCard/FlyerCard';
 
-export default function FlyerCardMenu({ creatorId, flyerId }) {
+function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
   const [visible, setVisible] = useState(false)
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const { user } = useContext(AppContext)
   const { deleteFlyer } = useContext(AuthedContext)
   const { deleteFlyerDash } = useContext(DashContext)
-
+  console.log('FLYER CARED MENU', history, match)
   const handleDelete = async () => {
     setFetching(true)
     const options = {
@@ -38,11 +39,34 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
       setFetching(false)
       deleteFlyer(flyerId)
       deleteFlyerDash(flyerId)
+      if (match.path === '/flyer/:flyer_id' || match.path === '/flyer/:flyer_id/edit') {
+        history.goBack()
+      }
     }
   }
 
-  if (visible) {
-    if (((user && user.id) && (user.id === creatorId)) || (user && user.admin)) {
+  const isAuthed = ((user && user.id) && (user.id === creatorId)) || (user && user.admin)
+  if (!hasHandle && isAuthed) {
+
+    return (
+      <MainNav className={`FlyerCardMenu--Nav inline-float-right`}>
+        <MainNavLink
+          callback={handleDelete}
+          activeColorClass={'red-white'}
+          to="#"
+        >
+          {fetching
+            ? '  ...  '
+            : user.admin && creatorId != user.id
+              ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
+              : `Delete`}
+        </MainNavLink>
+      </MainNav>
+    )
+  }
+  switch (true) {
+    case visible && isAuthed:
+
       return (
         <div className='FlyerCardMenu'>
           <MainNav className={`FlyerCardMenu--Nav`}>
@@ -54,8 +78,8 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
               {fetching
                 ? '  ...  '
                 : user.admin && creatorId != user.id
-              ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
-                : `Delete` }
+                  ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
+                  : `Delete`}
             </MainNavLink>
             <MainNavLink
               activeColorClass={'red-white'}
@@ -64,43 +88,51 @@ export default function FlyerCardMenu({ creatorId, flyerId }) {
               {fetching
                 ? '  ...  '
                 : user.admin && creatorId != user.id
-                ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Edit</span>
-                : `Edit`}
+                  ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Edit</span>
+                  : `Edit`}
             </MainNavLink>
           </MainNav>
-          <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
+          <a className="handle" onClick={(e) => setVisible(prev => !prev)}>
             <FontAwesomeIcon icon={faEllipsisH} />
-          </Link>
+          </a>
         </div>
       )
-    }
-    return (
-      <div className='FlyerCardMenu'>
-        {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
+
+    case visible && !isAuthed:
+      return (
+        <div className='FlyerCardMenu'>
+          {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
           <FontAwesomeIcon icon={faEllipsisH} />
         </Link> */}
-      </div>
-    )
-  }
+        </div>
+      )
 
-  if (((user && user.id) && (user.id === creatorId)) || (user && user.admin)) {
-    return (
-      <div className='FlyerCardMenuOpen'>
-        <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
-          <FontAwesomeIcon icon={faEllipsisH} />
-        </Link>
-      </div>
-    )
-  }
+    case !visible && isAuthed:
+      return (
+        <div className='FlyerCardMenuOpen'>
+          <a  className="handle" onClick={(e) => setVisible(prev => !prev)}>
+            <FontAwesomeIcon icon={faEllipsisH} />
+          </a>
+        </div>
+      )
 
-  return (
-    <div className='FlyerCardMenu'>
-      {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
+    default:
+      return (
+        <div className='FlyerCardMenu'>
+          {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
           <FontAwesomeIcon icon={faEllipsisH} />
         </Link> */}
-    </div>
-  )
+        </div>
+      )
+  }
 
+}
+
+
+export default withRouter(FlyerCardMenu)
+
+FlyerCardMenu.defaultProps = {
+  hasHandle: true
 }
 
 FlyerCardMenu.propTypes = {

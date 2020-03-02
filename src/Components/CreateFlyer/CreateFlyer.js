@@ -10,7 +10,7 @@ import FlyerForm from '../Forms/FlyerForms/FlyerForm';
 import NotFound from '../NotFound/NotFound'
 
 
-export default function CreateFlyer() {
+export default function CreateFlyer({ history }) {
   const { user, error } = useContext(AppContext)
   const { serverError, fetching } = useContext(AuthedContext)
   const formLinks = [
@@ -38,8 +38,8 @@ export default function CreateFlyer() {
       return(
         <div className="CreateFlyer">
           <MainHeader >
-            <Link to='/create-flyer/show' className='header-link'>
-              Create Flyer
+            <Link to='#' onClick={() => history.goBack()} className='header-link'>
+              Post
             </Link>
           </MainHeader>
           <MainNav
