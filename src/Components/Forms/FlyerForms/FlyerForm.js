@@ -131,6 +131,10 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   }, [newType])
 
   useEffect(() => {
+    resetForm()
+  }, [])
+
+  useEffect(() => {
     const setDisabledIfErrors = () => {
       let errors = Object.values(formBody).filter(value => value && Boolean(value.error))
       if (errors.length > 0 || !Boolean(formBody.headline.value) || !Boolean(formBody.imgUrl.value)) {
