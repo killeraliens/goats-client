@@ -127,7 +127,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
   useEffect(() => {
     setFormBody(prev => ({ ...prev, type: newType }))
-    resetForm()
+    resetEventFields()
   }, [newType])
 
   useEffect(() => {
