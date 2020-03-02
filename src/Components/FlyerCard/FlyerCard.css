@@ -13,6 +13,10 @@
   font-size: 22px;
 }
 
+.Card--header h2 {
+  margin-bottom: 12px;
+}
+
 .Card--header .Tag {
   margin-bottom: 8px;
 }

@@ -19,7 +19,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
   const { user } = useContext(AppContext)
   const { deleteFlyer } = useContext(AuthedContext)
   const { deleteFlyerDash } = useContext(DashContext)
-  console.log('FLYER CARED MENU', history, match)
+
   const handleDelete = async () => {
     setFetching(true)
     const options = {
