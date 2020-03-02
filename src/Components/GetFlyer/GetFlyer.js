@@ -7,6 +7,7 @@ import FlyerForm from '../Forms/FlyerForms/FlyerForm';
 import config from '../../config'
 import Spinner from '../Spinner/Spinner';
 import FlyerCard from '../FlyerCard/FlyerCard'
+import BackLink from '../BackLink/BackLink'
 
 export default function GetFlyer({ match, history, isEdit }) {
   const { user, setError } = useContext(AppContext)
@@ -67,15 +68,13 @@ export default function GetFlyer({ match, history, isEdit }) {
       return (
         <div className="GetFlyer ViewFlyer">
           <MainHeader >
-            <Link to='#' onClick={() => history.goBack()} className='header-link'>
+            <BackLink className='header-link' hasArrow={false}>
               {flyer.headline}
-            </Link>
+            </BackLink>
           </MainHeader>
           <div className="Main--content">
             <FlyerCard flyer={flyer} isEdit={false} />
-            <Link to='#' onClick={() => history.goBack()} className='header-link'>
-              Back
-            </Link>
+            <BackLink className='header-link' />
           </div>
         </div>
       )
@@ -87,9 +86,9 @@ export default function GetFlyer({ match, history, isEdit }) {
       return (
         <div className="GetFlyer EditFlyer">
           <MainHeader >
-            <Link to='#' onClick={() => history.goBack()} className='header-link'>
+            <BackLink className='header-link'>
               Edit{' '}{flyer.headline}
-            </Link>
+            </BackLink>
           </MainHeader>
           <div className="Main--content">
             <FlyerForm flyer={flyer} />

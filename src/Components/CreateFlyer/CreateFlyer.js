@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import AuthedContext from '../../AuthedContext';
@@ -8,9 +7,9 @@ import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import FlyerForm from '../Forms/FlyerForms/FlyerForm';
 import NotFound from '../NotFound/NotFound'
+import BackLink from '../BackLink/BackLink'
 
-
-export default function CreateFlyer({ history }) {
+export default function CreateFlyer() {
   const { user, error } = useContext(AppContext)
   const { serverError, fetching } = useContext(AuthedContext)
   const formLinks = [
@@ -38,9 +37,9 @@ export default function CreateFlyer({ history }) {
       return(
         <div className="CreateFlyer">
           <MainHeader >
-            <Link to='#' onClick={() => history.goBack()} className='header-link'>
+            <BackLink className='header-link' hasArrow={false}>
               Post
-            </Link>
+            </BackLink>
           </MainHeader>
           <MainNav
             links={formLinks}
@@ -63,3 +62,4 @@ export default function CreateFlyer({ history }) {
       )
   }
 }
+

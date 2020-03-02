@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
-import MainNav from '../MainNav/MainNav';
 import Feed from '../Feed/Feed.js';
 import NotFound from '../NotFound/NotFound';
 import AuthedContext from '../../AuthedContext';
 import AppContext from '../../AppContext'
 import CountryRegions from '../CountryRegions/CountryRegions'
-import App from '../../App';
+import BackLink from '../BackLink/BackLink';
 
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
@@ -53,6 +52,7 @@ export default function Forum() {
                 return <NotFound link={<Link to="/forum">Back to forum</Link>} />
               }} />
             </Switch>
+            <BackLink />
           </div>
         </div>
       )

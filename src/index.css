@@ -60,3 +60,7 @@ div.margin-bottom-16 {
 p.no-top-margin {
   margin-top: 0;
 }
+
+a {
+  cursor: pointer;
+}
