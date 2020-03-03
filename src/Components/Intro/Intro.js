@@ -11,9 +11,9 @@ export default function Intro() {
         <h1>Goat's Forum</h1>
       <br />
       <section>
-        <h3>If you know about an upcoming show, fest, or tour share the flyer here.</h3>
+        <h3>If you know about an upcoming concert, festival, or tour share the flyer here.</h3>
         <p>
-          This is a DIY bulletin board for flyer artwork and event information.
+          This is a DIY bulletin board for poster artwork and event information.
           If you want to copy/paste from an event already on Facebook,
           that would be a great way contribute to our forum.
         </p>
@@ -51,7 +51,7 @@ export default function Intro() {
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
           <Sword width='32px' direction='right' />
           <p>
-            Manage any flyers you've posted from your dashboard or public forum.
+            Update or delete any flyers you've posted from your dashboard or public forum.
           </p>
         </div>
         <div className="flex-bullets">
