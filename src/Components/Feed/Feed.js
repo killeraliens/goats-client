@@ -19,21 +19,23 @@ export default function Feed({ flyers, fetching, fetchingAdditional, total, hand
   }
 
   return(
-    <div className="Feed">
-      {flyers.map(flyer => {
-        return <FlyerCard key={flyer.id} flyer={flyer} flyerEvents={flyer.events} />
-      })}
-      <div>
+    <React.Fragment>
+      <div className="Feed">
+        {flyers.map(flyer => {
+          return <FlyerCard key={flyer.id} flyer={flyer} flyerEvents={flyer.events} />
+        })}
+      </div>
+      <div className="FetchingAdditional--container">
         {fetchingAdditional
           ? <Spinner />
-            : flyers.length === 0 && total === 0
-            ? null
+          : flyers.length <= 3 && total <= 3
+        ? null
           : flyers.length < total
-            ? <Link to={`#`} onClick={handleClickLoad}>More....</Link>
-            : <Link to={`#`} onClick={scrollToTop}>Scroll To Top</Link>
+            ? <a onClick={handleClickLoad}>More....</a>
+            : <a onClick={scrollToTop}>Scroll To Top</a>
         }
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 

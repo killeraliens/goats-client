@@ -1,0 +1,32 @@
+.Sword {
+  display: inline-block;
+}
+
+.right {
+  transform: rotate(180deg);
+
+}
+
+.down {
+   transform: rotate(-90deg);
+}
+
+.fortyfive-down {
+   transform: rotate(225deg);
+}
+
+.down-right-angled {
+   transform: rotate(190deg);
+}
+
+.sword-underline {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
+
+
+.sword-underline :first-child {
+  margin-left: 12px;
+}

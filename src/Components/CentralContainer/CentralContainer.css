@@ -7,9 +7,9 @@
   background-color: whitesmoke;
 }
 
-.CentralContainer section:not(:last-child) {
+/* .CentralContainer section:not(:last-child) {
   margin-bottom: 32px;
-}
+} */
 
 @media (min-width: 399px) {
   .CentralContainer {

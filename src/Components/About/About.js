@@ -14,12 +14,17 @@ export default function About() {
         <p>
           Your personal account information will never be shared,
           but the things you post on here will be visible to other members.
-          For now, this site will somewhat moderated by me.
+          Until a flagging feature is up, this site will be somewhat moderated by me.
           If you post non-relevant material I may clean it up without telling you.
         </p>
         <p>
+          Additionally, certain features like <b>password recovery</b> are not yet available.
+          For now, if you cannot remember your password or username, start a new account.
+          You can email me with any specific account requests until additonal features are up.
+        </p>
+        <p>
           This project is in testing and development mode and it needs people like you to sign up and post content.
-          If you are interested becoming a moderator in the future, email me. Also please send any errors, questions, or general improvements to
+          If you are interested becoming a moderator in the future, email me. Send any errors, questions, or general improvements to
           {' '}
           <Mailto
             email='goatsforum@gmail.com'

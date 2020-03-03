@@ -6,14 +6,11 @@ import AppContext from '../../AppContext';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
-import NotFound from '../NotFound/NotFound'
-import { Link } from 'react-router-dom';
-//import Spinner from '../Spinner/Spinner'
 
 export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
   const [total, setTotal] = useState(0)
-  const [limit] = useState(2)
+  const [limit] = useState(5)
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState(null)
@@ -35,7 +32,6 @@ export default function AuthedSplit({ mainComponent }) {
       ...flyerToUpdate,
       ...patchBody
     }
-    console.log('UPDATING CONTEXT', updatedFlyer)
     setFlyers(prev => ([updatedFlyer, ...prev.filter(flyer => flyer.id !== flyerId)]))
   }
 

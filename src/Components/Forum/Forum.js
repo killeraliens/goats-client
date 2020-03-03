@@ -52,7 +52,7 @@ export default function Forum() {
                 return <NotFound link={<Link to="/forum">Back to forum</Link>} />
               }} />
             </Switch>
-            <BackLink />
+            {fetching ? null : <BackLink />}
           </div>
         </div>
       )

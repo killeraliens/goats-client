@@ -16,6 +16,16 @@
   break-inside: avoid-column;
 }
 
+.FetchingAdditional--container, .FetchingAdditional--container * {
+   display: flex;
+   /* text-align: left; */
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 80px;
+}
+
+
 @media (min-width: 599px) {
   .Feed {
     column-count: 2;
