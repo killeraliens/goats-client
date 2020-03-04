@@ -10,7 +10,7 @@ function BackLink({ history, children, className, hasArrow, backText }) {
       <a onClick={() => history.goBack()} >
         <React.Fragment>{
           hasArrow
-            ? <span><Sword width='40px' direction='left' /></span>
+            ? <span><Sword width='36px' direction='left' /></span>
             : null
         }{
           backText

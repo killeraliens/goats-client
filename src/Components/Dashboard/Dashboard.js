@@ -12,7 +12,7 @@ import './Dashboard.css'
 import NotFound from '../NotFound/NotFound';
 import Spinner from '../Spinner/Spinner';
 import config from '../../config';
-import BackLink from '../BackLink/BackLink'
+// import BackLink from '../BackLink/BackLink'
 
 
 function Dashboard({ match }) {
@@ -103,9 +103,9 @@ function Dashboard({ match }) {
               }} />
             </Switch>
           </DashContext.Provider>
-          <div className='backlink-container'>
+          {/* <div className='backlink-container'>
             <BackLink backText={true} hasArrow={true}/>
-          </div>
+          </div> */}
           </div>
       )
     case !!foundUser:
@@ -114,9 +114,9 @@ function Dashboard({ match }) {
             <DashContext.Provider value={contextValue}>
               <Profile user={foundUser} isCurrent={false} userFlyers={flyers} fetching={fetching} />
             </DashContext.Provider>
-            <div className='backlink-container'>
+            {/* <div className='backlink-container'>
               <BackLink backText={true} hasArrow={true} />
-            </div>
+            </div> */}
           </div>
         )
     default:

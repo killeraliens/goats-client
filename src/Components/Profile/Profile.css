@@ -18,6 +18,6 @@
   /* top: 8px; */
 }
 
-.Profile p.Profile--location > svg {
+p.Profile--location svg.svg-inline--fa {
   color: blue;
 }
