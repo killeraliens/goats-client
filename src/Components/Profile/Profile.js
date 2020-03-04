@@ -30,7 +30,9 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
             />
             <div >
               <h1 className="Main--header--title username">{user.username}</h1>
-              <Location eventLocation={{
+              <Location
+              style={{color: 'blue'}}
+              eventLocation={{
                 city_name: user.city_name,
                 region_name: user.region_name,
                 country_name: user.country_name
