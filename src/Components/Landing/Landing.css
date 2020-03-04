@@ -4,8 +4,8 @@
 
 .Landing form {
   margin: 0px auto;
-  max-width: 316px;
-  padding: 40px;
+  max-width: 340px;
+  padding: 60px;
 }
 
 .intro-about-container {
@@ -17,4 +17,8 @@
   .intro-about-container {
     padding: 32px;
   }
+
+  .Landing form {
+  padding: 40px;
+}
 }

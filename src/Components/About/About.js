@@ -21,7 +21,7 @@ export default function About() {
           </p>
           <p>
             Additionally, certain features like <i>password recovery</i> are not yet available.
-            For now, if you cannot remember your password or username, {<b><Link to='/public/signup'>{' '}start a new account</Link></b>}.
+            For now, if you cannot remember your password or username, {<Link to='/public/signup'>start a new account</Link>}.
             You can email me with any specific account requests until additonal features are up.
           </p>
           <p>

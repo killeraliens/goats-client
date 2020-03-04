@@ -25,7 +25,7 @@ export default function Intro() {
           Create an account, post some local flyers. Tell others.
         </p>
         <div className='center-button-container'>
-          <Link to='/public/signup' className='MainNavLink'><b>Sign up</b></Link>
+          <Link to='/public/signup' className='ActionButton'>Sign up</Link>
           {/* <Link to='/public/signup' className='MainNavLink green-white'><b>Sign up</b></Link> */}
         </div>
       </section>
@@ -36,7 +36,7 @@ export default function Intro() {
           {/* <p>[<em>placeholder for Home community feed screenshot</em>]</p> */}
           {/* <img src={flourish} className='flourish'/> */}
           <p style={{marginTop: '0px'}}>
-            <b><Link to='/public/signup' className='link-on-light'>Create an account</Link></b> to view posted content & contribute to the community forum.
+            <Link to='/public/signup' >Create an account</Link> to view posted content & contribute to the community forum.
           </p>
         </div>
         <div className="flex-bullets">

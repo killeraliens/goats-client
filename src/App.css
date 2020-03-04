@@ -89,20 +89,38 @@ ul li {
   text-align: center;
 }
 
-a.link-on-light {
-  color: rgb(46, 46, 46);
+
+.ActionButton {
+  display: inline-block;
+  line-height: 24px;
+  padding: 0px 8px;
+  color: white;
+  background-color:green;
+  margin-left: 0;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  text-decoration: none;
 }
 
-a.link-on-light:hover {
-  opacity: 100%;
-  color: black
+.Landing .About a:not(.ActionButton),
+.Landing .Intro a:not(.ActionButton),
+.Landing form .form-controls a,
+form .form-controls a:not(.ActionButton),
+.FlyerCard .Accordian--content a {
+  /* color: rgba(46, 46, 46, .8); */
+  color: blue;
+  word-break: none;
+  /* text-decoration: underline; */
+  white-space: nowrap;
 }
 
-.Landing .About a, .Landing .Intro a, .Landing form a, form a {
-  color: rgba(46, 46, 46, .8);
+.Landing .About a:not(.ActionButton):hover,
+.Landing .Intro a:not(.ActionButton):hover,
+.Landing form a:hover,
+form a:not(.ActionButton):hover {
+  color: rgba(46, 46, 46, 1);
   text-decoration: underline;
 }
-
 
 .white-smoke-bg {
   background-color: whitesmoke;

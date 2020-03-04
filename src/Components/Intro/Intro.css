@@ -33,7 +33,7 @@
 
 .flex-bullets .flourish {
   position: relative;
-  /* top: 4px; */
+  top: -6px;
   align-self: center;
 }
 
