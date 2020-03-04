@@ -117,10 +117,23 @@ form .form-controls a:not(.ActionButton),
 .Landing .About a:not(.ActionButton):hover,
 .Landing .Intro a:not(.ActionButton):hover,
 .Landing form a:hover,
-form a:not(.ActionButton):hover {
+form a:not(.ActionButton):hover
+.FlyerCard .Accordian--content a:hover {
   color: rgba(46, 46, 46, 1);
   text-decoration: underline;
 }
+
+.FetchingAdditional--container a {
+  /* color: rgba(46, 46, 46, 1); */
+  color: darkgrey;
+  cursor: pointer;
+}
+
+.FetchingAdditional--container a:hover {
+  /* color: black; */
+  color: whitesmoke
+}
+
 
 .white-smoke-bg {
   background-color: whitesmoke;
