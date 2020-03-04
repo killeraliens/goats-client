@@ -37,7 +37,7 @@ export default function CreateFlyer() {
       return(
         <div className="CreateFlyer">
           <MainHeader >
-            <BackLink className='header-link' hasArrow={false}>
+            <BackLink className='header-link' >
               Post
             </BackLink>
           </MainHeader>
@@ -57,6 +57,9 @@ export default function CreateFlyer() {
               }} />
               <Redirect to="/create-flyer" />
             </Switch>
+          </div>
+          <div className='backlink-container'>
+            <BackLink backText={true} hasArrow={true} />
           </div>
         </div>
       )

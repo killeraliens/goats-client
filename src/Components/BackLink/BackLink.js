@@ -2,12 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import './BackLink.css'
+import Sword from '../Sword/Sword'
 
-function BackLink({ history, children, className, hasArrow }) {
+function BackLink({ history, children, className, hasArrow, backText }) {
   return (
-    <div className={className}>
+    <div className={`BackLink ${className ? className : ''}`}>
       <a onClick={() => history.goBack()} >
-        {hasArrow ? <span style={{ marginRight: '16px'} }>{'<<'}Back</span> : null }{children}
+        <React.Fragment>{
+          hasArrow
+            ? <span><Sword width='40px' direction='left' /></span>
+            : null
+        }{
+          backText
+            ? <span>Back</span>
+            : null
+        }</React.Fragment>
+        {children}
       </a>
     </div>
   )
@@ -16,8 +26,8 @@ function BackLink({ history, children, className, hasArrow }) {
 export default withRouter(BackLink)
 
  BackLink.defaultProps = {
-   hasArrow: true,
-   className: 'BackLink'
+   hasArrow: false,
+   backText: false,
  }
 
  BackLink.propTypes = {
@@ -27,5 +37,6 @@ export default withRouter(BackLink)
      PropTypes.node
    ]),
    className: PropTypes.string,
-   hasArrow: PropTypes.bool
+   hasArrow: PropTypes.bool,
+   backText: PropTypes.bool,
  }

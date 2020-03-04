@@ -6,7 +6,6 @@ import NotFound from '../NotFound/NotFound';
 import AuthedContext from '../../AuthedContext';
 import AppContext from '../../AppContext'
 import CountryRegions from '../CountryRegions/CountryRegions'
-import BackLink from '../BackLink/BackLink';
 
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
@@ -32,8 +31,6 @@ export default function Forum() {
             </Link>
           </MainHeader>
           <CountryRegions format={"links"} />
-
-
           <div className="Main--content">
             <Switch>
               <Route exact path={`/forum`} render={() => {
@@ -48,11 +45,10 @@ export default function Forum() {
                 )
               }} />
               <CountryRegions format={"routes"}/>
-              < Route render={() => {
+              <Route render={() => {
                 return <NotFound link={<Link to="/forum">Back to forum</Link>} />
               }} />
             </Switch>
-            {fetching ? null : <BackLink />}
           </div>
         </div>
       )

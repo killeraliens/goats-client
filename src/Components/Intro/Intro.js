@@ -2,6 +2,7 @@ import React from 'react';
 import CentralContainer from '../CentralContainer/CentralContainer'
 import { Link } from 'react-router-dom'
 import Sword from '../Sword/Sword'
+import flourish from '../../assets/flourish.svg'
 import './Intro.css'
 import Mailto from 'react-protected-mailto'
 
@@ -28,35 +29,35 @@ export default function Intro() {
         <h3>How it works.</h3>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Home community feed screenshot</em>]</p> */}
-          <Sword width='32px' direction='right'/>
+          {/* <img src={flourish} className='flourish'/> */}
           <p>
             <b><Link to='/public/signup'>Create an account</Link></b> to view posted content & contribute to the community forum.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Dashboard screenshot</em>]</p> */}
-          <Sword width='32px' direction='right' />
+          <img src={flourish} className='flourish' />
           <p>
             Manage your profile appearance, account settings, past contributions from your dashboard.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Add Flyer screenshot</em>]</p> */}
-          <Sword width='32px' direction='right' />
+          <img src={flourish} className='flourish' />
           <p>
             Post a flyer. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the flyer more searchable.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
-          <Sword width='32px' direction='right' />
+          <img src={flourish} className='flourish' />
           <p>
             Update or delete any flyers you've posted from your dashboard or public forum.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
-          <Sword width='32px' direction='right' />
+          <img src={flourish} className='flourish' />
           <p>
             Watch for new features like comments, sorting, and stars.
             Contact  <Mailto
@@ -66,6 +67,7 @@ export default function Intro() {
               }
             /> with suggestions for features you would like to see added.
           </p>
+          {/* <img src={flourish} className='flourish' /> */}
         </div>
       </section>
     </CentralContainer>

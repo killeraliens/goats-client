@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import NotFound from '../NotFound/NotFound'
 import Feed from '../Feed/Feed';
 import AppContext from '../../AppContext'
+import BackLink from '../BackLink/BackLink';
 import config from '../../config';
 
 export default function Country({ countryName, regionName }) {
@@ -104,6 +105,7 @@ export default function Country({ countryName, regionName }) {
               total={total}
               handleClickLoad={handleClickLoad}
             />
+            <BackLink hasArrow={true} backText={true} />
           </div>
 
         </div>

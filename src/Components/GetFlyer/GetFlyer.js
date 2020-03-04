@@ -68,13 +68,13 @@ export default function GetFlyer({ match, history, isEdit }) {
       return (
         <div className="GetFlyer ViewFlyer">
           <MainHeader >
-            <BackLink className='header-link' hasArrow={false}>
+            <BackLink className='header-link'>
               {flyer.headline}
             </BackLink>
           </MainHeader>
           <div className="Main--content">
             <FlyerCard flyer={flyer} isEdit={false} />
-            <BackLink className='header-link' />
+            <BackLink backText={true} hasArrow={true} />
           </div>
         </div>
       )
@@ -92,6 +92,7 @@ export default function GetFlyer({ match, history, isEdit }) {
           </MainHeader>
           <div className="Main--content">
             <FlyerForm flyer={flyer} />
+          <BackLink backText={true} hasArrow={true}/>
           </div>
         </div>
       )
