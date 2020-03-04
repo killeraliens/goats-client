@@ -18,6 +18,6 @@
   /* top: 8px; */
 }
 
-p.Profile--location svg {
+.Profile p.Profile--location > svg {
   color: blue;
 }
