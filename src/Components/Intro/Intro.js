@@ -9,7 +9,7 @@ import Mailto from 'react-protected-mailto'
 export default function Intro() {
   return(
     <CentralContainer >
-      <div className='intro-about-container'>
+      <div className='Intro intro-about-container'>
         <h1>Goat's Forum</h1>
       <br />
       <section>

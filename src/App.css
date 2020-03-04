@@ -98,6 +98,13 @@ a.link-on-light:hover {
   color: black
 }
 
+.Landing .About a, .Landing .Intro a, .Landing form a, form a {
+  color: rgba(46, 46, 46, .8);
+  text-decoration: underline;
+}
+
+
 .white-smoke-bg {
   background-color: whitesmoke;
 }
+

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function About() {
   return (
     <CentralContainer >
-      <div className="intro-about-container">
+      <div className="About intro-about-container">
         <section>
           <h1>About</h1>
           <p>
