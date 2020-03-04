@@ -15,9 +15,9 @@
   top: 1px; */
   margin: 0px;
   height: 0px;
-  top: 8px;
+  /* top: 8px; */
 }
 
-.Profile--location svg {
+p.Profile--location svg {
   color: blue;
 }
