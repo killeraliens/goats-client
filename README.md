@@ -17,11 +17,11 @@
         <h3>How it works.</h3>
           <!-- <p>[<em>placeholder for Home community feed screenshot</em>]</p> -->
           <p>
-            <b><a href="https://goats-forum.now.sh/public/signup" target="_blank">Create an account</a> to view posted content & contribute to the community forum.</b>
+            <b><a href="https://goats-forum.now.sh/public/signup" target="_blank">Create an account</a> to view & post flyers to the public forum.</b>
           </p>
          <!-- <p>[<em>placeholder for Dashboard screenshot</em>]</p> -->
           <p>
-            <b>Manage your profile appearance, account settings, past contributions from your dashboard.</b>
+            <b>Manage your profile, account settings, past contributions from your dashboard.</b>
           </p>
           <!-- <p>[<em>placeholder for Add Flyer screenshot</em>]</p> -->
           <p>
@@ -34,6 +34,7 @@
           <!-- <p>[<em>placeholder for delete flyer shot</em>]</p> -->
           <p>
              <b>Watch for new features like comments, sorting, and stars.
-                  Contact <a mail-to='goatsforum@gmail.com'>goatsforum@gmail.com</a> with suggestions for features you would like to see added.</b>
+              Contact <a mail-to='goatsforum@gmail.com'>goatsforum@gmail.com</a> with suggestions.
+          </b>
           </p>
       </section>
