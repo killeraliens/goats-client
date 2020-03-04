@@ -13,7 +13,12 @@ export default function CreateFlyer() {
   const { user, error } = useContext(AppContext)
   const { serverError, fetching } = useContext(AuthedContext)
   const formLinks = [
-    <MainNavLink to={'/create-flyer/show'} >Single Show</MainNavLink>,
+    <MainNavLink to={'/create-flyer/show'} isActive={(match, location) => {
+      if (location.pathname === `/create-flyer/show` || location.pathname === `/create-flyer` || location.pathname === `/create-flyer/`) {
+        return true
+      }
+      return false
+    }}>Single Show</MainNavLink>,
     <MainNavLink to={'/create-flyer/tour'} >Tour</MainNavLink>,
     <MainNavLink to={'/create-flyer/fest'} >Festival</MainNavLink>
   ]
@@ -37,15 +42,18 @@ export default function CreateFlyer() {
       return(
         <div className="CreateFlyer">
           <MainHeader >
-            <BackLink className='header-link' >
+            <Link to='/create-flyer' className='header-link' >
               Post
-            </BackLink>
+            </Link>
           </MainHeader>
           <MainNav
             links={formLinks}
           />
           <div className="Main--content">
             <Switch>
+              <Route exact path='/create-flyer' render={({ history }) => {
+                return <FlyerForm history={history} newType="Show" creatorId={user.id} />
+              }} />
               <Route exact path='/create-flyer/show' render={({ history }) => {
                 return <FlyerForm history={history} newType="Show" creatorId={user.id} />
               }}/>
@@ -57,9 +65,7 @@ export default function CreateFlyer() {
               }} />
               <Redirect to="/create-flyer" />
             </Switch>
-          </div>
-          <div className='backlink-container'>
-            <BackLink backText={true} hasArrow={true} />
+            <BackLink hasArrow={true} backText={true} />
           </div>
         </div>
       )
