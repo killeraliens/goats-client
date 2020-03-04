@@ -35,10 +35,11 @@ code {
   max-width: 500px;
 } */
 
-body form.FlyerForm {
+/* body form.FlyerForm { */
+body form {
   padding: 24px;
   background-color: whitesmoke;
-  max-width: 500px;
+  /* max-width: 500px; */
 }
 
 body form.header-form {
@@ -64,3 +65,4 @@ p.no-top-margin {
 a {
   cursor: pointer;
 }
+

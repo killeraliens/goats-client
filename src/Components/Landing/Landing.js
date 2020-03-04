@@ -14,7 +14,6 @@ export default function Landing(props) {
   return(
     <div className="Landing">
       <MainHeader heightClass="dbl-height">
-        <p>[<em>placeholder for goat skull illustration</em>]</p>
       </MainHeader>
       <MainHeaderNav
         links={[

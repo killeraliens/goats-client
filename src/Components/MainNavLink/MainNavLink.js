@@ -13,7 +13,7 @@ export default function MainNavLink(props) {
           props.callback()
         }
       }}
-      className={`MainNavLink ${props.activeColorClass}`}
+      className={`MainNavLink ${props.activeColorClass} ${props.className ? props.className : ''}`}
       to={props.to}
       isActive={props.isActive}
     >

@@ -20,6 +20,11 @@
   color: white;
 }
 
+.MainNavLink.green-white {
+  background-color: green;
+  color: white;
+}
+
 .MainNavLink.blue-white.active {
   background-color: blue;
   color: white;

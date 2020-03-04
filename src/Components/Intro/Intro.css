@@ -6,7 +6,7 @@
    margin-bottom: 9.38px;
 }
 
-div.Intro p {
+.Intro p {
   margin-top: 0;
 }
 
@@ -40,4 +40,13 @@ div.Intro p {
 .flourish {
   width: 40px;
   align-self: center;
+}
+
+
+.center-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top:16px;
+  margin-bottom: 8px;
 }

@@ -36,7 +36,13 @@ a {
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+  transition: ease;
 }
+/*
+a:hover {
+  opacity: 100%;
+  color: rgb(46, 46, 46);
+} */
 
 h1, h2{
   margin-top: 0;
@@ -79,3 +85,19 @@ ul li {
   padding: 0;
 }
 
+.center-text {
+  text-align: center;
+}
+
+a.link-on-light {
+  color: rgb(46, 46, 46);
+}
+
+a.link-on-light:hover {
+  opacity: 100%;
+  color: black
+}
+
+.white-smoke-bg {
+  background-color: whitesmoke;
+}

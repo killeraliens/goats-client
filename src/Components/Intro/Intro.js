@@ -8,7 +8,8 @@ import Mailto from 'react-protected-mailto'
 
 export default function Intro() {
   return(
-    <CentralContainer>
+    <CentralContainer >
+      <div className='intro-about-container'>
         <h1>Goat's Forum</h1>
       <br />
       <section>
@@ -21,8 +22,12 @@ export default function Intro() {
         <p>
         View more artwork and events from an international scope, as they get posted.
           This is a private feed that relies on word-of-mouth sharing to get people posting the best content.
-          {<b><Link to='/public/signup'>{' '}Sign up</Link></b>}, post some local flyers. Tell others.
+          Create an account, post some local flyers. Tell others.
         </p>
+        <div className='center-button-container'>
+          <Link to='/public/signup' className='MainNavLink'><b>Sign up</b></Link>
+          {/* <Link to='/public/signup' className='MainNavLink green-white'><b>Sign up</b></Link> */}
+        </div>
       </section>
       <br />
       <section>
@@ -30,8 +35,8 @@ export default function Intro() {
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Home community feed screenshot</em>]</p> */}
           {/* <img src={flourish} className='flourish'/> */}
-          <p>
-            <b><Link to='/public/signup'>Create an account</Link></b> to view posted content & contribute to the community forum.
+          <p style={{marginTop: '0px'}}>
+            <b><Link to='/public/signup' className='link-on-light'>Create an account</Link></b> to view posted content & contribute to the community forum.
           </p>
         </div>
         <div className="flex-bullets">
@@ -70,6 +75,8 @@ export default function Intro() {
           {/* <img src={flourish} className='flourish' /> */}
         </div>
       </section>
+
+      </div>
     </CentralContainer>
   )
 }

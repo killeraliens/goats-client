@@ -14,7 +14,7 @@ function BackLink({ history, children, className, hasArrow, backText }) {
             : null
         }{
           backText
-            ? <span>Back</span>
+            ? <span></span>
             : null
         }</React.Fragment>
         {children}

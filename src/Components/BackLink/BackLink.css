@@ -1,4 +1,4 @@
-.BackLink {
+.BackLink:not(.header-link) {
   margin-top: 20px;
   color: silver;
   transition: ease;
