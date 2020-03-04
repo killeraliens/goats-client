@@ -13,12 +13,16 @@
   padding: 40px;
 }
 
+.intro-about-container h1 {
+  text-align: center;
+}
+
 @media (max-width: 399px) {
   .intro-about-container {
     padding: 32px;
   }
 
   .Landing form {
-  padding: 40px;
-}
+    padding: 40px;
+  }
 }

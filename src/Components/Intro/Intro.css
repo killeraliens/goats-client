@@ -10,13 +10,6 @@
   margin-top: 0;
 }
 
-.spectrum-background {
-    background:
-        linear-gradient(red, transparent),
-        linear-gradient(to top left, lime, transparent),
-        linear-gradient(to top right, blue, transparent);
-    background-blend-mode: screen;
-}
 
 .flex-bullets {
   display: flex;
@@ -33,7 +26,7 @@
 
 .flex-bullets .flourish {
   position: relative;
-  top: -6px;
+  top: -8px;
   align-self: center;
 }
 

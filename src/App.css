@@ -106,11 +106,13 @@ ul li {
 .Landing .Intro a:not(.ActionButton),
 .Landing form .form-controls a,
 form .form-controls a:not(.ActionButton),
-.FlyerCard .Accordian--content a {
-  /* color: rgba(46, 46, 46, .8); */
+.FlyerCard .Accordian--content a,
+.FlyerCard .Comment a  {
   color: blue;
-  word-break: none;
-  /* text-decoration: underline; */
+}
+
+.Landing .About a:not(.ActionButton),
+.Landing .Intro a:not(.ActionButton){
   white-space: nowrap;
 }
 
