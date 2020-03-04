@@ -10,7 +10,7 @@ export default function About() {
         <section>
           <h1>About</h1>
           <p>
-            This is a community forum where you can post flyer artwork
+            This is a community bulletin where you can post flyer artwork
             and other relevant information for live tours and concerts.
           </p>
           <p>
@@ -20,7 +20,7 @@ export default function About() {
             If you post non-relevant material I may clean it up without telling you.
           </p>
           <p>
-            Additionally, certain features like <i>password recovery</i> are not yet available.
+            Additionally, certain features like password recovery are not yet available.
             For now, if you cannot remember your password or username, {<Link to='/public/signup'>start a new account</Link>}.
             You can email me with any specific account requests until additonal features are up.
           </p>

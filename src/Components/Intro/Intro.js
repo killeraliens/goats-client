@@ -36,7 +36,7 @@ export default function Intro() {
           {/* <p>[<em>placeholder for Home community feed screenshot</em>]</p> */}
           {/* <img src={flourish} className='flourish'/> */}
           <p style={{marginTop: '0px'}}>
-            <Link to='/public/signup' >Create an account</Link> to view posted content & contribute to the community forum.
+              <Link to='/public/signup' >Create an account</Link> to view and share flyers.
           </p>
         </div>
         <div className="flex-bullets">
