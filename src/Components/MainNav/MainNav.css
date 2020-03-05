@@ -2,12 +2,12 @@
   display: flex;
   justify-content: space-between;
   /* position: sticky; */
-  top: 1px;
   z-index: 1;
 }
 
 .MainNav:not(.not-sticky) {
   position: sticky;
+  top: 1px;
 }
 
 .MainNav.stick-on-dbl {
