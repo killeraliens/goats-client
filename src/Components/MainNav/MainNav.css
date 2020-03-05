@@ -1,9 +1,18 @@
 .MainNav {
   display: flex;
   justify-content: space-between;
-  position: sticky;
+  /* position: sticky; */
   top: 1px;
   z-index: 1;
+}
+
+.MainNav:not(.not-sticky) {
+  position: sticky;
+}
+
+.MainNav.stick-on-dbl {
+  position: fixed;
+  top: 135px;
 }
 
 .MainNav--links li {

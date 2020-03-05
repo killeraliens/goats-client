@@ -91,7 +91,7 @@ function Dashboard({ match }) {
         <div className="Dashboard">
           <DashContext.Provider value={contextValue}>
             <MainHeaderNav links={[
-              <MainNavLink to={`/dashboard/${foundUser.id}/edit`}>Edit Profile</MainNavLink>,
+              <MainNavLink to={`/dashboard/${foundUser.id}/edit`} >Edit Profile</MainNavLink>,
               <SignOutLink />
             ]} />
             <Switch>

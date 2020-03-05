@@ -21,3 +21,14 @@
 .Profile .Profile--location svg {
   color: blue;
 }
+
+.Profile .Feed {
+  margin-top: 40px;
+}
+
+@media (max-width: 399px) {
+  .Profile .Feed {
+      margin-top: 32px;
+    }
+
+}

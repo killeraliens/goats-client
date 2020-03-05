@@ -141,3 +141,7 @@ form a:not(.ActionButton):hover
   background-color: whitesmoke;
 }
 
+.sticky {
+  position: sticky;
+  top: 1px;
+}

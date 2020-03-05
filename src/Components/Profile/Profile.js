@@ -20,7 +20,7 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
 
   return(
     <div className="Profile">
-      <MainHeader heightClass="dbl-height">
+      <MainHeader heightClass="dbl-height" className="sticky">
         <div className="dashboard-header-container avatar-section ">
           <div className="flex-center-between">
             <Avatar
@@ -42,7 +42,9 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
           </div>
         </div>
       </MainHeader>
-      <MainNav links={[
+      <MainNav
+        className='stick-on-dbl'
+        links={[
         <MainNavLink
           to={`/dashboard/${user.id}/contributions`}
           isActive={(match, location) => {
