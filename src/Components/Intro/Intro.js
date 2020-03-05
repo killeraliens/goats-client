@@ -31,7 +31,7 @@ export default function Intro() {
       </section>
       <br />
       <section>
-        <h3>How it works.</h3>
+        <h3>How it works</h3>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Home community feed screenshot</em>]</p> */}
           {/* <img src={flourish} className='flourish'/> */}
@@ -41,28 +41,28 @@ export default function Intro() {
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Dashboard screenshot</em>]</p> */}
-          <img src={flourish} className='flourish' />
+          {/* <img src={flourish} className='flourish' /> */}
           <p>
             Manage your profile appearance, account settings, past contributions from your dashboard.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for Add Flyer screenshot</em>]</p> */}
-          <img src={flourish} className='flourish' />
+          {/* <img src={flourish} className='flourish' /> */}
           <p>
             Post a flyer. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the flyer more searchable.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
-          <img src={flourish} className='flourish' />
+          {/* <img src={flourish} className='flourish' /> */}
           <p>
             Update or delete any flyers you've posted from your dashboard or public forum.
           </p>
         </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
-          <img src={flourish} className='flourish' />
+          {/* <img src={flourish} className='flourish' /> */}
           <p>
             Watch for new features like comments, sorting, and stars.
             Contact  <Mailto
