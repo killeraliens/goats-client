@@ -26,7 +26,7 @@ export default function Main({ component, children}) {
 
   const handleScroll = (e) => {
     if (container && countryRegionsNav) {
-      const atBottom = container.scrollHeight - (container.scrollTop + container.clientHeight) === 0
+      const atBottom = container.scrollHeight - (container.scrollTop + container.clientHeight) < countryRegionsNav.clientHeight
       if (container.scrollTop <= 67) {
         countryRegionsNav.style.position = "relative";
         countryRegionsNav.style.top = "0px";
