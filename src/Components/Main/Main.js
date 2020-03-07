@@ -26,6 +26,7 @@ export default function Main({ component, children}) {
 
   const handleScroll = (e) => {
     if (container && countryRegionsNav) {
+      console.log(container.clientHeight)
       if (container.scrollTop <= 67) {
         countryRegionsNav.style.position = "relative";
         countryRegionsNav.style.top = "0px";
@@ -34,7 +35,7 @@ export default function Main({ component, children}) {
         countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `${0 - countryRegionsNav.clientHeight}px`;
       }
-      if (scrollDirection === 'down' && container.scrollTop > 67) {
+      if (scrollDirection === 'down' && container.scrollTop > 67 && container.scrollTop - countryRegionsNav.scrollTop !== 0) {
         countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `0px`;
      }
