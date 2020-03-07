@@ -5,7 +5,7 @@ import './MainNav.css'
 
 export default function MainNav(props) {
   return(
-    <div className={`MainNav ${props.className ? props.className : ''}`}>
+    <div className={`MainNav ${props.className ? props.className : ''}`} {...props}>
       <ul className="MainNav--links">
         {props.links.length > 0
           ? props.links.map((link, i) => <li key={i}>{link}</li>)

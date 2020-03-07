@@ -10,9 +10,10 @@
   top: 1px;
 }
 
-.MainNav.stick-on-dbl {
-  position: fixed;
-  top: 135px;
+.not-sticky  {
+  position: relative;
+  /* top: -50px; */
+  transition: top 0.3s;
 }
 
 .MainNav--links li {

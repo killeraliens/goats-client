@@ -5,7 +5,7 @@
           <p>
           This is a DIY bulletin board for poster artwork and event information.
           If you want to copy/paste from an event already on Facebook,
-          that would be a great way contribute to our forum.
+          that would be a great way contribute.
         </p>
          <p>
         View more artwork and events from an international scope, as they get posted.

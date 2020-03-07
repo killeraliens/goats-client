@@ -17,7 +17,7 @@ export default function Intro() {
         <p>
           This is a DIY bulletin board for poster artwork and event information.
           If you want to copy/paste from an event already on Facebook,
-          that would be a great way contribute to our forum.
+          that would be a great way contribute.
         </p>
         <p>
         View more artwork and events from an international scope, as they get posted.
@@ -57,7 +57,7 @@ export default function Intro() {
           {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
           {/* <img src={flourish} className='flourish' /> */}
           <p>
-            Update or delete any flyers you've posted from your dashboard or public forum.
+            Update or delete any flyers you've posted from your dashboard or the public feed.
           </p>
         </div>
         <div className="flex-bullets">

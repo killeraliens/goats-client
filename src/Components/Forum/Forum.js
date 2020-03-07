@@ -7,12 +7,12 @@ import AuthedContext from '../../AuthedContext';
 import AppContext from '../../AppContext'
 import CountryRegions from '../CountryRegions/CountryRegions'
 
+
 export default function Forum() {
   const { flyers, fetching, fetchingAdditional, total, handleClickLoad, serverError } = useContext(AuthedContext)
   const { error } = useContext(AppContext)
 
   switch (true) {
-    // case !!serverError && serverError.status === 401:
     case !!error && error.status === 401:
     return (
       <NotFound
@@ -30,7 +30,7 @@ export default function Forum() {
               Goat's Forum
             </Link>
           </MainHeader>
-          <CountryRegions format={"links"} />
+          <CountryRegions format={"links"}/>
           <div className="Main--content">
             <Switch>
               <Route exact path={`/forum`} render={() => {

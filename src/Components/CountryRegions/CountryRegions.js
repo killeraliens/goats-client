@@ -17,7 +17,6 @@ export default function CountryRegions({ format}) {
   const { user, setError } = useContext(AppContext)
   const { total } = useContext(AuthedContext)
 
-
   useEffect(() => {
     const fetchData = async () => {
       setFetching(true)
@@ -77,7 +76,7 @@ export default function CountryRegions({ format}) {
 
     case format === "links":
         return (
-          <MainNav>
+          <MainNav id="CountryRegionsNav" className="not-sticky slide-up">
             {
               data.map((country, i) => {
                 return (
