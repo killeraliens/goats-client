@@ -32,11 +32,11 @@ export default function Main({ component, children}) {
         countryRegionsNav.style.top = "0px";
       }
       if (scrollDirection === 'up' && container.scrollTop > 67) {
-        countryRegionsNav.style.position = "absolute"
+        countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `${0 - countryRegionsNav.clientHeight}px`;
       }
       if (scrollDirection === 'down' && container.scrollTop > 67 && !atBottom) {
-        countryRegionsNav.style.position = "absolute"
+        countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `0px`;
      }
 
