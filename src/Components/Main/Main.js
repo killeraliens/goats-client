@@ -44,7 +44,7 @@ export default function Main({ component, children}) {
       }
       if (scrollDirection === 'down' && container.scrollTop > 67 && !atBottom) {
         countryRegionsNav.style.position = "fixed"
-        countryRegionsNav.style.top = `0px`;
+        countryRegionsNav.style.top = `1px`;
      }
     }
   }
