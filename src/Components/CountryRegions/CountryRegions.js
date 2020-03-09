@@ -9,6 +9,7 @@ import NotFound from '../NotFound/NotFound';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import Country from '../Country/Country';
 import MainNav from '../MainNav/MainNav';
+import './CountryRegions.css'
 
 export default function CountryRegions({ format}) {
   const [data, setData] = useState([])
@@ -76,7 +77,7 @@ export default function CountryRegions({ format}) {
 
     case format === "links":
         return (
-          <MainNav id="CountryRegionsNav" className="not-sticky slide-up">
+          <MainNav id="CountryRegionsNav" className="CountryRegionsNav not-sticky slide-up">
             {
               data.map((country, i) => {
                 return (
