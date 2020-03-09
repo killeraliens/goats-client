@@ -33,7 +33,6 @@ export default function Main({ component, children}) {
       const atBottom = container.scrollHeight - (container.scrollTop + container.clientHeight) < countryRegionsNav.clientHeight
       if (atTop || atRockBottom) {
         e.preventDefault()
-        e.stopPropagation()
       }
       if (container.scrollTop <= 67) {
         countryRegionsNav.style.position = "relative";
