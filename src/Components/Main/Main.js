@@ -20,6 +20,7 @@ export default function Main({ component, children}) {
     return scrollToTop()
   }, [matchPath])
 
+
   const { scrollDirection } = useScroll("Main", "MainHeader")
   const container = document.getElementById("Main")
   const countryRegionsNav = document.getElementById("CountryRegionsNav")
@@ -27,7 +28,12 @@ export default function Main({ component, children}) {
   const handleScroll = (e) => {
     // e.stopPropagation()
     if (container && countryRegionsNav) {
+      const atTop = container.scrollTop === 0
+      const atRockBottom = container.scrollHeight - (container.scrollTop + container.clientHeight) === 0
       const atBottom = container.scrollHeight - (container.scrollTop + container.clientHeight) < countryRegionsNav.clientHeight
+      if (atTop || atRockBottom) {
+        e.preventDefault()
+      }
       if (container.scrollTop <= 67) {
         countryRegionsNav.style.position = "relative";
         countryRegionsNav.style.top = "0px";
@@ -44,7 +50,7 @@ export default function Main({ component, children}) {
   }
 
   return(
-    <div className="Main scrollable" id="Main" onScroll={handleScroll}>
+    <div className="Main scrollable" id="Main" onScroll={handleScroll} onTouchMove={handleScroll}>
       { component }
       { children }
     </div>
