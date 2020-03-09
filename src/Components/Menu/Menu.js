@@ -17,7 +17,7 @@ export default function Menu() {
   //   setAvatar(url)
   // }, [context.user.image_url])
   return (
-    <div className="Menu">
+    <div className="Menu scrollable">
       <div className="Menu--pal">
         <NavLink to="/forum" className="Menu--pal--btn">
           <img src={pentagram} alt="pentagram icon"/>

@@ -44,7 +44,7 @@ export default function Main({ component, children}) {
   }
 
   return(
-    <div className="Main" id="Main" onScroll={handleScroll}>
+    <div className="Main scrollable" id="Main" onScroll={handleScroll}>
       { component }
       { children }
     </div>

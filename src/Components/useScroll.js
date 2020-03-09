@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 export function useScroll(containerId, itemClassName) {
   const container = document.getElementById(containerId)
-  //const watchItem = document.getElementById(itemId)
   const watchItem = document.getElementsByClassName(itemClassName)[0]
 
   const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -17,7 +16,6 @@ export function useScroll(containerId, itemClassName) {
     if (watchItem) {
       setBodyOffset(watchItem.getBoundingClientRect());
     }
-    // setBodyOffset(document.body.getBoundingClientRect());
     setScrollY(-bodyOffset.top);
     setScrollX(bodyOffset.left);
     setScrollDirection(lastScrollTop > -bodyOffset.top ? "down" : "up");

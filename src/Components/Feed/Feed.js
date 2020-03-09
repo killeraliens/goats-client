@@ -20,7 +20,7 @@ export default function Feed({ flyers, fetching, fetchingAdditional, total, hand
 
   return(
     <React.Fragment>
-      <div className="Feed">
+      <div className="Feed scrollable">
         {flyers.map(flyer => {
           return <FlyerCard key={flyer.id} flyer={flyer} flyerEvents={flyer.events} />
         })}

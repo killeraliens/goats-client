@@ -7,9 +7,9 @@
 }
 
 .Menu, .Main {
-  height: 100%;
-  overflow-y: scroll; /* has to be scroll, not auto */
-  -webkit-overflow-scrolling: touch;
+  /* height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; */
 }
 
 .Menu {
