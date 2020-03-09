@@ -11,11 +11,6 @@ import './Menu.css'
 export default function Menu() {
   const context = useContext(AppContext)
   let avatarUrl = context.user.image_url ? context.user.image_url : defaultAvatar
-  // const [avatar, setAvatar] = useState(avatarUrl)
-  // useEffect(() => {
-  //   let url = context.user.image_url ? context.user.image_url : defaultAvatar
-  //   setAvatar(url)
-  // }, [context.user.image_url])
   return (
     <div className="Menu scrollable">
       <div className="Menu--pal">

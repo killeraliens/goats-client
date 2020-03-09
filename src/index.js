@@ -2,12 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter, HashRouter } from 'react-router-dom';
-
-// document.addEventListener("touchmove", function (event) {
-//   event.preventDefault();
-//   console.log(event)
-// })
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
 <BrowserRouter>

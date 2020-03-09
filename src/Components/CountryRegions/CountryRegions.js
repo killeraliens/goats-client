@@ -77,7 +77,7 @@ export default function CountryRegions({ format}) {
 
     case format === "links":
         return (
-          <MainNav id="CountryRegionsNav" className="CountryRegionsNav not-sticky slide-up">
+          <MainNav id="CountryRegionsNav" className="CountryRegionsNav not-sticky">
             {
               data.map((country, i) => {
                 return (

@@ -6,11 +6,11 @@
   /* overflow: scroll; */
 }
 
-.Menu, .Main {
-  /* height: 100%;
+/* .Menu, .Main {
+  height: 100%;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; */
-}
+  -webkit-overflow-scrolling: touch;
+} */
 
 .Menu {
   width: 72px;
