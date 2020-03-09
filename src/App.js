@@ -25,7 +25,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //const targetElement = document.querySelector("#App");
     const appElement = document.getElementById('App')
     disableBodyScroll(appElement);
   }
