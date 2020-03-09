@@ -12,6 +12,7 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import NotFound from './Components/NotFound/NotFound';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 class App extends Component {
   constructor() {
@@ -21,6 +22,16 @@ class App extends Component {
       error: null,
       fetching: false
     }
+  }
+
+  componentDidMount() {
+    //const targetElement = document.querySelector("#App");
+    const appElement = document.getElementById('App')
+    disableBodyScroll(appElement);
+  }
+
+  componentWillUnmount() {
+    clearAllBodyScrollLocks()
   }
 
   updateAuthenticated = (user) => {
@@ -85,7 +96,7 @@ class App extends Component {
 
     return(
 
-      <div className="App">
+      <div className="App" id="App">
         <AppContext.Provider value={context}>
             <Switch>
               <Route exact path="/" component={Landing} />

@@ -25,6 +25,7 @@ export default function Main({ component, children}) {
   const countryRegionsNav = document.getElementById("CountryRegionsNav")
 
   const handleScroll = (e) => {
+    // e.stopPropagation()
     if (container && countryRegionsNav) {
       const atBottom = container.scrollHeight - (container.scrollTop + container.clientHeight) < countryRegionsNav.clientHeight
       if (container.scrollTop <= 67) {
@@ -39,13 +40,12 @@ export default function Main({ component, children}) {
         countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `0px`;
      }
-
     }
   }
 
   return(
     <div className="Main" id="Main" onScroll={handleScroll}>
-      {component}
+      { component }
       { children }
     </div>
   )
