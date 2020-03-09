@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader';
 import Feed from '../Feed/Feed.js';
