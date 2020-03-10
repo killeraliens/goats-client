@@ -13,14 +13,14 @@ export default function CreateFlyer() {
   const { user, error } = useContext(AppContext)
   const { serverError, fetching } = useContext(AuthedContext)
   const formLinks = [
-    <MainNavLink to={'/create-flyer/show'} isActive={(match, location) => {
-      if (location.pathname === `/create-flyer/show` || location.pathname === `/create-flyer` || location.pathname === `/create-flyer/`) {
+    <MainNavLink to={'/post/show'} isActive={(match, location) => {
+      if (location.pathname === `/post/show` || location.pathname === `/post` || location.pathname === `/post/`) {
         return true
       }
       return false
     }}>Single Show</MainNavLink>,
-    <MainNavLink to={'/create-flyer/tour'} >Tour</MainNavLink>,
-    <MainNavLink to={'/create-flyer/fest'} >Festival</MainNavLink>
+    <MainNavLink to={'/post/tour'} >Tour</MainNavLink>,
+    <MainNavLink to={'/post/fest'} >Festival</MainNavLink>
   ]
 
   switch (true) {
@@ -42,7 +42,7 @@ export default function CreateFlyer() {
       return(
         <div className="CreateFlyer">
           <MainHeader >
-            <Link to='/create-flyer' className='header-link' >
+            <Link to='/post' className='header-link' >
               Post
             </Link>
           </MainHeader>
@@ -51,19 +51,19 @@ export default function CreateFlyer() {
           />
           <div className="Main--content">
             <Switch>
-              <Route exact path='/create-flyer' render={({ history }) => {
+              <Route exact path='/post' render={({ history }) => {
                 return <FlyerForm history={history} newType="Show" creatorId={user.id} />
               }} />
-              <Route exact path='/create-flyer/show' render={({ history }) => {
+              <Route exact path='/post/show' render={({ history }) => {
                 return <FlyerForm history={history} newType="Show" creatorId={user.id} />
               }}/>
-              <Route path='/create-flyer/fest' render={({ history }) => {
+              <Route path='/post/fest' render={({ history }) => {
                 return <FlyerForm history={history} newType="Fest" creatorId={user.id} />
               }} />
-              <Route path='/create-flyer/tour' render={({ history }) => {
+              <Route path='/post/tour' render={({ history }) => {
                 return <FlyerForm history={history} newType="Tour" creatorId={user.id} />
               }} />
-              <Redirect to="/create-flyer" />
+              <Redirect to="/post" />
             </Switch>
             <BackLink hasArrow={true} backText={true} />
           </div>

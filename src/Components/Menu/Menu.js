@@ -24,7 +24,7 @@ export default function Menu() {
             username={context.user.username}
             />
         </NavLink>
-        <NavLink to="/create-flyer" className="Menu--pal--btn">
+        <NavLink to="/post" className="Menu--pal--btn">
           <span>
             <FontAwesomeIcon className="i" icon={faFile} />
             <br />

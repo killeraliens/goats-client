@@ -505,7 +505,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
         <input type="reset" onClick={() => {
           resetForm()
-          return history.push('/create-flyer')
+          return history.push('/post')
           }} value="Cancel" />
       </div>
     </form>

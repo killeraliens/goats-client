@@ -88,7 +88,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
               src={Boolean(formImgUrl.value) ? formImgUrl.value : defaultFlyer}
               alt={`add flyer`}
             />
-            <span>+FLYER IMAGE*</span>
+            <span>+FLIER IMAGE*</span>
           </div>
         )
     }
@@ -106,7 +106,7 @@ export default function FlyerUpload({ formImgUrl, updateImgUrl, updateImgError }
         className="sr-only"
         aria-label="select image"
         onChange={handleImgChange}
-        aria-label="flyer image"
+        aria-label="flier image"
         aria-required="true"
         aria-describedby="imageUrlError"
         aria-invalid={formImgUrl.error}

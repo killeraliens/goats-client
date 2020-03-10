@@ -100,7 +100,7 @@ class App extends Component {
                   <AuthedSplit mainComponent={<Forum {...props}/>} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/create-flyer`} render={props =>
+              <PrivateRoute path={`/post`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
                 </ErrorBoundary>
