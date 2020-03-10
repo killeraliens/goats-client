@@ -1,5 +1,6 @@
 .Menu {
   z-index: 2;
+  -webkit-transform: translate3d(0,0,0);
 }
 
 .Menu--pal {
