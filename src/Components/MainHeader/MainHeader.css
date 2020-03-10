@@ -20,11 +20,6 @@
   padding: 0;
 }
 
-/* .MainHeader *:not(form *) {
-  color: white;
-  font-weight: normal;
-} */
-
 .MainHeader .header-link {
   color: white;
 }
