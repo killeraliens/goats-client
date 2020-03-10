@@ -10,7 +10,7 @@ export default function About() {
         <section>
           <h1>About</h1>
           <p>
-            This is a community bulletin where you can post flyer artwork
+            This is a community bulletin where you can post flier artwork
             and other relevant information for live tours and concerts.
           </p>
           <p>
@@ -29,7 +29,7 @@ export default function About() {
             If you are interested becoming a moderator in the future, email me. Send any errors, questions, or general improvements to
             {' '}
             <Mailto
-              email='goatsforum@gmail.com'
+              email='goatsguide@gmail.com'
               // headers={
               //   { subject: 'General' },
               //   { cc: 'friend@coston.cool' }

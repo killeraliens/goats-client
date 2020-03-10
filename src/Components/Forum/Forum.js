@@ -27,7 +27,7 @@ export default function Forum() {
         <div className="Forum" id="Forum">
           <MainHeader >
             <Link to='/forum' className='header-link'>
-              Goat's Forum
+              Goat's Guide
             </Link>
           </MainHeader>
           <CountryRegions format={"links"}/>

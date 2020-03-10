@@ -10,10 +10,10 @@ export default function Intro() {
   return(
     <CentralContainer >
       <div className='Intro intro-about-container'>
-        <h1>Goat's Forum</h1>
+        <h1>Goat's Guide</h1>
       <br />
       <section>
-        <h3>If you know about an upcoming concert, festival, or tour share the flyer here.</h3>
+        <h3>If you know about an upcoming concert, festival, or tour share the flier here.</h3>
         <p>
           This is a DIY bulletin board for poster artwork and event information.
           If you want to copy/paste from an event already on Facebook,
@@ -22,7 +22,7 @@ export default function Intro() {
         <p>
         View more artwork and events from an international scope, as they get posted.
           This is a private feed that relies on word-of-mouth sharing to get people posting the best content.
-          Create an account, post some local flyers. Tell others.
+          Create an account, post some local fliers. Tell others.
         </p>
         <div className='center-button-container'>
           <Link to='/public/signup' className='ActionButton'>Sign up</Link>
@@ -36,7 +36,7 @@ export default function Intro() {
           {/* <p>[<em>placeholder for Home community feed screenshot</em>]</p> */}
           {/* <img src={flourish} className='flourish'/> */}
           <p style={{marginTop: '0px'}}>
-              <Link to='/public/signup' >Create an account</Link> to view and share flyers.
+              <Link to='/public/signup' >Create an account</Link> to view and share fliers.
           </p>
         </div>
         <div className="flex-bullets">
@@ -47,26 +47,26 @@ export default function Intro() {
           </p>
         </div>
         <div className="flex-bullets">
-          {/* <p>[<em>placeholder for Add Flyer screenshot</em>]</p> */}
+          {/* <p>[<em>placeholder for Add Flier screenshot</em>]</p> */}
           {/* <img src={flourish} className='flourish' /> */}
           <p>
-            Post a flyer. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the flyer more searchable.
+            Post a flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make it more searchable.
           </p>
         </div>
         <div className="flex-bullets">
-          {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
+          {/* <p>[<em>placeholder for delete flier shot</em>]</p> */}
           {/* <img src={flourish} className='flourish' /> */}
           <p>
-            Update or delete any flyers you've posted from your dashboard or the public feed.
+            Update or delete any posts from your dashboard or the public feed.
           </p>
         </div>
         <div className="flex-bullets">
-          {/* <p>[<em>placeholder for delete flyer shot</em>]</p> */}
+          {/* <p>[<em>placeholder for delete flier shot</em>]</p> */}
           {/* <img src={flourish} className='flourish' /> */}
           <p>
             Watch for new features like comments, sorting, and stars.
             Contact  <Mailto
-              email='goatsforum@gmail.com'
+              email='goatsguide@gmail.com'
               headers={
                 { subject: 'Suggestion' }
               }
