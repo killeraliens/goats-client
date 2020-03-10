@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "goats-forum",
+  "alias": "goatsguide.com",
   "routes": [
     {
       "src": "^/static/(.*)",
