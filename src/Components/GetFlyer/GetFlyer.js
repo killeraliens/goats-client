@@ -80,7 +80,7 @@ export default function GetFlyer({ match, history, isEdit }) {
       )
 
     case flyer.id && isEdit && !isAuthed:
-      return <Redirect to='/forum' />
+      return <Redirect to='/fliers' />
 
     case flyer.id && isEdit && isAuthed:
       return (

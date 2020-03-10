@@ -17,7 +17,7 @@ export default function Landing(props) {
       </MainHeader>
       <MainHeaderNav
         links={[
-          <MainNavLink to="/forum">Forum</MainNavLink>,
+          <MainNavLink to="/fliers">Flier Feed</MainNavLink>,
           <MainNavLink to="/public/signin">Sign In</MainNavLink>
         ]}
       />

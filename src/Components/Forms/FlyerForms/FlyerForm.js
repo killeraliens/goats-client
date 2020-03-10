@@ -355,7 +355,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       if (flyerPostBody.listing_state === "Draft" ) {
         history.push(`/dashboard/${formBody.creatorId}/drafts`)
       }
-      history.push(`/forum`)
+      history.push(`/fliers`)
     }
   }
 

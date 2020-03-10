@@ -18,7 +18,7 @@ export default function FlyerCard({ flyer, isEdit }) {
   return (
     <div className="FlyerCard Card" id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}
-      <Link to={`/flyer/${flyer.id}`}>
+      <Link to={`/flier/${flyer.id}`}>
         <img className="Flyer--image"
           src={flyer.image_url}
           alt={flyer.headline}

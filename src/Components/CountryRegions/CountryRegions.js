@@ -47,12 +47,12 @@ export default function CountryRegions({ format}) {
     for (let i = 0; i < data.length; i++) {
       countryRegionRoutes.push(
         <React.Fragment key={i}>
-          <Route exact key={data[i].country_name} path={`/forum/${data[i].country_name}`} render={() => {
+          <Route exact key={data[i].country_name} path={`/fliers/${data[i].country_name}`} render={() => {
             return <Country countryName={data[i].country_name} />
           }} />
           {data[i].regions.map(region => {
             if (Boolean(region.region_name)) {
-              return <Route exact key={region.region_name} path={`/forum/${region.region_name}`} render={() => {
+              return <Route exact key={region.region_name} path={`/fliers/${region.region_name}`} render={() => {
                 return <Country countryName={data[i].country_name} regionName={region.region_name} />
               }} />
             }
@@ -82,13 +82,13 @@ export default function CountryRegions({ format}) {
               data.map((country, i) => {
                 return (
                   <React.Fragment key={i}>
-                    <MainNavLink to={`/forum/${country.country_name}`}>
+                    <MainNavLink to={`/fliers/${country.country_name}`}>
                       {country.country_name}
                       <span className="MainNavLink--count">{country.per_country}</span>
                     </MainNavLink>
                     {country.regions.map(region => {
                       return (
-                        <MainNavLink key={region.region_name} to={`/forum/${region.region_name}`}>
+                        <MainNavLink key={region.region_name} to={`/fliers/${region.region_name}`}>
                           {region.region_name}
                           <span className="MainNavLink--count">{region.per_region}</span>
                         </MainNavLink>

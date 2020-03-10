@@ -26,14 +26,14 @@ export default function Forum() {
       return(
         <div className="Forum" id="Forum">
           <MainHeader >
-            <Link to='/forum' className='header-link'>
+            <Link to='/fliers' className='header-link'>
               Goat's Guide
             </Link>
           </MainHeader>
           <CountryRegions format={"links"}/>
           <div className="Main--content">
             <Switch>
-              <Route exact path={`/forum`} render={() => {
+              <Route exact path={`/fliers`} render={() => {
                 return (
                   <Feed
                     flyers={flyers}
@@ -46,7 +46,7 @@ export default function Forum() {
               }} />
               <CountryRegions format={"routes"}/>
               <Route render={() => {
-                return <NotFound link={<Link to="/forum">Back to forum</Link>} />
+                return <NotFound link={<Link to="/fliers">Back to flier feed</Link>} />
               }} />
             </Switch>
           </div>

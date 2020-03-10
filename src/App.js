@@ -95,7 +95,7 @@ class App extends Component {
                   <AuthedSplit mainComponent={<Dashboard {...props}/>} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/forum`} render={props =>
+              <PrivateRoute path={`/fliers`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<Forum {...props}/>} />
                 </ErrorBoundary>
@@ -105,12 +105,12 @@ class App extends Component {
                   <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/flyer/:flyer_id/edit`} render={props =>
+              <PrivateRoute path={`/flier/:flyer_id/edit`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<GetFlyer isEdit={true} {...props} />} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/flyer/:flyer_id`} render={props =>
+              <PrivateRoute path={`/flier/:flyer_id`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<GetFlyer {...props} />} />
                 </ErrorBoundary>
@@ -118,12 +118,12 @@ class App extends Component {
               {/* <Route path='/' render={() =>
                 !this.state.user || this.state.error
                   ? <Redirect to="/public/signin" /> //<NotFound link={<Link to="/public/signin">Sign In</Link>} />
-                  : <Redirect to="/forum" /> //<NotFound link={<Link to="/forum">Back to forum</Link>} />
+                  : <Redirect to="/fliers" /> //<NotFound link={<Link to="/fliers">Back to forum</Link>} />
               } /> */}
               <Route render={() =>
               !this.state.user || (this.state.error && this.state.error.status == 401)
                   ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
-                  : <Redirect to="/forum" /> // <NotFound link={<Link to="/forum">Back to forum</Link>} />
+                  : <Redirect to="/fliers" /> // <NotFound link={<Link to="/fliers">Back to forum</Link>} />
               } />
             </Switch>
         </ AppContext.Provider >

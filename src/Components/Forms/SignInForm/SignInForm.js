@@ -84,7 +84,7 @@ function SignInForm(props) {
       resetForm()
       let user = body.token ? body : null
       context.updateAuthenticated(user)
-      props.history.push(`/forum`)
+      props.history.push(`/fliers`)
     }
   }
 
