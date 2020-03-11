@@ -20,8 +20,7 @@ export default function Intro() {
           that would be a great way contribute.
         </p>
         <p>
-        View more artwork and events from an international scope, as they get posted.
-          This is a private feed that relies on word-of-mouth sharing to get people posting the best content.
+          View more artwork and events from an international scope, as they get posted.
           Create an account, post some local fliers. Tell others.
         </p>
         <div className='center-button-container'>
