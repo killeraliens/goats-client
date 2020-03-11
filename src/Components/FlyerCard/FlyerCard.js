@@ -15,6 +15,10 @@ export default function FlyerCard({ flyer, isEdit }) {
     ? flyer.events
     : []
 
+  const isPast = flyer.events && flyer.events.filter(event =>  event.event_date && new Date(event.event_date) < new Date(Date.now())).length === flyer.events.length
+    ? true
+    : false
+
   return (
     <div className="FlyerCard Card" id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}
@@ -27,7 +31,9 @@ export default function FlyerCard({ flyer, isEdit }) {
       <div className="Card--body">
         <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} hasHandle={isEdit ? false : true }/>
         <div className="Card--header">
+
           <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
+          {isPast ? <div className="Flyer--icon-past Tag">Past</div> : null}
           <h2>{flyer.headline}</h2>
         </div>
         <ThroughDates flyerEvents={flyerEvents} />

@@ -68,6 +68,11 @@
   margin-right: 4px;
 }
 
+.Flyer--icon-past.Tag {
+  background-color: black;
+  color: white;
+}
+
 .Tag {
   display: inline-block;
   line-height: 24px;
