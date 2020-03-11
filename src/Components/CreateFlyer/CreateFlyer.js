@@ -8,6 +8,7 @@ import MainNavLink from '../MainNavLink/MainNavLink';
 import FlyerForm from '../Forms/FlyerForms/FlyerForm';
 import NotFound from '../NotFound/NotFound'
 import BackLink from '../BackLink/BackLink'
+import CentralContainer from '../CentralContainer/CentralContainer';
 
 export default function CreateFlyer() {
   const { user, error } = useContext(AppContext)
@@ -50,22 +51,25 @@ export default function CreateFlyer() {
             links={formLinks}
           />
           <div className="Main--content">
-            <Switch>
-              <Route exact path='/post' render={({ history }) => {
-                return <FlyerForm history={history} newType="Show" creatorId={user.id} />
-              }} />
-              <Route exact path='/post/show' render={({ history }) => {
-                return <FlyerForm history={history} newType="Show" creatorId={user.id} />
-              }}/>
-              <Route path='/post/fest' render={({ history }) => {
-                return <FlyerForm history={history} newType="Fest" creatorId={user.id} />
-              }} />
-              <Route path='/post/tour' render={({ history }) => {
-                return <FlyerForm history={history} newType="Tour" creatorId={user.id} />
-              }} />
-              <Redirect to="/post" />
-            </Switch>
-            <BackLink hasArrow={true} backText={true} />
+            <CentralContainer>
+              <Switch>
+                <Route exact path='/post' render={({ history }) => {
+                  return <FlyerForm history={history} newType="Show" creatorId={user.id} />
+                }} />
+                <Route exact path='/post/show' render={({ history }) => {
+                  return <FlyerForm history={history} newType="Show" creatorId={user.id} />
+                }}/>
+                <Route path='/post/fest' render={({ history }) => {
+                  return <FlyerForm history={history} newType="Fest" creatorId={user.id} />
+                }} />
+                <Route path='/post/tour' render={({ history }) => {
+                  return <FlyerForm history={history} newType="Tour" creatorId={user.id} />
+                }} />
+                <Redirect to="/post" />
+              </Switch>
+              <BackLink hasArrow={true} backText={true} />
+
+            </CentralContainer>
           </div>
         </div>
       )

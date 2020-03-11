@@ -9,6 +9,11 @@
 /* .CentralContainer section:not(:last-child) {
   margin-bottom: 32px;
 } */
+@media (max-width: 399px) {
+  .Main--content .CentralContainer {
+    margin: 0;
+  }
+}
 
 @media (min-width: 499px) {
   .CentralContainer {
