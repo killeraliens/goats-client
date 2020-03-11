@@ -13,7 +13,7 @@ export default function Comment({ userId, username, imageUrl, isCreator, comment
     <div className="Comment">
         <div className="Comment--header">
           <div className="flex-center-between">
-            <Link to={`/dashboard/${userId}/contributions`}>
+            <Link to={`/dashboard/${userId}/posts`}>
               <Avatar
                 imageUrl={imageUrl}
                 username={username}

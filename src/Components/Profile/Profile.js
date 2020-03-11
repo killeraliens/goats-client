@@ -14,7 +14,7 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
   const publicFlyers = userFlyers.filter(flyer => flyer.listing_state === "Public")
   const draftFlyers = userFlyers.filter(flyer => flyer.listing_state === "Draft")
   const draftsLink = isCurrent
-    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >Drafts{' '}{draftFlyers.length}</MainNavLink>
+    ? <MainNavLink to={`/dashboard/${user.id}/drafts`} >{draftFlyers.length}{' '}Drafts</MainNavLink>
     : null;
 
 
@@ -31,7 +31,6 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
             <div >
               <h1 className="Main--header--title username">{user.username}</h1>
               <Location
-              style={{color: 'blue'}}
               eventLocation={{
                 city_name: user.city_name,
                 region_name: user.region_name,
@@ -45,15 +44,15 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
       <MainNav
         links={[
         <MainNavLink
-          to={`/dashboard/${user.id}/contributions`}
+          to={`/dashboard/${user.id}/posts`}
           isActive={(match, location) => {
-            if (location.pathname === `/dashboard/${user.id}/contributions` || location.pathname === `/dashboard/${user.id}` || location.pathname === `/dashboard/${user.id}/`) {
+            if (location.pathname === `/dashboard/${user.id}/posts` || location.pathname === `/dashboard/${user.id}` || location.pathname === `/dashboard/${user.id}/`) {
               return true
             }
             return false
           }}
         >
-          Contributions{' '}{publicFlyers.length}
+            {publicFlyers.length}{' '}Posted
         </MainNavLink>,
         draftsLink
       ]} />
@@ -62,7 +61,7 @@ export default function Profile({ user, isCurrent, userFlyers, fetching }) {
           <Route exact path={`/dashboard/${user.id}`} render={() => {
             return <Feed flyers={publicFlyers} fetching={fetching} />
           }} />
-          <Route path={`/dashboard/${user.id}/contributions`} render={() => {
+          <Route path={`/dashboard/${user.id}/posts`} render={() => {
             return <Feed flyers={publicFlyers} fetching={fetching} />
           }} />
           <Route path={`/dashboard/${user.id}/drafts`} render={() => {
