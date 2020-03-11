@@ -1,16 +1,17 @@
-<h1>Goat's Guide</h1>
-
-<h3>If you know about an upcoming concert, fest, or tour share the flyer here.</h3>
-     <p style="text-align: center"><b><a href="https://goatsguide.com" target="_blank">goatsguide.com</a></b></p>
-          <p>
+  <h1>Goat's Guide</h1>
+      <section>
+        <h3>If you know about an upcoming show, share the flyer here.</h3>
+        <b>
+          <a href="https://goatsguide.com" target="_blank" style="text-align:center; font-size: 16px;">goatsguide.com</a>
+        </b>
+        <p>
           This is a DIY bulletin board for poster artwork and event information.
           If you want to copy/paste from an event already on Facebook,
           that would be a great way contribute.
         </p>
-         <p>
-        View more artwork and events from an international scope, as they get posted.
-          This is a private feed that relies on word-of-mouth sharing to get people posting the best content.
-         <b><a href="https://goats-forum.now.sh/public/signup" target="_blank">Sign up</a></b>, post some local fliers. Tell others.
+        <p>
+          View more artwork and events from an international scope, as they get posted.
+          This is a private feed that relies on word-of-mouth sharing to get people posting the best content. <b><a href="https://goats-forum.now.sh/public/signup" target="_blank">Sign up</a></b>, post some local fliers. Tell others.
         </p>
       </section>
       <section>
