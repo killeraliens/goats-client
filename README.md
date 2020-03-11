@@ -1,9 +1,9 @@
   <h1>Goat's Guide</h1>
       <section>
-        <h3>If you know about an upcoming show, share the flyer here.</h3>
-        <b>
-          <a href="https://goatsguide.com" target="_blank" style="text-align:center; font-size: 16px;">goatsguide.com</a>
-        </b>
+        <h3>If you know about an upcoming show, share the flyer <a href="https://goatsguide.com" target="_blank">here</a>.</h3>
+        <p><b>
+          <a href="https://goatsguide.com" target="_blank">goatsguide.com</a>
+        </b></p>
         <p>
           This is a DIY bulletin board for poster artwork and event information.
           If you want to copy/paste from an event already on Facebook,
