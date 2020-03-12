@@ -35,24 +35,29 @@ export default function AuthedSplit({ mainComponent }) {
     setFlyers(prev => ([updatedFlyer, ...prev.filter(flyer => flyer.id !== flyerId)]))
   }
 
-  const fetchApiData = async (type) => {
+  const fetchApiData = async (query, abortController) => {
+
     const options = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${user.token}`
-      }
+      },
+      signal: abortController.signal
     }
-    const response = await fetch(`${config.API_ENDPOINT}/${type}`, options);
-    const body = await response.json();
-    if (!response.ok) {
-      setServerError({ status: response.status, message: body.message })
-      return {
-        flyers: [],
-        count: 0
+
+      const response = await fetch(`${config.API_ENDPOINT}/${query}`, options);
+      const body = await response.json();
+      if (!response.ok) {
+        setServerError({ status: response.status, message: body.message })
+        return {
+          flyers: [],
+          count: 0
+        }
+      } else {
+        setServerError(null)
+        return body
       }
-    }
-    setServerError(null)
-    return body
+
   }
 
   const handleClickLoad = async () => {
@@ -71,20 +76,36 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const getAll = async () => {
       setError(null)
       setServerError(null)
       setFetching(true)
-      const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`)
-      if (!!serverError) {
-        setFetching(false)
-      } else {
-        setTotal(parseInt(flyersData.total))
-        setFlyers(flyersData.flyers)
-        setFetching(false)
+
+      try {
+        const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${0}`, abortController)
+        if (!!serverError) {
+          setFetching(false)
+        } else {
+          setTotal(parseInt(flyersData.total))
+          setFlyers(flyersData.flyers)
+          setFetching(false)
+        }
+
+      } catch (e) {
+        if (!abortController.signal.aborted) {
+          console.log('fetch aborted', e)
+          setFetching(false)
+        }
       }
     }
     getAll()
+
+    return () => {
+      console.log('cleaned up')
+      abortController.abort();
+    }
   }, [user])
 
   const contextValue = {
@@ -100,7 +121,7 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   switch (true) {
-    case !!serverError && serverError.status === 401:
+    case !error && !!serverError && serverError.status === 401:
       setError(serverError)
       // return (
       //     <NotFound

@@ -14,6 +14,7 @@ export default function Forum() {
 
   switch (true) {
     case !!error && error.status === 401:
+    console.log('error in forum', error)
     return (
       <NotFound
         message="Session expired"

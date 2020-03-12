@@ -19,6 +19,8 @@ export default function CountryRegions({ format}) {
   const { total } = useContext(AuthedContext)
 
   useEffect(() => {
+    const myAbortController = new AbortController();
+
     const fetchData = async () => {
       setFetching(true)
       setServerError(null)
@@ -26,20 +28,33 @@ export default function CountryRegions({ format}) {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${user.token}`
-        }
+        },
+        signal: myAbortController.signal
       }
-      const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
-      const body = await response.json()
-      if( !response.ok ) {
-        setServerError({ status: response.status, message: body.message })
-        setFetching(false)
-      } else {
-        setData(body)
-        setFetching(false)
+
+      try {
+        const response = await fetch(`${config.API_ENDPOINT}/country-region-hash`, options)
+        const body = await response.json()
+        if( !response.ok ) {
+          setServerError({ status: response.status, message: body.message })
+          setFetching(false)
+        } else {
+          setData(body)
+          setFetching(false)
+        }
+      } catch (e) {
+        if (!myAbortController.signal.aborted) {
+          console.log('fetch aborted', e)
+          setFetching(false)
+        }
       }
     }
 
     fetchData();
+    return () => {
+      console.log('cleaned up')
+      myAbortController.abort();
+    }
   }, [total]);
 
   let countryRegionRoutes = []
