@@ -81,7 +81,6 @@ export default function AuthedSplit({ mainComponent }) {
     const abortController = new AbortController();
 
     const getAll = async () => {
-      //setError(null)
       setServerError(null)
       setFetching(true)
 
@@ -123,8 +122,7 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   switch (true) {
-    case !error && !!serverError && serverError.status === 401:
-      //setError(serverError)
+    case !!serverError && serverError.status === 401:
       return (
           <NotFound
             message="Session expired"
