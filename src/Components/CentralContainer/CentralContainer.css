@@ -9,7 +9,7 @@
 /* .CentralContainer section:not(:last-child) {
   margin-bottom: 32px;
 } */
-@media (max-width: 399px) {
+@media (max-width: 499px) {
   .Main--content .CentralContainer {
     margin: 0;
   }
