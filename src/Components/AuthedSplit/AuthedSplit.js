@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom'
 import config from '../../config';
 import PropTypes from 'prop-types';
 import AuthedContext from '../../AuthedContext';
@@ -6,6 +7,7 @@ import AppContext from '../../AppContext';
 import Menu from '../Menu/Menu';
 import Main from '../Main/Main';
 import './AuthedSplit.css';
+import NotFound from '../NotFound/NotFound'
 
 export default function AuthedSplit({ mainComponent }) {
   const [flyers, setFlyers] = useState([])
@@ -79,7 +81,7 @@ export default function AuthedSplit({ mainComponent }) {
     const abortController = new AbortController();
 
     const getAll = async () => {
-      setError(null)
+      //setError(null)
       setServerError(null)
       setFetching(true)
 
@@ -122,14 +124,14 @@ export default function AuthedSplit({ mainComponent }) {
 
   switch (true) {
     case !error && !!serverError && serverError.status === 401:
-      setError(serverError)
-      // return (
-      //     <NotFound
-      //       message="Session expired"
-      //       isFetching={fetching}
-      //       link={<Link to='/public/signin' >Sign In</Link>}
-      //     />
-      // )
+      //setError(serverError)
+      return (
+          <NotFound
+            message="Session expired"
+            isFetching={fetching}
+            link={<Link to='/public/signin' >Sign In</Link>}
+          />
+      )
 
     default:
       return (
