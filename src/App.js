@@ -120,10 +120,12 @@ class App extends Component {
                   ? <Redirect to="/public/signin" /> //<NotFound link={<Link to="/public/signin">Sign In</Link>} />
                   : <Redirect to="/fliers" /> //<NotFound link={<Link to="/fliers">Back to forum</Link>} />
               } /> */}
-              <Route render={() =>
-              !this.state.user || (this.state.error && this.state.error.status == 401)
-                  ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
-                  : <Redirect to="/fliers" /> // <NotFound link={<Link to="/fliers">Back to forum</Link>} />
+              <Route render={() => {
+                console.log('STATUS ON REDIRECT', this.state.error)
+                return !this.state.user || (this.state.error && this.state.error.status === 401)
+                    ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
+                    : <Redirect to="/fliers" /> // <NotFound link={<Link to="/fliers">Back to forum</Link>} />
+                }
               } />
             </Switch>
         </ AppContext.Provider >
