@@ -10,7 +10,7 @@ import About from '../About/About';
 import SignInForm from '../Forms/SignInForm/SignInForm';
 import SignUpForm from '../Forms/SignUpForm/SignUpForm';
 
-export default function Landing(props) {
+export default function Landing() {
   return(
     <div className="Landing">
       <MainHeader heightClass="dbl-height">

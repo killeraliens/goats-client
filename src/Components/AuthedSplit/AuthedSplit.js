@@ -100,12 +100,12 @@ export default function AuthedSplit({ mainComponent }) {
         }
       }
     }
-    getAll()
 
+    getAll()
     return () => {
-      console.log('cleaned up')
       abortController.abort();
     }
+
   }, [user])
 
   const contextValue = {

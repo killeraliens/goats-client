@@ -44,7 +44,6 @@ export default function CountryRegions({ format}) {
         }
       } catch (e) {
         if (!myAbortController.signal.aborted) {
-          console.log('fetch aborted', e)
           setFetching(false)
         }
       }
@@ -52,9 +51,9 @@ export default function CountryRegions({ format}) {
 
     fetchData();
     return () => {
-      console.log('cleaned up')
       myAbortController.abort();
     }
+
   }, [total]);
 
   let countryRegionRoutes = []
