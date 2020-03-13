@@ -74,6 +74,20 @@ select {
   margin-right: 8px;
 }
 
+.form-controls button, .EventFieldset button {
+  color: white;
+  background-color: #2e2e2e;
+}
+
+.form-controls button:disabled, .EventFieldset button:disabled {
+  opacity: .4;
+}
+
+.form-controls input[type='reset'], .form-controls button[type='reset']  {
+  color: white;
+  background-color: orangered;
+}
+
 .fieldset-container {
   display: flex;
   max-width: 499px;

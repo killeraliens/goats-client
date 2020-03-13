@@ -14,16 +14,16 @@ View more artwork and events from an international scope, as they get posted.
 ## How it works.
 
 **[Create an account](https://goats-forum.now.sh/public/signup) to view & post fliers to the public feed.**
+
 ![flier feed screenshot](./src/assets/ss-flier-feed.png)
 
-**Manage your profile, account settings, past contributions from your dashboard.**
-![dashboard screenshot]()
+**Manage your profile, account settings, posted fliers from your dashboard.**
+
+![dashboard screenshot](./src/assets/ss-edit-flier-profile.png)
 
 **Post a new flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the it more searchable.**
-![post flier screenshot]()
 
-**Update or delete any fliers you've posted from your dashboard or flier feed.**
-![manage flyer screenshot]()
+![post flier screenshot](./src/assets/ss-create-flier.png)
 
 
 ## Sign in with the demo account to check it out.

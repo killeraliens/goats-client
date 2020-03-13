@@ -134,3 +134,19 @@ form a:not(.ActionButton):hover
   position: sticky;
   top: 1px;
 }
+
+.Tag, button, input[type='reset']  {
+  display: inline-block;
+  line-height: 24px;
+  max-height: 24px;
+  padding: 0px 8px;
+  margin-left: 0;
+  border: none;
+}
+
+.Tag {
+  color: white;
+  background-color: darkgray;
+  margin-right: 1px;
+  margin-bottom: 1px;
+}

@@ -131,7 +131,7 @@ function SignInForm(props) {
           <ValidationError id="passwordError" message={password.error} />
         </fieldset>
         <div className="form-controls">
-          <button type="submit" disabled={username.error || password.error}>submit</button>
+          <button type="submit" disabled={username.error || password.error}>Submit</button>
           <Link to="/public/signup">New Account</Link>
         </div>
       </form>
