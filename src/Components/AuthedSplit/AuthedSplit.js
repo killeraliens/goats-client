@@ -63,17 +63,30 @@ export default function AuthedSplit({ mainComponent }) {
   }
 
   const handleClickLoad = async () => {
+    const abortController = new AbortController();
+
     setServerError(null)
     setFetchingAdditional(true)
     const pageNum = Math.ceil(flyers.length / limit)
     const offset = pageNum * limit
-    const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}`)
-    if (!!serverError) {
-      setFetchingAdditional(false)
-    } else {
-      setTotal(parseInt(flyersData.total))
-      setFlyers(prev => ([...prev, ...flyersData.flyers]))
-      setFetchingAdditional(false)
+
+    try {
+      const flyersData = await fetchApiData(`flyer?limit=${limit}&offset=${offset}`, abortController)
+      if (!!serverError) {
+        setFetchingAdditional(false)
+      } else {
+        setTotal(parseInt(flyersData.total))
+        setFlyers(prev => ([...prev, ...flyersData.flyers]))
+        setFetchingAdditional(false)
+      }
+    } catch (e) {
+      if (!abortController.signal.aborted) {
+        console.log('fetch aborted', e)
+        setFetchingAdditional(false)
+      }
+    }
+    return () => {
+      abortController.abort();
     }
   }
 
