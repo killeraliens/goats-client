@@ -3,10 +3,9 @@
 
 ## If you know about an upcoming concert, fest, or tour share the flier here.
 
-<h2 style="text-align: center;">
+<h2 style="text-align: center;" markdown="1">
 
 [goatsguide.com](https://goatsguide.com)
-
 </h2>
 
 This is a DIY bulletin board for poster artwork and event information.
@@ -23,16 +22,19 @@ View more artwork and events from an international scope, as they get posted.
 
 ![flier feed screenshot](./src/assets/ss-flier-feed.png)
 
+<br/>
 
 **Manage your profile, account settings, posted fliers from your dashboard.**
 
 ![dashboard screenshot](./src/assets/ss-edit-flier-profile.png)
 
+<br/>
 
 **Post a new flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the it more searchable.**
 
 ![post flier screenshot](./src/assets/ss-create-flier.png)
 
+<br/>
 
 ## Sign in with the demo account to check it out.
 - username: demo
