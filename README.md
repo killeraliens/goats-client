@@ -9,7 +9,6 @@ that would be a great way contribute.
 View more artwork and events from an international scope, as they get posted.
 [Signup](https://goats-forum.now.sh/public/signup), post some local fliers. Tell others.
 
-<br/>
 
 ## How it works.
 
