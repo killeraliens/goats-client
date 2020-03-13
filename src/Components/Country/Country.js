@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 export default function Country({ countryName, regionName }) {
   const [flyers, setFlyers] = useState([])
   const [total, setTotal] = useState(0)
-  const [limit] = useState(10)
+  const [limit] = useState(3)
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState(null)

@@ -11,7 +11,7 @@ import Country from '../Country/Country';
 import MainNav from '../MainNav/MainNav';
 import './CountryRegions.css'
 
-export default function CountryRegions({ format}) {
+export default function CountryRegions({ format }) {
   const [data, setData] = useState([])
   const [fetching, setFetching] = useState(true)
   const [serverError, setServerError] = useState(null)
