@@ -1,7 +1,13 @@
 # Goat's Guide
 
 
-## If you know about an upcoming concert, fest, or tour share the flier on [goatsguide.com](https://goatsguide.com).
+## If you know about an upcoming concert, fest, or tour share the flier here.
+
+<h2 style="text-align: center;">
+
+[goatsguide.com](https://goatsguide.com)
+
+</h2>
 
 This is a DIY bulletin board for poster artwork and event information.
 If you want to copy/paste from an event already on Facebook,
@@ -39,4 +45,5 @@ View more artwork and events from an international scope, as they get posted.
 - CSS
 - testing with Enzyme
 - RESTful API consumer of [goats-api](https://github.com/killeraliens/goats-api)
+
 
