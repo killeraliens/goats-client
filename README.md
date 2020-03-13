@@ -3,10 +3,7 @@
 
 ## If you know about an upcoming concert, fest, or tour share the flier here.
 
-<p align="center">
-
-[goatsguide.com](https://goatsguide.com)
-</p>
+**[goatsguide.com](https://goatsguide.com)**
 
 This is a DIY bulletin board for poster artwork and event information.
 If you want to copy/paste from an event already on Facebook,
