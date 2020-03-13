@@ -3,8 +3,6 @@
 
 ## If you know about an upcoming concert, fest, or tour share the flier here.
 
-<br/>
-
 **[goatsguide.com](https://goatsguide.com)**
 
 This is a DIY bulletin board for poster artwork and event information.
@@ -17,8 +15,6 @@ View more artwork and events from an international scope, as they get posted.
 <br/>
 
 ## How it works.
-
-<br/>
 
 **[Create an account](https://goats-forum.now.sh/public/signup) to view & post fliers to the public feed.**
 
