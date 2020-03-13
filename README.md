@@ -17,9 +17,11 @@ View more artwork and events from an international scope, as they get posted.
 
 ![flier feed screenshot](./src/assets/ss-flier-feed.png)
 
+
 **Manage your profile, account settings, posted fliers from your dashboard.**
 
 ![dashboard screenshot](./src/assets/ss-edit-flier-profile.png)
+
 
 **Post a new flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the it more searchable.**
 
@@ -27,8 +29,8 @@ View more artwork and events from an international scope, as they get posted.
 
 
 ## Sign in with the demo account to check it out.
-username: demo
-password: demo123
+- username: demo
+- password: demo123
 
 
 ## Technologies
