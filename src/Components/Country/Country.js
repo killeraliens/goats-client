@@ -29,7 +29,7 @@ export default function Country({ countryName, regionName }) {
       setServerError({ status: response.status, message: body.message })
       return {
         flyers: [],
-        count: 0
+        total: 0
       }
     }
     return body

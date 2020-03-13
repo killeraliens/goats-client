@@ -53,7 +53,7 @@ export default function AuthedSplit({ mainComponent }) {
         setServerError({ status: response.status, message: body.message })
         return {
           flyers: [],
-          count: 0
+          total: 0
         }
       } else {
         setServerError(null)

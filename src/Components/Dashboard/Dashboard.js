@@ -24,27 +24,42 @@ function Dashboard({ match }) {
   const [foundUser, setFoundUser] = useState(null)
 
   useEffect(() => {
-    const fetchApiData = async (type) => {
+    const abortController = new AbortController();
+
+    const fetchApiData = async () => {
       setFetching(true)
       setServerError(null)
       const options = {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${user.token}`
+        },
+        signal: abortController.signal
+      }
+
+      try {
+        const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
+        const body = await response.json();
+        if (!response.ok) {
+          setServerError({ status: response.status, message: body.message })
+          setFetching(false)
+        } else {
+          setFoundUser(body.creator)
+          setFlyers(body.flyers)
+          setFetching(false)
+        }
+      } catch (e) {
+        if (!abortController.signal.aborted) {
+          console.log('fetch aborted', e)
+          setFetching(false)
         }
       }
-      const response = await fetch(`${config.API_ENDPOINT}/flyer?creator=${paramsId}`, options);
-      const body = await response.json();
-      if (!response.ok) {
-        setServerError({ status: response.status, message: body.message })
-        setFetching(false)
-      } else {
-        setFoundUser(body.creator)
-        setFlyers(body.flyers)
-        setFetching(false)
-      }
     }
+
     fetchApiData()
+    return () => {
+      abortController.abort()
+    }
   }, [match.url, user])
 
   const deleteFlyer = (flyerId) => {
