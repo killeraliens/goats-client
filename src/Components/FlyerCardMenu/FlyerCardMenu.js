@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import config from '../../config'
 import './FlyerCardMenu.css'
@@ -10,7 +10,6 @@ import MainNavLink from '../MainNavLink/MainNavLink'
 import MainNav from '../MainNav/MainNav'
 import { faEllipsisH, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import FlyerCard from '../FlyerCard/FlyerCard';
 
 function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
   const [visible, setVisible] = useState(false)
@@ -46,27 +45,30 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
   }
 
   const isAuthed = ((user && user.id) && (user.id === creatorId)) || (user && user.admin)
-  if (!hasHandle && isAuthed) {
 
-    return (
-      <MainNav className={`FlyerCardMenu--Nav inline-float-right`}>
-        <MainNavLink
-          callback={handleDelete}
-          activeColorClass={'red-white'}
-          to="#"
-        >
-          {fetching
-            ? '  ...  '
-            : user.admin && creatorId != user.id
-              ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
-              : `Delete`}
-        </MainNavLink>
-      </MainNav>
-    )
-  }
   switch (true) {
-    case visible && isAuthed:
+    case serverError:
+      return null //replace with error modal
 
+    // if no handle return delete button only
+    case !hasHandle && isAuthed:
+      return (
+        <MainNav className={`FlyerCardMenu--Nav inline-float-right`}>
+          <MainNavLink
+            callback={handleDelete}
+            activeColorClass={'red-white'}
+            to="#"
+          >
+            {fetching
+              ? '  ...  '
+              : user.admin && creatorId != user.id
+                ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
+                : `Delete`}
+          </MainNavLink>
+        </MainNav>
+      )
+
+    case visible && isAuthed:
       return (
         <div className='FlyerCardMenu'>
           <MainNav className={`FlyerCardMenu--Nav`}>
@@ -98,15 +100,6 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
         </div>
       )
 
-    case visible && !isAuthed:
-      return (
-        <div className='FlyerCardMenu'>
-          {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
-          <FontAwesomeIcon icon={faEllipsisH} />
-        </Link> */}
-        </div>
-      )
-
     case !visible && isAuthed:
       return (
         <div className='FlyerCardMenuOpen'>
@@ -117,13 +110,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
       )
 
     default:
-      return (
-        <div className='FlyerCardMenu'>
-          {/* <Link to="#" className="handle" onClick={() => setVisible(prev => !prev)}>
-          <FontAwesomeIcon icon={faEllipsisH} />
-        </Link> */}
-        </div>
-      )
+      return null
   }
 
 }
@@ -137,5 +124,8 @@ FlyerCardMenu.defaultProps = {
 
 FlyerCardMenu.propTypes = {
   creatorId: PropTypes.string.isRequired,
-  flyerId: PropTypes.string.isRequired
+  flyerId: PropTypes.string.isRequired,
+  hasHandle: PropTypes.bool,
+  history: PropTypes.object,
+  match: PropTypes.object
 }
