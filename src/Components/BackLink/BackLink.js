@@ -7,7 +7,7 @@ import Sword from '../Sword/Sword'
 function BackLink({ history, children, className, hasArrow, backText }) {
   return (
     <div className={`BackLink ${className ? className : ''}`}>
-      <a onClick={() => history.goBack()} >
+      <button onClick={() => history.goBack()} >
         <React.Fragment>{
           hasArrow
             ? <span><Sword width='36px' direction='left' /></span>
@@ -18,7 +18,7 @@ function BackLink({ history, children, className, hasArrow, backText }) {
             : null
         }</React.Fragment>
         {children}
-      </a>
+      </button>
     </div>
   )
 }

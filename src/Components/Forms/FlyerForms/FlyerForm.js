@@ -14,7 +14,6 @@ import Spinner from '../../Spinner/Spinner';
 import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
-import FlyerCard from '../../FlyerCard/FlyerCard';
 
 const uuid = require('uuid/v1');
 // const MemoizedComponent = React.memo(EventsPreview,

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 import CountryRegionFormGroup from './CountryRegionFormGroup'
 import ValidationError from '../ValidationError/ValidationError'
-import Select from 'react-select'
-import  config from '../../../config'
 
 export default function CountryRegionCityFormGroup({ updateCountryRegionCity, formCountryRegionCity }) {
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CountrySelector from './CountrySelector';
 import RegionSelector from './RegionSelector';
 import PropTypes from 'prop-types';
