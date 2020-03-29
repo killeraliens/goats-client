@@ -11,8 +11,7 @@ import BackLink from '../BackLink/BackLink'
 import CentralContainer from '../CentralContainer/CentralContainer';
 
 export default function CreateFlyer() {
-  const { user, error } = useContext(AppContext)
-  const { serverError, fetching } = useContext(AuthedContext)
+  const { user } = useContext(AppContext)
   const formLinks = [
     <MainNavLink to={'/post/show'} isActive={(match, location) => {
       if (location.pathname === `/post/show` || location.pathname === `/post` || location.pathname === `/post/`) {
@@ -24,55 +23,39 @@ export default function CreateFlyer() {
     <MainNavLink to={'/post/fest'} >Festival</MainNavLink>
   ]
 
-  switch (true) {
+  return(
+    <div className="CreateFlyer">
+      <MainHeader >
+        <Link to='/post' className='header-link' >
+          Post
+        </Link>
+      </MainHeader>
+      <MainNav
+        links={formLinks}
+      />
+      <div className="Main--content">
+        <CentralContainer>
+          <Switch>
+            <Route exact path='/post' render={({ history }) => {
+              return <FlyerForm history={history} newType="Show" creatorId={user.id} />
+            }} />
+            <Route exact path='/post/show' render={({ history }) => {
+              return <FlyerForm history={history} newType="Show" creatorId={user.id} />
+            }}/>
+            <Route path='/post/fest' render={({ history }) => {
+              return <FlyerForm history={history} newType="Fest" creatorId={user.id} />
+            }} />
+            <Route path='/post/tour' render={({ history }) => {
+              return <FlyerForm history={history} newType="Tour" creatorId={user.id} />
+            }} />
+            <Redirect to="/post" />
+          </Switch>
+          <BackLink hasArrow={true} backText={true} />
 
-    // case !!serverError && serverError.status === 401:
-    case !!error && error.status === 401:
-
-    return (
-      <div className="CreateFlyer">
-        <NotFound
-          message="Session expired"
-          isFetching={fetching}
-          link={<Link to='/public/signin' >Sign In</Link>}
-        />
+        </CentralContainer>
       </div>
-    )
+    </div>
+  )
 
-    default:
-      return(
-        <div className="CreateFlyer">
-          <MainHeader >
-            <Link to='/post' className='header-link' >
-              Post
-            </Link>
-          </MainHeader>
-          <MainNav
-            links={formLinks}
-          />
-          <div className="Main--content">
-            <CentralContainer>
-              <Switch>
-                <Route exact path='/post' render={({ history }) => {
-                  return <FlyerForm history={history} newType="Show" creatorId={user.id} />
-                }} />
-                <Route exact path='/post/show' render={({ history }) => {
-                  return <FlyerForm history={history} newType="Show" creatorId={user.id} />
-                }}/>
-                <Route path='/post/fest' render={({ history }) => {
-                  return <FlyerForm history={history} newType="Fest" creatorId={user.id} />
-                }} />
-                <Route path='/post/tour' render={({ history }) => {
-                  return <FlyerForm history={history} newType="Tour" creatorId={user.id} />
-                }} />
-                <Redirect to="/post" />
-              </Switch>
-              <BackLink hasArrow={true} backText={true} />
-
-            </CentralContainer>
-          </div>
-        </div>
-      )
-  }
 }
 
