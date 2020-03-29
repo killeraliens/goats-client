@@ -6,7 +6,6 @@ import MainHeader from '../MainHeader/MainHeader';
 import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';
 import FlyerForm from '../Forms/FlyerForms/FlyerForm';
-import NotFound from '../NotFound/NotFound'
 import BackLink from '../BackLink/BackLink'
 import CentralContainer from '../CentralContainer/CentralContainer';
 
