@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select'
 let provinces = require('provinces')
 
 export default function RegionSelector({ updateRegion, formRegion, formCountry }) {
+
   useEffect(() => {
     const setRegionArray = () => {
       const regions = provinces.filter(row => row.country === formCountry.code)
@@ -11,11 +12,11 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     }
 
     setRegionArray()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formCountry])
 
 
   const handleChange = (e) => {
-    // updateRegion({ ...formRegion, value: e.target.value })
     updateRegion({ ...formRegion, value: e.label })
   }
 

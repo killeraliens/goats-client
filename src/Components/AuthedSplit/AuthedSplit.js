@@ -16,7 +16,7 @@ export default function AuthedSplit({ mainComponent }) {
   const [fetching, setFetching] = useState(false)
   const [fetchingAdditional, setFetchingAdditional] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const { user, setError, error } = useContext(AppContext)
+  const { user } = useContext(AppContext)
 
   const addFlyer = (flyer) => {
     setFlyers(prev => ([...prev, { ...flyer }].sort((a, b) => (a.modified > b.modified) ? -1 : 1)))
@@ -120,6 +120,7 @@ export default function AuthedSplit({ mainComponent }) {
       abortController.abort();
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const contextValue = {

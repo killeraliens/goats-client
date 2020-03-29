@@ -23,8 +23,8 @@ export default function CountryRegionCityFormGroup({ updateCountryRegionCity, fo
       updateCountryRegionCity({ ...formCountryRegionCity, cityName: { ...formCountryRegionCity.cityName, error: validateCityName() } })
     }
     updateValidationErrors()
-
-  }, [formCountryRegionCity.cityName.value])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const updateCountryRegion = (countryRegionFields) => {
     updateCountryRegionCity({ ...formCountryRegionCity, ...countryRegionFields})
