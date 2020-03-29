@@ -35,7 +35,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const { addFlyer, updateFlyer } = useContext(AuthedContext)
   const { user, setError } = useContext(AppContext)
   const [disabled, setDisabled] = useState(true)
-  const [touched, setTouched] = useState(false)
   const [serverError, setServerError] = useState(null)
   const [fetching, setFetching] = useState(false)
   const [isDateReq, setIsDateReq] = useState(false)
@@ -143,16 +142,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         setDisabled(false)
       }
     }
-    const formTouched = () => {
-      let isTouched = Object.values(formBody).filter(value => value && Boolean(value.touched) && Boolean(value.value))
-      if (isTouched.length > 0) {
-        setTouched(true)
-      } else {
-        setTouched(false)
-      }
-    }
+
     setDisabledIfErrors()
-    formTouched()
   }, [formBody])
 
   const updateEventFields = (fields) => {
