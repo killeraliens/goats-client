@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import config from '../../../config';
 import Select from 'react-select'
-import { withRouter } from 'react-router-dom';
 
 export default function CountrySelector({ updateCountry, formCountry }) {
   const [data, setData] = useState({ countries: [] })

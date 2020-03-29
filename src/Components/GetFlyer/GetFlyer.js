@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import MainHeader from '../MainHeader/MainHeader';
 import FlyerForm from '../Forms/FlyerForms/FlyerForm';
@@ -9,7 +9,7 @@ import Spinner from '../Spinner/Spinner';
 import FlyerCard from '../FlyerCard/FlyerCard'
 import BackLink from '../BackLink/BackLink'
 
-export default function GetFlyer({ match, history, isEdit }) {
+function GetFlyer({ match, isEdit }) {
   const { user, setError } = useContext(AppContext)
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
@@ -92,7 +92,7 @@ export default function GetFlyer({ match, history, isEdit }) {
           </MainHeader>
           <div className="Main--content">
             <FlyerForm flyer={flyer} />
-          <BackLink backText={true} hasArrow={true}/>
+            <BackLink backText={true} hasArrow={true}/>
           </div>
         </div>
       )
@@ -102,6 +102,13 @@ export default function GetFlyer({ match, history, isEdit }) {
   }
 }
 
+export default withRouter(GetFlyer)
+
 GetFlyer.defaultProps = {
   isEdit: false
+}
+
+GetFlyer.propTypes = {
+  match: PropTypes.object,
+  isEdit: PropTypes.bool
 }

@@ -34,6 +34,11 @@ const uuid = require('uuid/v1');
 function FlyerForm({ history, newType, flyer, creatorId }) {
   const { addFlyer, updateFlyer } = useContext(AuthedContext)
   const { user, setError } = useContext(AppContext)
+  const [disabled, setDisabled] = useState(true)
+  const [touched, setTouched] = useState(false)
+  const [serverError, setServerError] = useState(null)
+  const [fetching, setFetching] = useState(false)
+  const [isDateReq, setIsDateReq] = useState(false)
 
   const [formBody, setFormBody] = useState({
     //id: flyer.id || '',
@@ -56,11 +61,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     listingState: flyer.listing_state || "Public",
     created: flyer.created || ''
   })
-  const [disabled, setDisabled] = useState(true)
-  const [touched, setTouched] = useState(false)
-  const [serverError, setServerError] = useState(null)
-  const [fetching, setFetching] = useState(false)
-  const [isDateReq, setIsDateReq] = useState(false)
+
 
   const resetForm = () => {
     setIsDateReq(false)
@@ -142,16 +143,16 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         setDisabled(false)
       }
     }
-    const touched = () => {
-      let touched = Object.values(formBody).filter(value => value && Boolean(value.touched) && Boolean(value.value))
-      if (touched.length > 0) {
+    const formTouched = () => {
+      let isTouched = Object.values(formBody).filter(value => value && Boolean(value.touched) && Boolean(value.value))
+      if (isTouched.length > 0) {
         setTouched(true)
       } else {
         setTouched(false)
       }
     }
     setDisabledIfErrors()
-    touched()
+    formTouched()
   }, [formBody])
 
   const updateEventFields = (fields) => {
@@ -178,11 +179,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       let invalidValues = eventFields.filter(field => {
         if (Boolean(formBody[field].error)) {
           return formBody[field].value
+        } else {
+          return null
         }
       })
       let validValues = eventFields.filter(field => {
         if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
           return formBody[field].value
+        } else {
+          return null
         }
       })
 
@@ -239,11 +244,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     let invalidValues = eventFields.filter(field => {
       if (Boolean(formBody[field].error)) {
         return formBody[field].value
+      } else {
+        return null
       }
     })
     let validValues = eventFields.filter(field => {
       if (!Boolean(formBody[field].error) && Boolean(formBody[field].value)) {
         return formBody[field].value
+      } else {
+        return null
       }
     })
     if (Boolean(formBody["date"].value) && invalidValues.length === 0 && validValues.length > 0) {
@@ -428,7 +437,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
       {
-        formBody.type === "Tour" || formBody.type === "Fest" || formBody.type === "Show" || flyer && flyer.events && flyer.events.length > 0
+        (formBody.type === "Tour" || formBody.type === "Fest" || formBody.type === "Show") || flyer && flyer.events && flyer.events.length > 0
           ? (
             <EventsPreview
               formEvents={formBody.events}

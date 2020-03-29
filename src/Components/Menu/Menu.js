@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import defaultAvatar from '../../assets/default-avatar.jpg'

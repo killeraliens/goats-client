@@ -1,8 +1,6 @@
 import React from 'react';
 import CentralContainer from '../CentralContainer/CentralContainer'
 import { Link } from 'react-router-dom'
-import Sword from '../Sword/Sword'
-import flourish from '../../assets/flourish.svg'
 import './Intro.css'
 import Mailto from 'react-protected-mailto'
 

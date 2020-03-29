@@ -33,23 +33,23 @@ export default function EventsPreview({ formEvents, deleteFormEvent }) {
           ? capitalize(event.venue_name)
           : null
 
-        function isAllCaps(str) {
-          return str === str.toUpperCase();
-        }
+        // function isAllCaps(str) {
+        //   return str === str.toUpperCase();
+        // }
 
-        const regionOrCountry = () => {
-          switch (true) {
-            // case (regionName && countryName) && isAllCaps(regionName) === true:
-            case (regionName && countryName) && ['United States'].includes(countryName):
-              return regionName;
-            case (regionName && countryName) && isAllCaps(regionName) === false:
-              return countryName;
-            case (!regionName):
-              return countryName;
-            default:
-              return null
-          }
-        }
+        // const regionOrCountry = () => {
+        //   switch (true) {
+        //     // case (regionName && countryName) && isAllCaps(regionName) === true:
+        //     case (regionName && countryName) && ['United States'].includes(countryName):
+        //       return regionName;
+        //     case (regionName && countryName) && isAllCaps(regionName) === false:
+        //       return countryName;
+        //     case (!regionName):
+        //       return countryName;
+        //     default:
+        //       return null
+        //   }
+        // }
 
         const regionAndCountry = () => {
           switch (true) {

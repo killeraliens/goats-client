@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import AppContext from '../../AppContext';
-import AuthedContext from '../../AuthedContext';
 import MainHeader from '../MainHeader/MainHeader';
 import MainNav from '../MainNav/MainNav';
 import MainNavLink from '../MainNavLink/MainNavLink';

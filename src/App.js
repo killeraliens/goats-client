@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css'
 import config from './config.js'
 import AppContext from './AppContext'
@@ -11,7 +11,7 @@ import ErrorBoundary from './Components/ErrorBoundary'
 import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
 import GetFlyer from './Components/GetFlyer/GetFlyer'
-import NotFound from './Components/NotFound/NotFound';
+// import NotFound from './Components/NotFound/NotFound';
 
 class App extends Component {
   constructor() {
