@@ -25,6 +25,10 @@
    max-height: 80px;
 }
 
+.FetchingAdditional--container a {
+  height: 80px;
+}
+
 
 @media (min-width: 599px) {
   .Feed {
