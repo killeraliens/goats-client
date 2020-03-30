@@ -8,7 +8,7 @@ import AuthedContext from '../../AuthedContext';
 import DashContext from '../../DashContext'
 import MainNavLink from '../MainNavLink/MainNavLink'
 import MainNav from '../MainNav/MainNav'
-import { faEllipsisH, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faShieldAlt, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
@@ -90,12 +90,12 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
               {fetching
                 ? '  ...  '
                 : user.admin && creatorId != user.id
-                  ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Edit</span>
+                  ? <span><FontAwesomeIcon icon={faPen} />{' '}Edit</span>
                   : `Edit`}
             </MainNavLink>
           </MainNav>
           <a className="handle" onClick={(e) => setVisible(prev => !prev)}>
-            <FontAwesomeIcon icon={faEllipsisH} />
+            <FontAwesomeIcon icon={faPen} />
           </a>
         </div>
       )
@@ -104,7 +104,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
       return (
         <div className='FlyerCardMenuOpen'>
           <a  className="handle" onClick={(e) => setVisible(prev => !prev)}>
-            <FontAwesomeIcon icon={faEllipsisH} />
+            <FontAwesomeIcon icon={faPen} />
           </a>
         </div>
       )
