@@ -90,7 +90,8 @@ Feed.propTypes = {
         country_name: PropTypes.string,
         region_name: PropTypes.string,
         city_name: PropTypes.string,
-        city_id: PropTypes.number
+        city_id: PropTypes.number,
+        cancelled: PropTypes.bool
       })).isRequired,
   })),
   fetching: PropTypes.bool,

@@ -15,9 +15,11 @@ export default function FlyerCard({ flyer, isEdit }) {
     ? flyer.events
     : []
 
-  const isPast = flyer.events && flyer.events.filter(event =>  event.event_date && new Date(event.event_date) < new Date(Date.now())).length === flyer.events.length
+  const isPast = flyer.events && flyer.events.filter(event => event.event_date && new Date(event.event_date) < new Date(Date.now())).length === flyer.events.length
     ? true
     : false
+
+  const isCancelled = flyer.events && flyer.events.filter(event => event.cancelled ).length === flyer.events.length
 
   return (
     <div className="FlyerCard Card" id={`${flyer.id}`}>
@@ -122,7 +124,8 @@ FlyerCard.propTypes = {
       country_name: PropTypes.string,
       region_name: PropTypes.string,
       city_name: PropTypes.string,
-      city_id: PropTypes.number
+      city_id: PropTypes.number,
+      cancelled: PropTypes.bool
     }))
   }).isRequired,
   isEdit: PropTypes.bool

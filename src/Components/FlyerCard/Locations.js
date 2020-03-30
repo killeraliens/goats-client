@@ -70,7 +70,8 @@ Locations.propTypes = {
     region_name: PropTypes.string,
     country_name: PropTypes.string,
     venue_name: PropTypes.string,
-    city_id: PropTypes.number
+    city_id: PropTypes.number,
+    cancelled: PropTypes.bool
   })),
   isFullTourListing: PropTypes.bool,
   isTourAbbrev: PropTypes.bool

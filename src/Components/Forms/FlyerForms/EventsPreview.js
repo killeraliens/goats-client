@@ -109,7 +109,8 @@ EventsPreview.propTypes = {
     country_name: PropTypes.string.isRequired,
     region_name: PropTypes.string.isRequired,
     city_name: PropTypes.string.isRequired,
-    city_id: PropTypes.number
+    city_id: PropTypes.number,
+    cancelled: PropTypes.bool
   })),
   deleteFormEvent: PropTypes.func
 }
