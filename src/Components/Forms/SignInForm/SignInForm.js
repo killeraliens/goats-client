@@ -70,28 +70,35 @@ function SignInForm(props) {
       method: 'POST',
       body: JSON.stringify(postBody),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       }
     }
-    const response = await fetch(`${config.API_ENDPOINT}/auth/signin`, options)
-    const body = await response.json();
 
-    if (!response.ok) {
-      setServerError({ status: response.status, message: body.message })
+    try {
+      const response = await fetch(`${config.API_ENDPOINT}/auth/signin`, options)
+      const body = await response.json();
+      if (!response.ok) {
+        setServerError({ status: response.status, message: body.message })
+        setFetching(false)
+      } else {
+        setFetching(false)
+        resetForm()
+        let user = body.token ? body : null
+        context.updateAuthenticated(user)
+        props.history.push(`/fliers`)
+      }
+    } catch (err) {
+      setServerError({ message: err.message })
       setFetching(false)
-    } else {
-      setFetching(false)
-      resetForm()
-      let user = body.token ? body : null
-      context.updateAuthenticated(user)
-      props.history.push(`/fliers`)
     }
+
   }
 
   const required = "*"
   if (fetching) {
     return <Spinner />
   }
+
   return(
     <CentralContainer>
       <form className="SignInForm" onSubmit={handleOnSubmit}>
