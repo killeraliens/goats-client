@@ -31,9 +31,10 @@ export default function FlyerCard({ flyer, isEdit }) {
       <div className="Card--body">
         <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} hasHandle={isEdit ? false : true }/>
         <div className="Card--header">
-
-          <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
-          {isPast ? <div className="Flyer--icon-past Tag">Past</div> : null}
+          {isPast
+            ? <div className="Flyer--icon-type Tag past">Past {flyer.flyer_type}</div>
+            : <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
+          }
           <h2>{flyer.headline}</h2>
         </div>
         <ThroughDates flyerEvents={flyerEvents} />

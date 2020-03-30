@@ -68,7 +68,7 @@
   margin-right: 0px;
 }
 
-.Flyer--icon-past.Tag {
+.Flyer--icon-type.Tag.past {
   background-color: black;
   color: white;
 }
