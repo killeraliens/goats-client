@@ -45,7 +45,7 @@ fieldset {
 
 legend, label {
   font-size: 10px;
-  margin-bottom: 4px;
+  line-height: 16px;
 }
 
 fieldset * {
@@ -56,7 +56,7 @@ body:not(:-moz-handler-blocked) fieldset {
   display: table-cell;
 }
 
-label {
+label:not(.cancelled label) {
   display: inline-block;
 }
 
@@ -64,6 +64,12 @@ input[type=text], input[type=datalist], input[type=password], input[type=email],
   background-color: white;
   border: solid 1px lightgrey;
   padding: 8px;
+}
+
+input[type=checkbox] {
+  /* -webkit-appearance: none; */
+  margin: 0 8px 0 0;
+  width: auto;
 }
 
 select {
@@ -175,55 +181,6 @@ fieldset.date {
   overflow: hidden;
 }
 
-ul.EventInput--preview {
-   /* padding-top: 8px;
-  padding-bottom: 8px; */
-}
-
-ul.EventInput--preview li {
-  margin-bottom: 16px;
-}
-
-ul.EventInput--preview li > * {
-  display: flex;
-}
-
-.EventInput--preview li span i {
-  color: darkgrey;
-}
-
-.date-i::before {
-  font-family: "FontAwesome";
-  content: '\f133';
-  width: 20px;
-  /* margin-right: 4px; */
-  color: darkgray;
-}
-
-.city-i::before {
-  font-family: "FontAwesome";
-  content: '\f041';
-  width: 20px;
-  /* margin-right: 4px; */
-  color: darkgray;
-}
-
-.venue-i::before {
-  font-family: "FontAwesome";
-  content: '\f276';
-  width: 20px;
-  /* margin-right: 4px; */
-  color: darkgray;
-}
-
-.delete-i {
-  /* margin-right: 32px; */
-  position: relative;
-  left: -32px;
-  height: 0;
-  color: orangered;
-}
-
 .EventFieldset {
   height: auto;
   overflow: visible;
@@ -231,7 +188,6 @@ ul.EventInput--preview li > * {
   padding: 16px;
   margin-bottom: 16px;
 }
-
 
 @media (min-width: 799px){
   /* form > * {
@@ -287,9 +243,9 @@ ul.EventInput--preview li > * {
 
   .fieldset-container.sub-group {
     display: flex;
-  width: auto;
-  margin-right: 0px;
-}
+    width: auto;
+    margin-right: 0px;
+  }
 }
 
 /*  */
@@ -348,6 +304,56 @@ div.textarea {
   color: white;
 }
 
-/* .CountrySelector {
-  color: black;
-} */
+.EventsPreview li {
+  margin-bottom: 16px;
+}
+
+.EventsPreview li > * {
+  display: flex;
+  position: relative;
+}
+
+.EventsPreview li > span{
+  margin-bottom: 4px;
+}
+
+.EventsPreview li span i {
+  color: darkgrey;
+  font-style: normal;
+}
+
+.date-i, .city-i, .venue-i {
+  width: 20px;
+}
+
+.EventsPreview .date-i::before {
+  font-family: "FontAwesome";
+  content: '\f133';
+  color: darkgray;
+}
+
+.EventsPreview .city-i::before {
+  font-family: "FontAwesome";
+  content: '\f041';
+  color: darkgray;
+}
+
+.EventsPreview .venue-i::before {
+  font-family: "FontAwesome";
+  content: '\f276';
+  color: darkgray;
+}
+
+.EventsPreview .delete-i {
+  /* margin-right: 32px; */
+  position: relative;
+  left: -32px;
+  height: 0;
+  color: orangered;
+}
+
+.EventsPreview .cancelled span *:not(i, label) {
+  text-decoration: line-through;
+}
+
+

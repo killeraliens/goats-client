@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { capitalize } from '../../../helpers/textHelpers'
 import { dateWithYear, dateToMMDDYYYYString } from '../../../helpers/dateHelpers'
 
-export default function EventsPreview({ formEvents, deleteFormEvent }) {
+export default function EventsPreview({ formEvents, deleteFormEvent, updateFormEvent }) {
 
   return(
-    <ul className="EventInput--preview">
+    <ul className="EventsPreview">
       {formEvents.map((event, i) => {
 
         const eventDate = event.event_date && event.event_date.length === 5
@@ -76,15 +76,26 @@ export default function EventsPreview({ formEvents, deleteFormEvent }) {
         }
 
         return (
-          <li key={event.id} id={event.id}>
+          <li key={event.id} id={event.id} className={`${event.cancelled ? 'cancelled' : null}`}>
             <i
               className="fa fa-minus-circle delete-i"
               onClick={handleDelete}
             >
             </i>
-            <span className="date-i">{eventDate}</span>
-            <span className="city-i">{cityName}{cityComma()}{regionAndCountry()}</span>
-            <span className="venue-i">{venueName}</span>
+            <span><i className="date-i"></i><span>{eventDate}</span></span>
+            <span><i className="city-i"></i><span>{cityName}{cityComma()}{regionAndCountry()}</span></span>
+            <span><i className="venue-i"></i><span>{venueName}</span></span>
+            <span className="cancelled">
+              <input
+                id="EventsPreviewCancelled"
+                name="EventsPreviewCancelled"
+                type="checkbox"
+                checked={event.cancelled}
+                onChange={e => updateFormEvent(event.id, e.target.checked)}></input>
+                <label className="cancelled-i">
+                  {event.cancelled ? 'This event will be tagged as cancelled.' : 'Cancel this event.'}
+                </label>
+            </span>
           </li>
         )
       })}
@@ -94,7 +105,8 @@ export default function EventsPreview({ formEvents, deleteFormEvent }) {
 
 EventsPreview.defaultProps = {
   formEvents: [],
-  deleteFormEvent: () => {}
+  deleteFormEvent: () => {},
+  updateFormEvent: () => {}
 }
 
 EventsPreview.propTypes = {
@@ -112,5 +124,6 @@ EventsPreview.propTypes = {
     city_id: PropTypes.number,
     cancelled: PropTypes.bool
   })),
-  deleteFormEvent: PropTypes.func
+  deleteFormEvent: PropTypes.func,
+  updateFormEvent: PropTypes.func
 }

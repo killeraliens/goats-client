@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate, isDateReq }) {
+export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate, formCancelled, isDateReq }) {
   let dateWithYear = (mmddFormat) => {
     let currYear = new Date().getFullYear()
     let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
@@ -162,6 +162,17 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
       </div>
+      <fieldset classname="cancelled">
+        <input
+          id="cancelled"
+          name="cancelled"
+          type="checkbox"
+          value="Cancelled"
+          onChange={e => { updateEventFields({ cancelled: e.target.checked }) }}
+          checked={formCancelled}
+        />
+        <label htmlFor="cancelled">This is a cancelled event</label>
+      </fieldset>
       { formType === "Tour" ? addTourStopBtn() : null}
     </div>
   )
@@ -176,7 +187,8 @@ EventFieldset.defaultProps = {
     cityName: { error: "", touched: false, value: "" },
     countryName: { code: "", value: "" },
     regionName: { array:[], value: "" }
-  }
+  },
+  formCancelled: false
 }
 
 EventFieldset.propTypes = {
@@ -217,5 +229,6 @@ EventFieldset.propTypes = {
     "Tour",
     "Show"
   ]),
+  formCancelled: PropTypes.bool,
   isDateReq: PropTypes.bool
 }

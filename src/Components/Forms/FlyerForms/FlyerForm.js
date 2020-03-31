@@ -114,6 +114,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     formBody.countryName.value,
     formBody.regionName.value,
     formBody.cityName.value,
+    formBody.cancelled
   ])
 
   useEffect(() => {
@@ -283,6 +284,19 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     }))
   }
 
+  const updateFormEvent = (id, cancelledBool) => {
+    let updatedEvents = formBody.events.map(event => {
+       if (event.id === id) {
+         return { ...event, cancelled: cancelledBool}
+       }
+       return event
+    })
+    setFormBody(prev => ({
+      ...prev,
+      events: updatedEvents
+    }))
+  }
+
 
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -439,6 +453,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
             <EventsPreview
               formEvents={formBody.events}
               deleteFormEvent={deleteFormEvent}
+              updateFormEvent={updateFormEvent}
             />
           )
           : null
@@ -452,6 +467,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         formType={formBody.type}
         formEndDate={formBody.endDate}
         isDateReq={isDateReq}
+        formCancelled={formBody.cancelled}
       />
       <fieldset>
         <label htmlFor="bands">Band Lineup</label>
