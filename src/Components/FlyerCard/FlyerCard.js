@@ -15,14 +15,18 @@ export default function FlyerCard({ flyer, isEdit }) {
     ? flyer.events
     : []
 
-  const isPast = flyer.events && flyer.events.filter(event => event.event_date && new Date(event.event_date) < new Date(Date.now())).length === flyer.events.length
+  const pastCount = flyerEvents.filter(event => event.event_date && new Date(event.event_date) < new Date(Date.now())).length
+  const isPast = pastCount === flyerEvents.length && pastCount > 0
+      ? true
+      : false
+
+  const cancelledCount = flyerEvents.filter(event => event.cancelled).length
+  const isCancelled = cancelledCount === flyerEvents.length && cancelledCount > 0
     ? true
     : false
 
-  const isCancelled = flyer.events && flyer.events.filter(event => event.cancelled ).length === flyer.events.length
-
   return (
-    <div className="FlyerCard Card" id={`${flyer.id}`}>
+    <div className={`FlyerCard Card ${isCancelled ? 'cancelled' : null}`} id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}
       <Link to={`/flier/${flyer.id}`}>
         <img className="Flyer--image"

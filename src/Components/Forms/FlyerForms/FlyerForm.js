@@ -51,6 +51,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     countryName: { value: '', code: ''},
     regionName: { value: '', array: [] },
     cityName: { value: '', touched: false, error: '' },
+    cancelled: false,
     //
     bands: { value: flyer.bands || '', touched: false, error: '' },
     details: { value: flyer.details|| '', touched: false, error: '' },
@@ -75,6 +76,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       countryName: { value: '', code: '' },
       regionName: { value: '', array: [] },
       cityName: { value: '', error: '' },
+      cancelled: false,
       bands: { value: flyer.bands || '', touched: false, error: '' },
       details: { value: flyer.details || '', touched: false, error: '' },
       publishComment: { value: flyer.publish_comment || '', touched: false, error: '' },
@@ -199,7 +201,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,
               region_name: formBody.regionName.value,
-              city_name: formBody.cityName.value
+              city_name: formBody.cityName.value,
+              cancelled: formBody.cancelled
             }
             eventsArr.push(newEvent)
           }
@@ -213,7 +216,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,
               region_name: formBody.regionName.value,
-              city_name: formBody.cityName.value
+              city_name: formBody.cityName.value,
+              cancelled: formBody.cancelled
             }
             eventsArr.push(newEvent)
           }
@@ -231,7 +235,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   // formBody.events array for "Tour" (gens temp id for EventsPreview)
   const addTourStop = (e) => {
     e.preventDefault()
-    let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]
+    let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName", "cancelled"]
     let invalidValues = eventFields.filter(field => {
       if (Boolean(formBody[field].error)) {
         return formBody[field].value
@@ -258,7 +262,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
             venue_name: formBody.venueName.value,
             country_name: formBody.countryName.value,
             region_name: formBody.regionName.value,
-            city_name: formBody.cityName.value
+            city_name: formBody.cityName.value,
+            cancelled: formBody.cancelled
           }
         ]
       }))
@@ -295,7 +300,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         venue_name: capitalize(event.venue_name),
         city_name: capitalize(event.city_name),
         region_name: event.region_name,
-        country_name: event.country_name
+        country_name: event.country_name,
+        cancelled: event.cancelled
       }
     })
 
@@ -504,7 +510,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
         <input type="reset" onClick={() => {
           resetForm()
-          return history.push('/post')
+          return formBody.id ? history.goBack() : history.push('/fliers')
           }} value="Cancel" />
       </div>
     </form>
