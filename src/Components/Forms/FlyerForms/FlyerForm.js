@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import config from '../../../config';
 import PropTypes from 'prop-types';
 import '../Forms.css';
@@ -14,6 +14,7 @@ import Spinner from '../../Spinner/Spinner';
 import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
+import NotFound from '../../NotFound/NotFound'
 const uuid = require('uuid/v1');
 
 function FlyerForm({ history, newType, flyer, creatorId }) {
