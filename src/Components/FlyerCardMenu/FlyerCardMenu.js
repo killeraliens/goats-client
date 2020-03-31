@@ -61,9 +61,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
           >
             {fetching
               ? '  ...  '
-              : user.admin && creatorId != user.id
-                ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
-                : `Delete`}
+              : 'Delete'}
           </MainNavLink>
         </MainNav>
       )
@@ -79,9 +77,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
             >
               {fetching
                 ? '  ...  '
-                : user.admin && creatorId != user.id
-                  ? <span><FontAwesomeIcon icon={faShieldAlt} />{' '}Delete</span>
-                  : `Delete`}
+                  : 'Delete'}
             </MainNavLink>
             <MainNavLink
               activeColorClass={'red-white'}
@@ -89,13 +85,16 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
             >
               {fetching
                 ? '  ...  '
-                : user.admin && creatorId != user.id
-                  ? <span><FontAwesomeIcon icon={faPen} />{' '}Edit</span>
                   : `Edit`}
             </MainNavLink>
           </MainNav>
           <a className="handle" onClick={(e) => setVisible(prev => !prev)}>
             <FontAwesomeIcon icon={faPen} />
+            {
+              user.admin && creatorId != user.id
+                  ?  <FontAwesomeIcon icon={faShieldAlt} style={{ marginLeft: '4px'}}/>
+                  : null
+            }
           </a>
         </div>
       )
@@ -105,6 +104,11 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
         <div className='FlyerCardMenuOpen'>
           <a  className="handle" onClick={(e) => setVisible(prev => !prev)}>
             <FontAwesomeIcon icon={faPen} />
+            {
+              user.admin && creatorId != user.id
+                ? <FontAwesomeIcon icon={faShieldAlt} style={{ marginLeft: '4px'}}/>
+                : null
+            }
           </a>
         </div>
       )
