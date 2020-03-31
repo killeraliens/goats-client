@@ -14,22 +14,7 @@ import Spinner from '../../Spinner/Spinner';
 import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
-
 const uuid = require('uuid/v1');
-// const MemoizedComponent = React.memo(EventsPreview,
-//   (prevProps, nextProps) => {
-//     if (prevProps !== nextProps) {
-//       return false;
-//     }
-//     /*
-//       When using this function you always need to return
-//       a Boolean. For now we'll say the props are NOT equal
-//       which means the component should rerender.
-//     */
-//     return true;
-//   }
-// )
-
 
 function FlyerForm({ history, newType, flyer, creatorId }) {
   const { addFlyer, updateFlyer } = useContext(AuthedContext)
@@ -96,6 +81,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       countryName: { value: '', code: '' },
       regionName: { value: '', array: [] },
       cityName: { value: '', error: '' },
+      cancelled: false
     }))
   }
 
@@ -413,14 +399,13 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     return <Spinner />
   }
   else if (serverError && serverError.status === 401) {
-    setError(serverError)
-    // return (
-    //     <NotFound
-    //       message="Session expired"
-    //       isFetching={fetching}
-    //       link={<Link to='/public/signin' >Sign In</Link>}
-    //     />
-    // )
+    return (
+        <NotFound
+          message="Session expired"
+          isFetching={fetching}
+          link={<Link to='/public/signin' >Sign In</Link>}
+        />
+    )
   }
   return(
     <form className="FlyerForm" onSubmit={handleSubmit} aria-describedby="serverResponseError">
