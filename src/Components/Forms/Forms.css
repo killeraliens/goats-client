@@ -298,7 +298,7 @@ div.textarea {
   position: absolute;
   top: 0;
   border-radius: 0;
-  height: calc(100% - 2px);
+  height: calc(100% - 4px);
   min-width: fit-content;
   min-height: fit-content;
   display: flex;
