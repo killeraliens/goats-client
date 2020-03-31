@@ -7,21 +7,12 @@
   /* background-color: dimgrey; */
 }
 
-.FlyerCardMenu .MainNavLink {
-  /* margin-right: 0;
-  margin-left: 1px; */
-}
-
-.FlyerCardMenu--Nav {
-  /* position: absolute; */
-}
-
-.FlyerCardMenuOpen {
+.FlyerCardMenuClosed {
   position: relative;
   height: 0;
 }
 
-.FlyerCardMenuOpen .handle {
+.FlyerCardMenuClosed .handle {
   position: absolute;
   right: 0px;
 }

@@ -233,6 +233,9 @@ fieldset.date {
   fieldset.date {
     width: inherit;
   }
+  fieldset.cancelled {
+    margin-bottom: 0;
+  }
 
 }
 
@@ -352,7 +355,7 @@ div.textarea {
   color: orangered;
 }
 
-.EventsPreview .cancelled span *:not(i, label) {
+li.cancelled span *:not(label) {
   text-decoration: line-through;
 }
 

@@ -1,4 +1,7 @@
-.FlyerCard.cancelled * {
+.FlyerCard.cancelled .Card--body h2,
+.FlyerCard.cancelled .Card--body .Flyer--dates,
+.FlyerCard.cancelled .Card--body .Flyer--location,
+.FlyerCard.cancelled .Card--body .Accordian--content {
   text-decoration: line-through;
 }
 

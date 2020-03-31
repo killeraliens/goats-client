@@ -85,7 +85,7 @@ export default function EventsPreview({ formEvents, deleteFormEvent, updateFormE
             <span><i className="date-i"></i><span>{eventDate}</span></span>
             <span><i className="city-i"></i><span>{cityName}{cityComma()}{regionAndCountry()}</span></span>
             <span><i className="venue-i"></i><span>{venueName}</span></span>
-            <span className="cancelled">
+            <span className="cancelled-i">
               <input
                 id="EventsPreviewCancelled"
                 name="EventsPreviewCancelled"

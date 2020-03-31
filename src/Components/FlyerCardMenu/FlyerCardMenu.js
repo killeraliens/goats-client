@@ -53,17 +53,19 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
     // if no handle return delete button only
     case !hasHandle && isAuthed:
       return (
-        <MainNav className={`FlyerCardMenu--Nav inline-float-right`}>
-          <MainNavLink
-            callback={handleDelete}
-            activeColorClass={'red-white'}
-            to="#"
-          >
-            {fetching
-              ? '  ...  '
-              : 'Delete'}
-          </MainNavLink>
-        </MainNav>
+        <div className='FlyerCardMenu'>
+          <MainNav className={`FlyerCardMenu--Nav inline-float-right`}>
+            <MainNavLink
+              callback={handleDelete}
+              activeColorClass={'red-white'}
+              to="#"
+            >
+              {fetching
+                ? '  ...  '
+                : 'Delete'}
+            </MainNavLink>
+          </MainNav>
+        </div>
       )
 
     case visible && isAuthed:
@@ -101,7 +103,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
 
     case !visible && isAuthed:
       return (
-        <div className='FlyerCardMenuOpen'>
+        <div className='FlyerCardMenuClosed'>
           <a  className="handle" onClick={(e) => setVisible(prev => !prev)}>
             <FontAwesomeIcon icon={faPen} />
             {
