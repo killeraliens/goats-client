@@ -91,10 +91,10 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
             </MainNavLink>
           </MainNav>
           <a className="handle" onClick={(e) => setVisible(prev => !prev)}>
-            <FontAwesomeIcon icon={faPen} />
+            <FontAwesomeIcon className="active" icon={faPen} />
             {
               user.admin && creatorId != user.id
-                  ?  <FontAwesomeIcon icon={faShieldAlt} style={{ marginLeft: '4px'}}/>
+                  ?  <FontAwesomeIcon className="active" icon={faShieldAlt} style={{ marginLeft: '4px'}}/>
                   : null
             }
           </a>

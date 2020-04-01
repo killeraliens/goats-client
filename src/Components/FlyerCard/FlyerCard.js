@@ -25,6 +25,10 @@ export default function FlyerCard({ flyer, isEdit }) {
     ? true
     : false
 
+  const isPartCancelled = cancelledCount < flyerEvents.length && cancelledCount > 0
+    ? true
+    : false
+
   return (
     <div className={`FlyerCard Card ${isCancelled ? 'cancelled' : null}`} id={`${flyer.id}`}>
       {/* <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} /> */}
@@ -37,6 +41,13 @@ export default function FlyerCard({ flyer, isEdit }) {
       <div className="Card--body">
         <FlyerCardMenu flyerId={flyer.id} creatorId={flyer.creator_id} hasHandle={isEdit ? false : true }/>
         <div className="Card--header">
+          {
+            isCancelled
+              ? <div className="Flyer--icon-type Tag cancelled">Cancelled</div>
+              : isPartCancelled
+              ? <div className="Flyer--icon-type Tag cancelled">Updates</div>
+              : null
+          }
           {isPast
             ? <div className="Flyer--icon-type Tag past">Past {flyer.flyer_type}</div>
             : <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
