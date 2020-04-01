@@ -44,13 +44,16 @@ export default function FlyerCard({ flyer, isEdit }) {
           {
             isCancelled
               ? <div className="Flyer--icon-type Tag cancelled">Cancelled</div>
-              : isPartCancelled
-              ? <div className="Flyer--icon-type Tag cancelled">Updates</div>
               : null
           }
           {isPast
             ? <div className="Flyer--icon-type Tag past">Past {flyer.flyer_type}</div>
             : <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
+          }
+          {
+            isPartCancelled
+                ? <div className="Flyer--icon-type Tag cancelled">Updates</div>
+                : null
           }
           <h2>{flyer.headline}</h2>
         </div>

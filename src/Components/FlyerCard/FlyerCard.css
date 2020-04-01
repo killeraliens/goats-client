@@ -74,6 +74,7 @@
 .Flyer--icon-type.Tag {
   background-color: green;
   margin-right: 0px;
+  margin-right: 1px;
 }
 
 .Flyer--icon-type.Tag.past {
