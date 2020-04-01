@@ -52,7 +52,7 @@ export default function FlyerCard({ flyer, isEdit }) {
           }
           {
             isPartCancelled
-                ? <div className="Flyer--icon-type Tag cancelled">Updates</div>
+                ? <div className="Flyer--icon-type Tag cancelled">New Dates</div>
                 : null
           }
           <h2>{flyer.headline}</h2>
