@@ -10,8 +10,9 @@
   z-index: 1;
 }
 
-.FlyerCardMenu > * {
-  /* justify-content: right; */
+.FlyerForm .FlyerCardMenu {
+  position: inherit;
+  display: inline;
 }
 
 .FlyerCardMenuClosed {
