@@ -54,7 +54,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
     case !hasHandle && isAuthed:
       return (
         <div className='FlyerCardMenu'>
-          <MainNav className={`FlyerCardMenu--Nav inline-float-right`}>
+          <MainNav className={`FlyerCardMenu--Nav inline-float-right not-sticky`}>
             <MainNavLink
               callback={handleDelete}
               activeColorClass={'red-white'}
