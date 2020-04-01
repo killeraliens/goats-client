@@ -83,7 +83,7 @@
 
 .Flyer--icon-type.Tag.cancelled {
   background-color: orangered;
-
+  margin-right: 1px;
 }
 
 .no-margin {
