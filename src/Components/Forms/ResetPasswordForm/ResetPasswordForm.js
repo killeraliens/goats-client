@@ -103,7 +103,9 @@ function ResetPasswordForm({ history, token }) {
       } else {
         setFetching(false)
         resetForm()
-        history.push('/reset')
+        let user = body.token ? body : null
+        context.updateAuthenticated(user)
+        history.push(`/fliers`)
       }
     } catch (err) {
       setServerError({ message: err.message })
