@@ -1,18 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import config from '../../../config';
 import { Link, withRouter } from 'react-router-dom';
 import ValidationError from '../ValidationError/ValidationError';
 import CentralContainer from '../../CentralContainer/CentralContainer';
-import AppContext from '../../../AppContext';
 import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 
-function RecoverPasswordForm(props) {
+function RecoverPasswordForm({ history }) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const context = useContext(AppContext)
 
   const resetForm = () => {
     setUsername({ value: '', touched: false, error: '' })
@@ -59,7 +57,7 @@ function RecoverPasswordForm(props) {
     }
 
     try {
-      const response = await fetch(`${config.API_ENDPOINT}/auth/reset`, options)
+      const response = await fetch(`${config.API_ENDPOINT}/auth/recover`, options)
       const body = await response.json();
       if (!response.ok) {
         setServerError({ status: response.status, message: body.message })
@@ -67,9 +65,8 @@ function RecoverPasswordForm(props) {
       } else {
         setFetching(false)
         resetForm()
-        let user = body.token ? body : null
-        context.updateAuthenticated(user)
-        props.history.push(`/fliers`)
+        alert('Watch you email for instructions.')
+        history.push('/signin')
       }
     } catch (err) {
       setServerError({ message: err.message })
@@ -107,6 +104,9 @@ function RecoverPasswordForm(props) {
           <button type="submit" disabled={username.error}>Submit</button>
           <Link to="/public/signin">Sign In</Link>
         </div>
+        {!!serverError
+          ? <ValidationError id="serverError" message={serverError.message} style={{marginTop: "8px", display: "block"}}/>
+          : null }
       </form>
     </CentralContainer>
   );
