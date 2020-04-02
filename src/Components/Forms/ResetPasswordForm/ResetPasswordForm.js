@@ -8,7 +8,8 @@ import AppContext from '../../../AppContext';
 import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 
-function ResetPasswordForm({ history, token }) {
+function ResetPasswordForm({ history, match }) {
+  const token = !!match.params.token ? match.params.token : ''
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [password, setPassword] = useState({ value: '', touched: false, error: '' })
   const [repeatPassword, setRepeatPassword] = useState({ value: '', touched: false, error: '' })
@@ -183,15 +184,13 @@ function ResetPasswordForm({ history, token }) {
   );
 }
 
-ResetPasswordForm.defaultProps = {
-  token: ''
-}
-
 ResetPasswordForm.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
-  token: PropTypes.string
+  match: PropTypes.shape({
+    params: PropTypes.object
+  })
 }
 
 export default withRouter(ResetPasswordForm);

@@ -10,6 +10,7 @@ import About from '../About/About';
 import SignInForm from '../Forms/SignInForm/SignInForm';
 import SignUpForm from '../Forms/SignUpForm/SignUpForm';
 import RecoverPasswordForm from '../Forms/RecoverPasswordForm/RecoverPasswordForm';
+import ResetPasswordForm from '../Forms/ResetPasswordForm/ResetPasswordForm';
 
 export default function Landing() {
   return(
@@ -34,6 +35,7 @@ export default function Landing() {
         <Route path="/public/signin" component={SignInForm} />
         <Route path="/public/signup" component={SignUpForm} />
         <Route path="/public/recover" component={RecoverPasswordForm} />
+        <Route path="/public/reset/:token" component={ResetPasswordForm} />
         <Redirect to="/public/signin" />
       </Switch>
     </div>
