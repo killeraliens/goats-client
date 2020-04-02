@@ -76,13 +76,26 @@ select {
   height: 31px;
 }
 
+.form-controls {
+  display: flex;
+  align-items: center;
+}
+
+.form-controls a:not(:last-child) {
+  margin-right: 8px;
+}
+
+.form-controls a{
+  display: inline;
+}
+
 .form-controls button {
   margin-right: 8px;
 }
 
 .form-controls button, .EventFieldset button {
   color: white;
-  background-color: #2e2e2e;
+  background-color: orangered;
 }
 
 .form-controls button:disabled, .EventFieldset button:disabled {
@@ -91,7 +104,7 @@ select {
 
 .form-controls input[type='reset'], .form-controls button[type='reset']  {
   color: white;
-  background-color: orangered;
+  background-color: #2e2e2e;
 }
 
 .fieldset-container {

@@ -8,6 +8,7 @@ import config from '../../config'
 import Spinner from '../Spinner/Spinner';
 import FlyerCard from '../FlyerCard/FlyerCard'
 import BackLink from '../BackLink/BackLink'
+import CentralContainer from '../CentralContainer/CentralContainer'
 
 function GetFlyer({ match, isEdit }) {
   const { user, setError } = useContext(AppContext)
@@ -91,8 +92,10 @@ function GetFlyer({ match, isEdit }) {
             </BackLink>
           </MainHeader>
           <div className="Main--content">
-            <FlyerForm flyer={flyer} />
-            <BackLink backText={true} hasArrow={true}/>
+            <CentralContainer>
+              <FlyerForm flyer={flyer} />
+              <BackLink backText={true} hasArrow={true}/>
+            </CentralContainer>
           </div>
         </div>
       )

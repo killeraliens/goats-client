@@ -9,6 +9,7 @@ import Intro from '../Intro/Intro';
 import About from '../About/About';
 import SignInForm from '../Forms/SignInForm/SignInForm';
 import SignUpForm from '../Forms/SignUpForm/SignUpForm';
+import RecoverPasswordForm from '../Forms/RecoverPasswordForm/RecoverPasswordForm';
 
 export default function Landing() {
   return(
@@ -32,6 +33,7 @@ export default function Landing() {
         <Route path="/public/about" component={About} />
         <Route path="/public/signin" component={SignInForm} />
         <Route path="/public/signup" component={SignUpForm} />
+        <Route path="/public/recover" component={RecoverPasswordForm} />
         <Redirect to="/public/signin" />
       </Switch>
     </div>

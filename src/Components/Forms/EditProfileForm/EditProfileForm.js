@@ -8,6 +8,7 @@ import './EditProfileForm.css';
 import '../Forms.css';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 import Spinner from '../../Spinner/Spinner';
+import CentralContainer from '../../CentralContainer/CentralContainer';
 
 
 export default function EditProfileForm({ history }) {
@@ -82,16 +83,16 @@ export default function EditProfileForm({ history }) {
   return(
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
-        <AvatarImageUpload user={user} updateImgUrl={updateImgUrl}/>
-        <CountryRegionCityFormGroup
-          updateCountryRegionCity={updateCountryRegionCity}
-          formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName }}
-        />
-        <div className="form-controls">
-          <button type="submit" disabled={formBody.cityName.error}>Submit</button>
-          <Link to={`/dashboard/${user.id}`}>Cancel</Link>
-        </div>
-        { serverError ? <p>{serverError.message}</p> : null }
+          <AvatarImageUpload user={user} updateImgUrl={updateImgUrl}/>
+          <CountryRegionCityFormGroup
+            updateCountryRegionCity={updateCountryRegionCity}
+            formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName }}
+          />
+          <div className="form-controls">
+            <button type="submit" disabled={formBody.cityName.error}>Submit</button>
+            <Link to={`/dashboard/${user.id}`}>Cancel</Link>
+          </div>
+          { serverError ? <p>{serverError.message}</p> : null }
       </form>
     </div>
   )
