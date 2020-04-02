@@ -8,7 +8,7 @@ import AppContext from '../../../AppContext';
 import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 
-function SignInForm(props) {
+function SignInForm({ history }) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [password, setPassword] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
@@ -85,7 +85,7 @@ function SignInForm(props) {
         resetForm()
         let user = body.token ? body : null
         context.updateAuthenticated(user)
-        props.history.push(`/fliers`)
+        history.push(`/fliers`)
       }
     } catch (err) {
       setServerError({ message: err.message })
