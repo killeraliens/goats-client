@@ -47,8 +47,10 @@ export default function FlyerCard({ flyer, isEdit }) {
               : null
           }
           {isPast
-            ? <div className="Flyer--icon-type Tag past">Past {flyer.flyer_type}</div>
-            : <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
+            ? <div className="Flyer--icon-type Tag dead">Past {flyer.flyer_type}</div>
+            : isCancelled
+              ? <div className="Flyer--icon-type Tag dead">{flyer.flyer_type}</div>
+              : <div className="Flyer--icon-type Tag">{flyer.flyer_type}</div>
           }
           {
             isPartCancelled
