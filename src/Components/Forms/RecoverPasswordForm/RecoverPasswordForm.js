@@ -65,7 +65,7 @@ function RecoverPasswordForm({ history }) {
       } else {
         setFetching(false)
         resetForm()
-        alert('Watch you email for instructions.')
+        alert('Watch your email for instructions.')
         history.push('/signin')
       }
     } catch (err) {
