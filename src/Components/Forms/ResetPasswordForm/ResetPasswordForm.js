@@ -9,7 +9,7 @@ import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 
 function ResetPasswordForm({ history, match }) {
-  const token = !!match.params.token ? match.params.token : ''
+  const token = !!match.params.token ? decodeURIComponent(match.params.token) : ''
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [password, setPassword] = useState({ value: '', touched: false, error: '' })
   const [repeatPassword, setRepeatPassword] = useState({ value: '', touched: false, error: '' })
@@ -19,7 +19,7 @@ function ResetPasswordForm({ history, match }) {
 
   const resetForm = () => {
     setUsername({ value: '', touched: false, error: '' })
-    setPassword({ value: '', touched: false, error: '' }),
+    setPassword({ value: '', touched: false, error: '' })
     setRepeatPassword({ value: '', touched: false, error: '' })
   }
 
@@ -56,9 +56,9 @@ function ResetPasswordForm({ history, match }) {
       const trimmedPassword = password.value.trim()
       return trimmedPassword.length === 0
         ? 'password required'
-        : password.length < 5 || password.length > 12
+        : trimmedPassword.length < 5 || trimmedPassword.length > 12
           ? 'password must be between 5 and 12 characters long'
-          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
+          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(trimmedPassword))
             ? 'password must have at least one letter and one number, no special characters'
             : ''
     }
@@ -69,12 +69,10 @@ function ResetPasswordForm({ history, match }) {
     if (repeatPassword.touched) {
       const trimmedRepeatPassword = repeatPassword.value.trim()
       return trimmedRepeatPassword.length === 0
-        ? 'password required'
-        : trimmedRepeatPassword.length < 5 || trimmedRepeatPassword.length > 12
-          ? 'password must be between 5 and 12 characters long'
-          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(trimmedRepeatPassword))
-            ? 'password must have at least one letter and one number, no special characters'
-            : ''
+        ? 'enter password a second time'
+        : trimmedRepeatPassword !== password.value
+          ? "passwords don't match"
+          : ''
     }
     return ''
   }
@@ -84,7 +82,7 @@ function ResetPasswordForm({ history, match }) {
     setFetching(true)
     const postBody = {
       username: username.value,
-      new_password: password.value
+      password: password.value
     }
     const options = {
       method: 'POST',
@@ -147,7 +145,7 @@ function ResetPasswordForm({ history, match }) {
             id="password"
             name="password"
             onChange={e => setPassword({ value: e.target.value, touched: true })}
-            value={password.value}
+            value={password.value || ''}
             aria-label="create a password"
             aria-required="true"
             aria-describedby="passwordError"
@@ -163,7 +161,7 @@ function ResetPasswordForm({ history, match }) {
             id="repeatPassword"
             name="repeatPassword"
             onChange={e => setRepeatPassword({ value: e.target.value, touched: true })}
-            value={repeatPassword.value}
+            value={repeatPassword.value || ''}
             aria-label="re-enter password"
             aria-required="true"
             aria-describedby="repeatPasswordError"
