@@ -102,7 +102,7 @@ function RecoverPasswordForm({ history }) {
         </fieldset>
         <div className="form-controls">
           <button type="submit" disabled={username.error}>Submit</button>
-          <Link to="/public/signin">Sign In</Link>
+          <Link to="/public/signin">Cancel</Link>
         </div>
         {!!serverError
           ? <ValidationError id="serverError" message={serverError.message} style={{marginTop: "8px", display: "block"}}/>
