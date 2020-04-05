@@ -8,11 +8,9 @@ import './EditProfileForm.css';
 import '../Forms.css';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
 import Spinner from '../../Spinner/Spinner';
-import CentralContainer from '../../CentralContainer/CentralContainer';
-
 
 export default function EditProfileForm({ history }) {
-  const { user, updateUser } = useContext(AppContext)
+  const { user, updateUser, setToast } = useContext(AppContext)
 
   const [formBody, setFormBody] = useState({
     imgUrl: { value: user.image_url || '' },
@@ -73,7 +71,7 @@ export default function EditProfileForm({ history }) {
         ...patchBody
       }
       updateUser(patchedUser)
-      alert('Profile successfully updated.')
+      setToast({ message: `Profile successfully updated.` })
       history.push(`/dashboard/${patchedUser.id}`)
     }
   }

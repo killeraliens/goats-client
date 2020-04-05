@@ -6,21 +6,20 @@
 }
 
 .KillerToast {
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  transform: scaleY(0);
+  padding: 0;
+  -webkit-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
+  -moz-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
+  -o-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
+  transition: all 0.2s ease-out, background-color 1ms, color 1ms;
 }
 
 .KillerToast.on {
-  font-weight: bold;
   padding: 16px 24px;
+  font-weight: bold;
+  transform: scaleY(1);
 }
 
-.KillerToast.off, .KillerToast.off * {
-  height: 0;
-  /* overflow: hidden; */
-}
 
 .KillerToast.success {
   background-color: green;

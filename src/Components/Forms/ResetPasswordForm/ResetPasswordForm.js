@@ -15,7 +15,7 @@ function ResetPasswordForm({ history, match }) {
   const [repeatPassword, setRepeatPassword] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const context = useContext(AppContext)
+  const { updateAuthenticated, setToast } = useContext(AppContext)
 
   const resetForm = () => {
     setUsername({ value: '', touched: false, error: '' })
@@ -103,8 +103,8 @@ function ResetPasswordForm({ history, match }) {
         setFetching(false)
         resetForm()
         let user = body.token ? body : null
-        context.updateAuthenticated(user)
-        alert('Password has been updated.')
+        updateAuthenticated(user)
+        setToast({ message: `Password has been updated.`})
         history.push(`/fliers`)
       }
     } catch (err) {

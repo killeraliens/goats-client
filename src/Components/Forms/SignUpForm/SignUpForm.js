@@ -22,7 +22,7 @@ class SignUpForm extends Component {
     }
   }
 
-  static contextType = AppContext
+  static context = AppContext
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ class SignUpForm extends Component {
         this.setState({ fetching: false })
         this.resetForm()
         this.context.updateAuthenticated(newUser)
-        alert('Account creation success. You were just sent an email greeting for username reference.')
+        this.context.setToast({ message: `'Account creation success. You were just sent an email greeting for username reference.`, timeout: 3000 })
         this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {

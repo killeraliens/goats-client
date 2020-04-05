@@ -6,11 +6,13 @@ import ValidationError from '../ValidationError/ValidationError';
 import CentralContainer from '../../CentralContainer/CentralContainer';
 import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
+import AppContext from '../../../AppContext'
 
 function RecoverPasswordForm({ history }) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
+  const { setToast } = AppContext
 
   const resetForm = () => {
     setUsername({ value: '', touched: false, error: '' })
@@ -65,7 +67,7 @@ function RecoverPasswordForm({ history }) {
       } else {
         setFetching(false)
         resetForm()
-        alert('Watch your email for instructions.')
+        setToast({ message: `Watch your email for instructions.` })
         history.push('/signin')
       }
     } catch (err) {
