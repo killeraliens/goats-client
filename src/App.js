@@ -19,7 +19,7 @@ class App extends Component {
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null,
       fetching: false,
-      toast: { on: false, message: '', className: 'success' }
+      toast: { on: false, message: '', colorClass: '' }
     }
   }
 
@@ -47,10 +47,12 @@ class App extends Component {
     this.setState({ error: message })
   }
 
-  setToast = ({ message, className: className ='success', timeout: timeout=1200 }) => {
-    this.setState({ toast: { on: true, message: message, className: className }})
+  setToast = ({ message, colorClass, timeout: timeout=1500 }) => {
     setTimeout(() => {
-      this.setState({ toast: { on: false, message: '', className: className }})
+      this.setState({ toast: { on: true, message: message, colorClass: colorClass }})
+    }, 200);
+    setTimeout(() => {
+      this.setState({ toast: { on: false, message: '', colorClass: '' }})
     }, timeout);
   }
 
@@ -104,7 +106,7 @@ class App extends Component {
                 }
               } />
             </Switch>
-            <KillerToast on={toast.on} message={toast.message} className={toast.className}/>
+            <KillerToast on={toast.on} message={toast.message} colorClass={toast.colorClass}/>
         </ AppContext.Provider >
       </div>
     )

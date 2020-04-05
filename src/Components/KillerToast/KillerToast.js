@@ -2,10 +2,10 @@ import React from 'react'
 import './KillerToast.css'
 import PropTypes from 'prop-types'
 
-export default function KillerToast({ on, message, className }) {
+export default function KillerToast({ on, message, colorClass }) {
       return (
         <div className={`KillerToast--container`}>
-          <div className={`KillerToast ${on ? 'on' : 'off'} ${className}`}>
+          <div className={`KillerToast ${on ? 'on' : 'off'} ${colorClass}`}>
             <p>{message}</p>
           </div>
         </div>
@@ -15,13 +15,13 @@ export default function KillerToast({ on, message, className }) {
 KillerToast.defaultProps = {
   on: false,
   message: 'Success!',
-  className: 'success'
+  colorClass: 'success'
 }
 
 KillerToast.propTypes = {
   on: PropTypes.bool,
   message: PropTypes.string,
-  className: PropTypes.oneOf([
+  colorClass: PropTypes.oneOf([
     'success', 'error', 'dead'
   ])
 }

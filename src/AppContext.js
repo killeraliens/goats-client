@@ -7,7 +7,7 @@ const AppContext = React.createContext({
   updateUser: () => {},
   error: null,
   setError: () => {},
-  toast: { on: false, message: '' },
+  toast: { on: false, message: '', colorClass: '' },
   setToast: () => {}
 })
 
