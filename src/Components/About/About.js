@@ -20,9 +20,8 @@ export default function About() {
             If you post non-relevant material I may clean it up without telling you.
           </p>
           <p>
-            Certain features like password recovery are not yet available.
-            For now, if you cannot remember your password or username, {<Link to='/public/signup'>start a new account</Link>}.
-            You can email me with any specific account requests until additional features are up.
+            Certain account features like updating your email are not yet available.
+            Until additional features are up, you can email me with specific account requests.
           </p>
           <p>
             This project is in testing and development mode and it needs people like you to sign up and post content.
