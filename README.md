@@ -7,12 +7,12 @@ If you want to copy/paste from an event already on Facebook,
 that would be a great way contribute.
 
 View more artwork and events from an international scope, as they get posted.
-[Signup](https://goats-forum.now.sh/public/signup), post some local fliers. Tell others.
+[Signup](https://goatsguide.com/public/signup), post some local fliers. Tell others.
 
 
 ## How it works.
 
-**[Create an account](https://goats-forum.now.sh/public/signup) to view & post fliers to the public feed.**
+**[Create an account](https://goatsguide.com/public/signup) to view & post fliers to the public feed. or [Sign In](https://goatsguide.com/public/signin) to view and share fliers. Forgot your password? There's a link for that. [Recover Password](https://goatsguide.com/public/recover)**
 
 ![flier feed screenshot](./src/assets/ss-flier-feed.png)
 
