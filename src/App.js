@@ -47,33 +47,6 @@ class App extends Component {
     this.setState({ error: serverError })
   }
 
-  // not tested
-  checkIsAuthed = async (user_id, token) => {
-    this.setState({ fetching: true })
-    const postBody = {
-      user_id: user_id,
-      token: token
-    }
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(postBody),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    }
-    const response = await fetch(`${config.API_ENDPOINT}/auth/check`, options)
-    const body = await response.json();
-
-    if (!response.ok) {
-      this.setError(body)
-      this.setState({ fetching: false })
-      return false
-    } else {
-      this.setState({ fetching: false, error: null })
-      return true
-    }
-  }
-
   render() {
     const context = {
       user: this.state.user,
