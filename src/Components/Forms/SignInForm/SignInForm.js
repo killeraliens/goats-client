@@ -85,6 +85,7 @@ function SignInForm({ history }) {
         resetForm()
         let user = body.token ? body : null
         context.updateAuthenticated(user)
+        alert('Sign in success.')
         history.push(`/fliers`)
       }
     } catch (err) {

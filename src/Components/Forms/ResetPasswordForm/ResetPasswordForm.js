@@ -104,6 +104,7 @@ function ResetPasswordForm({ history, match }) {
         resetForm()
         let user = body.token ? body : null
         context.updateAuthenticated(user)
+        alert('Password has been updated.')
         history.push(`/fliers`)
       }
     } catch (err) {

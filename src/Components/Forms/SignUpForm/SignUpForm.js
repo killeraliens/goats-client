@@ -52,6 +52,7 @@ class SignUpForm extends Component {
         this.setState({ fetching: false })
         this.resetForm()
         this.context.updateAuthenticated(newUser)
+        alert('Account creation success. You were just sent an email greeting for username reference.')
         this.props.history.push(`/dashboard/${newUser.id}`)
       })
       .catch(error => {

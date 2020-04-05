@@ -352,13 +352,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       if (flyerPostBody.listing_state !== "Draft") {
         if (isPatch) {
           updateFlyer(patchId, flyerPostBody)
+          alert(`Flier successfully updated.`)
         } else {
           body = await response.json();
           addFlyer(body)
+          alert(`Flier successfully posted.`)
         }
       }
-
       if (flyerPostBody.listing_state === "Draft" ) {
+        alert(`Draft created.`)
         history.push(`/dashboard/${formBody.creatorId}/drafts`)
       }
       history.push(`/fliers`)

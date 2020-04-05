@@ -73,6 +73,7 @@ export default function EditProfileForm({ history }) {
         ...patchBody
       }
       updateUser(patchedUser)
+      alert('Profile successfully updated.')
       history.push(`/dashboard/${patchedUser.id}`)
     }
   }
