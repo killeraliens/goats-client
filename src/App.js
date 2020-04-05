@@ -1,17 +1,16 @@
 import React, {Component} from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
-import config from './config.js'
 import AppContext from './AppContext'
 import PrivateRoute from './Components/PrivateRoute'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Forum from './Components/Forum/Forum'
 import Landing from './Components/Landing/Landing'
 import ErrorBoundary from './Components/ErrorBoundary'
-import AuthedSplit from './Components/AuthedSplit/AuthedSplit';
-import CreateFlyer from './Components/CreateFlyer/CreateFlyer';
+import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
+import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
-// import NotFound from './Components/NotFound/NotFound';
+import KillerToast from './Components/KillerToast/KillerToast'
 
 class App extends Component {
   constructor() {
@@ -19,7 +18,8 @@ class App extends Component {
     this.state = {
       user: JSON.parse(localStorage.getItem('user')) || null,
       error: null,
-      fetching: false
+      fetching: false,
+      toast: { on: false, message: '', className: 'success' }
     }
   }
 
@@ -43,8 +43,15 @@ class App extends Component {
     this.updateAuthenticated(null)
   }
 
-  setError = (serverError) => {
-    this.setState({ error: serverError })
+  setError = (message) => {
+    this.setState({ error: message })
+  }
+
+  setToast = ({ message, className: className ='success', timeout: timeout=1200 }) => {
+    this.setState({ toast: { on: true, message: message, className: className }})
+    setTimeout(() => {
+      this.setState({ toast: { on: false, message: '', className: className }})
+    }, timeout);
   }
 
   render() {
@@ -53,11 +60,13 @@ class App extends Component {
       updateAuthenticated: this.updateAuthenticated,
       updateUser: this.updateUser,
       error: this.state.error,
-      setError: this.setError
+      setError: this.setError,
+      toast: this.state.toast,
+      setToast: this.setToast
     }
 
+    const { toast, user } = this.state
     return(
-
       <div className="App scrollable" id="App" >
         <AppContext.Provider value={context}>
             <Switch>
@@ -88,18 +97,14 @@ class App extends Component {
                   <AuthedSplit mainComponent={<GetFlyer {...props} />} />
                 </ErrorBoundary>
               } />
-              {/* <Route path='/' render={() =>
-                !this.state.user || this.state.error
-                  ? <Redirect to="/public/signin" /> //<NotFound link={<Link to="/public/signin">Sign In</Link>} />
-                  : <Redirect to="/fliers" /> //<NotFound link={<Link to="/fliers">Back to forum</Link>} />
-              } /> */}
               <Route render={() => {
-              return !this.state.user || (this.state.error && this.state.error.status === 401)
+              return !user
                     ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
                     : <Redirect to="/fliers" /> // <NotFound link={<Link to="/fliers">Back to forum</Link>} />
                 }
               } />
             </Switch>
+            <KillerToast on={toast.on} message={toast.message} className={toast.className}/>
         </ AppContext.Provider >
       </div>
     )

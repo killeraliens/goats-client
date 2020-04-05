@@ -13,7 +13,7 @@ function SignInForm({ history }) {
   const [password, setPassword] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const context = useContext(AppContext)
+  const { updateAuthenticated, setToast } = useContext(AppContext)
 
   const resetForm = () => {
     setUsername({ value: '', touched: false, error: '' })
@@ -84,8 +84,8 @@ function SignInForm({ history }) {
         setFetching(false)
         resetForm()
         let user = body.token ? body : null
-        context.updateAuthenticated(user)
-        alert('Sign in success.')
+        updateAuthenticated(user)
+        setToast({ message: `Hello ${user.username}.` })
         history.push(`/fliers`)
       }
     } catch (err) {

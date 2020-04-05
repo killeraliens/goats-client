@@ -1,12 +1,38 @@
-.SuccessBox {
+.KillerToast--container {
+  position: relative;
+  margin: auto;
+  z-index: 2;
   display: flex;
-  justify-content: space-around;
-  /* text-align: center; */
-  padding: 32px;
+}
+
+.KillerToast {
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.KillerToast.on {
+  font-weight: bold;
+  padding: 16px 24px;
+}
+
+.KillerToast.off, .KillerToast.off * {
+  height: 0;
+  /* overflow: hidden; */
+}
+
+.KillerToast.success {
   background-color: green;
   color: white;
 }
 
-.profile-blue {
-  background-color: blue;
+.KillerToast.error {
+  background-color: red;
+  color: white;
+}
+
+.KillerToast.dead {
+  background-color: black;
+  color: white;
 }

@@ -6,7 +6,9 @@ const AppContext = React.createContext({
   updateAuthenticated: () => {},
   updateUser: () => {},
   error: null,
-  setError: () => {}
+  setError: () => {},
+  toast: { on: false, message: '' },
+  setToast: () => {}
 })
 
 export default AppContext
