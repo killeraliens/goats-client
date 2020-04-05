@@ -79,11 +79,8 @@ function Dashboard({ match }) {
   switch (true) {
 
     case fetching:
-      return (
-        <div className="Dashboard">
-          <Spinner />
-        </div>
-      )
+      return <Spinner />
+
 
     case !!serverError && serverError.status === 401:
       return (
