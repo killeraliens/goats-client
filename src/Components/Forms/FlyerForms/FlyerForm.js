@@ -19,7 +19,7 @@ const uuid = require('uuid/v1');
 
 function FlyerForm({ history, newType, flyer, creatorId }) {
   const { addFlyer, updateFlyer } = useContext(AuthedContext)
-  const { user, setError } = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const [disabled, setDisabled] = useState(true)
   const [serverError, setServerError] = useState(null)
   const [fetching, setFetching] = useState(false)

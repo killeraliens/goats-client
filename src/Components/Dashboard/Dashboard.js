@@ -86,7 +86,6 @@ function Dashboard({ match }) {
       )
 
     case !!serverError && serverError.status === 401:
-      // setError(serverError)
       return (
           <NotFound
             message="Session expired"

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter, Link } from 'react-router-dom';
 import AppContext from '../../AppContext';
 import MainHeader from '../MainHeader/MainHeader';
 import FlyerForm from '../Forms/FlyerForms/FlyerForm';
@@ -9,9 +9,10 @@ import Spinner from '../Spinner/Spinner';
 import FlyerCard from '../FlyerCard/FlyerCard'
 import BackLink from '../BackLink/BackLink'
 import CentralContainer from '../CentralContainer/CentralContainer'
+import NotFound from '../NotFound/NotFound'
 
 function GetFlyer({ match, isEdit }) {
-  const { user, setError } = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const [ flyer, setFlyer ] = useState({})
@@ -63,7 +64,12 @@ function GetFlyer({ match, isEdit }) {
       return <Spinner />
 
     case !!serverError && serverError.status === 401:
-      setError(serverError)
+      return (
+        <NotFound
+          message="Session expired"
+          isFetching={fetching}
+          link={<Link to='/public/signin' >Sign In</Link>} />
+      )
 
     case flyer.id && !isEdit :
       return (
