@@ -22,6 +22,6 @@ KillerToast.propTypes = {
   on: PropTypes.bool,
   message: PropTypes.string,
   colorClass: PropTypes.oneOf([
-    'success', 'error', 'dead'
+    'success', 'error', 'dead', ''
   ])
 }
