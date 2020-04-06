@@ -162,7 +162,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
       </div>
-      <fieldset classname="cancelled">
+      <fieldset className="cancelled">
         <input
           id="cancelled"
           name="cancelled"
