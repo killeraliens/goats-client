@@ -352,7 +352,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       if (flyerPostBody.listing_state !== "Draft") {
         if (isPatch) {
           updateFlyer(patchId, flyerPostBody)
-          setToast({ message: `Flier successfully updated.`})
+          setToast({ message: `Flier successfully updated.`, colorClass: 'error'})
         } else {
           body = await response.json();
           addFlyer(body)

@@ -5,21 +5,27 @@
   display: flex;
 }
 
-.KillerToast {
-  transform: scaleY(0);
-  padding: 0;
-  -webkit-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
-  -moz-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
-  -o-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
-  transition: all 0.2s ease-out, background-color 1ms, color 1ms;
+.KillerToast, .KillerToast * {
+  transform: scale(0);
+  -webkit-transition: all 0.2s ease-in-out, background-color 1ms, color 1ms;
+  -moz-transition: all 0.2s ease-in-out, background-color 1ms, color 1ms;
+  -o-transition: all 0.2s ease-in-out, background-color 1ms, color 1ms;
+  transition: all 0.2s ease-in-out, background-color 1ms, color 1ms;
 }
 
-.KillerToast.on {
+
+.KillerToast.on, .KillerToast.on * {
+  transform: scale(1);
+}
+
+.KillerToast p {
+  padding: 0;
+}
+
+.KillerToast.on p {
   padding: 16px 24px;
   font-weight: bold;
-  transform: scaleY(1);
 }
-
 
 .KillerToast.success {
   background-color: green;
