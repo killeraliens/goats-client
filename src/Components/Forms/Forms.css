@@ -246,9 +246,6 @@ fieldset.date {
   fieldset.date {
     width: inherit;
   }
-  fieldset.cancelled {
-    /* margin-bottom: 0; */
-  }
 
 }
 
