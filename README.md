@@ -30,12 +30,6 @@ View more artwork and events from an international scope, as they get posted.
 
 <br/>
 
-**Update your profile and edit your fliers.**
-
-![post flier screenshot](./src/assets/ss-edit-flier-profile.png)
-
-<br/>
-
 **Keep your fliers and their events updated. Cancel all tourstops or event dates affected. Cancelling all events on a flier will show a notification tag on the public flier.**
 
 ![post flier screenshot](./src/assets/ss-cancel-events.png)
