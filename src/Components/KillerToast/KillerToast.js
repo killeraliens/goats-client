@@ -3,14 +3,12 @@ import './KillerToast.css'
 import PropTypes from 'prop-types'
 
 export default function KillerToast({ on, message, colorClass }) {
-  const classOn = on
-    ? 'on'
-    : ''
+  const classOn = on ? 'on' : ''
 
       return (
         <div className={`KillerToast--container`}>
-          <div className={`KillerToast ${classOn} ${colorClass}`}>
-            <p>{message}</p>
+          <div className={`KillerToast ${colorClass} ${classOn}`}>
+            {message}
           </div>
         </div>
       )

@@ -3,41 +3,33 @@
   margin: auto;
   z-index: 2;
   display: flex;
+  color: white;
 }
 
-.KillerToast, .KillerToast * {
-  -webkit-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
+.KillerToast {
+  /* -webkit-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
   -moz-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
   -o-transition: all 0.2s ease-out, background-color 1ms, color 1ms;
-  transition: all 0.2s ease-out, background-color 1ms, color 1ms;
+  transition: all 0.2s ease-out, background-color 1ms, color 1ms; */
+  transition: all 0.2s ease-in-out, background-color 1ms ease-in-out .1s;
   transform: scale(0);
-}
-
-.KillerToast.on, .KillerToast.on * {
-  transform: scale(1);
-}
-
-.KillerToast p {
-  padding: 0;
-  margin: 0;
-}
-
-.KillerToast.on p {
-  padding: 16px 24px;
+  padding: 0px 0px;
   font-weight: bold;
 }
 
-.KillerToast.success p {
+.KillerToast.on {
+  transform: scale(1);
+  padding: 16px 24px;
+}
+
+.KillerToast.success {
   background-color: green;
-  color: white;
 }
 
-.KillerToast.error p {
+.KillerToast.error {
   background-color: red;
-  color: white;
 }
 
-.KillerToast.dead p {
+.KillerToast.dead {
   background-color: black;
-  color: white;
 }
