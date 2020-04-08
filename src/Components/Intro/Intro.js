@@ -55,9 +55,19 @@ export default function Intro() {
           {/* <p>[<em>placeholder for delete flier shot</em>]</p> */}
           {/* <img src={flourish} className='flourish' /> */}
           <p>
-            Update or delete any posts from your dashboard or the public feed.
+              Keep your fliers and their events updated.
+              Cancel all tourstops or event dates affected.
+              Cancelling all events on a flier will show a notification tag on the public flier.
           </p>
         </div>
+          <div className="flex-bullets">
+            {/* <p>[<em>placeholder for delete flier shot</em>]</p> */}
+            {/* <img src={flourish} className='flourish' /> */}
+            <p>
+              Deleting one of your fliers will remove it from the database.
+              Admin level accounts reserve the right to modify or remove fliers with irrelevant or dangerous content.
+          </p>
+          </div>
         <div className="flex-bullets">
           {/* <p>[<em>placeholder for delete flier shot</em>]</p> */}
           {/* <img src={flourish} className='flourish' /> */}
