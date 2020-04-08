@@ -11,6 +11,8 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 
 class App extends Component {
   constructor() {
@@ -106,6 +108,11 @@ class App extends Component {
                 }
               } />
             </Switch>
+            {/* <footer>
+              <p>
+                <FontAwesomeIcon icon={faCopyright}/>Copyright 2019, 2020 Goat's Guide.
+              </p>
+            </footer> */}
             <KillerToast on={toast.on} message={toast.message} colorClass={toast.colorClass}/>
         </ AppContext.Provider >
       </div>

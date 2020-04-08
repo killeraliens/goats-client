@@ -46,9 +46,6 @@ ul li {
 }
 
 .App {
-  display: flex;
-  position: absolute;
-  /* height: 100%; */
   width: 100%;
 }
 
@@ -149,4 +146,13 @@ form a:not(.ActionButton):hover
   background-color: darkgray;
   margin-right: 1px;
   margin-bottom: 1px;
+}
+
+footer {
+  text-align: center;
+  /* display: flex; */
+  padding: 80px 0;
+  /* position: relative; */
+  bottom: 0;
+  width: 100%;
 }
