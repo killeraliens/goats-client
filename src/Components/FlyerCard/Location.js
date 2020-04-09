@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DateOf from './DateOf';
 import { capitalize } from '../../helpers/textHelpers'
 
-export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate, allCountryFields }) {
+export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate, allCountryFields, isCancelled }) {
 
   let cityName = eventLocation.city_name
     ? capitalize(eventLocation.city_name)
@@ -67,7 +67,7 @@ export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate
   }
   if(hasTourEventDate) {
     return (
-      <p className="Flyer--location">
+      <p className={`Flyer--location ${isCancelled ? 'cancelled' : ''}`}>
         <FontAwesomeIcon icon={faMapMarker} />
         <DateOf date={ eventLocation.event_date }/>
         {cityName}{cityComma()}{regionOrCountry()}{venueDash()}{venueName}
@@ -87,7 +87,7 @@ export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate
     }
   }
   return (
-    <p className="Flyer--location">
+    <p className={`Flyer--location`}>
       <FontAwesomeIcon icon={faMapMarker} />
       {cityName}{cityComma()}{regionOrCountry()}{venueDash()}{venueName}
     </p>
@@ -97,8 +97,9 @@ export default function Location({ eventLocation, isTourAbbrev, hasTourEventDate
 Location.defaultProps = {
   eventLocation: {},
   isTourAbbrev: false,
-  tourEventDate: false,
-  allCountryFields: false
+  hasTourEventDate: false,
+  allCountryFields: false,
+  isCancelled: false
 }
 
 Location.propTypes = {
@@ -118,5 +119,6 @@ Location.propTypes = {
   }),
   isTourAbbrev: PropTypes.bool,
   hasTourEventDate: PropTypes.bool,
-  allCountryFields: PropTypes.bool
+  allCountryFields: PropTypes.bool,
+  isCancelled: PropTypes.bool
 }

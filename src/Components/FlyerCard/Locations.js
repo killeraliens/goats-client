@@ -7,13 +7,13 @@ export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev
     let eventLocation = {}
     if (isFullTourListing) {
       for (const [key, val] of Object.entries(event)) {
-        if (["event_date", "city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
+        if (["event_date", "city_name", "region_name", "country_name", "venue_name", "cancelled"].includes(key) && Boolean(val)) {
           eventLocation[key] = val
         }
       }
     } else {
       for (const [key, val] of Object.entries(event)) {
-        if (["city_name", "region_name", "country_name", "venue_name"].includes(key) && Boolean(val)) {
+        if (["city_name", "region_name", "country_name", "venue_name", "cancelled"].includes(key) && Boolean(val)) {
           eventLocation[key] = val
         }
       }
@@ -28,7 +28,11 @@ export default function Locations({ flyerEvents, isFullTourListing, isTourAbbrev
         <div className="Flyer--locations">
           {eventLocations.map((location, i) => {
             if (location.event_date) {
-              return <Location key={i} eventLocation={location} hasTourEventDate={true}/>
+              return <Location
+                key={i}
+                eventLocation={location}
+                hasTourEventDate={true}
+                isCancelled={location.cancelled ? true : false}/>
             }
             return <Location key={i} eventLocation={location} />
           })}

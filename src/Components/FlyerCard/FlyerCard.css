@@ -38,11 +38,6 @@
   width: 100%;
 }
 
-/* .Flyer--dates::before {
-  font-family: "FontAwesome";
-  content: '\f133';
-  margin-right: 4px;
-} */
 .Flyer--dates svg {
   margin-right: 4px;
   color: orangered;
@@ -51,6 +46,10 @@
 .Flyer--location svg {
   margin-right: 4px;
   color: blue;
+}
+
+.Flyer--location.cancelled {
+  text-decoration: line-through;
 }
 
 .DateOf {
