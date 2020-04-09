@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Main.css';
 import { animateScroll } from "react-scroll";
 import { useScroll } from '../useScroll'
+import Footer from '../Footer/Footer'
 
 function scrollToTop() {
   animateScroll.scrollToTop({
@@ -52,6 +53,7 @@ export default function Main({ component, children}) {
     <div className="Main scrollable" id="Main" onScroll={handleScroll} onTouchMove={handleScroll}>
       { component }
       { children }
+      <Footer />
     </div>
   )
 }
