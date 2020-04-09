@@ -512,10 +512,12 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       <div className="form-controls">
         <button type="submit" disabled={disabled} value="Public">Publish</button>
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
-        <input type="reset" onClick={() => {
+        <button type="reset" onClick={() => {
           resetForm()
           return formBody.id ? history.goBack() : history.push('/fliers')
-          }} value="Cancel" />
+        }}>
+          Cancel
+        </button>
       </div>
     </form>
   )

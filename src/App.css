@@ -132,7 +132,7 @@ form a:not(.ActionButton):hover
   top: 1px;
 }
 
-.Tag, button, input[type='reset']  {
+.Tag, button {
   display: inline-block;
   line-height: 24px;
   max-height: 24px;
