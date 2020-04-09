@@ -21,11 +21,11 @@ const returnSanitizedHtml = (htmlText = '') => {
   const clean = sanitizeHtml(htmlText, {
     allowedTags: ['b', 'i', 'em', 'strong', 'a', 'div', 'br'],
     allowedAttributes: {
-      'a': ['href', 'target']
+      'a': ['href', 'target', 'rel']
     },
     allowedIframeHostnames: ['www.youtube.com'],
     transformTags: {
-      'a': sanitizeHtml.simpleTransform('a', { target: '_blank' })
+      'a': sanitizeHtml.simpleTransform('a', { target: '_blank', rel: 'noopener noreferrer' })
     }
   });
   return clean
