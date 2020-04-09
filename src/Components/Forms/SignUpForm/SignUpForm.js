@@ -214,7 +214,7 @@ const validateRepeatPassword = () => {
             username.error || password.error || repeatPassword.error
             || username.value ==='' || password.value ==='' || repeatPassword.value ===''
           }>Submit</button>
-          <Link to="/public/signup">New Account</Link>{' '}
+          <Link to="/public/signin">Sign In</Link>{' '}
           <Link to="/public/recover">Forgot password?</Link>
         </div>
       </form>

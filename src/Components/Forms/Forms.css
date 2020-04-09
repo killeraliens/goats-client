@@ -79,18 +79,15 @@ select {
 .form-controls {
   display: flex;
   align-items: center;
-}
-
-.form-controls a:not(:last-child) {
-  margin-right: 8px;
-}
-
-.form-controls a{
-  display: inline;
+  width: 100%;
 }
 
 .form-controls button {
   margin-right: 8px;
+}
+
+.form-controls button:last-of-type {
+  margin-right: 16px;
 }
 
 .form-controls button, .EventFieldset button {
@@ -106,6 +103,21 @@ select {
   color: white;
   background-color: #2e2e2e;
 }
+
+/* intro form links centered below  */
+form:not(.EditProfileForm) .form-controls {
+  display: inline-block;
+}
+form:not(.EditProfileForm):not(.RecoverPasswordForm) .form-controls  a {
+  display: inline-block;
+  width: 100%;
+  margin-top: 8px;
+  text-align: center;
+}
+form:not(.EditProfileForm) .form-controls  > a:first-of-type {
+  margin-top: 16px;
+}
+
 
 .fieldset-container {
   display: flex;
