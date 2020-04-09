@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import ValidationError from '../ValidationError/ValidationError';
 import CentralContainer from '../../CentralContainer/CentralContainer';
 import config from '../../../config';
@@ -24,7 +24,7 @@ class SignUpForm extends Component {
 
   static context = AppContext
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({fetching: true})
     const { username, email, password } = this.state
@@ -40,26 +40,50 @@ class SignUpForm extends Component {
         "Content-Type": "application/json",
       }
     }
-    fetch(`${config.API_ENDPOINT}/auth/signup`, options)
-      .then(res => {
-        if (!res.ok) {
-          this.setState({fetching: false})
-          return res.json().then(error => Promise.reject(error))
-        }
-        return res.json()
-      })
-      .then(newUser => {
+    try {
+      const response = await fetch(`${config.API_ENDPOINT}/auth/signup`, options)
+      const body = await response.json();
+      if (!response.ok) {
+        // setServerError({ status: response.status, message: body.message })
+        // setFetching(false)
+        console.log(body.message)
+        this.setState({ error: body })
+        this.setState({ fetching: false })
+        this.updateValidationErrors()
+      } else {
         this.setState({ fetching: false })
         this.resetForm()
+        let newUser = body.token ? body : null
         this.context.updateAuthenticated(newUser)
-        this.context.setToast({ message: `'Account creation success. You were just sent an email greeting for username reference.`, timeout: 3000 })
-        this.props.history.push(`/dashboard/${newUser.id}`)
-      })
-      .catch(error => {
-        this.setState({ fetching: false })
-        this.setState({ error })
-        this.updateValidationErrors()
-      })
+        // setToast({ message: `Hello ${newUser.username}.` })
+        this.props.history.push(`/fliers`)
+      }
+    } catch (error) {
+      this.setState({ error })
+      this.setState({ fetching: false })
+    }
+    // fetch(`${config.API_ENDPOINT}/auth/signup`, options)
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       this.setState({fetching: false})
+    //       return res.json().then(error => Promise.reject(error))
+    //     }
+    //     return res.json()
+    //   })
+    //   .then(newUser => {
+    //     console.log(this.props.history)
+    //     this.context.updateAuthenticated(newUser)
+    //     this.setState({ fetching: false })
+    //     this.resetForm()
+    //     //this.props.history.push(`/dashboard/${newUser.id}`)
+    //     this.props.history.push(`/fliers`)
+    //     //this.context.setToast({ message: `'Account creation success. You were just sent an email greeting for username reference.`, timeout: 3000 })
+    //   })
+    //   .catch(error => {
+    //     this.setState({ fetching: false })
+    //     this.setState({ error })
+    //     this.updateValidationErrors()
+    //   })
 
   }
 
@@ -67,6 +91,10 @@ class SignUpForm extends Component {
     const { name, value } = e.target;
     this.setState({
       [name]: { value, touched: true }
+    }, () => {
+      if (name === 'repeatPassword') {
+        this.updateValidationErrors()
+      }
     });
   }
 
@@ -78,7 +106,7 @@ class SignUpForm extends Component {
       repeatPassword: { value: '', touched: false, error: '' },
       error: null
     })
-    this.props.history.push('/public/signin')
+    // this.props.history.push('/public/signin')
   }
 
   validateName = () => {
@@ -108,13 +136,13 @@ class SignUpForm extends Component {
   }
 
   validatePassword = () => {
+    const password = this.state.password.value.trim();
     if (this.state.password.touched) {
-      const password = this.state.password.value.trim();
       return password.length === 0
         ? 'password required'
         : password.length < 5 || password.length > 12
           ? 'password must be between 5 and 12 characters long'
-           : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
+          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(password))
             ? 'password must have at least one letter and one number, no special characters'
             : ''
     }
@@ -131,14 +159,19 @@ class SignUpForm extends Component {
           ? "passwords don't match"
           : ''
     }
+    return ''
   }
 
   updateValidationErrors = () => {
+    const nameError = this.validateName()
+    const emailError = this.validateEmail()
+    const passwordError = this.validatePassword()
+    const repeatPasswordError = this.validateRepeatPassword()
     this.setState(prev => ({
-      username: { ...prev.username, error: this.validateName() },
-      email: { ...prev.email, error: this.validateEmail() },
-      password: { ...prev.password, error: this.validatePassword() },
-      repeatPassword: { ...prev.repeatPassword, error: this.validateRepeatPassword() }
+      username: { ...prev.username, error: nameError },
+      email: { ...prev.email, error: emailError },
+      password: { ...prev.password, error: passwordError },
+      repeatPassword: { ...prev.repeatPassword, error: repeatPasswordError }
     }))
   }
 
@@ -162,8 +195,8 @@ class SignUpForm extends Component {
               aria-label="create a unique username"
               aria-required="true"
               aria-describedby="usernameError"
-              aria-invalid={!!this.state.username.error}
-              onBlur={() => { this.updateValidationErrors()}}
+              aria-invalid={!!this.state.username.error || this.state.username.value === ''}
+              onBlur={this.updateValidationErrors}
               autoComplete="new-password"
             />
             <ValidationError id="usernameError" message={this.state.username.error} />
@@ -179,8 +212,8 @@ class SignUpForm extends Component {
               aria-label="enter the email you would like associated with this account"
               aria-required="true"
               aria-describedby="emailError"
-              aria-invalid={!!this.state.email.error}
-              onBlur={() => { this.updateValidationErrors() }}
+              aria-invalid={!!this.state.email.error || this.state.email.value === ''}
+              onBlur={this.updateValidationErrors}
               autoComplete="new-password"
             />
             <ValidationError id="emailError" message={this.state.email.error} />
@@ -196,8 +229,8 @@ class SignUpForm extends Component {
               aria-label="create a password"
               aria-required="true"
               aria-describedby="passwordError"
-              aria-invalid={!!this.state.password.error}
-              onBlur={() => { this.updateValidationErrors() }}
+              aria-invalid={!!this.state.password.error || this.state.password.value === ''}
+              onBlur={this.updateValidationErrors}
             />
             <ValidationError id="passwordError" message={this.state.password.error} />
           </fieldset>
@@ -212,17 +245,17 @@ class SignUpForm extends Component {
               aria-label="re-enter password"
               aria-required="true"
               aria-describedby="repeatPasswordError"
-              aria-invalid={!!this.state.repeatPassword.error}
-              onBlur={() => { this.updateValidationErrors() }}
+              aria-invalid={!!this.state.repeatPassword.error || this.state.repeatPassword.value === ''}
+              onBlur={this.updateValidationErrors}
             />
             <ValidationError id="repeatPasswordError" message={this.state.repeatPassword.error}  />
           </fieldset>
           <div className="form-controls">
             <button type="submit" disabled={(
-              !!this.state.username.error
-              || !!this.state.email.error
-              || !!this.state.password.error
-              || !!this.state.repeatPassword.error
+              !!this.state.username.error || this.state.username.value === ''
+              || !!this.state.email.error || this.state.email.value === ''
+              || !!this.state.password.error || this.state.password.value === ''
+              || !!this.state.repeatPassword.error || this.state.repeatPassword.value === ''
               )}>Sign Up</button>
             <button type="reset" onClick={this.resetForm}>Cancel</button>
             <Link to="/public/signin">back to sign in</Link>
@@ -234,4 +267,4 @@ class SignUpForm extends Component {
   }
 }
 
-export default SignUpForm;
+export default withRouter(SignUpForm);
