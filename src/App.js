@@ -64,7 +64,8 @@ class App extends Component {
       error: this.state.error,
       setError: this.setError,
       toast: this.state.toast,
-      setToast: this.setToast
+      setToast: this.setToast,
+      fetching: this.state.fetching
     }
 
     const { toast, user } = this.state

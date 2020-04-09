@@ -8,7 +8,8 @@ const AppContext = React.createContext({
   error: null,
   setError: () => {},
   toast: { on: false, message: '', colorClass: '' },
-  setToast: () => {}
+  setToast: () => {},
+  fetching: false
 })
 
 export default AppContext
