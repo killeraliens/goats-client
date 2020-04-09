@@ -6,6 +6,10 @@ html,body {
   margin:0;
 }
 
+#root {
+  height: 100%;
+}
+
 body * {
     box-sizing: border-box;
 }

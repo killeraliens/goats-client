@@ -1,16 +1,17 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import './Landing.css';
-import MainNav from '../MainNav/MainNav';
-import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
-import MainNavLink from '../MainNavLink/MainNavLink';
-import MainHeader from '../MainHeader/MainHeader';
-import Intro from '../Intro/Intro';
-import About from '../About/About';
-import SignInForm from '../Forms/SignInForm/SignInForm';
-import SignUpForm from '../Forms/SignUpForm/SignUpForm';
-import RecoverPasswordForm from '../Forms/RecoverPasswordForm/RecoverPasswordForm';
-import ResetPasswordForm from '../Forms/ResetPasswordForm/ResetPasswordForm';
+import React from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import './Landing.css'
+import MainNav from '../MainNav/MainNav'
+import MainHeaderNav from '../MainHeaderNav/MainHeaderNav'
+import MainNavLink from '../MainNavLink/MainNavLink'
+import MainHeader from '../MainHeader/MainHeader'
+import Intro from '../Intro/Intro'
+import About from '../About/About'
+import SignInForm from '../Forms/SignInForm/SignInForm'
+import SignUpForm from '../Forms/SignUpForm/SignUpForm'
+import RecoverPasswordForm from '../Forms/RecoverPasswordForm/RecoverPasswordForm'
+import ResetPasswordForm from '../Forms/ResetPasswordForm/ResetPasswordForm'
+import Footer from '../Footer/Footer'
 
 export default function Landing() {
   return(
@@ -38,6 +39,7 @@ export default function Landing() {
         <Route path="/public/reset/:token" component={ResetPasswordForm} />
         <Redirect to="/public/signin" />
       </Switch>
+      <Footer />
     </div>
   )
 }

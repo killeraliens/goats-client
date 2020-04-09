@@ -2,8 +2,10 @@
   position: relative;
   margin: auto;
   z-index: 2;
-  display: flex;
   color: white;
+  width: min-content;
+  min-width: 180px;
+  top: 45%;
 }
 
 .KillerToast {
@@ -17,9 +19,9 @@
 }
 
 .KillerToast.on {
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -o-transform: scale(1);
+  -webkit-transition: scale(1);
+  -moz-transition: scale(1);
+  -o-transition: scale(1);
   transform: scale(1);
   padding: 16px 24px;
 }
