@@ -84,6 +84,7 @@ fieldset.checkbox input[type=checkbox] {
 
 fieldset.checkbox {
   display: flex;
+
 }
 
 fieldset.checkbox label, span.checkbox label {
@@ -93,6 +94,8 @@ fieldset.checkbox label, span.checkbox label {
 
 fieldset.checkbox label {
   margin-left: 20px;
+  width: max-content;
+  flex-grow: 1;
 }
 
 span.checkbox label {
@@ -130,7 +133,6 @@ fieldset.checkbox input[type=checkbox]:checked + label::after, span.checkbox inp
 fieldset.checkbox input[type=checkbox]:focus + label::before, span.checkbox input[type=checkbox]:focus + label::before {
   outline: rgb(59, 153, 252) auto 5px;
 }
-
 
 
 select {
