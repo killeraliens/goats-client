@@ -40,8 +40,8 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
       color: 'black',
       padding: '1px',
       display: 'inline-block',
-      paddingLeft: '8px',
-      border: 'solid 1px lightgrey'
+      border: 'solid 1px lightgrey',
+      paddingLeft: state.isFocused ? '8px' : '0'
     }),
     menu: base => ({
       ...base,

@@ -52,15 +52,15 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   }
 
   const customStyles = {
-    control: base => {
+    control: (base, state) => {
       return {
       background: 'white',
       color: 'black',
       classNamePrefix: 'react-select-container',
       padding: '1px',
       display: 'inline-block',
-      paddingLeft: '8px',
-      border: 'solid 1px lightgrey'
+      border: 'solid 1px lightgrey',
+      paddingLeft: state.isFocused ? '8px' : '0'
     }},
     menu: base => ({
       ...base,
@@ -100,7 +100,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         <Select
           className="react-select-container"
           styles={customStyles}
-          defaultValue={{ value: formCountry.code, label: formCountry.value }}
+          defaultValue={{ value: '', label: 'Select Country' }}
           onChange={handleChange}
           options={options()}/>
       </div>
