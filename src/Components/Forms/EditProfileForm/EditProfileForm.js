@@ -89,7 +89,12 @@ export default function EditProfileForm({ history }) {
           />
           <div className="form-controls">
             <button type="submit" disabled={formBody.cityName.error}>Submit</button>
-            <Link to={`/dashboard/${user.id}`}>Cancel</Link>
+            <button type="reset" onClick={() => {
+              resetForm()
+            return history.push(`/dashboard/${user.id}`)
+            }}>
+              Cancel
+            </button>
           </div>
           { serverError ? <p>{serverError.message}</p> : null }
       </form>
