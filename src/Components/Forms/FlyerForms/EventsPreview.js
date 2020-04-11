@@ -85,14 +85,15 @@ export default function EventsPreview({ formEvents, deleteFormEvent, updateFormE
             <span><i className="date-i"></i><span>{eventDate}</span></span>
             <span><i className="city-i"></i><span>{cityName}{cityComma()}{regionAndCountry()}</span></span>
             <span><i className="venue-i"></i><span>{venueName}</span></span>
-            <span className="cancelled-i">
+            <span className="cancelled-i checkbox">
               <input
-                id="EventsPreviewCancelled"
-                name="EventsPreviewCancelled"
+                id={event.id}
+                name={event.id}
+                className="checkbox"
                 type="checkbox"
                 checked={event.cancelled}
                 onChange={e => updateFormEvent(event.id, e.target.checked)}></input>
-                <label className="cancelled-i">
+                <label className="cancelled-i checked">
                   {event.cancelled ? 'This event will be tagged as cancelled.' : 'Cancel this event.'}
                 </label>
             </span>

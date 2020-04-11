@@ -162,10 +162,11 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
       </div>
-      <fieldset className="cancelled">
+      <fieldset className="checkbox">
         <input
           id="cancelled"
           name="cancelled"
+          className="checkbox"
           type="checkbox"
           value="Cancelled"
           onChange={e => { updateEventFields({ cancelled: e.target.checked }) }}

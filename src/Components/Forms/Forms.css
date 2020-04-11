@@ -35,6 +35,7 @@ legend {
   padding: 0;
   display: table;
 }
+
 fieldset {
   border: 0;
   padding: 0.01em 0 0 0;
@@ -52,13 +53,19 @@ fieldset * {
   width: 100%;
 }
 
+/* fieldset.checkbox input[type=checkbox], input[type=checkbox]  {
+  width: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
+} */
+
 body:not(:-moz-handler-blocked) fieldset {
   display: table-cell;
 }
 
-label:not(.cancelled label) {
+/* label:not(.checkbox label) {
   display: inline-block;
-}
+} */
 
 input[type=text], input[type=datalist], input[type=password], input[type=email], div.textarea:read-write, select {
   background-color: white;
@@ -67,10 +74,64 @@ input[type=text], input[type=datalist], input[type=password], input[type=email],
 }
 
 input[type=checkbox] {
-  /* -webkit-appearance: none; */
-  margin: 0 8px 0 0;
-  width: auto;
+  opacity: 0;
+  z-index: 1;
 }
+
+fieldset.checkbox input[type=checkbox] {
+  height: 0;
+}
+
+fieldset.checkbox {
+  display: flex;
+}
+
+fieldset.checkbox label, span.checkbox label {
+  position: relative;
+  display: flex;
+}
+
+fieldset.checkbox label {
+  margin-left: 20px;
+}
+
+span.checkbox label {
+  top: 2px;
+}
+
+fieldset.checkbox label::before, span.checkbox label::before {
+  content: '';
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  border: 1px solid darkgrey;
+  background-color: white;
+  position: absolute;
+  top: 0px;
+  left: -20px;
+}
+
+fieldset.checkbox label::after, span.checkbox label::after {
+  content: none;
+  display: inline-block;
+  height: 12px;
+  width: 9px;
+  border-left: 1px solid;
+  transform: rotate(-45deg);
+  position: absolute;
+  left: -15px;
+  top: -2px;
+}
+
+fieldset.checkbox input[type=checkbox]:checked + label::after, span.checkbox input[type=checkbox]:checked + label::after {
+  content: '';
+}
+
+fieldset.checkbox input[type=checkbox]:focus + label::before, span.checkbox input[type=checkbox]:focus + label::before {
+  outline: rgb(59, 153, 252) auto 5px;
+}
+
+
 
 select {
   height: 31px;
@@ -99,7 +160,7 @@ select {
   opacity: .4;
 }
 
-.form-controls input[type='reset'], .form-controls button[type='reset']  {
+.form-controls button[type='reset']  {
   color: white;
   background-color: #2e2e2e;
 }
@@ -108,16 +169,17 @@ select {
 form:not(.EditProfileForm) .form-controls {
   display: inline-block;
 }
+
 form:not(.EditProfileForm):not(.RecoverPasswordForm) .form-controls  a {
   display: inline-block;
   width: 100%;
   margin-top: 8px;
   text-align: center;
 }
+
 form:not(.EditProfileForm) .form-controls  > a:first-of-type {
   margin-top: 16px;
 }
-
 
 .fieldset-container {
   display: flex;
