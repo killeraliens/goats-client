@@ -58,10 +58,6 @@ body:not(:-moz-handler-blocked) fieldset {
   display: table-cell;
 }
 
-span.checked input[type=checkbox]  {
-  width: 100%;
-  position: absolute;
-}
 
 input[type=text], input[type=datalist], input[type=password], input[type=email], div.textarea:read-write, select {
   background-color: white;
@@ -74,8 +70,18 @@ input[type=checkbox] {
   z-index: 1;
 }
 
+span.checkbox input.checkbox {
+  width: 100%;
+  position: absolute;
+}
+
+span.checkbox {
+  margin-left: 20px;
+}
+
 fieldset.checkbox input[type=checkbox] {
   height: 0;
+  position: absolute;
 }
 
 fieldset.checkbox label, span.checkbox label {
@@ -87,10 +93,6 @@ fieldset.checkbox label {
   margin-left: 20px;
   width: max-content;
   flex-grow: 1;
-}
-
-span.checkbox {
-  margin-left: 20px;
 }
 
 span.checkbox label {
