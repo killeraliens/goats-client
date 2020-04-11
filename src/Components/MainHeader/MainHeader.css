@@ -2,7 +2,7 @@
   padding: 16px;
   margin-bottom: 1px;
   color: white;
-  height: 66px;
+  height: 67px;
   display: flex;
   align-items: center;
   background-color: rgb(46, 46, 46);
@@ -11,7 +11,7 @@
 }
 
 .MainHeader.dbl-height {
-  height: 133px;
+  height: 134px;
 }
 
 .MainHeader.no-height {
