@@ -57,18 +57,18 @@ export default function CountrySelector({ updateCountry, formCountry }) {
       background: 'white',
       color: 'black',
       classNamePrefix: 'react-select-container',
-      padding: '2px',
+      padding: '1px',
       display: 'inline-block',
-
+      paddingLeft: '8px'
     }},
     menu: base => ({
       ...base,
       color: 'black',
       borderRadius: 0,
-      hyphens: "auto",
+      hyphens: 'auto',
       marginTop: 0,
-      textAlign: "left",
-      wordWrap: "break-word"
+      textAlign: 'left',
+      wordWrap: 'break-word'
     }),
     option: (base, state) => ({
       ...base,

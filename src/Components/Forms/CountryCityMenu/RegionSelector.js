@@ -38,8 +38,9 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     control: (base, state) => ({
       background: 'white',
       color: 'black',
-      padding: '2px',
+      padding: '1px',
       display: 'inline-block',
+      paddingLeft: '8px'
     }),
     menu: base => ({
       ...base,
