@@ -25,7 +25,7 @@ const returnSanitizedHtml = (htmlText = '') => {
     },
     allowedIframeHostnames: ['www.youtube.com'],
     transformTags: {
-      'a': sanitizeHtml.simpleTransform('a', { target: '_blank', rel: 'noopener noreferrer' })
+      'a': sanitizeHtml.simpleTransform('a', { target: '_blank', rel: 'noopener noreferrer nofollow' })
     }
   });
   return clean
