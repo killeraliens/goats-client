@@ -46,10 +46,10 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
       ...base,
       color: 'black',
       borderRadius: 0,
-      hyphens: "auto",
+      hyphens: 'auto',
       marginTop: 0,
-      textAlign: "left",
-      wordWrap: "break-word"
+      textAlign: 'left',
+      wordWrap: 'break-word'
     }),
     option: (base, state) => ({
       ...base,
