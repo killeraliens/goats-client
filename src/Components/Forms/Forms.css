@@ -83,8 +83,7 @@ fieldset.checkbox input[type=checkbox] {
 }
 
 fieldset.checkbox {
-  display: flex;
-
+  /* display: flex; */
 }
 
 fieldset.checkbox label, span.checkbox label {
