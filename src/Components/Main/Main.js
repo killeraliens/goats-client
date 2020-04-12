@@ -42,13 +42,16 @@ export default function Main({ component, children}) {
       }
       if (scrollDirection === 'up' && container.scrollTop > 68 ) {
         countryRegionsNav.style.top = `${0 - countryRegionsNav.clientHeight}px`;
-        feedContent.style.top = "0px";
       }
       if (scrollDirection === 'down' && container.scrollTop > 68 && !atBottom) {
         countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `1px`;
         feedContent.style.top = `${countryRegionsNav.clientHeight}px`
-     }
+      }
+      if (atBottom) {
+        countryRegionsNav.style.position = "relative";
+        feedContent.style.top = "0px";
+      }
     }
   }
 
