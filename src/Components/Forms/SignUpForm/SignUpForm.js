@@ -49,8 +49,8 @@ function SignUpForm({ history }) {
       const trimmedUsername = username.value.trim()
       return trimmedUsername.length === 0
         ? 'username required'
-        : !(/^[a-zA-Z]{4,12}$/.test(trimmedUsername))
-          ? 'must be between 4 and 12 characters long, letters only'
+        : !(/^[a-zA-Z]{4,20}$/.test(trimmedUsername))
+          ? 'must be between 4 and 20 characters long, letters only'
           : serverError && serverError.message === `Username ${trimmedUsername} is already in use.`
             ? 'username is already in use'
             : ''
@@ -75,8 +75,8 @@ function SignUpForm({ history }) {
      const passwordValue = password.value.trim();
       return passwordValue.length === 0
         ? 'password required'
-        : passwordValue.length < 5 || passwordValue.length > 12
-          ? 'password must be between 5 and 12 characters long'
+        : passwordValue.length < 5 || passwordValue.length > 20
+          ? 'password must be between 5 and 20 characters long'
           : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(passwordValue))
             ? 'password must have at least one letter and one number, no special characters'
             : ''
