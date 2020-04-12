@@ -9,7 +9,6 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 
   useEffect(() => {
     const myAbortController = new AbortController();
-
     const fetchData = async () => {
       setLoading(true)
 
@@ -31,20 +30,25 @@ export default function CountrySelector({ updateCountry, formCountry }) {
       }
     }
     fetchData();
-
     return () => {
       // console.log('cleaned up')
       myAbortController.abort();
     }
-
   }, []);
 
 
   const handleChange = (e) => {
-    updateCountry({
-      code: e.value,
-      value: e.label
-    })
+    if (e.label === 'None') {
+      updateCountry({
+        code: '',
+        value: ''
+      })
+    } else {
+      updateCountry({
+        code: e.value,
+        value: e.label
+      })
+    }
   }
 
   if (loading) {
@@ -52,23 +56,24 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   }
 
   const customStyles = {
-    control: base => {
+    control: (base, state) => {
       return {
       background: 'white',
       color: 'black',
       classNamePrefix: 'react-select-container',
-      padding: '2px',
+      padding: '1px',
       display: 'inline-block',
-
+      border: 'solid 1px lightgrey',
+      paddingLeft: state.isFocused ? '8px' : '0'
     }},
     menu: base => ({
       ...base,
       color: 'black',
       borderRadius: 0,
-      hyphens: "auto",
+      hyphens: 'auto',
       marginTop: 0,
-      textAlign: "left",
-      wordWrap: "break-word"
+      textAlign: 'left',
+      wordWrap: 'break-word'
     }),
     option: (base, state) => ({
       ...base,
@@ -86,10 +91,10 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   }
 
   const options = () => {
-    return data.countries.map(({ country_name, country_code }) => {
+    const countryArr = data.countries.map(({ country_name, country_code }) => {
       return  { value: country_code, label: country_name }
     })
-
+    return [{ value: '', label: 'None' }, ...countryArr ]
   }
 
   return(
@@ -99,7 +104,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         <Select
           className="react-select-container"
           styles={customStyles}
-          defaultValue={{ value: formCountry.code, label: formCountry.value }}
+          defaultValue={{ value: '', label: 'Select Country' }}
           onChange={handleChange}
           options={options()}/>
       </div>
@@ -109,7 +114,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 
 CountrySelector.defaultProps = {
   updateCountry: () => {},
-  formCountry: { code: "", value: "" },
+  formCountry: { code: '', value: '' },
 }
 
 CountrySelector.propTypes = {

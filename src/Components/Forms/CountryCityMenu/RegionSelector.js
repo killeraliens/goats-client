@@ -38,17 +38,19 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     control: (base, state) => ({
       background: 'white',
       color: 'black',
-      padding: '2px',
+      padding: '1px',
       display: 'inline-block',
+      border: 'solid 1px lightgrey',
+      paddingLeft: state.isFocused ? '8px' : '0'
     }),
     menu: base => ({
       ...base,
       color: 'black',
       borderRadius: 0,
-      hyphens: "auto",
+      hyphens: 'auto',
       marginTop: 0,
-      textAlign: "left",
-      wordWrap: "break-word"
+      textAlign: 'left',
+      wordWrap: 'break-word'
     }),
     option: (base, state) => ({
       ...base,
