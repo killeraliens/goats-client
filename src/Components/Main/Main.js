@@ -44,9 +44,9 @@ export default function Main({ component, children}) {
         countryRegionsNav.style.top = `${0 - countryRegionsNav.clientHeight}px`;
       }
       if (scrollDirection === 'down' && container.scrollTop > 68 && !atBottom) {
-        countryRegionsNav.style.position = "fixed"
-        countryRegionsNav.style.top = `0px`;
-        feedContent.style.top = `${countryRegionsNav.clientHeight}px`
+        countryRegionsNav.style.position = "sticky"
+        countryRegionsNav.style.top = `1px`;
+        // feedContent.style.top = `${countryRegionsNav.clientHeight}px`
       }
     }
   }
