@@ -11,6 +11,7 @@
   height: 100%;
   /* padding: 16px 16px 60px 16px; */
   margin-bottom: 40px;
+  position: relative;
 }
 
 .Main--content.no-margin {
