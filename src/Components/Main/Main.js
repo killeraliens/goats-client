@@ -34,15 +34,14 @@ export default function Main({ component, children}) {
       if (atTop || atRockBottom) {
         e.preventDefault()
       }
-      if (container.scrollTop <= 67) {
+      if (container.scrollTop <= 160) {
         countryRegionsNav.style.position = "relative";
         countryRegionsNav.style.top = "0px";
       }
-      if (scrollDirection === 'up' && container.scrollTop > 67 ) {
-        countryRegionsNav.style.position = "fixed"
+      if (scrollDirection === 'up' && container.scrollTop > 160 ) {
         countryRegionsNav.style.top = `${0 - countryRegionsNav.clientHeight}px`;
       }
-      if (scrollDirection === 'down' && container.scrollTop > 67 && !atBottom) {
+      if (scrollDirection === 'down' && container.scrollTop > 160 && !atBottom) {
         countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `1px`;
      }
