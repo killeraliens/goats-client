@@ -35,7 +35,7 @@ export default function Main({ component, children}) {
       if (atTop || atRockBottom) {
         e.preventDefault()
       }
-      if (container.scrollTop <= 68) {
+      if (container.scrollTop <= 68 || atRockBottom) {
         countryRegionsNav.style.position = "relative";
         countryRegionsNav.style.top = "0px";
         feedContent.style.top = "0px";
@@ -47,10 +47,6 @@ export default function Main({ component, children}) {
         countryRegionsNav.style.position = "fixed"
         countryRegionsNav.style.top = `1px`;
         feedContent.style.top = `${countryRegionsNav.clientHeight}px`
-      }
-      if (atBottom) {
-        countryRegionsNav.style.position = "relative";
-        feedContent.style.top = "0px";
       }
     }
   }
