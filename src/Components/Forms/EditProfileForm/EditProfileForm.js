@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react'
 import config from '../../../config'
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import AppContext from '../../../AppContext';
-import AvatarImageUpload from '../ImageUpload/AvatarImageUpload';
-import './EditProfileForm.css';
-import '../Forms.css';
+import PropTypes from 'prop-types'
+import AppContext from '../../../AppContext'
+import AvatarImageUpload from '../ImageUpload/AvatarImageUpload'
+import './EditProfileForm.css'
+import '../Forms.css'
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup'
-import Spinner from '../../Spinner/Spinner';
+import Spinner from '../../Spinner/Spinner'
+import Location from '../../FlyerCard/Location'
+import './EditProfileForm.css'
 
 export default function EditProfileForm({ history }) {
   const { user, updateUser, setToast } = useContext(AppContext)
@@ -82,7 +83,15 @@ export default function EditProfileForm({ history }) {
   return(
     <div className="Main--content no-margin">
       <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
-          <AvatarImageUpload user={user} updateImgUrl={updateImgUrl}/>
+          <AvatarImageUpload user={user} updateImgUrl={updateImgUrl} />
+          <Location
+            eventLocation={{
+              city_name: user.city_name,
+              region_name: user.region_name,
+              country_name: user.country_name
+            }}
+            allCountryFields={true}
+          />
           <CountryRegionCityFormGroup
             updateCountryRegionCity={updateCountryRegionCity}
             formCountryRegionCity={{ countryName: formBody.countryName, regionName: formBody.regionName, cityName: formBody.cityName }}

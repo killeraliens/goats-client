@@ -1,0 +1,9 @@
+.EditProfileForm .Profile--location {
+  position: relative;
+  top: -36px;
+  left: 74px;
+}
+
+.EditProfileForm .Profile--location svg {
+  color: blue;
+}
