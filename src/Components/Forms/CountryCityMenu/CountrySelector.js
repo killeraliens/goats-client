@@ -9,7 +9,6 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 
   useEffect(() => {
     const myAbortController = new AbortController();
-
     const fetchData = async () => {
       setLoading(true)
 
@@ -31,20 +30,25 @@ export default function CountrySelector({ updateCountry, formCountry }) {
       }
     }
     fetchData();
-
     return () => {
       // console.log('cleaned up')
       myAbortController.abort();
     }
-
   }, []);
 
 
   const handleChange = (e) => {
-    updateCountry({
-      code: e.value,
-      value: e.label
-    })
+    if (e.label === 'None') {
+      updateCountry({
+        code: '',
+        value: ''
+      })
+    } else {
+      updateCountry({
+        code: e.value,
+        value: e.label
+      })
+    }
   }
 
   if (loading) {
@@ -87,10 +91,10 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   }
 
   const options = () => {
-    return data.countries.map(({ country_name, country_code }) => {
+    const countryArr = data.countries.map(({ country_name, country_code }) => {
       return  { value: country_code, label: country_name }
     })
-
+    return [{ value: '', label: 'None' }, ...countryArr ]
   }
 
   return(
@@ -110,7 +114,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
 
 CountrySelector.defaultProps = {
   updateCountry: () => {},
-  formCountry: { code: "", value: "" },
+  formCountry: { code: '', value: '' },
 }
 
 CountrySelector.propTypes = {
