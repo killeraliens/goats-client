@@ -101,9 +101,9 @@ const validateRepeatPassword = () => {
     e.preventDefault()
     setFetching(true)
     const postBody = {
-      username: username.value,
-      email: email.value,
-      password: password.value
+      username: username.value.trim(),
+      email: email.value.trim(),
+      password: password.value.trim()
     }
     const options = {
       method: 'POST',
