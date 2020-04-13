@@ -8,7 +8,7 @@ import Spinner from '../../Spinner/Spinner';
 import '../Forms.css';
 import AppContext from '../../../AppContext'
 
-function RecoverPasswordForm({ history }) {
+export default function RecoverPasswordForm() {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
@@ -119,5 +119,3 @@ RecoverPasswordForm.propTypes = {
     push: PropTypes.func,
   })
 }
-
-export default withRouter(RecoverPasswordForm);
