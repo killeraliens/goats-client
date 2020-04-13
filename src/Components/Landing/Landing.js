@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import './Landing.css'
 import MainNav from '../MainNav/MainNav'
@@ -12,15 +12,17 @@ import SignUpForm from '../Forms/SignUpForm/SignUpForm'
 import RecoverPasswordForm from '../Forms/RecoverPasswordForm/RecoverPasswordForm'
 import ResetPasswordForm from '../Forms/ResetPasswordForm/ResetPasswordForm'
 import Footer from '../Footer/Footer'
+import AppContext from '../../AppContext'
 
 export default function Landing() {
+  const context = useContext(AppContext)
   return(
     <div className="Landing">
       <MainHeader heightClass="dbl-height">
       </MainHeader>
       <MainHeaderNav
         links={[
-          <MainNavLink to="/fliers">Flier Feed</MainNavLink>,
+          <MainNavLink to="/fliers" onClick={() => context.setToast({ message: 'Unauthorized'})}>Flier Feed</MainNavLink>,
           <MainNavLink to="/public/signin">Sign In</MainNavLink>
         ]}
       />
