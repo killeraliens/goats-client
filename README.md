@@ -1,4 +1,4 @@
-# Goat's Guide
+# Goats' Guide
 
 **If you know about an upcoming concert, fest, or tour share the flier here. [goatsguide.com](https://goatsguide.com)**
 
