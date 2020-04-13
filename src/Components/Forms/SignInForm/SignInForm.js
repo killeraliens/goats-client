@@ -103,7 +103,7 @@ function SignInForm({ history }) {
   return(
     <CentralContainer>
       <form className="SignInForm" onSubmit={handleOnSubmit}>
-        <h1>Sign In</h1>
+        <h1>Goat's Guide Sign In</h1>
         <fieldset>
           <label htmlFor="username">Username{required}</label>
           <input
