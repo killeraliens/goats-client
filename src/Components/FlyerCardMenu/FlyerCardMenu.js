@@ -15,7 +15,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
   const [visible, setVisible] = useState(false)
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const { user } = useContext(AppContext)
+  const { user, setToast } = useContext(AppContext)
   const { deleteFlyer } = useContext(AuthedContext)
   const { deleteFlyerDash } = useContext(DashContext)
 
@@ -38,6 +38,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
       setFetching(false)
       deleteFlyer(flyerId)
       deleteFlyerDash(flyerId)
+      setToast({ message: `Flier deleted` })
       if (match.path === '/flier/:flyer_id' || match.path === '/flier/:flyer_id/edit') {
         history.goBack()
       }

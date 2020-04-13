@@ -363,7 +363,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         setToast({ message: `Draft created.`})
         history.push(`/dashboard/${formBody.creatorId}/drafts`)
       }
-      history.push(`/fliers`)
+      return isPatch ? history.goBack() : history.push(`/fliers`)
     }
   }
 
