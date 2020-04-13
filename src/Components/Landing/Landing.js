@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import './Landing.css'
 import MainNav from '../MainNav/MainNav'
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav'
@@ -14,15 +14,22 @@ import ResetPasswordForm from '../Forms/ResetPasswordForm/ResetPasswordForm'
 import Footer from '../Footer/Footer'
 import AppContext from '../../AppContext'
 
-export default function Landing() {
+function Landing({ location }) {
   const context = useContext(AppContext)
+  const toastAlert = () => {
+    if (location.state && location.state.status === 'Unauthorized') {
+      return context.setToast({ message: 'You need to sign up or sign in.', colorClass: 'error', timeout: 2000 })
+    }
+    return
+  }
+
   return(
     <div className="Landing">
       <MainHeader heightClass="dbl-height">
       </MainHeader>
       <MainHeaderNav
         links={[
-          <MainNavLink to="/fliers" onClick={() => context.setToast({ message: 'Unauthorized'})}>Flier Feed</MainNavLink>,
+          <MainNavLink to="/fliers" callbackRedirect={toastAlert}>Flier Feed</MainNavLink>,
           <MainNavLink to="/public/signin">Sign In</MainNavLink>
         ]}
       />
@@ -39,9 +46,11 @@ export default function Landing() {
         <Route path="/public/signup" component={SignUpForm} />
         <Route path="/public/recover" component={RecoverPasswordForm} />
         <Route path="/public/reset/:token" component={ResetPasswordForm} />
-        <Redirect to="/public/signin" />
+        {/* <Redirect to="/public/signin" /> */}
       </Switch>
       <Footer />
     </div>
   )
 }
+
+export default withRouter(Landing)

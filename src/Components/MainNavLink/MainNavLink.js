@@ -12,6 +12,9 @@ export default function MainNavLink(props) {
           e.preventDefault()
           props.callback()
         }
+        if(props.callbackRedirect) {
+          props.callbackRedirect()
+        }
       }}
       className={`MainNavLink ${props.activeColorClass} ${props.className ? props.className : ''}`}
       to={props.to}
