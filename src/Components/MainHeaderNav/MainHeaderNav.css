@@ -1,9 +1,12 @@
 .MainHeaderNav {
+  position: relative;
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  -o-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);
   height: 0;
   top: 1px;
   right: 1px;
-  /* z-index: 2; */
-
   -webkit-transform:translateZ(2px);
   -moz-transform:translateZ(2px);
   -o-transform:translateZ(2px);
