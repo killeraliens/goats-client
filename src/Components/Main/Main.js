@@ -25,7 +25,6 @@ export default function Main({ component, children}) {
   const { scrollDirection } = useScroll("Main", "MainHeader")
   const container = document.getElementById("Main")
   const countryRegionsNav = document.getElementById("CountryRegionsNav")
-  const feedContent = document.getElementsByClassName("Main--content")[0]
 
   const handleScroll = (e) => {
     if (container && countryRegionsNav) {
@@ -38,7 +37,6 @@ export default function Main({ component, children}) {
       if (container.scrollTop <= 68) {
         countryRegionsNav.style.position = "relative";
         countryRegionsNav.style.top = "0px";
-        // feedContent.style.top = "0px";
       }
       if (scrollDirection === 'up' && container.scrollTop > (68 + countryRegionsNav.clientHeight)) {
         countryRegionsNav.style.top = `${0 - countryRegionsNav.clientHeight}px`;
@@ -47,7 +45,6 @@ export default function Main({ component, children}) {
         countryRegionsNav.style.position = "sticky"
         countryRegionsNav.style.position = "-webkit-sticky"
         countryRegionsNav.style.top = `1px`;
-        // feedContent.style.top = `${countryRegionsNav.clientHeight}px`
       }
     }
   }
