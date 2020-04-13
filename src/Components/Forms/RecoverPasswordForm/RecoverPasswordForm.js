@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import config from '../../../config';
 import { Link, withRouter } from 'react-router-dom';
@@ -12,7 +12,7 @@ function RecoverPasswordForm({ history }) {
   const [username, setUsername] = useState({ value: '', touched: false, error: '' })
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
-  const { setToast } = AppContext
+  const { setToast } = useContext(AppContext)
 
   const resetForm = () => {
     setUsername({ value: '', touched: false, error: '' })
@@ -65,10 +65,10 @@ function RecoverPasswordForm({ history }) {
         setServerError({ status: response.status, message: body.message })
         setFetching(false)
       } else {
+        console.log('email sent', serverError)
+        setToast({ message: `Watch your email for instructions.`, timeout: 2000 })
         setFetching(false)
         resetForm()
-        setToast({ message: `Watch your email for instructions.` })
-        history.push('/signin')
       }
     } catch (err) {
       setServerError({ message: err.message })
