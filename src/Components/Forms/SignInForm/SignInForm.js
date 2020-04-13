@@ -52,7 +52,7 @@ function SignInForm({ history }) {
       const trimmedPassword = password.value.trim()
       return trimmedPassword.length === 0
         ? 'password required'
-        : serverError && serverError.message && (/(password)|(match)/.test(serverError.message))
+        : serverError && serverError.message && (/(password)|(match)|(credentials)/.test(serverError.message))
         ? serverError.message
         : ''
     }
@@ -63,8 +63,8 @@ function SignInForm({ history }) {
     e.preventDefault()
     setFetching(true)
     const postBody = {
-      username: username.value,
-      password: password.value
+      username: username.value.trim(),
+      password: password.value.trim()
     }
     const options = {
       method: 'POST',
@@ -104,7 +104,6 @@ function SignInForm({ history }) {
     <CentralContainer>
       <form className="SignInForm" onSubmit={handleOnSubmit}>
         <h1>Sign In</h1>
-        <p></p>
         <fieldset>
           <label htmlFor="username">Username{required}</label>
           <input
@@ -120,7 +119,6 @@ function SignInForm({ history }) {
             onBlur={updateValidationErrors}
           />
           <ValidationError id="usernameError" message={username.error} />
-
         </fieldset>
         <fieldset>
           <label htmlFor="password">Password{required}</label>
