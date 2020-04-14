@@ -11,7 +11,7 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
+import { dateWithYear, addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
 import NotFound from '../../NotFound/NotFound'
@@ -174,8 +174,13 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
       // check to see if date field is filled or no event
       if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
-        let dayCount = formBody.type === "Fest"
-          ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
+        // let dayCount = formBody.type === "Fest"
+        //   ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
+        //   : 1
+        const endDateVal = new Date(formBody.endDate.value)
+        const dateVal = new Date(formBody.date.value)
+        let dayCount = formBody.type === "Fest" && formBody.endDate.touched && formBody.endDate.value.length === 10
+          ? (endDateVal - dateVal) / 86400000
           : 1
 
         let eventsArr = []
@@ -185,7 +190,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
             let generatedEventId = uuid()
             let newEvent = {
               id: generatedEventId,
-              event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              // event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,
               region_name: formBody.regionName.value,
@@ -200,7 +206,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
             let generatedEventId = uuid()
             let newEvent = {
               id: generatedEventId,
-              event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+              event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,
               region_name: formBody.regionName.value,
@@ -211,7 +217,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
           }
         }
         return eventsArr
-      } else if (!Boolean(formBody.date.value) && validValues.length > 0) {
+      } else if (!Boolean(formBody.date.value.trim()) && validValues.length > 0) {
         setIsDateReq(true)
         return []
       }
@@ -290,14 +296,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
     const eventPostBodies = formBody.events.map(event => {
 
-      const formattedDate = event.event_date && event.event_date.length === 5
-        ? dateWithYear(event.event_date)
-        : event.event_date && event.event_date.length > 5
-          ? event.event_date
-          : null
+      // const formattedDate = event.event_date && event.event_date.length === 5
+      //   ? dateWithYear(event.event_date)
+      //   : event.event_date && event.event_date.length > 5
+      //     ? event.event_date
+      //     : null
 
       return {
-        event_date: formattedDate,
+        // event_date: formattedDate,
+        event_date:  event.event_date,
         venue_name: capitalize(event.venue_name),
         city_name: capitalize(event.city_name),
         region_name: event.region_name,

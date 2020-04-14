@@ -234,8 +234,8 @@ fieldset.no-shrink {
   flex-shrink: 0;
 }
 fieldset.date {
-  min-width: 66px;
-  max-width: 66px;
+  min-width: 86px;
+  max-width: 86px;
 }
 
 .fieldset-container {

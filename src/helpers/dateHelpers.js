@@ -45,9 +45,15 @@ function addDaysToDateReturnMMDDString(mmdd, days) {
 
 // 09/15, 3
 //--> 09/18/2020
-function addDaysToDateReturnMMDDYYYYString(mmdd, days) {
-  const copy = new Date(Number(dateWithYear(mmdd)))
-  copy.setDate(dateWithYear(mmdd).getDate() + days)
+// function addDaysToDateReturnMMDDYYYYString(mmdd, days) {
+//   const copy = new Date(Number(dateWithYear(mmdd)))
+//   copy.setDate(dateWithYear(mmdd).getDate() + days)
+//   return dateToMMDDYYYYString(copy)
+// }
+
+function addDaysToDateReturnMMDDYYYYString(mmddyyyy, days) {
+  const copy = new Date(mmddyyyy.valueOf())
+  copy.setDate( copy.getDate() + days)
   return dateToMMDDYYYYString(copy)
 }
 

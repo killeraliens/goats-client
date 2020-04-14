@@ -20,11 +20,12 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
   const validateDate = () => {
     if (formDate.touched && formDate.value !== "") {
       const trimmedDate = formDate.value.trim()
-      // return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
-      return!(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
-        ? `Format as MM/DD`
-        : trimmedDate.length > 5
-        ? `Format as MM/DD`
+      // MM/DD/YYYY between 1950-2030 (^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)((19[5-9]\d|20[0-3]\d))$
+      // MM/DD return!(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
+      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)(19|20)\d{2}$/.test(trimmedDate))
+        ? `Format as MM/DD/YYYY`
+        : trimmedDate.length > 10
+        ? `Format as MM/DD/YYYY`
         : ''
     }
     return ''
@@ -33,17 +34,18 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
   const validateEndDate = () => {
     if (formEndDate.touched && formEndDate.value !== "") {
       const trimmedEndDate = formEndDate.value.trim()
-      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedEndDate))
-        ? `Format as MM/DD`
-        : trimmedEndDate.length > 5
-          ? `Format as MM/DD`
-          : dateWithYear(trimmedEndDate) < dateWithYear(formDate.value)
+      // MM/DD return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedEndDate))
+      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)(19|20)\d{2}$/.test(trimmedEndDate))
+        ? `Format as MM/DD/YYYY`
+        : trimmedEndDate.length > 10
+          ? `Format as MM/DD/YYYY`
+          // : dateWithYear(trimmedEndDate) < dateWithYear(formDate.value)
+          : trimmedEndDate < formDate.value.trim()
           ? `Must be after start date`
           : ''
     }
     return ''
   }
-
 
   const validateVenueName = () => {
     if (formVenue.touched) {
@@ -93,7 +95,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
             id="endDate"
             name="endDate"
             type="text"
-            placeholder="mm/dd"
+            placeholder="mm/dd/yyyy"
             value={formEndDate.value || ''}
             onChange={e => { updateEventFields({ endDate: { value: e.target.value, touched: true } }) }}
             aria-label="endDate"
@@ -127,7 +129,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
               id="date"
               name="date"
               type="text"
-              placeholder="mm/dd"
+              placeholder="mm/dd/yyyy"
               value={formDate.value || ''}
               onChange={e => {
                 updateEventFields({ date: { value: e.target.value, touched: true } })
