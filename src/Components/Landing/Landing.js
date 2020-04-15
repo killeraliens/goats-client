@@ -46,7 +46,7 @@ function Landing({ location }) {
         <Route path="/public/signup" component={SignUpForm} />
         <Route path="/public/recover" component={RecoverPasswordForm} />
         <Route path="/public/reset/:token" component={ResetPasswordForm} />
-        {/* <Redirect to="/public/signin" /> */}
+        <Redirect to="/public/signin" />
       </Switch>
       <Footer />
     </div>
