@@ -179,18 +179,41 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         //   : 1
         const endDateVal = new Date(formBody.endDate.value)
         const dateVal = new Date(formBody.date.value)
-        let dayCount = formBody.type === "Fest" && formBody.endDate.touched && formBody.endDate.value.length === 10
-          ? (endDateVal - dateVal) / 86400000
+        let dayCount = formBody.type === "Fest" && formBody.date.value.length === 10 && formBody.endDate.value.length === 10
+          ? (endDateVal - dateVal) / 86400000 + 1
+          : formBody.date.value.length !== 10
+          ? 0
           : 1
 
+        console.log(dayCount)
         let eventsArr = []
-        if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
+        // if ((formBody.date.touched && formBody.date.value.length === 10) && (!formBody.endDate.touched || !formBody.endDate.error )) {
+        //   setIsDateReq(false)
+        //   for (let i = 0; i < 1; i++) {
+        //     let generatedEventId = uuid()
+        //     let newEvent = {
+        //       id: generatedEventId,
+        //       // event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
+        //       event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
+        //       venue_name: formBody.venueName.value,
+        //       country_name: formBody.countryName.value,
+        //       region_name: formBody.regionName.value,
+        //       city_name: formBody.cityName.value,
+        //       cancelled: formBody.cancelled
+        //     }
+        //     eventsArr.push(newEvent)
+        //   }
+        // } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
+        // if ((formBody.date.value.length === 10) && (formBody.endDate.value.length === 10 || !formBody.endDate.error)) {
+
+        // let count = dayCount > 1
+        //  ? dayCount + 1
+        //   : 1
           setIsDateReq(false)
-          for (let i = 0; i < 1; i++) {
+          for (let i = 0; i < dayCount; i++) {
             let generatedEventId = uuid()
             let newEvent = {
               id: generatedEventId,
-              // event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
               event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
               venue_name: formBody.venueName.value,
               country_name: formBody.countryName.value,
@@ -200,22 +223,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
             }
             eventsArr.push(newEvent)
           }
-        } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
-          setIsDateReq(false)
-          for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
-            let generatedEventId = uuid()
-            let newEvent = {
-              id: generatedEventId,
-              event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
-              venue_name: formBody.venueName.value,
-              country_name: formBody.countryName.value,
-              region_name: formBody.regionName.value,
-              city_name: formBody.cityName.value,
-              cancelled: formBody.cancelled
-            }
-            eventsArr.push(newEvent)
-          }
-        }
+
         return eventsArr
       } else if (!Boolean(formBody.date.value.trim()) && validValues.length > 0) {
         setIsDateReq(true)
@@ -224,7 +232,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       return []
     }
     return []
- }
+  }
 
   // formBody.events array for "Tour" (gens temp id for EventsPreview)
   const addTourStop = (e) => {
