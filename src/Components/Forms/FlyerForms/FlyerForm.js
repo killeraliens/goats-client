@@ -183,7 +183,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
           : 1
         let eventsArr = []
         setIsDateReq(false)
-        for (let i = 0; i < dayCount; i++) {
+        for (let i = 0; i < dayCount && dayCount <= 7; i++) {
           let generatedEventId = uuid()
           let newEvent = {
             id: generatedEventId,

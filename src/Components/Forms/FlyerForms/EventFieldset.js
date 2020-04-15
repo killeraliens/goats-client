@@ -34,14 +34,19 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
   const validateEndDate = () => {
     if (formEndDate.touched && formEndDate.value !== "") {
       const trimmedEndDate = formEndDate.value.trim()
+      const trimmedDate = formDate.value.trim()
+      const eDate = new Date(trimmedEndDate)
+      const sDate = new Date(trimmedDate)
       // MM/DD return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedEndDate))
       return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)(19|20)\d{2}$/.test(trimmedEndDate))
         ? `Format as MM/DD/YYYY`
         : trimmedEndDate.length > 10
           ? `Format as MM/DD/YYYY`
           // : dateWithYear(trimmedEndDate) < dateWithYear(formDate.value)
-          : trimmedEndDate < formDate.value.trim()
+          : trimmedEndDate < trimmedDate
           ? `Must be after start date`
+          : (eDate - sDate) / 86400000 + 1 > 7
+          ? `Fests aren't more than 7 days`
           : ''
     }
     return ''
