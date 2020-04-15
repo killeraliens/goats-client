@@ -96,6 +96,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     }
   }, [
     formBody.date.value,
+    formBody.date.error,
+    //all below will pass initial validations for preview
     formBody.endDate.value,
     formBody.venueName.value,
     formBody.countryName.value,
@@ -172,15 +174,14 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         }
       })
 
-      // check to see if date field is filled or no event
+      // check to see if date field is valid or no event
       if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
         const endDateVal = new Date(formBody.endDate.value)
         const dateVal = new Date(formBody.date.value)
-        let dayCount = formBody.type === "Fest" && formBody.date.value.length === 10 && formBody.endDate.value.length === 10
+        let dayCount = formBody.type === "Fest" && formBody.endDate.value.length === 10 && !Boolean(formBody.endDate.error)
           ? (endDateVal - dateVal) / 86400000 + 1
-          : formBody.date.value.length !== 10
-          ? 0
           : 1
+
         let eventsArr = []
         setIsDateReq(false)
         for (let i = 0; i < dayCount && dayCount <= 7; i++) {
