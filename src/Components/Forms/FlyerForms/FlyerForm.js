@@ -11,7 +11,7 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { dateWithYear, addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
+import { addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
 import NotFound from '../../NotFound/NotFound'
@@ -174,9 +174,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
       // check to see if date field is filled or no event
       if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
-        // let dayCount = formBody.type === "Fest"
-        //   ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
-        //   : 1
         const endDateVal = new Date(formBody.endDate.value)
         const dateVal = new Date(formBody.date.value)
         let dayCount = formBody.type === "Fest" && formBody.date.value.length === 10 && formBody.endDate.value.length === 10
@@ -184,46 +181,21 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
           : formBody.date.value.length !== 10
           ? 0
           : 1
-
-        console.log(dayCount)
         let eventsArr = []
-        // if ((formBody.date.touched && formBody.date.value.length === 10) && (!formBody.endDate.touched || !formBody.endDate.error )) {
-        //   setIsDateReq(false)
-        //   for (let i = 0; i < 1; i++) {
-        //     let generatedEventId = uuid()
-        //     let newEvent = {
-        //       id: generatedEventId,
-        //       // event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
-        //       event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
-        //       venue_name: formBody.venueName.value,
-        //       country_name: formBody.countryName.value,
-        //       region_name: formBody.regionName.value,
-        //       city_name: formBody.cityName.value,
-        //       cancelled: formBody.cancelled
-        //     }
-        //     eventsArr.push(newEvent)
-        //   }
-        // } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
-        // if ((formBody.date.value.length === 10) && (formBody.endDate.value.length === 10 || !formBody.endDate.error)) {
-
-        // let count = dayCount > 1
-        //  ? dayCount + 1
-        //   : 1
-          setIsDateReq(false)
-          for (let i = 0; i < dayCount; i++) {
-            let generatedEventId = uuid()
-            let newEvent = {
-              id: generatedEventId,
-              event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
-              venue_name: formBody.venueName.value,
-              country_name: formBody.countryName.value,
-              region_name: formBody.regionName.value,
-              city_name: formBody.cityName.value,
-              cancelled: formBody.cancelled
-            }
-            eventsArr.push(newEvent)
+        setIsDateReq(false)
+        for (let i = 0; i < dayCount; i++) {
+          let generatedEventId = uuid()
+          let newEvent = {
+            id: generatedEventId,
+            event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
+            venue_name: formBody.venueName.value,
+            country_name: formBody.countryName.value,
+            region_name: formBody.regionName.value,
+            city_name: formBody.cityName.value,
+            cancelled: formBody.cancelled
           }
-
+          eventsArr.push(newEvent)
+        }
         return eventsArr
       } else if (!Boolean(formBody.date.value.trim()) && validValues.length > 0) {
         setIsDateReq(true)
@@ -270,7 +242,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         ]
       }))
       resetEventFields()
-
     } else {
       setIsDateReq(true)
     }
