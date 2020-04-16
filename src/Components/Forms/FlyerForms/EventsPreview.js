@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from '../../../helpers/textHelpers'
-import { dateWithYear, dateToMMDDYYYYString } from '../../../helpers/dateHelpers'
+import { dateToMMDDYYYYString } from '../../../helpers/dateHelpers'
 
 export default function EventsPreview({ formEvents, deleteFormEvent, updateFormEvent }) {
 
@@ -9,12 +9,10 @@ export default function EventsPreview({ formEvents, deleteFormEvent, updateFormE
     <ul className="EventsPreview">
       {formEvents.map((event, i) => {
 
-        const eventDate = event.event_date && event.event_date.length === 5
-          ? dateToMMDDYYYYString(new Date(dateWithYear(event.event_date)))
+        const eventDate = event.event_date && event.event_date.length === 10
+          ? event.event_date
           : event.event_date && event.event_date.length > 10
           ? dateToMMDDYYYYString(new Date(event.event_date))
-          : event.event_date && event.event_date.length === 9
-          ? '...'
           : null
 
         let cityName = event.city_name
@@ -33,23 +31,6 @@ export default function EventsPreview({ formEvents, deleteFormEvent, updateFormE
           ? capitalize(event.venue_name)
           : null
 
-        // function isAllCaps(str) {
-        //   return str === str.toUpperCase();
-        // }
-
-        // const regionOrCountry = () => {
-        //   switch (true) {
-        //     // case (regionName && countryName) && isAllCaps(regionName) === true:
-        //     case (regionName && countryName) && ['United States'].includes(countryName):
-        //       return regionName;
-        //     case (regionName && countryName) && isAllCaps(regionName) === false:
-        //       return countryName;
-        //     case (!regionName):
-        //       return countryName;
-        //     default:
-        //       return null
-        //   }
-        // }
 
         const regionAndCountry = () => {
           switch (true) {
