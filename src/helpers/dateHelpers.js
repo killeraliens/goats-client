@@ -26,11 +26,13 @@ const dateWithYear = (mmddFormat) => {
 }
 
 // "2020-03-01T07:00:00.000Z"
-//--> Mar/01
+//--> 03/01
 const dateToMMDDString = (date) => {
   return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate()))
 }
 
+// "2020-03-01T07:00:00.000Z"
+//--> 03/01/2020
 const dateToMMDDYYYYString = (date) => {
   return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
 }
@@ -43,17 +45,15 @@ function addDaysToDateReturnMMDDString(mmdd, days) {
   return dateToMMDDString(copy)
 }
 
-// 09/15, 3
-//--> 09/18/2020
-function addDaysToDateReturnMMDDYYYYString(mmdd, days) {
-  const copy = new Date(Number(dateWithYear(mmdd)))
-  copy.setDate(dateWithYear(mmdd).getDate() + days)
+// 09/15/2011, 3
+//--> 09/18/2011
+function addDaysToDateReturnMMDDYYYYString(mmddyyyy, days) {
+  const copy = new Date(mmddyyyy.valueOf())
+  copy.setDate( copy.getDate() + days)
   return dateToMMDDYYYYString(copy)
 }
 
-
 //ThroughDates
-
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
 ];
@@ -80,9 +80,6 @@ const returnLastDate = (eventDates) => {
   e = new Date(e.getTime() + Math.abs(e.getTimezoneOffset() * 60000))
   return monthNames[e.getMonth()] + '/' + ("0" + (e.getDate())).slice(-2)
 }
-
-
-
 
 module.exports = {
   dateToMMDDTimeString,

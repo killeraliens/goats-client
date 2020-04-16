@@ -11,7 +11,7 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { dateWithYear, addDaysToDateReturnMMDDString } from '../../../helpers/dateHelpers'
+import { addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
 import NotFound from '../../NotFound/NotFound'
@@ -94,14 +94,19 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       }
       return setNewEvents()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    // formbody.type, // with this the events will completely erase if you change flyer type
     formBody.date.value,
+    formBody.date.error,
+    //all below will pass initial validations reguardless of errors for preview
     formBody.endDate.value,
     formBody.venueName.value,
     formBody.countryName.value,
     formBody.regionName.value,
     formBody.cityName.value,
-    formBody.cancelled
+    formBody.cancelled,
+
   ])
 
   useEffect(() => {
@@ -112,7 +117,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       }
       return setNewEvents()
     }
-  }, [flyer.events])
+  }, [flyer, flyer.events])
 
   useEffect(() => {
     setFormBody(prev => ({ ...prev, type: newType }))
@@ -121,6 +126,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
   useEffect(() => {
     resetForm()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -172,53 +178,38 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         }
       })
 
-      // check to see if date field is filled or no event
+      // check to see if date field is valid or no event, id is temporary for events preview
       if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
-        let dayCount = formBody.type === "Fest"
-          ? (dateWithYear(formBody.endDate.value) - dateWithYear(formBody.date.value)) / 86400000
+        const endDateVal = new Date(formBody.endDate.value)
+        const dateVal = new Date(formBody.date.value)
+        let dayCount = formBody.type === "Fest" && formBody.endDate.value.length === 10 && !Boolean(formBody.endDate.error)
+          ? (endDateVal - dateVal) / 86400000 + 1
           : 1
 
         let eventsArr = []
-        if ((formBody.date.touched && !Boolean(formBody.date.error)) && (!formBody.endDate.touched || Boolean(formBody.endDate.error))) {
-          setIsDateReq(false)
-          for (let i = 0; i < 1; i++) {
-            let generatedEventId = uuid()
-            let newEvent = {
-              id: generatedEventId,
-              event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
-              venue_name: formBody.venueName.value,
-              country_name: formBody.countryName.value,
-              region_name: formBody.regionName.value,
-              city_name: formBody.cityName.value,
-              cancelled: formBody.cancelled
-            }
-            eventsArr.push(newEvent)
+        setIsDateReq(false)
+        for (let i = 0; i < dayCount && dayCount <= 7; i++) {
+          let generatedEventId = uuid()
+          let newEvent = {
+            id: generatedEventId,
+            event_date: addDaysToDateReturnMMDDYYYYString(formBody.date.value.trim(), i),
+            venue_name: formBody.venueName.value,
+            country_name: formBody.countryName.value,
+            region_name: formBody.regionName.value,
+            city_name: formBody.cityName.value,
+            cancelled: formBody.cancelled
           }
-        } else if ((formBody.date.touched && !Boolean(formBody.date.error)) && (formBody.endDate.touched && !Boolean(formBody.endDate.error))) {
-          setIsDateReq(false)
-          for (let i = 0; i <= dayCount && i < (dayCount +1); i++) {
-            let generatedEventId = uuid()
-            let newEvent = {
-              id: generatedEventId,
-              event_date: addDaysToDateReturnMMDDString(formBody.date.value, i),
-              venue_name: formBody.venueName.value,
-              country_name: formBody.countryName.value,
-              region_name: formBody.regionName.value,
-              city_name: formBody.cityName.value,
-              cancelled: formBody.cancelled
-            }
-            eventsArr.push(newEvent)
-          }
+          eventsArr.push(newEvent)
         }
         return eventsArr
-      } else if (!Boolean(formBody.date.value) && validValues.length > 0) {
+      } else if (!Boolean(formBody.date.value.trim()) && validValues.length > 0) {
         setIsDateReq(true)
         return []
       }
       return []
     }
     return []
- }
+  }
 
   // formBody.events array for "Tour" (gens temp id for EventsPreview)
   const addTourStop = (e) => {
@@ -256,7 +247,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         ]
       }))
       resetEventFields()
-
     } else {
       setIsDateReq(true)
     }
@@ -290,14 +280,15 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
     const eventPostBodies = formBody.events.map(event => {
 
-      const formattedDate = event.event_date && event.event_date.length === 5
-        ? dateWithYear(event.event_date)
-        : event.event_date && event.event_date.length > 5
-          ? event.event_date
-          : null
+      // const formattedDate = event.event_date && event.event_date.length === 5
+      //   ? dateWithYear(event.event_date)
+      //   : event.event_date && event.event_date.length > 5
+      //     ? event.event_date
+      //     : null
 
       return {
-        event_date: formattedDate,
+        // event_date: formattedDate,
+        event_date:  event.event_date,
         venue_name: capitalize(event.venue_name),
         city_name: capitalize(event.city_name),
         region_name: event.region_name,
@@ -436,7 +427,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
       {
-        (formBody.type === "Tour" || formBody.type === "Fest" || formBody.type === "Show") || flyer && flyer.events && flyer.events.length > 0
+        (formBody.events && formBody.events.length > 0)
           ? (
             <EventsPreview
               formEvents={formBody.events}

@@ -4,14 +4,6 @@ import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityForm
 import ValidationError from '../ValidationError/ValidationError';
 
 export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate, formCancelled, isDateReq }) {
-  let dateWithYear = (mmddFormat) => {
-    let currYear = new Date().getFullYear()
-    let testDateCurrYear = new Date(mmddFormat + '/' + currYear)
-    let currDate = new Date()
-    let testIfNeg = testDateCurrYear - currDate
-    let year = testIfNeg > 0 ? currYear : currYear + 1
-    return new Date(mmddFormat + '/' + year)
-  }
 
   const updateCountryRegionCity = (fields) => {
     updateEventFields(fields)
@@ -20,11 +12,13 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
   const validateDate = () => {
     if (formDate.touched && formDate.value !== "") {
       const trimmedDate = formDate.value.trim()
-      // return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01])|([1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
-      return!(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
-        ? `Format as MM/DD`
-        : trimmedDate.length > 5
-        ? `Format as MM/DD`
+      // MM/DD return!(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedDate))
+      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)(19|20)\d{2}$/.test(trimmedDate))
+        ? `Format as MM/DD/YYYY`
+        : !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)((19[5-9]\d|20[0-3]\d))$/.test(trimmedDate))
+        ? 'years between 1950-2030'
+        : trimmedDate.length > 10
+        ? `Format as MM/DD/YYYY`
         : ''
     }
     return ''
@@ -33,17 +27,24 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
   const validateEndDate = () => {
     if (formEndDate.touched && formEndDate.value !== "") {
       const trimmedEndDate = formEndDate.value.trim()
-      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedEndDate))
-        ? `Format as MM/DD`
-        : trimmedEndDate.length > 5
-          ? `Format as MM/DD`
-          : dateWithYear(trimmedEndDate) < dateWithYear(formDate.value)
+      const trimmedDate = formDate.value.trim()
+      const eDate = Date.parse(trimmedEndDate)
+      const sDate = Date.parse(trimmedDate)
+      // MM/DD return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))/.test(trimmedEndDate))
+      return !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)(19|20)\d{2}$/.test(trimmedEndDate))
+        ? `Format as MM/DD/YYYY`
+        : trimmedEndDate.length > 10
+          ? `Format as MM/DD/YYYY`
+          : !(/(^(0[1-9]|1[012])\/|^([1-9]|1[012])\/)((0[1-9]|1\d|2\d|3[01]))(\/)((19[5-9]\d|20[0-3]\d))$/.test(trimmedDate))
+          ? 'years between 1950-2030'
+          : eDate < sDate
           ? `Must be after start date`
+          : (eDate - sDate) / 86400000 + 1 > 7
+          ? `Fests aren't more than 7 days`
           : ''
     }
     return ''
   }
-
 
   const validateVenueName = () => {
     if (formVenue.touched) {
@@ -59,7 +60,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
 
   useEffect(() => {
     const updateValidationErrors = () => {
-      updateEventFields({ date: { ...formDate, error: validateDate() }})
+      updateEventFields({ date: { ...formDate, error: validateDate() } })
     }
     updateValidationErrors()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +94,7 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
             id="endDate"
             name="endDate"
             type="text"
-            placeholder="mm/dd"
+            placeholder="mm/dd/yyyy"
             value={formEndDate.value || ''}
             onChange={e => { updateEventFields({ endDate: { value: e.target.value, touched: true } }) }}
             aria-label="endDate"
@@ -127,11 +128,9 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
               id="date"
               name="date"
               type="text"
-              placeholder="mm/dd"
+              placeholder="mm/dd/yyyy"
               value={formDate.value || ''}
-              onChange={e => {
-                updateEventFields({ date: { value: e.target.value, touched: true } })
-              }}
+              onChange={e => { updateEventFields({ date: { value: e.target.value, touched: true } })}}
               aria-label="date"
               aria-required="false"
               aria-describedby="dateError"
@@ -157,7 +156,6 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
           />
           <ValidationError id="venueNameError" message={formVenue.error} />
         </fieldset>
-
       </div>
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
