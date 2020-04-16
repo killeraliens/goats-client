@@ -430,7 +430,9 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         (formBody.events && formBody.events.length > 0)
           ? (
             <EventsPreview
-              formEvents={formBody.events}
+              formEvents={formBody.events.sort((aEvent, bEvent) => {
+                return Date.parse(aEvent.event_date) - Date.parse(bEvent.event_date)
+              })}
               deleteFormEvent={deleteFormEvent}
               updateFormEvent={updateFormEvent}
             />
