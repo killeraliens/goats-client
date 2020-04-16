@@ -8,18 +8,18 @@ export default function Intro() {
   return(
     <CentralContainer >
       <div className='Intro intro-about-container'>
-        <h1>Goats Guide</h1>
+        <h1>GoatsGuide</h1>
       <br />
       <section>
         <h3>If you know about an upcoming concert, festival, or tour share the flier here.</h3>
         <p>
-          This is a DIY bulletin board for poster artwork and event information.
-          If you want to copy/paste from an event already on Facebook,
-          that would be a great way contribute.
+            This is a DIY bulletin board for poster artwork and event information.
+            If you want to copy/paste from an event already on Facebook or upload an old flier,
+            that would be a great way contribute.
         </p>
         <p>
-          View more artwork and events from an international scope, as they get posted.
-          Create an account, post some local fliers. Tell others.
+          View more artwork and upcoming events from an international scope, as they get posted.
+          Archive digital references to fliers and shows from your past.
         </p>
         <div className='center-button-container'>
           <Link to='/public/signup' className='ActionButton'>Sign up</Link>

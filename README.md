@@ -1,18 +1,18 @@
-# Goats Guide
+# GoatsGuide
 
 **If you know about an upcoming concert, fest, or tour share the flier here. [goatsguide.com](https://goatsguide.com)**
 
 This is a DIY bulletin board for poster artwork and event information.
-If you want to copy/paste from an event already on Facebook,
+If you want to copy/paste from an event already on Facebook or upload an old flier,
 that would be a great way contribute.
 
 View more artwork and events from an international scope, as they get posted.
-[Signup](https://goatsguide.com/public/signup), post some local fliers. Tell others.
+Archive digital references to fliers and shows from your past.
 
 
 ## How it works.
 
-**[Create an account](https://goatsguide.com/public/signup) to view & post fliers to the public feed. or [Sign In](https://goatsguide.com/public/signin) to view and share fliers. Forgot your password? There's a link for that. [Recover Password](https://goatsguide.com/public/recover)**
+**[Create an account](https://goatsguide.com/public/signup) or [Sign In](https://goatsguide.com/public/signin) to view & share fliers. Forgot your password? There's a link for that. [Recover Password](https://goatsguide.com/public/recover)**
 
 ![flier feed screenshot](./src/assets/ss-flier-feed.png)
 
@@ -24,13 +24,13 @@ View more artwork and events from an international scope, as they get posted.
 
 <br/>
 
-**Post a new flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make the it more searchable.**
+**Post a new flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the event form to make the artwork more searchable.**
 
 ![post flier screenshot](./src/assets/ss-create-flier.png)
 
 <br/>
 
-**Keep your fliers and their events updated. Cancel all tourstops or event dates affected. Cancelling all events on a flier will show a notification tag on the public flier.**
+**Keep your fliers and their events updated. Cancel all tourstops or event dates affected. Cancelling all events on a flier will show a notification tag on the public version.**
 
 ![post flier screenshot](./src/assets/ss-cancel-events.png)
 

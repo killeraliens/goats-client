@@ -14,7 +14,7 @@ export default function Footer() {
   return(
     <footer className="Footer">
       <p>
-        <FontAwesomeIcon icon={faCopyright} />Copyright 2019, 2020 Goats Guide.
+        <FontAwesomeIcon icon={faCopyright} />Copyright 2019, 2020 GoatsGuide.
       </p>
     </footer>
   )
