@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "goats-guide",
+  "name": "goatsguide",
   "alias": [
     "goatsguide.com",
     "www.goatsguide.com"
@@ -13,6 +13,12 @@
     {
       "src": ".*",
       "dest": "/index.html"
+    }
+  ],
+  "builds": [
+    {
+      "src": "favicon.ico",
+      "use": "@now/static"
     }
   ]
 }
