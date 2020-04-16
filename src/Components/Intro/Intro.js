@@ -34,7 +34,7 @@ export default function Intro() {
           {/* <img src={flourish} className='flourish'/> */}
           <p style={{marginTop: '0px'}}>
               <Link to='/public/signup' >Create an account</Link> or <Link to='/public/signin'>Sign In</Link> to view and share fliers.
-              Forgot your password? There's a link for that. <Link to='/public/recover'>Recover Password</Link>
+              Forgot your password? <Link to='/public/recover'>Recover Password</Link>
           </p>
         </div>
         <div className="flex-bullets">
