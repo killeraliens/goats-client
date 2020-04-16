@@ -12,7 +12,7 @@ import { createMarkup, returnCleanContentEditable, returnSanitizedHtml } from '.
 
 export default function FlyerCard({ flyer, isEdit }) {
   const flyerEvents = flyer.events && flyer.events.length > 0
-    ? flyer.events
+    ? flyer.events.sort((a, b) =>  Date.parse(a.event_date) - Date.parse(b.event_date))
     : []
 
   const pastCount = flyerEvents.filter(event => event.event_date && new Date(event.event_date) < new Date(Date.now())).length
