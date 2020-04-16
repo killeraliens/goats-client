@@ -94,16 +94,19 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       }
       return setNewEvents()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    // formbody.type, // with this the events will completely erase if you change flyer type
     formBody.date.value,
     formBody.date.error,
-    //all below will pass initial validations for preview
+    //all below will pass initial validations reguardless of errors for preview
     formBody.endDate.value,
     formBody.venueName.value,
     formBody.countryName.value,
     formBody.regionName.value,
     formBody.cityName.value,
-    formBody.cancelled
+    formBody.cancelled,
+
   ])
 
   useEffect(() => {
@@ -114,7 +117,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       }
       return setNewEvents()
     }
-  }, [flyer.events])
+  }, [flyer, flyer.events])
 
   useEffect(() => {
     setFormBody(prev => ({ ...prev, type: newType }))
@@ -123,6 +126,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
   useEffect(() => {
     resetForm()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -174,7 +178,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         }
       })
 
-      // check to see if date field is valid or no event
+      // check to see if date field is valid or no event, id is temporary for events preview
       if (Boolean(formBody.date.value) && invalidValues.length === 0 && validValues.length > 0) {
         const endDateVal = new Date(formBody.endDate.value)
         const dateVal = new Date(formBody.date.value)
@@ -423,7 +427,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         <ValidationError id="headlineError" message={formBody.headline.error} />
       </fieldset>
       {
-        (formBody.type === "Tour" || formBody.type === "Fest" || formBody.type === "Show") || flyer && flyer.events && flyer.events.length > 0
+        (formBody.events && formBody.events.length > 0)
           ? (
             <EventsPreview
               formEvents={formBody.events}

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import ValidationError from '../ValidationError/ValidationError';
@@ -58,16 +58,11 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
     return ''
   }
 
-  // const updateErrors = useCallback((fields) => {
-  //   return updateEventFields(fields)
-  // }, [formDate.error]);
-
   useEffect(() => {
     const updateValidationErrors = () => {
       updateEventFields({ date: { ...formDate, error: validateDate() } })
     }
     updateValidationErrors()
-    // updateErrors({ date: { ...formDate, error: validateDate() } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formDate.value])
 
@@ -76,7 +71,6 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
       updateEventFields({ endDate: { ...formEndDate, error: validateEndDate() } })
     }
     updateValidationErrors()
-    // updateErrors({ endDate: { ...formEndDate, error: validateEndDate() } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formEndDate.value])
 
@@ -162,7 +156,6 @@ export default function EventFieldset({ updateEventFields, addTourStop, formDate
           />
           <ValidationError id="venueNameError" message={formVenue.error} />
         </fieldset>
-
       </div>
       <div className="fieldset-container">
         <CountryRegionCityFormGroup updateCountryRegionCity={updateCountryRegionCity} formCountryRegionCity={formCountryRegionCity}/>
