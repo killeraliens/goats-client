@@ -45,7 +45,7 @@ export default function EventsPreview({ formEvents, deleteFormEvent, updateFormE
 
         const cityComma = () => {
           switch (true) {
-            case Boolean(cityName) && (Boolean(countryName) || Boolean(regionName)):
+            case !!cityName && (!!countryName || !!regionName):
               return ', ';
             default:
               return null
