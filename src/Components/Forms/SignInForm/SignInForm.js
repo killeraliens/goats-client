@@ -138,7 +138,7 @@ function SignInForm({ history }) {
           <ValidationError id="passwordError" message={password.error} />
         </fieldset>
         <div className="form-controls">
-          <button type="submit" disabled={username.error || password.error}>Submit</button>
+          <button type="submit" disabled={username.error || password.error}>Enter</button>
           <Link to="/public/signup">New Account</Link>{' '}
           <Link to="/public/recover">Forgot password?</Link>
         </div>

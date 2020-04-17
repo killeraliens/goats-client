@@ -28,6 +28,15 @@ a {
   transition: ease;
 }
 
+button, a {
+  transition: .1s ease;
+}
+
+button:focus, a:focus, button:hover, a:hover {
+  outline: none;
+  box-shadow: none;
+}
+
 h1, h2{
   margin-top: 0;
   /* margin-bottom: 0; */

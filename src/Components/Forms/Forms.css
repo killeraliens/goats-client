@@ -131,7 +131,6 @@ fieldset.checkbox input[type=checkbox]:focus + label::before, span.checkbox inpu
   outline: rgb(59, 153, 252) auto 5px;
 }
 
-
 select {
   height: 31px;
 }
@@ -152,7 +151,7 @@ select {
 
 .form-controls button, .EventFieldset button {
   color: white;
-  background-color: orangered;
+  background-color: blue;
 }
 
 .form-controls button:disabled, .EventFieldset button:disabled {
@@ -160,8 +159,20 @@ select {
 }
 
 .form-controls button[type='reset']  {
+  color: rgb(46, 46, 46);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.EditProfileForm button[type='reset'] {
+  color: lightgray;
+}
+
+.form-controls button[type='reset']:hover, .form-controls button[type='reset']:focus  {
+  color: black;
+}
+
+.EditProfileForm button[type='reset']:hover, .EditProfileForm button[type='reset']:focus {
   color: white;
-  background-color: #2e2e2e;
 }
 
 /* intro form links centered below  */

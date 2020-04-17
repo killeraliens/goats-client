@@ -214,6 +214,7 @@ const validateRepeatPassword = () => {
             username.error || password.error || repeatPassword.error
             || username.value ==='' || password.value ==='' || repeatPassword.value ===''
           }>Submit</button>
+          <button type="reset" onClick={() => history.push('/signin')}>Cancel</button>
           <Link to="/public/signin">Sign In</Link>{' '}
           <Link to="/public/recover">Forgot password?</Link>
         </div>

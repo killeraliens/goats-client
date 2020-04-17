@@ -10,6 +10,21 @@
   text-decoration: none;
 }
 
+.MainHeaderNav--links .MainNavLink, .MainHeaderNav--links .MainNavLink {
+  color: lightgray;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+
+.MainNavLink:hover, .MainNavLink:focus {
+  color: white;
+  background-color: rgb(26, 26, 26);
+}
+
+.MainHeaderNav--links .MainNavLink:hover, .MainHeaderNav--links .MainNavLink:focus  {
+background-color: rgba(0, 0, 0, 0);
+}
+
 .MainNavLink.whitesmoke-black.active {
   background-color: whitesmoke;
   color: black;
