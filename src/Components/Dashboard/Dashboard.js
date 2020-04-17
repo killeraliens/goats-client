@@ -1,19 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react';
-import AppContext from '../../AppContext';
+import React, { useContext, useState, useEffect } from 'react'
+import AppContext from '../../AppContext'
 import DashContext from '../../DashContext'
-import PropTypes from 'prop-types';
-import { Switch, Route, Link } from 'react-router-dom';
-import MainHeaderNav from '../MainHeaderNav/MainHeaderNav';
-import MainNavLink from '../MainNavLink/MainNavLink';
-import SignOutLink from '../SignOutLink/SignOutLink';
-import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm';
-import Profile from '../Profile/Profile';
+import PropTypes from 'prop-types'
+import { Switch, Route, Link } from 'react-router-dom'
+import MainHeaderNav from '../MainHeaderNav/MainHeaderNav'
+import MainNavLink from '../MainNavLink/MainNavLink'
+import SignOutLink from '../SignOutLink/SignOutLink'
+import EditProfileForm from '../Forms/EditProfileForm/EditProfileForm'
+import Profile from '../Profile/Profile'
 import './Dashboard.css'
-import NotFound from '../NotFound/NotFound';
-import Spinner from '../Spinner/Spinner';
-import config from '../../config';
-// import BackLink from '../BackLink/BackLink'
-
+import NotFound from '../NotFound/NotFound'
+import Spinner from '../Spinner/Spinner'
+import config from '../../config'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SettingsMenu from '../SettingsMenu/SettingsMenu'
 
 function Dashboard({ match }) {
   const { user } = useContext(AppContext)
@@ -103,7 +104,8 @@ function Dashboard({ match }) {
           <DashContext.Provider value={contextValue}>
             <MainHeaderNav links={[
               <MainNavLink to={`/dashboard/${foundUser.id}/edit`} >Edit Profile</MainNavLink>,
-              <SignOutLink />
+              <SignOutLink />,
+              <MainNavLink to={`/dashboard/${foundUser.id}/settings`} >{' '}<FontAwesomeIcon icon={faCog}/>{' '}Settings</MainNavLink>
             ]} />
             <Switch>
               <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
@@ -112,11 +114,11 @@ function Dashboard({ match }) {
               <Route path={`/dashboard/${foundUser.id}`} render={() => {
                 return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
               }} />
+              <Route path={`/dashboard/${foundUser.id}/settings`} render={({ history }) => {
+                return <SettingsMenu history={history} />
+              }}/>
             </Switch>
           </DashContext.Provider>
-          {/* <div className='backlink-container'>
-            <BackLink backText={true} hasArrow={true}/>
-          </div> */}
           </div>
       )
     case !!foundUser:
