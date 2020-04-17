@@ -83,7 +83,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
                   : 'Delete'}
             </MainNavLink>
             <MainNavLink
-              activeColorClass={'red-white'}
+              activeColorClass={'green-white'}
               to={`/flier/${flyerId}/edit`}
             >
               {fetching

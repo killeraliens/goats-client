@@ -151,7 +151,7 @@ select {
 
 .form-controls button, .EventFieldset button {
   color: white;
-  background-color: blue;
+  background-color: green;
 }
 
 .form-controls button:disabled, .EventFieldset button:disabled {
