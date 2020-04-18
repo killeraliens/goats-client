@@ -81,7 +81,7 @@ export default function EditProfileForm({ history }) {
     return <Spinner />
   }
   return(
-    <div className="Main--content no-margin">
+    // <div className="Main--content no-margin">
       <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
           <AvatarImageUpload user={user} updateImgUrl={updateImgUrl} />
           <Location
@@ -107,7 +107,7 @@ export default function EditProfileForm({ history }) {
           </div>
           { serverError ? <p>{serverError.message}</p> : null }
       </form>
-    </div>
+    // </div>
   )
 }
 

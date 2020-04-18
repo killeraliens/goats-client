@@ -5,7 +5,7 @@ import './MainHeaderNav.css'
 
 export default function MainHeaderNav(props) {
   return (
-    <div className="MainHeaderNav">
+    <div className={`MainHeaderNav ${props.className ? props.className : ''}`}>
       <div className="MainHeaderNav--links">
         {props.links.map((link, i) => <React.Fragment key={i}>{link}</React.Fragment>)}
       </div>

@@ -1,0 +1,19 @@
+.SettingsMenu {
+  width: 100%;
+  /* position: absolute; */
+  z-index: 3;
+  transition: .4s ease-in;
+}
+
+.SettingsMenu.collapsed {
+  transform: translate(100%);
+}
+
+/* .SettingsMenu .MainHeader .Main--header--title {
+  width: 100%;
+} */
+
+.SettingsMenu .Main--header--title {
+  text-align: center;
+  margin-bottom: 0;
+}

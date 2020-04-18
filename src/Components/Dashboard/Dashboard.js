@@ -12,9 +12,9 @@ import './Dashboard.css'
 import NotFound from '../NotFound/NotFound'
 import Spinner from '../Spinner/Spinner'
 import config from '../../config'
+import SettingsMenu from '../SettingsMenu/SettingsMenu'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SettingsMenu from '../SettingsMenu/SettingsMenu'
 
 function Dashboard({ match }) {
   const { user } = useContext(AppContext)
@@ -103,20 +103,30 @@ function Dashboard({ match }) {
         <div className="Dashboard">
           <DashContext.Provider value={contextValue}>
             <MainHeaderNav links={[
-              <MainNavLink to={`/dashboard/${foundUser.id}/edit`} >Edit Profile</MainNavLink>,
+              <MainNavLink
+                to={`/dashboard/${foundUser.id}/edit`}
+                isActive={() => false}
+              >
+                Edit Profile
+              </MainNavLink>,
               <SignOutLink />,
-              <MainNavLink to={`/dashboard/${foundUser.id}/settings`} >{' '}<FontAwesomeIcon icon={faCog}/>{' '}Settings</MainNavLink>
+              <MainNavLink
+                to={`/dashboard/${foundUser.id}/settings`}
+                isActive={() => false}
+              >
+                {' '}<FontAwesomeIcon icon={faCog}/>{' '}Settings
+              </MainNavLink>
             ]} />
             <Switch>
               <Route exact path={`/dashboard/${foundUser.id}/edit`} render={({ history }) => {
                 return <EditProfileForm history={history} />
               }} />
+              <Route path={`/dashboard/${foundUser.id}/settings`} render={({ history }) => {
+                return <SettingsMenu history={history} user={foundUser}/>
+              }}/>
               <Route path={`/dashboard/${foundUser.id}`} render={() => {
                 return <Profile user={foundUser} isCurrent={true} userFlyers={flyers} fetching={fetching} />
               }} />
-              <Route path={`/dashboard/${foundUser.id}/settings`} render={({ history }) => {
-                return <SettingsMenu history={history} />
-              }}/>
             </Switch>
           </DashContext.Provider>
           </div>
