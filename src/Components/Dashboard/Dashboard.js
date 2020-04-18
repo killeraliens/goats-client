@@ -105,7 +105,6 @@ function Dashboard({ match }) {
             <MainHeaderNav links={[
               <MainNavLink
                 to={`/dashboard/${foundUser.id}/edit`}
-                isActive={() => false}
               >
                 Edit Profile
               </MainNavLink>,

@@ -33,12 +33,14 @@ code {
 body form {
   padding: 24px;
   background-color: whitesmoke;
-  /* max-width: 500px; */
+}
+
+body form.dark-mode {
+  background-color: rgb(46, 46, 46);
+  color: white;
 }
 
 body form.header-form {
-  background-color: rgb(46, 46, 46);
-  color: white;
   max-width: 100%;
   padding: 16px;
   padding-top: 54px;

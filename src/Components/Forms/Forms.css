@@ -1,34 +1,13 @@
-/* .Main--content form:not(.header-form) { */
-/* refer to index.css */
-/* body form {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}
 
-body form:not(form.SignInForm, form.SignUpForm) {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-}
-
-form.FlyerForm {
-  padding: 24px;
-  background-color: whitesmoke;
-  max-width: 500px;
-} */
-
-
-form.header-form {
+form.dark-mode {
   background-color: rgb(46, 46, 46);
   color: white;
-  max-width: 100%;
-  padding: 16px;
-  padding-top: 54px;
 }
 
-form.header-form input {
-  color: black;
+form.header-form {
+  width: 100%;
+  padding: 16px;
+  padding-top: 54px;
 }
 
 legend {

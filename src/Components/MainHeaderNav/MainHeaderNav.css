@@ -25,3 +25,12 @@
   right: 1px;
   top: 1px;
 }
+
+.MainHeaderNav .MainNavLink.whitesmoke-black.active {
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+}
+
+.MainHeaderNav .MainNavLink:hover, .MainHeaderNav .MainNavLink:focus  {
+background-color: rgba(0, 0, 0, 0);
+}

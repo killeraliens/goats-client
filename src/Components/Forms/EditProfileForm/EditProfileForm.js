@@ -82,7 +82,7 @@ export default function EditProfileForm({ history }) {
   }
   return(
     // <div className="Main--content no-margin">
-      <form className="EditProfileForm header-form" onSubmit={handleSubmit}>
+      <form className="EditProfileForm header-form dark-mode" onSubmit={handleSubmit}>
           <AvatarImageUpload user={user} updateImgUrl={updateImgUrl} />
           <Location
             eventLocation={{
