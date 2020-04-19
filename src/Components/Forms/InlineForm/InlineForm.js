@@ -4,15 +4,16 @@ import './InlineForm.css'
 import config from '../../../config'
 import ValidationError from '../ValidationError/ValidationError'
 import AppContext from '../../../AppContext';
+import { capitalize } from '../../../helpers/textHelpers'
 
 export default function InlineForm({ name, type, nameDB }) {
-  const [value, setValue] = useState({ value: '', touched: false, error: ''})
+  const { user, updateAuthenticated, setToast } = useContext(AppContext)
+  const [value, setValue] = useState({ value: user[name], touched: false, error: ''})
   const [serverError, setServerError] = useState('')
   const [fetching, setFetching] = useState(false)
-  const { user, updateAuthenticated, setToast } = useContext(AppContext)
 
   const resetForm = () => {
-    setValue({ value: '', touched: false, error: '' })
+    setValue({ value: user[name], touched: false, error: '' })
   }
 
   const validateUsername = () => {
@@ -29,13 +30,42 @@ export default function InlineForm({ name, type, nameDB }) {
     return ''
   }
 
+  const validateEmail = () => {
+    if (value.touched) {
+      const emailValue = value.value.trim();
+      return emailValue.length === 0
+        ? 'email required'
+        : !(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailValue))
+          ? 'email has incorrect format'
+          : ''
+    }
+    return ''
+  }
+
+  const validatePassword = () => {
+    if (value.touched) {
+      const passwordValue = value.value.trim();
+      return passwordValue.length === 0
+        ? 'password required'
+        : passwordValue.length < 5 || passwordValue.length > 20
+          ? 'password must be between 5 and 20 characters long'
+          : !(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(passwordValue))
+            ? 'password must have at least one letter and one number, no special characters'
+            : ''
+    }
+    return ''
+  }
+
   const updateValidationErrors = () => {
     if (name === 'username') {
       setValue(prev => ({ ...prev, error: validateUsername() }))
     }
-    // setValue(prev => ({ ...prev, error: validateEmail() }))
-    // setValue(prev => ({ ...prev, error: validatePassword() }))
-    // setValue(prev => ({ ...prev, error: validateRepeatPassword() }))
+    if (name === 'email') {
+      setValue(prev => ({ ...prev, error: validateEmail() }))
+    }
+    if (name === 'password') {
+      setValue(prev => ({ ...prev, error: validatePassword() }))
+    }
   }
 
   useEffect(() => {
@@ -52,11 +82,10 @@ export default function InlineForm({ name, type, nameDB }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('form submitted')
     const patchBody = {
-      id: user.id,
       [nameDB]: value.value
     }
+    console.log(patchBody)
     const options = {
       method: 'PATCH',
       body: JSON.stringify(patchBody),
@@ -74,13 +103,13 @@ export default function InlineForm({ name, type, nameDB }) {
       } else {
         setServerError('')
         setFetching(false)
-        resetForm() //collapse with new value
         const patchedUser = {
           ...user,
           ...patchBody
         }
         updateAuthenticated(patchedUser)
-        setToast({ message: `${name} successfully updated.` })
+        setToast({ message: `${capitalize(name)} successfully updated.` })
+        resetForm() //collapse with new value
       }
     } catch (error) {
       setServerError(error.message)
