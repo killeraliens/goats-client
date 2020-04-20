@@ -3,6 +3,10 @@
   position: relative;
   z-index: 3;
   transition: .4s ease-in;
+  -webkit-transform:translateZ(2px);
+  -moz-transform:translateZ(2px);
+  -o-transform:translateZ(2px);
+  transform:translateZ(2px);
 }
 
 .SettingsMenu.collapsed {
