@@ -11,7 +11,6 @@ export default function SettingForm({ name, type }) {
   const [value, setValue] = useState({ value: user[name] || '', touched: false, error: ''})
   const [repeatPassword, setRepeatPassword] = useState({ value: '', touched: false, error: '' })
   const [serverError, setServerError] = useState('')
-  const [fetching, setFetching] = useState(false)
   const [collapsed, setCollapsed] = useState('collapsed')
 
   const resetForm = () => {
@@ -118,10 +117,8 @@ export default function SettingForm({ name, type }) {
       if (!response.ok) {
         const body = await response.json();
         setServerError(body.message)
-        setFetching(false)
       } else {
         setServerError('')
-        setFetching(false)
         const patchedUser = {
           ...user,
           ...patchBody
@@ -132,7 +129,6 @@ export default function SettingForm({ name, type }) {
       }
     } catch (error) {
       setServerError(error.message)
-      setFetching(false)
     }
   }
 
@@ -194,7 +190,6 @@ export default function SettingForm({ name, type }) {
   return (
     <form className="SettingForm dark-mode" onSubmit={handleSubmit}>
       <div className={`formgroup ${type==='password' ? 'double' : ''}`}>
-
         <fieldset>
           <label
             htmlFor={`${name}`}

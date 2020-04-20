@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import AppContext from '../../AppContext'
 import './SettingsMenu.css'
 import MainHeader from '../MainHeader/MainHeader'
 import MainHeaderNav from '../MainHeaderNav/MainHeaderNav'
@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SettingForm from '../Forms/SettingForm/SettingForm'
 
 export default function SettingsMenu({ user }) {
-
   return <div className="SettingsMenu">
     <MainHeaderNav className="settings" links={[
       <MainNavLink
@@ -32,4 +31,21 @@ export default function SettingsMenu({ user }) {
     <SettingForm name="password" type="password"/>
     <Link to={`/dashboard/${user.id}`}>Cancel</Link>
   </div>
+}
+
+SettingsMenu.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string,
+    image_url: PropTypes.string,
+    admin: PropTypes.bool.isRequired,
+    country_name: PropTypes.string,
+    region_name: PropTypes.string,
+    city_name: PropTypes.string,
+    city_id: PropTypes.number,
+    created: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]).isRequired
+  }),
 }
