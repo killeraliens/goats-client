@@ -10,7 +10,7 @@
   position: absolute;
 }
 
-.SettingsMenu .MainHeader:not(:first-of-type) {
+.SettingsMenu .MainHeader {
   display: flex;
   justify-content: left;
   align-content: center;
@@ -20,4 +20,21 @@
   text-align: center;
   margin-bottom: 0;
   width: 100%;
+}
+
+.SettingsMenu a:not(.MainNavLink) {
+  color: darkgrey;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.SettingsMenu a:not(.MainNavLink):hover, .SettingsMenu a:not(.MainNavLink):focus {
+  color: white;
+}
+
+@media (max-width: 499px) {
+  .SettingsMenu a:not(.MainNavLink) {
+    width: 100%;
+    text-align: center;
+  }
 }

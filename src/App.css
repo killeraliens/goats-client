@@ -29,7 +29,7 @@ a {
 }
 
 button, a {
-  transition: .1s ease;
+  transition: .2s ease;
 }
 
 button:focus, a:focus, button:hover, a:hover {

@@ -23,12 +23,13 @@ fieldset {
   min-width: 0;
 }
 
-legend, label {
+/* legend, label:not(.SettingForm label) { */
+  legend, label {
   font-size: 10px;
   line-height: 16px;
 }
 
-fieldset * {
+fieldset *{
   width: 100%;
 }
 
@@ -150,12 +151,16 @@ select {
   color: black;
 }
 
-.EditProfileForm button[type='reset']:hover, .EditProfileForm button[type='reset']:focus {
+form.dark-mode .form-controls button[type='reset']:hover, form.dark-mode .form-controls button[type='reset']:focus  {
+  color: white;
+}
+
+form.dark-mode button[type='reset']:hover, form.dark-mode button[type='reset']:focus {
   color: white;
 }
 
 /* intro form links centered below  */
-form:not(.EditProfileForm) .form-controls {
+form:not(.dark-mode) .form-controls {
   display: inline-block;
 }
 
