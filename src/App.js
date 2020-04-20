@@ -11,6 +11,7 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
+import MetaTags from 'react-meta-tags'
 
 class App extends Component {
   constructor() {
@@ -108,6 +109,12 @@ class App extends Component {
               } />
             </Switch>
             <KillerToast on={toast.on} message={toast.message} colorClass={toast.colorClass}/>
+            <MetaTags>
+              <title>Page 1</title>
+              <meta name="description" content="Know of an upcoming concert, fest, or tour? Share the flier here. Archive artwork and events from your past." />
+              <meta property="og:title" content="GoatsGuide" />
+              <meta property="og:image" content="./assets/goats-arm-meta.png" />
+            </MetaTags>
         </ AppContext.Provider >
       </div>
     )
