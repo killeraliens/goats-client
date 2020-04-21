@@ -110,7 +110,7 @@ class App extends Component {
             </Switch>
             <KillerToast on={toast.on} message={toast.message} colorClass={toast.colorClass}/>
             <MetaTags>
-              <title>GoatsGuide</title>
+              <title>Goats Guide</title>
             <meta name="description" content="Know of an upcoming concert, fest, or tour? Share the flier here. This is an archive for event artwork from around the world." />
               <meta property="og:title" content="GoatsGuide" />
               <meta property="og:image" content="./assets/goats-arm-meta.png" />
