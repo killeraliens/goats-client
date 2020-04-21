@@ -12,7 +12,7 @@ import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
 import MetaTags from 'react-meta-tags'
-import metaImage from './assets/goat-arm-meta.png'
+import metaImage from './assets/goats-arm-meta.png'
 
 class App extends Component {
   constructor() {
