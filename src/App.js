@@ -11,7 +11,6 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
-import { Helmet } from 'react-helmet'
 
 class App extends Component {
   constructor() {
@@ -72,7 +71,6 @@ class App extends Component {
     const { toast, user } = this.state
     return(
       <div className="App scrollable" id="App" >
-        <Helmet title="GOATS GUIDE" />
         <AppContext.Provider value={context}>
             <Switch>
               <Route exact path="/" component={Landing} />
