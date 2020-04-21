@@ -7,7 +7,7 @@ import UseMeta from './UseMeta'
 
 ReactDOM.render(
 <BrowserRouter>
-  <UseMeta />
+  {/* <UseMeta /> */}
   <App />
 </BrowserRouter>, document.getElementById('root'))
 
