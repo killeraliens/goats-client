@@ -11,7 +11,7 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
 class App extends Component {
   constructor() {
