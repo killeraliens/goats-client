@@ -11,6 +11,7 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
+import MetaTags from 'react-meta-tags';
 
 class App extends Component {
   constructor() {
@@ -71,6 +72,12 @@ class App extends Component {
     const { toast, user } = this.state
     return(
       <div className="App scrollable" id="App" >
+        <MetaTags>
+          <title>GOATS GUIDE PG</title>
+          <meta name="description" content="Some description." />
+          <meta property="og:title" content="GOATS GUIDE" />
+          <meta property="og:image" content="./assets/goats-arm-meta.jpg" />
+        </MetaTags>
         <AppContext.Provider value={context}>
             <Switch>
               <Route exact path="/" component={Landing} />
