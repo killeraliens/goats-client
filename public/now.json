@@ -7,7 +7,12 @@
   ],
   "rewrites": [
     {
-      "src": "/(.*)",
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.html"
+        }
+      ],
       "dest": "/index.html"
     }
   ]
