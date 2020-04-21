@@ -15,5 +15,5 @@ class UseMeta extends Component {
     )
   }
 }
-// export default UseMeta
+export default UseMeta
 
