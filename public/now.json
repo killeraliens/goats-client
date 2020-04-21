@@ -5,13 +5,9 @@
     "goatsguide.com",
     "www.goatsguide.com"
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "^/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": ".*",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
   ]
