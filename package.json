@@ -1,5 +1,4 @@
 {
-  "name": "goats-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,7 +29,7 @@
   },
   "scripts": {
     "start": "HTTPS=true react-scripts start",
-    "prebuild": "CI=true react-scripts test --colors && npm run build:clean",
+    "prebuild": "CI=true react-scripts test --colors",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
