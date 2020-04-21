@@ -11,7 +11,7 @@ import AuthedSplit from './Components/AuthedSplit/AuthedSplit'
 import CreateFlyer from './Components/CreateFlyer/CreateFlyer'
 import GetFlyer from './Components/GetFlyer/GetFlyer'
 import KillerToast from './Components/KillerToast/KillerToast'
-import MetaTags from 'react-meta-tags'
+import Helmet from 'react-helmet'
 
 class App extends Component {
   constructor() {
@@ -72,6 +72,7 @@ class App extends Component {
     const { toast, user } = this.state
     return(
       <div className="App scrollable" id="App" >
+        <Helmet title="GOATS GUIDE" />
         <AppContext.Provider value={context}>
             <Switch>
               <Route exact path="/" component={Landing} />
@@ -109,12 +110,6 @@ class App extends Component {
               } />
             </Switch>
             <KillerToast on={toast.on} message={toast.message} colorClass={toast.colorClass}/>
-            <MetaTags>
-              <title>Goats Guide</title>
-            <meta name="description" content="Know of an upcoming concert, fest, or tour? Share the flier here. This is an archive for event artwork from around the world." />
-              <meta property="og:title" content="GoatsGuide" />
-              <meta property="og:image" content="./assets/goats-arm-meta.png" />
-            </MetaTags>
         </ AppContext.Provider >
       </div>
     )
