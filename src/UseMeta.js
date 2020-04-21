@@ -1,6 +1,7 @@
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import MetaTags from 'react-meta-tags'
 import metaImage from './assets/goats-arm-meta.png'
-import ReactDOM from 'react-dom'
 
 export default function UseMeta () {
   return(
