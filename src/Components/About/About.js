@@ -1,7 +1,6 @@
 import React from 'react';
 import CentralContainer from '../CentralContainer/CentralContainer'
 import Mailto from 'react-protected-mailto'
-import { Link } from 'react-router-dom'
 
 export default function About() {
   return (
@@ -20,12 +19,9 @@ export default function About() {
             If you post non-relevant material I may clean it up without telling you.
           </p>
           <p>
-            Certain account features like updating your email are not yet available.
-            Until additional features are up, you can email me with specific account requests.
-          </p>
-          <p>
-            This project is in testing and development mode and it needs people like you to sign up and post content.
-            If you are interested becoming a moderator in the future, email me. Send any errors, questions, or general improvements to
+            Posting content is the best way to contribute at this time,
+            but if you are interested becoming a moderator in the future, email me.
+            Send any errors, questions, or general improvements to
             {' '}
             <Mailto
               email='goatsguide@gmail.com'
