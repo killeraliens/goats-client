@@ -11,11 +11,11 @@ export default function Intro() {
         <h1>GoatsGuide</h1>
       <br />
       <section>
-        <h3>If you know about an upcoming concert, festival, or tour share the flier here.</h3>
+        <h3>All that is UNHOLY. Upcoming shows and event flyer archive.</h3>
         <p>
             This is a DIY bulletin board for poster artwork and event information.
             If you want to copy/paste from an event already on Facebook or upload an old flier,
-            that would be a great way contribute.
+            that would be a good way to contribute.
         </p>
         <p>
           View more artwork and upcoming events from an international scope, as they get posted.
