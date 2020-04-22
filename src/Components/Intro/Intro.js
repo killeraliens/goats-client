@@ -15,7 +15,7 @@ export default function Intro() {
         <p>
             This is a DIY bulletin board for poster artwork and event information.
             If you want to copy/paste from an event already on Facebook or upload an old flier,
-            that would be a good way to contribute.
+            that would be a great way to contribute.
         </p>
         <p>
           View more artwork and upcoming events from an international scope, as they get posted.
