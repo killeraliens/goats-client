@@ -1,6 +1,7 @@
 import React from 'react';
 import CentralContainer from '../CentralContainer/CentralContainer'
 import Mailto from 'react-protected-mailto'
+import { Link } from 'react-router-dom'
 
 export default function About() {
   return (
@@ -19,8 +20,6 @@ export default function About() {
             If you post non-relevant material I may clean it up without telling you.
           </p>
           <p>
-            Posting content is the best way to contribute at this time,
-            but if you are interested becoming a moderator in the future, email me.
             Send any errors, questions, or general improvements to
             {' '}
             <Mailto
@@ -30,6 +29,8 @@ export default function About() {
               //   { cc: 'friend@coston.cool' }
               // }
             />
+            {/* {' '}
+            - Ali */}
           </p>
         </section>
 
