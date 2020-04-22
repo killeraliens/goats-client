@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import MetaTags from 'react-meta-tags'
-import metaImage from './assets/goats-arm-meta.png'
 
 class UseMeta extends Component {
   render() {
