@@ -17,7 +17,7 @@ export default function About() {
             Your personal account information will never be shared,
             but the things you post on here will be visible to other members.
             Until a flagging feature is up, this site will be somewhat moderated by me.
-            If you post non-relevant material I may clean it up without telling you.
+            If you post non-relevant material I may delete it without telling you.
           </p>
           <p>
             Send any errors, questions, or general improvements to
