@@ -34,8 +34,6 @@ export default function About() {
               //   { cc: 'friend@coston.cool' }
               // }
             />
-            {/* {' '}
-            - Ali */}
           </p>
         </section>
 

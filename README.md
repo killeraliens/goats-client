@@ -2,8 +2,6 @@
 
 **All that is UNHOLY. Upcoming shows and event flyer archive. [goatsguide.com](https://goatsguide.com)**
 
-<!-- **If you know about an upcoming concert, fest, or tour share the flier here. [goatsguide.com](https://goatsguide.com)** -->
-
 This is a DIY bulletin board for poster artwork and event information.
 If you want to copy/paste from an event already on Facebook or upload an old flier,
 that would be a great way contribute.
