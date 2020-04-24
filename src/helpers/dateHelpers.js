@@ -58,6 +58,22 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
 ];
 
+const monthNums = ["01", "02", "03", "04", "05", "06",
+  "07", "08", "09", "10", "11", "12"
+];
+
+// https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
+// ["2020-03-05T07:00:00.000Z", "2020-03-01T07:00:00.000Z"]
+// --> 05/01/2020
+const returnFirstDateMMDDYYYY = (eventDates) => {
+  let e = eventDates.sort((a, b) => {
+    return new Date(a) < new Date(b) ? -1 : new Date(a) > new Date(b) ? 1 : 0;
+  })[0]
+  e = new Date(e)
+  e = new Date(e.getTime() + Math.abs(e.getTimezoneOffset() * 60000))
+  return monthNums[e.getMonth()] + '/' + ("0" + (e.getDate())).slice(-2) + '/' + e.getFullYear()
+}
+
 // https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
 // ["2020-03-05T07:00:00.000Z", "2020-03-01T07:00:00.000Z"]
 // --> Mar/01
@@ -68,6 +84,18 @@ const returnFirstDate = (eventDates) => {
   e = new Date(e)
   e = new Date(e.getTime() + Math.abs(e.getTimezoneOffset() * 60000))
   return monthNames[e.getMonth()] + '/' + ("0" + (e.getDate())).slice(-2)
+}
+
+// https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
+// ["2020-03-05T07:00:00.000Z", "2020-03-01T07:00:00.000Z"]
+// --> Mar/03/2020
+const returnLastDateMMDDYYYY = (eventDates) => {
+  let e = eventDates.sort((a, b) => {
+    return new Date(a) > new Date(b) ? a : b
+  }).slice(-1).pop()
+  e = new Date(e)
+  e = new Date(e.getTime() + Math.abs(e.getTimezoneOffset() * 60000))
+  return monthNums[e.getMonth()] + '/' + ("0" + (e.getDate())).slice(-2) + '/' + e.getFullYear()
 }
 
 // ["2020-03-05T07:00:00.000Z", "2020-03-01T07:00:00.000Z"]
@@ -87,7 +115,9 @@ module.exports = {
   dateToMMDDString,
   dateToMMDDYYYYString,
   returnFirstDate,
+  returnFirstDateMMDDYYYY,
   returnLastDate,
+  returnLastDateMMDDYYYY,
   addDaysToDateReturnMMDDString,
   addDaysToDateReturnMMDDYYYYString
 }

@@ -11,7 +11,7 @@ import FlyerUpload from '../ImageUpload/FlyerUpload';
 import ValidationError from '../ValidationError/ValidationError';
 import ContentEditable from '../ContentEditable';
 import Spinner from '../../Spinner/Spinner';
-import { addDaysToDateReturnMMDDYYYYString } from '../../../helpers/dateHelpers'
+import { addDaysToDateReturnMMDDYYYYString, returnFirstDateMMDDYYYY, returnLastDateMMDDYYYY } from '../../../helpers/dateHelpers'
 import { capitalize } from '../../../helpers/textHelpers'
 import FlyerCardMenu from '../../FlyerCardMenu/FlyerCardMenu'
 import NotFound from '../../NotFound/NotFound'
@@ -25,14 +25,20 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const [fetching, setFetching] = useState(false)
   const [isDateReq, setIsDateReq] = useState(false)
 
+  const firstDate = flyer && flyer.flyer_type !== 'Tour' && flyer.events.length > 0
+    ? returnFirstDateMMDDYYYY(flyer.events.map(e => e.event_date))
+    : ''
+  const lastDate = flyer && flyer.flyer_type === 'Fest' && flyer.events.length > 0
+    ? returnLastDateMMDDYYYY(flyer.events.map(e => e.event_date))
+    : ''
   const [formBody, setFormBody] = useState({
     //id: flyer.id || '',
     imgUrl: { value: flyer.image_url || '' , error: ''},
     headline: { value: flyer.headline || '', touched: false, error: '' },
     events: flyer.events || [],
     //
-    date: { value: '', touched: false, error: ''},
-    endDate: { value: '', touched: false, error: '' },
+    date: { value: firstDate, touched: false, error: ''},
+    endDate: { value: lastDate, touched: false, error: '' },
     venueName: { value: '', touched: false, error: ''},
     countryName: { value: '', code: ''},
     regionName: { value: '', array: [] },
@@ -48,7 +54,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     created: flyer.created || ''
   })
 
-
   const resetForm = () => {
     setIsDateReq(false)
     setFormBody({
@@ -56,8 +61,8 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       imgUrl: { value: flyer.image_url || '', error: '' },
       headline: { value: flyer.headline || '', touched: false, error: '' },
       events: flyer.events || [],
-      date: { value: '', touched: false, error: '' },
-      endDate: { value: '', touched: false, error: '' },
+      date: { value: firstDate, touched: false, error: '' },
+      endDate: { value: lastDate, touched: false, error: '' },
       venueName: { value: '', touched: false, error: '' },
       countryName: { value: '', code: '' },
       regionName: { value: '', array: [] },
@@ -159,7 +164,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     return htmlText
   }
 
-  // formBody.events array for "Show" or "Fest" (hidden EventsPreview, unless edit) (gens temp id for edit EventsPreview)
+  // formBody.events array for "Show" or "Fest" (gens temp id for edit EventsPreview)
   const returnShowFestEventsArr = () => {
     if (formBody.type === "Show" || formBody.type === "Fest") {
       let eventFields = ["date", "endDate", "venueName", "countryName", "regionName", "cityName"]

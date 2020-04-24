@@ -3,7 +3,17 @@ import PropTypes from 'prop-types';
 import CountryRegionCityFormGroup from '../CountryCityMenu/CountryRegionCityFormGroup';
 import ValidationError from '../ValidationError/ValidationError';
 
-export default function EventFieldset({ updateEventFields, addTourStop, formDate, formVenue, formCountryRegionCity, formType, formEndDate, formCancelled, isDateReq }) {
+export default function EventFieldset({
+  updateEventFields,
+  addTourStop,
+  formDate,
+  formVenue,
+  formCountryRegionCity,
+  formType,
+  formEndDate,
+  formCancelled,
+  isDateReq }) {
+
 
   const updateCountryRegionCity = (fields) => {
     updateEventFields(fields)
