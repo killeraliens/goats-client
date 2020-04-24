@@ -8,7 +8,7 @@ export default function Intro() {
   return(
     <CentralContainer >
       <div className='Intro intro-about-container'>
-        <h1>GoatsGuide</h1>
+        <h1>GOATSGUIDE</h1>
       <br />
       <section>
         <h3>All that is UNHOLY. Upcoming shows and event flyer archive.</h3>

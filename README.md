@@ -1,4 +1,4 @@
-# GoatsGuide
+# GOATSGUIDE
 
 **All that is UNHOLY. Upcoming shows and event flyer archive. [goatsguide.com](https://goatsguide.com)**
 
