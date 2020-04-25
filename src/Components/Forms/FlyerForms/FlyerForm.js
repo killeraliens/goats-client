@@ -25,12 +25,28 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const [fetching, setFetching] = useState(false)
   const [isDateReq, setIsDateReq] = useState(false)
 
-  const firstDate = flyer && flyer.flyer_type !== 'Tour' && flyer.events.length > 0
+  const firstDate = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
     ? returnFirstDateMMDDYYYY(flyer.events.map(e => e.event_date))
     : ''
-  const lastDate = flyer && flyer.flyer_type === 'Fest' && flyer.events.length > 0
+  const lastDate = flyer && flyer.flyer_type === 'Fest' && flyer.events && flyer.events.length > 0
     ? returnLastDateMMDDYYYY(flyer.events.map(e => e.event_date))
     : ''
+  const firstVenue = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
+    ? flyer.events[0].venue_name
+    : ''
+  const firstCountry = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
+    ? flyer.events[0].country_name
+    : ''
+  const firstRegion = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
+    ? flyer.events[0].region_name
+    : ''
+  const firstCity = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
+    ? flyer.events[0].city_name
+    : false
+  const firstCancelled = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
+    ? flyer.events[0].cancelled
+    : false
+
   const [formBody, setFormBody] = useState({
     //id: flyer.id || '',
     imgUrl: { value: flyer.image_url || '' , error: ''},
@@ -39,11 +55,11 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     //
     date: { value: firstDate, touched: false, error: ''},
     endDate: { value: lastDate, touched: false, error: '' },
-    venueName: { value: '', touched: false, error: ''},
-    countryName: { value: '', code: ''},
-    regionName: { value: '', array: [] },
-    cityName: { value: '', touched: false, error: '' },
-    cancelled: false,
+    venueName: { value: firstVenue, touched: false, error: ''},
+    countryName: { value: firstCountry, code: ''},
+    regionName: { value: firstRegion, array: [] },
+    cityName: { value: firstCity, touched: false, error: '' },
+    cancelled: firstCancelled,
     //
     bands: { value: flyer.bands || '', touched: false, error: '' },
     details: { value: flyer.details|| '', touched: false, error: '' },
@@ -63,11 +79,11 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       events: flyer.events || [],
       date: { value: firstDate, touched: false, error: '' },
       endDate: { value: lastDate, touched: false, error: '' },
-      venueName: { value: '', touched: false, error: '' },
-      countryName: { value: '', code: '' },
-      regionName: { value: '', array: [] },
-      cityName: { value: '', error: '' },
-      cancelled: false,
+      venueName: { value: firstVenue, touched: false, error: '' },
+      countryName: { value: firstCountry, code: '' },
+      regionName: { value: firstRegion, array: [] },
+      cityName: { value: firstCity, error: '' },
+      cancelled: firstCancelled,
       bands: { value: flyer.bands || '', touched: false, error: '' },
       details: { value: flyer.details || '', touched: false, error: '' },
       publishComment: { value: flyer.publish_comment || '', touched: false, error: '' },
