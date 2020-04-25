@@ -8,12 +8,12 @@ export default function CountrySelector({ updateCountry, formCountry }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const myAbortController = new AbortController();
+    const abortController = new AbortController();
     const fetchData = async () => {
       setLoading(true)
 
       try {
-        const response = await fetch(`${config.API_ENDPOINT}/country`, { signal: myAbortController.signal })
+        const response = await fetch(`${config.API_ENDPOINT}/country`, { signal: abortController.signal })
         const body = await response.json();
         if (!response.ok) {
           //setServerError({ status: response.status, message: body.message })
@@ -23,7 +23,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
           setData({ countries: body })
         }
       } catch (e) {
-        if (!myAbortController.signal.aborted) {
+        if (!abortController.signal.aborted) {
            //setServerError({ status: e.status, message: e.message })
           setLoading(false)
         }
@@ -32,10 +32,25 @@ export default function CountrySelector({ updateCountry, formCountry }) {
     fetchData();
     return () => {
       // console.log('cleaned up')
-      myAbortController.abort();
+      abortController.abort();
     }
   }, []);
 
+  // after mount if formCountry val prop exists,
+  // this will update the ccode and trigger the change needed for region menu appearance
+  useEffect(() => {
+    if (!!formCountry.value && !!formCountry.code === false) {
+      const defaultCountyWithCode = data.countries.find(({ country_name }) => {
+        return formCountry.value === country_name
+      })
+      if (defaultCountyWithCode && !!defaultCountyWithCode.country_code && !!defaultCountyWithCode.country_name) {
+        updateCountry({
+          code: defaultCountyWithCode.country_code,
+          value: defaultCountyWithCode.country_name
+        })
+      }
+    }
+  }, formCountry.country_name, data)
 
   const handleChange = (e) => {
     if (e.label === 'None') {
@@ -97,6 +112,12 @@ export default function CountrySelector({ updateCountry, formCountry }) {
     return [{ value: '', label: 'None' }, ...countryArr ]
   }
 
+  const defaultValue = () => {
+    return !!formCountry.value
+      ? { value: formCountry.code, label: formCountry.value }
+      : { value: '', label: 'Select Country' }
+  }
+
   return(
     <fieldset className="CountryFieldset grow">
       <label htmlFor="country">Select Country</label>
@@ -104,7 +125,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         <Select
           className="react-select-container"
           styles={customStyles}
-          defaultValue={{ value: '', label: 'Select Country' }}
+          defaultValue={defaultValue()}
           onChange={handleChange}
           options={options()}/>
       </div>

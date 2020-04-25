@@ -42,7 +42,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     : ''
   const firstCity = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
     ? flyer.events[0].city_name
-    : false
+    : ''
   const firstCancelled = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
     ? flyer.events[0].cancelled
     : false
