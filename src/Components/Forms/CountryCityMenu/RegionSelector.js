@@ -1,37 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select'
 let provinces = require('provinces')
 
 export default function RegionSelector({ updateRegion, formRegion, formCountry }) {
+  const formRegionDefault = !!formRegion.value
+    ? { value: formRegion.value, label: formRegion.value }
+    : { value: '', label: 'Select Region' }
 
   useEffect(() => {
     const setRegionArray = () => {
       const regions = provinces.filter(row => row.country === formCountry.code)
-      updateRegion({ value: '', array: regions } )
+      updateRegion({ value: regions.length > 0 ? formRegion.value : '', array: regions })
     }
-
     setRegionArray()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formCountry])
-
+  }, [formCountry.code, formRegion.value])
 
   const handleChange = (e) => {
-    updateRegion({ ...formRegion, value: e.label })
-  }
-
-  if (!formCountry.code || formRegion.array.length === 0 || !['US', 'CA'].includes(formCountry.code)) {
-    // if(Boolean(formRegion.value)) {
-    //   return <p>{formRegion.value}</p>
-    // }
-    return null
+    updateRegion({ ...formRegion, value: e.value })
   }
 
   const options = () => {
-    return formRegion.array.map(({ name, short }) => {
-      return { value: name, label: Boolean(short) ? short : name }
+    const regions = formRegion.array.map(({ name, short }) => {
+      return { value: Boolean(short) ? short : name, label: Boolean(short) ? short : name }
     })
-
+    return [{ value: '', label: 'None' }, ...regions]
   }
 
   const customStyles = {
@@ -67,12 +61,16 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     })
   }
 
+  if (!!formCountry.code === false || formRegion.array.length === 0 || !['US', 'CA'].includes(formCountry.code)) {
+    return null
+  }
+
   return(
     <fieldset className="RegionFieldset no-grow">
       <label htmlFor="region">State/Province</label>
       <Select
         styles={customStyles}
-        defaultValue={{ value: formRegion.value, label: formRegion.value }}
+        defaultValue={formRegionDefault}
         onChange={handleChange}
         options={options()} />
     </fieldset>

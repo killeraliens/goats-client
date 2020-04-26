@@ -300,15 +300,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     e.preventDefault()
 
     const eventPostBodies = formBody.events.map(event => {
-
-      // const formattedDate = event.event_date && event.event_date.length === 5
-      //   ? dateWithYear(event.event_date)
-      //   : event.event_date && event.event_date.length > 5
-      //     ? event.event_date
-      //     : null
-
       return {
-        // event_date: formattedDate,
         event_date:  event.event_date,
         venue_name: capitalize(event.venue_name),
         city_name: capitalize(event.city_name),
@@ -359,7 +351,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       setFetching(false)
     } else {
       setServerError(null)
-      resetForm()
       setFetching(false)
       if (flyerPostBody.listing_state !== "Draft") {
         if (isPatch) {

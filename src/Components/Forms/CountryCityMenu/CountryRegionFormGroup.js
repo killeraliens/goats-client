@@ -10,6 +10,7 @@ export default function CountryRegionFormGroup({ updateCountryRegion, formCountr
   }
 
   const updateRegion = (region) => {
+    //console.log('REGEION', { ...formCountryRegion, regionName: { ...region } })
     updateCountryRegion({ ...formCountryRegion, regionName: { ...region }})
   }
 

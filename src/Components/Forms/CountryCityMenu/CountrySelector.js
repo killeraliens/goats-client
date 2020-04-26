@@ -4,19 +4,22 @@ import config from '../../../config';
 import Select from 'react-select'
 
 export default function CountrySelector({ updateCountry, formCountry }) {
+  const defaultValue = () => {
+    return !!formCountry.value
+      ? { value: formCountry.code, label: formCountry.value }
+      : { value: 0, label: 'Select Country' }
+  }
   const [data, setData] = useState({ countries: [] })
   const [loading, setLoading] = useState(true)
-
+  //const [defaultVal, setDefaultVal] = useState({ value: formCountry.code, label: formCountry.value })
   useEffect(() => {
     const abortController = new AbortController();
     const fetchData = async () => {
       setLoading(true)
-
       try {
         const response = await fetch(`${config.API_ENDPOINT}/country`, { signal: abortController.signal })
         const body = await response.json();
         if (!response.ok) {
-          //setServerError({ status: response.status, message: body.message })
           setLoading(false)
         } else {
           setLoading(false)
@@ -24,14 +27,12 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         }
       } catch (e) {
         if (!abortController.signal.aborted) {
-           //setServerError({ status: e.status, message: e.message })
           setLoading(false)
         }
       }
     }
     fetchData();
     return () => {
-      // console.log('cleaned up')
       abortController.abort();
     }
   }, []);
@@ -50,7 +51,7 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         })
       }
     }
-  }, formCountry.country_name, data)
+  }, [formCountry.value, data.countries])
 
   const handleChange = (e) => {
     if (e.label === 'None') {
@@ -64,10 +65,6 @@ export default function CountrySelector({ updateCountry, formCountry }) {
         value: e.label
       })
     }
-  }
-
-  if (loading) {
-    return <p>Loading Countries...</p>
   }
 
   const customStyles = {
@@ -112,10 +109,8 @@ export default function CountrySelector({ updateCountry, formCountry }) {
     return [{ value: '', label: 'None' }, ...countryArr ]
   }
 
-  const defaultValue = () => {
-    return !!formCountry.value
-      ? { value: formCountry.code, label: formCountry.value }
-      : { value: '', label: 'Select Country' }
+  if (loading) {
+    return <p>Loading Countries...</p>
   }
 
   return(
@@ -127,7 +122,8 @@ export default function CountrySelector({ updateCountry, formCountry }) {
           styles={customStyles}
           defaultValue={defaultValue()}
           onChange={handleChange}
-          options={options()}/>
+          options={options()}
+        />
       </div>
     </fieldset>
   )
