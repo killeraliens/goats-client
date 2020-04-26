@@ -152,7 +152,7 @@ export default function EventFieldset({
           { formType === "Fest" ? endDateFieldSet() : null }
         </div>
         <fieldset className="grow">
-          <label htmlFor="venueName">Venue Name</label>
+          <label htmlFor="venueName">Venue</label>
           <input
             id="venueName"
             name="venueName"

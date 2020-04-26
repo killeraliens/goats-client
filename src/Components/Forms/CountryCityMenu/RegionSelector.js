@@ -6,7 +6,7 @@ let provinces = require('provinces')
 export default function RegionSelector({ updateRegion, formRegion, formCountry }) {
   const formRegionDefault = !!formRegion.value
     ? { value: formRegion.value, label: formRegion.value }
-    : { value: '', label: 'Select Region' }
+    : { value: '', label: '--' }
 
   useEffect(() => {
     const setRegionArray = () => {
@@ -25,7 +25,7 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
     const regions = formRegion.array.map(({ name, short }) => {
       return { value: Boolean(short) ? short : name, label: Boolean(short) ? short : name }
     })
-    return [{ value: '', label: 'None' }, ...regions]
+    return [{ value: '', label: '--' }, ...regions]
   }
 
   const customStyles = {
@@ -67,7 +67,7 @@ export default function RegionSelector({ updateRegion, formRegion, formCountry }
 
   return(
     <fieldset className="RegionFieldset no-grow">
-      <label htmlFor="region">State/Province</label>
+      <label htmlFor="region">State</label>
       <Select
         styles={customStyles}
         defaultValue={formRegionDefault}
