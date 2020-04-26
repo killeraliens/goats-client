@@ -22,8 +22,8 @@
 }
 
 .MainNavLink.whitesmoke-black.active {
-  background-color: whitesmoke;
-  color: black;
+  background-color: #131313;
+  color: whitesmoke;
 }
 
 .MainNavLink.green-white.active {
