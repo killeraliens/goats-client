@@ -1,6 +1,10 @@
 {
   "version": 2,
   "name": "goatsguide",
+  "alias": [
+    "www.unholygrail.org",
+    "www.goatsguide.com"
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
