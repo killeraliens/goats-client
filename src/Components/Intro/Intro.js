@@ -8,10 +8,10 @@ export default function Intro() {
   return(
     <CentralContainer >
       <div className='Intro intro-about-container'>
-        <h1>GOATSGUIDE</h1>
+        <h1>UNHOLYGRAIL</h1>
       <br />
       <section>
-        <h3>All that is UNHOLY. Upcoming shows and event flyer archive.</h3>
+        <h3>Upcoming shows and event flyer archive.</h3>
         <p>
             This is a DIY bulletin board for poster artwork and event information.
             If you want to copy/paste from an event already on Facebook or upload an old flier,

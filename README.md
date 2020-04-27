@@ -1,6 +1,6 @@
-# GOATSGUIDE
+# UNHOLYGRAIL
 
-**All that is UNHOLY. Upcoming shows and event flyer archive. [goatsguide.com](https://goatsguide.com)**
+**Upcoming shows and event flier archive. [unholygrail.org](https://unholygrail.org)**
 
 This is a DIY bulletin board for poster artwork and event information.
 If you want to copy/paste from an event already on Facebook or upload an old flier,
@@ -12,7 +12,7 @@ Archive digital references to fliers and shows from your past.
 
 ## How it works.
 
-**[Create an account](https://goatsguide.com/public/signup) or [Sign In](https://goatsguide.com/public/signin) to view & share fliers. Forgot your password? There's a link for that. [Recover Password](https://goatsguide.com/public/recover)**
+**[Create an account](https://unholygrail.org/public/signup) or [Sign In](https://unholygrail.org/public/signin) to view & share fliers. Forgot your password? There's a link for that. [Recover Password](https://unholygrail.org/public/recover)**
 
 ![flier feed screenshot](./src/assets/ss-flier-feed.png)
 

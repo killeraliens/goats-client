@@ -14,7 +14,7 @@ export default function Forum() {
     <div className="Forum" id="Forum">
       <MainHeader >
         <Link to='/fliers' className='header-link'>
-          GOATSGUIDE
+          UNHOLYGRAIL
         </Link>
       </MainHeader>
       <CountryRegions format={"links"}/>
