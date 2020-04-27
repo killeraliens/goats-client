@@ -65,7 +65,6 @@ export default function RecoverPasswordForm() {
         setServerError({ status: response.status, message: body.message })
         setFetching(false)
       } else {
-        console.log('email sent', serverError)
         setToast({ message: `Watch your email for instructions.`, timeout: 2000 })
         setFetching(false)
         resetForm()
