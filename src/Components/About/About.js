@@ -23,7 +23,7 @@ export default function About() {
             Send any errors, questions, or general improvements to
             {' '}
             <Mailto
-              email='goatsguide@gmail.com'
+              email='admin@unholygrail.org'
               // headers={
               //   { subject: 'General' },
               //   { cc: 'friend@coston.cool' }

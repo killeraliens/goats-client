@@ -61,9 +61,9 @@ export default function Intro() {
           <p>
             Watch for new features like comments, sorting, and stars.
             Contact  <Mailto
-              email='goatsguide@gmail.com'
+              email='admin@unholygrail.org'
               headers={
-                { subject: 'Suggestion' }
+                { subject: 'Suggestions' }
               }
             /> with suggestions for features you would like to see added.
           </p>
