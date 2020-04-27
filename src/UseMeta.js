@@ -6,6 +6,16 @@ class UseMeta extends Component {
   constructor(props) {
     super(props)
   }
+
+  static defaultProps = {
+    title: 'UNHOLYGRAIL',
+    description: 'Upcoming shows and event flier archive.',
+    keywords: 'unholy grail, unholygrail, unholygrail.org, goats guide, goatsguide, fliers, flyers, poster archive, metal, death metal, concerts, festivals, metal shows, metal events, metal flyers, flyer archive, flier archive',
+    ogUrl: 'https://unholygrail.org',
+    ogImage: 'https://res.cloudinary.com/killeraliens/image/upload/v1587527896/goats-guide/goats-arm-meta-1200x675.png',
+    ogImageAlt: 'UNHOLYGRAIL corpse arm.'
+  }
+
   render() {
     const { title, description, keywords, ogUrl, ogImage, ogImageAlt } = this.props
     return (
@@ -34,15 +44,6 @@ class UseMeta extends Component {
       </MetaTags>
     )
   }
-}
-
-UseMeta.defaultProps = {
-  title: 'UNHOLYGRAIL',
-  description: 'Upcoming shows and event flier archive.',
-  keywords: 'unholy grail, unholygrail, unholygrail.org, goats guide, goatsguide, fliers, flyers, poster archive, metal, death metal, concerts, festivals, metal shows, metal events, metal flyers, flyer archive, flier archive',
-  ogUrl: 'https://unholygrail.org',
-  ogImage: 'https://res.cloudinary.com/killeraliens/image/upload/v1587527896/goats-guide/goats-arm-meta-1200x675.png',
-  ogImageAlt: 'UNHOLYGRAIL corpse arm.'
 }
 
 UseMeta.propTypes = {
