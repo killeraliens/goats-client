@@ -97,7 +97,7 @@ export default function CountryRegions({ format }) {
                   <React.Fragment key={i}>
                     <MainNavLink to={`/fliers/${country.country_name}`}>
                       {country.country_name}
-                      <span className="MainNavLink--count">{country.per_country}</span>
+                      {country.upcoming_per_country > 0 ? <span className="MainNavLink--count">{country.upcoming_per_country}</span> : null}
                     </MainNavLink>
                     {country.regions.map(region => {
                       return (
