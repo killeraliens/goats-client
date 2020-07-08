@@ -105,7 +105,7 @@ export default function CountryRegions({ format }) {
                       return (
                         <MainNavLink key={region.region_name} to={`/fliers/${region.region_name}`}>
                           {region.region_name}
-                          {country.upcoming_per_country > 0
+                          {country.upcoming_per_region > 0
                             ? <span className="MainNavLink--count">{region.upcoming_per_region}</span>
                             : null}
                         </MainNavLink>
