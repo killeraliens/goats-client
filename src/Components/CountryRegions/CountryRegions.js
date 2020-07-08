@@ -67,7 +67,7 @@ export default function CountryRegions({ format }) {
           {data[i].regions.map(region => {
             if (Boolean(region.region_name)) {
               return <Route exact key={region.region_name} path={`/fliers/${region.region_name}`} render={() => {
-                return <Country countryName={data[i].country_name} regionName={region.region_name} />
+                return <Country countryName={region.country_name} regionName={region.region_name} />
               }} />
             }
           })}
@@ -97,13 +97,17 @@ export default function CountryRegions({ format }) {
                   <React.Fragment key={i}>
                     <MainNavLink to={`/fliers/${country.country_name}`}>
                       {country.country_name}
-                      {country.upcoming_per_country > 0 ? <span className="MainNavLink--count">{country.upcoming_per_country}</span> : null}
+                      {country.upcoming_per_country > 0
+                        ? <span className="MainNavLink--count">{country.upcoming_per_country}</span>
+                        : null}
                     </MainNavLink>
                     {country.regions.map(region => {
                       return (
                         <MainNavLink key={region.region_name} to={`/fliers/${region.region_name}`}>
                           {region.region_name}
-                          <span className="MainNavLink--count">{region.per_region}</span>
+                          {country.upcoming_per_country > 0
+                            ? <span className="MainNavLink--count">{region.upcoming_per_region}</span>
+                            : null}
                         </MainNavLink>
                       )
                     })}
