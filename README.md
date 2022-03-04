@@ -14,29 +14,29 @@ Archive digital references to fliers and shows from your past.
 
 **[Create an account](https://unholygrail.org/public/signup) or [Sign In](https://unholygrail.org/public/signin) to view & share flyers. [Recover Password](https://unholygrail.org/public/recover)**
 
-![flier feed screenshot](./src/assets/ss-flier-feed.png)
+<!-- ![flier feed screenshot](./src/assets/ss-flier-feed.png) -->
 
 <br/>
 
 **Manage your profile, account settings, posted flyers from your dashboard.**
 
-![dashboard screenshot](./src/assets/ss-edit-flier-profile.png)
+<!-- ![dashboard screenshot](./src/assets/ss-edit-flier-profile.png) -->
 
 <br/>
 
 **Post a new flyer. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the event form to make the artwork more searchable.**
 
-![post flier screenshot](./src/assets/ss-create-flier.png)
+<!-- ![post flier screenshot](./src/assets/ss-create-flier.png) -->
 
 <br/>
 
-**Keep your flyers and their events updated. Cancel all tourstops or event dates affected. Cancelling all events on a flyer will show a notification tag on the public version.**
+**Keep flyers and their events updated. Cancel all tourstops or event dates affected. Cancelling all events on a flyer will show a notification tag on the public version.**
 
-![post flier screenshot](./src/assets/ss-cancel-events.png)
+<!-- ![post flier screenshot](./src/assets/ss-cancel-events.png) -->
 
 <br/>
 
-## Sign in with the demo account to check it out.
+## Sign in with the demo account or create an account.
 - username: demo
 - password: demo123
 
