@@ -14,7 +14,7 @@ export default function Footer() {
   return(
     <footer className="Footer">
       <p>
-        <FontAwesomeIcon icon={faCopyright} />Copyright 2019, 2020 UNHOLYGRAIL
+        <FontAwesomeIcon icon={faCopyright} />{new Date().getFullYear()} UNHOLYGRAIL
       </p>
     </footer>
   )
