@@ -87,7 +87,7 @@ function GetFlyer({ match, isEdit }) {
       )
 
     case flyer.id && isEdit && !isAuthed:
-      return <Redirect to='/fliers' />
+      return <Redirect to='/flyers' />
 
     case flyer.id && isEdit && isAuthed:
       return (

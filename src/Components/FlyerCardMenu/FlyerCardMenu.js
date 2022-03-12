@@ -38,8 +38,8 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
       setFetching(false)
       deleteFlyer(flyerId)
       deleteFlyerDash(flyerId)
-      setToast({ message: `Flier deleted` })
-      if (match.path === '/flier/:flyer_id' || match.path === '/flier/:flyer_id/edit') {
+      setToast({ message: `Flyer deleted` })
+      if (match.path === '/flyer/:flyer_id' || match.path === '/flyer/:flyer_id/edit') {
         history.goBack()
       }
     }
@@ -84,7 +84,7 @@ function FlyerCardMenu({ creatorId, flyerId, hasHandle, history, match }) {
             </MainNavLink>
             <MainNavLink
               activeColorClass={'green-white'}
-              to={`/flier/${flyerId}/edit`}
+              to={`/flyer/${flyerId}/edit`}
             >
               {fetching
                 ? '  ...  '

@@ -9,8 +9,8 @@ class UseMeta extends Component {
 
   static defaultProps = {
     title: 'UNHOLYGRAIL',
-    description: 'Upcoming shows and event flier archive.',
-    keywords: 'unholy grail, unholygrail, unholygrail.org, goats guide, goatsguide, fliers, flyers, poster archive, metal, death metal, concerts, festivals, metal shows, metal events, metal flyers, flyer archive, flier archive',
+    description: 'Upcoming shows and event flyer archive.',
+    keywords: 'unholy grail, unholygrail, unholygrail.org, goats guide, goatsguide, flyers, flyers, poster archive, metal, death metal, concerts, festivals, metal shows, metal events, metal flyers, flyer archive, flyer archive',
     ogUrl: 'https://unholygrail.org',
     ogImage: 'https://res.cloudinary.com/killeraliens/image/upload/v1587527896/goats-guide/goats-arm-meta-1200x675.png',
     ogImageAlt: 'UNHOLYGRAIL corpse arm.'

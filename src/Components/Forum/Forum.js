@@ -13,14 +13,14 @@ export default function Forum() {
   return(
     <div className="Forum" id="Forum">
       <MainHeader >
-        <Link to='/fliers' className='header-link'>
+        <Link to='/flyers' className='header-link'>
           UNHOLYGRAIL
         </Link>
       </MainHeader>
       <CountryRegions format={"links"}/>
       <div className="Main--content">
         <Switch>
-          <Route exact path={`/fliers`} render={() => {
+          <Route exact path={`/flyers`} render={() => {
             return (
               <Feed
                 flyers={flyers}
@@ -33,7 +33,7 @@ export default function Forum() {
           }} />
           <CountryRegions format={"routes"}/>
           <Route render={() => {
-            return <NotFound link={<Link to="/fliers">Back to flier feed</Link>} />
+            return <NotFound link={<Link to="/flyers">Back to flyer feed</Link>} />
           }} />
         </Switch>
       </div>

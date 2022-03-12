@@ -86,7 +86,7 @@ function SignInForm({ history }) {
         let user = body.token ? body : null
         updateAuthenticated(user)
         setToast({ message: `Hello ${user.username}.` })
-        history.push(`/fliers`)
+        history.push(`/flyers`)
       }
     } catch (err) {
       setServerError({ message: err.message })
