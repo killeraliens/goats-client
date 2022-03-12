@@ -10,7 +10,7 @@ export default function About() {
         <section>
           <h1>About</h1>
           <p>
-            This is a community bulletin where you can post flier artwork
+            This is a community bulletin where you can post flyer artwork
             and other relevant information for live tours and concerts.
           </p>
           <p>
@@ -29,8 +29,6 @@ export default function About() {
               //   { cc: 'friend@coston.cool' }
               // }
             />
-            {/* {' '}
-            - Ali */}
           </p>
         </section>
 

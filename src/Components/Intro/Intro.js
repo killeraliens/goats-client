@@ -14,12 +14,12 @@ export default function Intro() {
         <h3>Upcoming shows and event flyer archive.</h3>
         <p>
             This is a DIY bulletin board for poster artwork and event information.
-            If you want to copy/paste from an event already on Facebook or upload an old flier,
+            If you want to copy/paste from an event already on Facebook or upload an old flyer,
             that would be a great way to contribute.
         </p>
         <p>
           View more artwork and upcoming events from an international scope, as they get posted.
-          Archive digital references to fliers and shows from your past.
+          Archive digital references to flyers and shows from your past.
         </p>
         <div className='center-button-container'>
           <Link to='/public/signup' className='ActionButton'>Sign up</Link>
@@ -30,7 +30,7 @@ export default function Intro() {
         <h3>How it works</h3>
         <div className="flex-bullets">
           <p style={{marginTop: '0px'}}>
-              <Link to='/public/signup' >Create an account</Link> or <Link to='/public/signin'>Sign In</Link> to view and share fliers.
+              <Link to='/public/signup' >Create an account</Link> or <Link to='/public/signin'>Sign In</Link> to view and share flyers.
               Forgot your password? <Link to='/public/recover'>Recover Password</Link>.
           </p>
         </div>
@@ -41,20 +41,20 @@ export default function Intro() {
         </div>
         <div className="flex-bullets">
           <p>
-            Post a flier. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make it more searchable.
+            Post a flyer. Select from 'Single Show', 'Fest', or 'Tour' templates. Complete the form to make it more searchable.
           </p>
         </div>
         <div className="flex-bullets">
           <p>
-              Keep your fliers and their events updated.
+              Keep your flyers and their events updated.
               Cancel all tourstops or event dates affected.
-              Cancelling all events on a flier will show a notification tag on the public flier.
+              Cancelling all events on a flyer will show a notification tag on the public flyer.
           </p>
         </div>
           <div className="flex-bullets">
             <p>
-              Deleting one of your fliers will remove it from the database.
-              Admin level accounts reserve the right to modify or remove fliers with irrelevant or dangerous content.
+              Deleting one of your flyers will remove it from the database.
+              Admin level accounts reserve the right to modify or remove flyers with irrelevant or dangerous content.
           </p>
           </div>
         <div className="flex-bullets">

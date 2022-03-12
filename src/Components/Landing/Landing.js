@@ -29,7 +29,7 @@ function Landing({ location }) {
       </MainHeader>
       <MainHeaderNav
         links={[
-          <MainNavLink to="/fliers" callbackRedirect={toastAlert}>Flier Feed</MainNavLink>,
+          <MainNavLink to="/flyers" callbackRedirect={toastAlert}>Flyer Feed</MainNavLink>,
           <MainNavLink to="/public/signin">Sign In</MainNavLink>
         ]}
       />

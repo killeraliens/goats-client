@@ -14,7 +14,7 @@ export default function Menu() {
   return (
     <div className="Menu scrollable">
       <div className="Menu--pal">
-        <NavLink to="/fliers" className="Menu--pal--btn">
+        <NavLink to="/flyers" className="Menu--pal--btn">
           <img src={pentagram} alt="pentagram icon"/>
         </NavLink>
         <NavLink to={`/dashboard/${context.user.id}`} className="Menu--pal--btn">
@@ -28,7 +28,7 @@ export default function Menu() {
           <span>
             <FontAwesomeIcon className="i" icon={faFile} />
             <br />
-            +FLIER
+            +FLYER
           </span>
         </NavLink>
       </div>

@@ -80,7 +80,7 @@ class App extends Component {
                   <AuthedSplit mainComponent={<Dashboard {...props}/>} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/fliers`} render={props =>
+              <PrivateRoute path={`/flyers`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<Forum {...props}/>} />
                 </ErrorBoundary>
@@ -90,12 +90,12 @@ class App extends Component {
                   <AuthedSplit mainComponent={<CreateFlyer {...props} />} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/flier/:flyer_id/edit`} render={props =>
+              <PrivateRoute path={`/flyer/:flyer_id/edit`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<GetFlyer isEdit={true} {...props} />} />
                 </ErrorBoundary>
               } />
-              <PrivateRoute path={`/flier/:flyer_id`} render={props =>
+              <PrivateRoute path={`/flyer/:flyer_id`} render={props =>
                 <ErrorBoundary>
                   <AuthedSplit mainComponent={<GetFlyer {...props} />} />
                 </ErrorBoundary>
@@ -103,7 +103,7 @@ class App extends Component {
               <Route render={() => {
               return !user
                     ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
-                    : <Redirect to="/fliers" /> // <NotFound link={<Link to="/fliers">Back to forum</Link>} />
+                    : <Redirect to="/flyers" /> // <NotFound link={<Link to="/flyers">Back to forum</Link>} />
                 }
               } />
             </Switch>

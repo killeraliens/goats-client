@@ -105,7 +105,7 @@ function ResetPasswordForm({ history, match }) {
         let user = body.token ? body : null
         updateAuthenticated(user)
         setToast({ message: `Password has been updated.`})
-        history.push(`/fliers`)
+        history.push(`/flyers`)
       }
     } catch (err) {
       setServerError({ message: err.message })

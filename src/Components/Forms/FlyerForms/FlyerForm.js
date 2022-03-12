@@ -355,18 +355,18 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
       if (flyerPostBody.listing_state !== "Draft") {
         if (isPatch) {
           updateFlyer(patchId, flyerPostBody)
-          setToast({ message: `Flier successfully updated.`})
+          setToast({ message: `Flyer successfully updated.`})
         } else {
           body = await response.json();
           addFlyer(body)
-          setToast({ message: `Flier successfully posted.`})
+          setToast({ message: `Flyer successfully posted.`})
         }
       }
       if (flyerPostBody.listing_state === "Draft" ) {
         setToast({ message: `Draft created.`})
         history.push(`/dashboard/${formBody.creatorId}/drafts`)
       }
-      return isPatch ? history.goBack() : history.push(`/fliers`)
+      return isPatch ? history.goBack() : history.push(`/flyers`)
     }
   }
 
@@ -519,7 +519,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
         {/* <button type="button" disabled={!touched} value="Draft" onClick={handleSubmit}>Save As Draft</button> */}
         <button type="reset" onClick={() => {
           resetForm()
-          return formBody.id ? history.goBack() : history.push('/fliers')
+          return formBody.id ? history.goBack() : history.push('/flyers')
         }}>
           Cancel
         </button>
