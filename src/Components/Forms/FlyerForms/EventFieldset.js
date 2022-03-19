@@ -59,10 +59,11 @@ export default function EventFieldset({
   const validateVenueName = () => {
     if (formVenue.touched) {
       const trimmedVenueName = formVenue.value.trim()
-      return !(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/.test(trimmedVenueName)) && Boolean(trimmedVenueName)
+      const regex = new RegExp("/^[a-zA-Z\s,.'-\pL]+$/", "u")
+      return (regex.test(trimmedVenueName)) && Boolean(trimmedVenueName)
         ? `Venue name format doesn't look right`
-        : trimmedVenueName.length > 26
-        ? 'Venue name must be under 26 characters long'
+        : trimmedVenueName.length > 150
+        ? 'Venue name must be under 150 characters long'
         : ''
     }
     return ''
