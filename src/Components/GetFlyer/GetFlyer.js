@@ -18,21 +18,22 @@ function GetFlyer({ match, isEdit }) {
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const [ flyer, setFlyer ] = useState({})
+  const activeClassnameStr = 'whitesmoke-black active'
   const formLinks = [
     <button 
-      className='MainNavLink'
+      className={flyer.flyer_type === "Show" ? ('MainNavLink ' + activeClassnameStr) : 'MainNavLink'}
       onClick={() => setFlyer(prev => ({...prev, flyer_type: "Show"}))} 
     >
       Single Show
     </button>,
     <button
-      className='MainNavLink'
+      className={flyer.flyer_type === "Fest" ? ('MainNavLink ' + activeClassnameStr) : 'MainNavLink'}
       onClick={() => setFlyer(prev => ({...prev, flyer_type: "Fest"}))} 
     >
       Festival
     </button>,
     <button
-    className='MainNavLink'
+    className={flyer.flyer_type === "Tour" ? ('MainNavLink ' + activeClassnameStr) : 'MainNavLink'}
     onClick={() => setFlyer(prev => ({...prev, flyer_type: "Tour"}))} 
   >
     Tour

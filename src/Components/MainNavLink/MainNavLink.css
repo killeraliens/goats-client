@@ -16,15 +16,15 @@
 }
 
 
-.MainNavLink:hover, .MainNavLink:focus {
+.MainNavLink:hover, .MainNavLink:focus, .MainNavLink.whitesmoke-black.active {
   color: white;
   background-color: rgb(26, 26, 26);
 }
 
-.MainNavLink.whitesmoke-black.active {
+/* .MainNavLink.whitesmoke-black.active {
   background-color: #131313;
   color: whitesmoke;
-}
+} */
 
 .MainNavLink.green-white.active {
   background-color: green;
