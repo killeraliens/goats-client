@@ -132,10 +132,6 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
   useEffect(() => {
     if (flyer && flyer.events && flyer.events.length > 0) {
-      // let showFestEventsArr = flyer.events
-      // function setNewEvents() {
-      //   return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
-      // }
       setFormBody(prev => ({ ...prev, events: [...flyer.events], type: flyer.flyer_type }))
     }
   }, [flyer.flyer_type, flyer.events])
