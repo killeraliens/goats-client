@@ -10,12 +10,34 @@ import FlyerCard from '../FlyerCard/FlyerCard'
 import BackLink from '../BackLink/BackLink'
 import CentralContainer from '../CentralContainer/CentralContainer'
 import NotFound from '../NotFound/NotFound'
+import MainNav from '../MainNav/MainNav'
+import MainNavLink from '../MainNavLink/MainNavLink'
 
 function GetFlyer({ match, isEdit }) {
   const { user } = useContext(AppContext)
   const [fetching, setFetching] = useState(false)
   const [serverError, setServerError] = useState(null)
   const [ flyer, setFlyer ] = useState({})
+  const formLinks = [
+    <button 
+      className='MainNavLink'
+      onClick={() => setFlyer(prev => ({...prev, flyer_type: "Show"}))} 
+    >
+      Single Show
+    </button>,
+    <button
+      className='MainNavLink'
+      onClick={() => setFlyer(prev => ({...prev, flyer_type: "Fest"}))} 
+    >
+      Festival
+    </button>,
+    <button
+    className='MainNavLink'
+    onClick={() => setFlyer(prev => ({...prev, flyer_type: "Tour"}))} 
+  >
+    Tour
+  </button>,
+  ]
 
  //on mount call api for flyer
   useEffect(() => {
@@ -97,6 +119,9 @@ function GetFlyer({ match, isEdit }) {
               Edit{' '}{flyer.headline}
             </BackLink>
           </MainHeader>
+          <MainNav
+            links={formLinks}
+          />
           <div className="Main--content">
             <CentralContainer>
               <FlyerForm flyer={flyer} />

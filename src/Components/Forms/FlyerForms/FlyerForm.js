@@ -24,7 +24,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
   const [serverError, setServerError] = useState(null)
   const [fetching, setFetching] = useState(false)
   const [isDateReq, setIsDateReq] = useState(false)
-
+  useEffect(() => {console.log('flyer changed!', flyer)}, [flyer])
   const firstDate = flyer && flyer.flyer_type !== 'Tour' && flyer.events && flyer.events.length > 0
     ? returnFirstDateMMDDYYYY(flyer.events.map(e => e.event_date))
     : ''
@@ -117,7 +117,7 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    // formbody.type, // with this the events will completely erase if you change flyer type
+    //formBody.type, // with this the events will completely erase if you change flyer type
     formBody.date.value,
     formBody.date.error,
     //all below will pass initial validations reguardless of errors for preview
@@ -132,13 +132,13 @@ function FlyerForm({ history, newType, flyer, creatorId }) {
 
   useEffect(() => {
     if (flyer && flyer.events && flyer.events.length > 0) {
-      let showFestEventsArr = flyer.events
-      function setNewEvents() {
-        return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
-      }
-      return setNewEvents()
+      // let showFestEventsArr = flyer.events
+      // function setNewEvents() {
+      //   return setFormBody(prev => ({ ...prev, events: [...showFestEventsArr] }))
+      // }
+      setFormBody(prev => ({ ...prev, events: [...flyer.events], type: flyer.flyer_type }))
     }
-  }, [flyer, flyer.events])
+  }, [flyer.flyer_type, flyer.events])
 
   useEffect(() => {
     setFormBody(prev => ({ ...prev, type: newType }))
