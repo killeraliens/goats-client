@@ -37,6 +37,12 @@ const dateToMMDDYYYYString = (date) => {
   return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
 }
 
+// "2022-05-22"
+//--> "2022/05/22"
+const isoDateStringToYYYYMMDDString = (isoDateStr) => {
+  return isoDateStr.replace(/-/g, "\/").split('T')[0]
+}
+
 // 09/15, 3
 //--> 09/18
 function addDaysToDateReturnMMDDString(mmdd, days) {
@@ -119,5 +125,6 @@ module.exports = {
   returnLastDate,
   returnLastDateMMDDYYYY,
   addDaysToDateReturnMMDDString,
-  addDaysToDateReturnMMDDYYYYString
+  addDaysToDateReturnMMDDYYYYString,
+  isoDateStringToYYYYMMDDString
 }

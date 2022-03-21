@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from '../../../helpers/textHelpers'
-import { dateToMMDDYYYYString } from '../../../helpers/dateHelpers'
+import { dateToMMDDYYYYString, isoDateStringToYYYYMMDDString } from '../../../helpers/dateHelpers'
 
 export default function EventsPreview({ formEvents, deleteFormEvent, updateFormEvent }) {
 
   return(
     <ul className="EventsPreview">
       {formEvents.map((event, i) => {
-
         const eventDate = event.event_date && event.event_date.length === 10
-          ? event.event_date
+          ? isoDateStringToYYYYMMDDString(event.event_date)
           : event.event_date && event.event_date.length > 10
-          ? dateToMMDDYYYYString(new Date(event.event_date))
+          ? dateToMMDDYYYYString(new Date(isoDateStringToYYYYMMDDString(event.event_date)))
           : null
 
         let cityName = event.city_name
