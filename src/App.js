@@ -70,7 +70,7 @@ class App extends Component {
 
     const { toast, user } = this.state
     return(
-      <div className="App scrollable" id="App" >
+      <div className="App" id="App" >
         <AppContext.Provider value={context}>
             <Switch>
               <Route exact path="/" component={Landing} />

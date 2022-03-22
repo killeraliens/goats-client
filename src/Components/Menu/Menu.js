@@ -12,7 +12,7 @@ export default function Menu() {
   const context = useContext(AppContext)
   let avatarUrl = context.user.image_url ? context.user.image_url : defaultAvatar
   return (
-    <div className="Menu scrollable">
+    <div className="Menu">
       <div className="Menu--pal">
         <NavLink to="/flyers" className="Menu--pal--btn">
           <img src={pentagram} alt="pentagram icon"/>
