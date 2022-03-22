@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { returnFirstDate, returnLastDate } from '../../helpers/dateHelpers'
+import { returnFirstDate, returnLastDateWithYear, returnFirstDateWithYear } from '../../helpers/dateHelpers'
 
 export default function ThroughDates({ flyerEvents }) {
   let eventDates = flyerEvents.map(event => event.event_date)
@@ -13,14 +13,14 @@ export default function ThroughDates({ flyerEvents }) {
       return (
         <p className="Flyer--dates">
           <FontAwesomeIcon icon={faCalendar} />
-          {returnFirstDate(eventDates)}
+          {returnFirstDateWithYear(eventDates)}
         </p>
       )
     case eventDates.length > 1:
       return (
         <p className="Flyer--dates">
           <FontAwesomeIcon icon={faCalendar} />
-          {returnFirstDate(eventDates)} - {returnLastDate(eventDates)}
+          {returnFirstDate(eventDates)} - {returnLastDateWithYear(eventDates)}
         </p>
       )
     default:
