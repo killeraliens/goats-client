@@ -82,14 +82,14 @@ const returnFirstDateMMDDYYYY = (eventDates) => {
 
 // https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
 // ["2020-03-05T07:00:00.000Z", "2020-03-01T07:00:00.000Z"]
-// --> Mar/01
+// --> Mar 01 
 const returnFirstDate = (eventDates) => {
   let e = eventDates.sort((a, b) => {
     return new Date(a) < new Date(b) ? -1 : new Date(a) > new Date(b) ? 1 : 0;
   })[0]
   e = new Date(e)
   e = new Date(e.getTime() + Math.abs(e.getTimezoneOffset() * 60000))
-  return monthNames[e.getMonth()] + '/' + ("0" + (e.getDate())).slice(-2)
+  return monthNames[e.getMonth()] + ' ' + ("0" + (e.getDate())).slice(-2) //+ ', ' + e.getFullYear();
 }
 
 // https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
@@ -105,14 +105,14 @@ const returnLastDateMMDDYYYY = (eventDates) => {
 }
 
 // ["2020-03-05T07:00:00.000Z", "2020-03-01T07:00:00.000Z"]
-// --> Mar/03
+// --> Mar 03, 2022
 const returnLastDate = (eventDates) => {
   let e = eventDates.sort((a, b) => {
     return new Date(a) > new Date(b) ? a : b
   }).slice(-1).pop()
   e = new Date(e)
   e = new Date(e.getTime() + Math.abs(e.getTimezoneOffset() * 60000))
-  return monthNames[e.getMonth()] + '/' + ("0" + (e.getDate())).slice(-2)
+  return monthNames[e.getMonth()] + ' ' + ("0" + (e.getDate())).slice(-2) + ', ' + e.getFullYear();
 }
 
 module.exports = {
