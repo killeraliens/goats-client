@@ -31,7 +31,7 @@
     "uuid": "^3.4.0"
   },
   "scripts": {
-    "start": "env HTTPS=true react-scripts --openssl-legacy-provider start",
+    "start": "env HTTPS=false react-scripts start",
     "prebuild": "env CI=true react-scripts test --colors",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
