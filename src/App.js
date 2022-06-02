@@ -100,13 +100,13 @@ class App extends Component {
                   <AuthedSplit mainComponent={<GetFlyer {...props} />} />
                 </ErrorBoundary>
               } />
-              <Route render={() => {
+            </Switch>
+            <Route render={() => {
               return !user
                     ? <Redirect to="/public/signin" /> // <NotFound link={<Link to="/public/signin">Sign In</Link>} />
                     : <Redirect to="/flyers" /> // <NotFound link={<Link to="/flyers">Back to forum</Link>} />
                 }
               } />
-            </Switch>
             <KillerToast on={toast.on} message={toast.message} colorClass={toast.colorClass}/>
         </ AppContext.Provider >
       </div>
