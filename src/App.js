@@ -15,7 +15,7 @@ import KillerToast from './Components/KillerToast/KillerToast'
 const App = () => {
 
   const [auth, setAuth] = useState({
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    user: JSON.parse(localStorage.getItem("user")) || null,
     error: null,
     fetching: false,
     toast: { on: false, message: '', colorClass: '' }
@@ -26,7 +26,6 @@ const App = () => {
       ...prevState,
       user: user
     }))
-    localStorage.setItem("user", JSON.stringify(auth.user))
   }
 
   const updateUser = (newProps) => {
@@ -34,7 +33,6 @@ const App = () => {
       ...prevState,
       user: {...auth.user, ...newProps}
     }))
-    localStorage.setItem("user", JSON.stringify(auth.user))
   }
 
   const setError = (message) => {
@@ -52,6 +50,7 @@ const App = () => {
 
   const history = useHistory();
   useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(auth.user))
     !user ? history.push("/public/signin") : history.push("/flyers")
   }, [auth.user])
 
