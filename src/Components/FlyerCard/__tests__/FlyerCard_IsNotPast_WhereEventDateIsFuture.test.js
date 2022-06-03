@@ -5,9 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import FlyerCard from '../FlyerCard';
 
 describe('FlyerCard component', () => {
-  it('renders an event scheduled for today as being upcoming and not past', () => {
+  it('renders an event scheduled for a week from today as not past', () => {
 
-    const eventDate = new Date();
+    const eventDate = new Date(new Date().getTime + 7*86400000);
     const day = eventDate.getDate().toString().padStart(2, '0');
     const month = (eventDate.getMonth() + 1).toString().padStart(2, '0');
     const year = eventDate.getFullYear();
