@@ -15,7 +15,7 @@ export default function FlyerCard({ flyer, isEdit }) {
     ? flyer.events.sort((a, b) =>  Date.parse(a.event_date) - Date.parse(b.event_date))
     : []
 
-  const pastCount = flyerEvents.filter(event => event.event_date && new Date(event.event_date).toDateString() < new Date().toDateString()).length
+  const pastCount = flyerEvents.filter(event => event.event_date && new Date(event.event_date) < new Date().setUTCHours(0,0,0,0)).length
   const isPast = pastCount === flyerEvents.length && pastCount > 0
       ? true
       : false
